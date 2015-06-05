@@ -46,7 +46,6 @@ public class ReceptImpl implements ReceptDAO {
 
 	@Override
 	public void updateRecept(ReceptDTO recept) throws DALException {
-		
 		Connector.doUpdate(
 				"UPDATE recept SET recept_navn = '" + recept.getReceptNavn() + "' WHERE recept_id = " +
 				recept.getReceptId()

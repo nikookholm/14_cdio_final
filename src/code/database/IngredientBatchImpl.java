@@ -9,7 +9,7 @@ public class IngredientBatchImpl implements IngredientBatchDAO {
 
 	@Override
 	public IngredientBatchDTO getIngredientBatch(int rbId) throws DALException {
-		ResultSet rs = Connector.doQuery("SELECT * FROM Ingredientbatch WHERE Ingredient_id = " + rbId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM Ingredientbatch WHERE rb_id = " + rbId);
 	    try {
 	    	if (!rs.first()) throw new DALException("IngredientBatch " + rbId + " findes ikke");
 	    	return new IngredientBatchDTO (rs.getInt("rb_id"), rs.getInt("Ingredient_id"), rs.getDouble("maengde"));

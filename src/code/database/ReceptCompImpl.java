@@ -10,10 +10,10 @@ public class ReceptCompImpl implements ReceptCompDAO {
 
 	@Override
 	public ReceptCompDTO getReceptComp(int receptId, int raavareId) throws DALException {
-		ResultSet rs = Connector.doQuery("SELECT * FROM ReceptComponent WHERE recept_id  =" + receptId + "AND raavare_id = " + raavareId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM ReceptComponent WHERE recept_id  =" + receptId + "AND Ingredient_id = " + raavareId);
 		try {
 			if (!rs.first()) throw new DALException("ReceptComponenten " + receptId + " findes ikke");
-			return new ReceptCompDTO (rs.getInt("recept_id"), rs.getInt("raavare_id"), rs.getDouble("nom_netto"), rs.getDouble("tolerance"));
+			return new ReceptCompDTO (rs.getInt("recept_id"), rs.getInt("Ingredient_id"), rs.getDouble("nom_netto"), rs.getDouble("tolerance"));
 		}
 		catch (SQLException e) {throw new DALException(e); }
 	}
@@ -27,7 +27,7 @@ public class ReceptCompImpl implements ReceptCompDAO {
 		{
 			while (rs.next()) 
 			{
-				list.add(new ReceptCompDTO(rs.getInt("recept_id"), rs.getInt("raavare_id"), rs.getDouble("nom_netto"), rs.getDouble("tolerance")));
+				list.add(new ReceptCompDTO(rs.getInt("recept_id"), rs.getInt("Ingredient_id"), rs.getDouble("nom_netto"), rs.getDouble("tolerance")));
 			}
 		}
 		catch (SQLException e) { throw new DALException(e); }
@@ -43,7 +43,7 @@ public class ReceptCompImpl implements ReceptCompDAO {
 		{
 			while (rs.next()) 
 			{
-				list.add(new ReceptCompDTO(rs.getInt("recept_id"), rs.getInt("raavare_id"), rs.getDouble("nom_netto"), rs.getDouble("tolerance")));
+				list.add(new ReceptCompDTO(rs.getInt("recept_id"), rs.getInt("Ingredient_id"), rs.getDouble("nom_netto"), rs.getDouble("tolerance")));
 			}
 		}
 		catch (SQLException e) { throw new DALException(e); }
@@ -53,7 +53,7 @@ public class ReceptCompImpl implements ReceptCompDAO {
 	@Override
 	public void createReceptComp(ReceptCompDTO ReceptComponent) throws DALException {
 		Connector.doUpdate(
-				"INSERT INTO ReceptComponent(recept_id, raavare_id, nom_netto, tolerance) VALUES" +
+				"INSERT INTO ReceptComponent(recept_id, Ingredient_id, nom_netto, tolerance) VALUES" +
 						"(" + ReceptComponent.getReceptId() + ", '" + ReceptComponent.getRaavareId() + "', '" + ReceptComponent.getNomNetto() + "', '" + 
 						ReceptComponent.getTolerance() + ")"
 				);
@@ -63,9 +63,9 @@ public class ReceptCompImpl implements ReceptCompDAO {
 	@Override
 	public void updateReceptComp(ReceptCompDTO ReceptComponent) throws DALException {
 			Connector.doUpdate(
-					"UPDATE ReceptComponent SET recept_id = '" + ReceptComponent.getReceptId() + "', raavare_id = '" + ReceptComponent.getRaavareId() + 
+					"UPDATE ReceptComponent SET recept_id = '" + ReceptComponent.getReceptId() + "', Ingredient_id = '" + ReceptComponent.getRaavareId() + 
 					"', nom_netto = '" + ReceptComponent.getNomNetto() + "', tolerance = '" + ReceptComponent.getTolerance() + "' WHERE recept_id = '" +
-					ReceptComponent.getReceptId() + "' AND raavare_id = '" + ReceptComponent.getRaavareId()); 
+					ReceptComponent.getReceptId() + "' AND Ingredient_id = '" + ReceptComponent.getRaavareId()); 
 
 	}
 
