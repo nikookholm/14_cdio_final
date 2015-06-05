@@ -12,7 +12,7 @@ public class UserDTO
 	/** User-identifikationsnummer (opr_id) i omraadet 1-99999999. Vaelges af brugerne */
 	int oprId;                     
 	/** Usernavn (opr_navn) min. 2 max. 20 karakterer */
-	String oprNavn;                
+	String oprName;                
 	/** User-initialer min. 2 max. 3 karakterer */
 	String ini;                 
 	/** User cpr-nr 10 karakterer */
@@ -22,10 +22,10 @@ public class UserDTO
 	/** User role: Administrator, Farmaceut, Værkfører eller Operator */
 	String role;
 	
-	public UserDTO(int oprId, String oprNavn, String ini, String cpr, String password, String role)
+	public UserDTO(int oprId, String oprName, String ini, String cpr, String password, String role)
 	{
 		this.oprId = oprId;
-		this.oprNavn = oprNavn;
+		this.oprName = oprName;
 		this.ini = ini;
 		this.cpr = cpr;
 		this.password = password;
@@ -35,7 +35,7 @@ public class UserDTO
     public UserDTO(UserDTO opr)
     {
     	this.oprId = opr.getOprId();
-    	this.oprNavn = opr.getOprNavn();
+    	this.oprName = opr.getOprName();
     	this.ini = opr.getIni();
     	this.cpr = opr.getCpr();
     	this.password = opr.getPassword();
@@ -44,8 +44,8 @@ public class UserDTO
     
     public int getOprId() { return oprId; }
 	public void setOprId(int oprId) { this.oprId = oprId; }
-	public String getOprNavn() { return oprNavn; }
-	public void setOprNavn(String oprNavn) { this.oprNavn = oprNavn; }
+	public String getOprName() { return oprName; }
+	public void setOprName(String oprName) { this.oprName = oprName; }
 	public String getIni() { return ini; }
 	public void setIni(String ini) { this.ini = ini; }
 	public String getCpr() { return cpr; }
@@ -54,5 +54,5 @@ public class UserDTO
 	public void setPassword(String password) { this.password = password; }
 	public String getRole() { return role; }
 	public void setRole(String role) { this.role = role;}
-	public String toString() { return oprId + "\t" + oprNavn + "\t" + ini + "\t" + cpr + "\t" + password; }
+	public String toString() { return oprId + "\t" + oprName + "\t" + ini + "\t" + cpr + "\t" + password; }
 }
