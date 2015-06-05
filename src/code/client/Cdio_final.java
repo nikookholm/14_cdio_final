@@ -11,8 +11,8 @@ import com.google.gwt.core.client.GWT;
  */
 public class Cdio_final implements EntryPoint {
 
-	private final GreetingServiceAsync greetingService = GWT
-			.create(GreetingService.class);
+	private final DatabaseServiceAsync databaseService = GWT
+			.create(DatabaseService.class);
 
 	public void onModuleLoad() {
 		new MainController();		

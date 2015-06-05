@@ -1,12 +1,36 @@
 package code.client;
 
+import java.util.ArrayList;
+
+import code.database.IngredientBatchDTO;
+import code.database.IngredientDTO;
+import code.database.ProductBatchDTO;
+import code.database.ReceptDTO;
+import code.database.UserDTO;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
- * The async counterpart of <code>GreetingService</code>.
+ * The client-side stub for the RPC service.
  */
-public interface DatabaseServiceAsync {
+@RemoteServiceRelativePath("database")
+public interface DatabaseService extends RemoteService {
+	void	  				 user_table_create(UserDTO user);
+	ArrayList<UserDTO>		 user_table_list(UserDTO edittedUser);
+	void 					 user_table_update(UserDTO user);
 	
-	void greetServer(String input, AsyncCallback<String> callback)
-			throws IllegalArgumentException;
+	void	 				 ingredients_table_create(IngredientDTO ingredient);
+	void 					 ingredients_table_update(IngredientDTO ingredient);
+	ArrayList<IngredientDTO> ingredients_table_list();
+	
+	void 				 	 recept_table_create(ReceptDTO recept);
+	ArrayList<ReceptDTO> 	 recept_table_list();
+	
+	void productBatch_table_create(ProductBatchDTO productBatch);
+	ArrayList<ProductBatchDTO> productBatch_table_list();
+	
+	void ingredientBatch_table_create(IngredientBatchDTO ingredientBatch);
+	ArrayList<IngredientBatchDTO> ingredientBatch_table_list();
 }
