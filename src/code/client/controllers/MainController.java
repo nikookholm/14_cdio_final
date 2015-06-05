@@ -1,11 +1,17 @@
 package code.client.controllers;
 
+import code.client.DatabaseService;
+import code.client.DatabaseServiceAsync;
 import code.client.views.LoginView;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class MainController {
+	
+	private final DatabaseServiceAsync databaseService = GWT
+			.create(DatabaseService.class);
 	
 	private UserController userController;
 	private String user;

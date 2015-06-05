@@ -11,9 +11,6 @@ import com.google.gwt.core.client.GWT;
  */
 public class Cdio_final implements EntryPoint {
 
-	private final DatabaseServiceAsync databaseService = GWT
-			.create(DatabaseService.class);
-
 	public void onModuleLoad() {
 		new MainController();		
 	}
