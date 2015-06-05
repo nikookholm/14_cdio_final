@@ -3,23 +3,23 @@ package code.database;
 public class IngredientBatchDTO
 {
 	int rbId;                     // i omraadet 1-99999999
-	int IngredientId;             // i omraadet 1-99999999
+	int ingredientId;             // i omraadet 1-99999999
 	double maengde;             // kan vaere negativ 
 
-	public IngredientBatchDTO(int rbId, int IngredientId, double maengde)
+	public IngredientBatchDTO(int rbId, int ingredientId, double maengde)
 	{
 		this.rbId = rbId;
-		this.IngredientId = IngredientId;
+		this.ingredientId = ingredientId;
 		this.maengde = maengde;
 	}
 	
 	public int getRbId() { return rbId; }
 	public void setRbId(int rbId) { this.rbId = rbId; }
-	public int getIngredientId() { return IngredientId; }
-	public void setIngredientId(int IngredientId) { this.IngredientId = IngredientId; }
+	public int getIngredientId() { return ingredientId; }
+	public void setIngredientId(int ingredientId) { this.ingredientId = ingredientId; }
 	public double getMaengde() { return maengde; }
 	public void setMaengde(double maengde) { this.maengde = maengde; }
 	public String toString() { 
-		return rbId + "\t" + IngredientId +"\t" + maengde; 
+		return rbId + "\t" + ingredientId +"\t" + maengde; 
 	}
 }

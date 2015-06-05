@@ -8,11 +8,11 @@ import java.util.List;
 
 public class IngredientImpl implements IngredientDAO {
 
-	public IngredientDTO getIngredient(int IngredientId) throws DALException {
-		ResultSet rs = Connector.doQuery("SELECT * FROM Ingredient WHERE Ingredient_id = " + IngredientId);
+	public IngredientDTO getIngredient(int ingredientId) throws DALException {
+		ResultSet rs = Connector.doQuery("SELECT * FROM ingredient WHERE ingredient_id = " + ingredientId);
 	    try {
-	    	if (!rs.first()) throw new DALException("Ingredient med ID " + IngredientId + " findes ikke");
-	    	return new IngredientDTO(rs.getInt("Ingredient_id"), rs.getString("Ingredient_name"), rs.getString("leverandoer"));
+	    	if (!rs.first()) throw new DALException("ingredient med ID " + ingredientId + " findes ikke");
+	    	return new IngredientDTO(rs.getInt("ingredient_id"), rs.getString("ingredient_name"), rs.getString("leverandoer"));
 	    }
 	    catch (SQLException e) {throw new DALException(e); }
 		
@@ -20,30 +20,30 @@ public class IngredientImpl implements IngredientDAO {
 	
 	public List<IngredientDTO> getIngredientList() throws DALException {
 		List<IngredientDTO> list = new ArrayList<IngredientDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM Ingredient");
+		ResultSet rs = Connector.doQuery("SELECT * FROM ingredient");
 		try
 		{
 			while (rs.next()) 
 			{
-				list.add(new IngredientDTO(rs.getInt("Ingredient_id"), rs.getString("Ingredient_name"), rs.getString("leverandoer")));
+				list.add(new IngredientDTO(rs.getInt("ingredient_id"), rs.getString("ingredient_name"), rs.getString("leverandoer")));
 			}
 		}
 		catch (SQLException e) { throw new DALException(e); }
 		return list;
 	}
 
-	public void createIngredient(IngredientDTO Ingredient) throws DALException {
+	public void createIngredient(IngredientDTO ingredient) throws DALException {
 		Connector.doUpdate(
-				"INSERT INTO raavare(Ingredient_id, Ingredient_name, leverandoer) VALUES " +
-				"(" + Ingredient.getIngredientId() + ", '" + Ingredient.getIngredientNavn() + "', '" + Ingredient.getLeverandoer() + "')"
+				"INSERT INTO ingredient(ingredient_id, ingredient_name, leverandoer) VALUES " +
+				"(" + ingredient.getIngredientId() + ", '" + ingredient.getIngredientName() + "', '" + ingredient.getLeverandoer() + "')"
 			);
 		
 	}
 
-	public void updateIngredient(IngredientDTO Ingredient) throws DALException {
+	public void updateIngredient(IngredientDTO ingredient) throws DALException {
 		Connector.doUpdate(
-				"UPDATE raavare SET Ingredient_name = '" + Ingredient.getIngredientNavn() + "', leverandoer =  '" + Ingredient.getLeverandoer() +"' " + 
-				"WHERE Ingredient_id = " + Ingredient.getIngredientId()
+				"UPDATE ingredient SET ingredient_name = '" + ingredient.getIngredientName() + "', leverandoer =  '" + ingredient.getLeverandoer() +"' " + 
+				"WHERE ingredient_id = " + ingredient.getIngredientId()
 		);
 	}
 

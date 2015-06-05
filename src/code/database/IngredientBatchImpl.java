@@ -7,64 +7,60 @@ import java.util.List;
 
 public class IngredientBatchImpl implements IngredientBatchDAO {
 
-	@Override
 	public IngredientBatchDTO getIngredientBatch(int rbId) throws DALException {
-		ResultSet rs = Connector.doQuery("SELECT * FROM Ingredientbatch WHERE rb_id = " + rbId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM ingredientbatch WHERE rb_id = " + rbId);
 	    try {
-	    	if (!rs.first()) throw new DALException("IngredientBatch " + rbId + " findes ikke");
-	    	return new IngredientBatchDTO (rs.getInt("rb_id"), rs.getInt("Ingredient_id"), rs.getDouble("maengde"));
+	    	if (!rs.first()) throw new DALException("ingredientbatch " + rbId + " findes ikke");
+	    	return new IngredientBatchDTO (rs.getInt("rb_id"), rs.getInt("ingredient_id"), rs.getDouble("maengde"));
 	    }
 	    catch (SQLException e) {throw new DALException(e); }
 	}
 
-	@Override
 	public List<IngredientBatchDTO> getIngredientBatchList() throws DALException {
 		List<IngredientBatchDTO> list = new ArrayList<IngredientBatchDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM Ingredientbatch");
+		ResultSet rs = Connector.doQuery("SELECT * FROM ingredientbatch");
 		try
 		{
 			while (rs.next()) 
 			{
-				list.add((IngredientBatchDTO) new IngredientBatchDTO (rs.getInt("rb_id"), rs.getInt("Ingredient_id"), rs.getDouble("maengde")));
+				list.add((IngredientBatchDTO) new IngredientBatchDTO (rs.getInt("rb_id"), rs.getInt("ingredient_id"), rs.getDouble("maengde")));
 			}
 		}
 		catch (SQLException e) { throw new DALException(e); }
 		return list;
 	}
 
-	@Override
-	public List<IngredientBatchDTO> getIngredientBatchList(int IngredientId)
+
+	public List<IngredientBatchDTO> getIngredientBatchList(int ingredientId)
 			throws DALException {
 		
 		List<IngredientBatchDTO> list = new ArrayList<IngredientBatchDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM Ingredient_id WHERE Ingredient_id = '" + IngredientId + "' ");
+		ResultSet rs = Connector.doQuery("SELECT * FROM ingredientbatch WHERE ingredient_id = '" + ingredientId + "' ");
 		try
 		{
 			while (rs.next()) 
 			{
-				list.add(new IngredientBatchDTO(rs.getInt("rb_id"), rs.getInt("Ingredient_id"), rs.getDouble("maengde")));
+				list.add(new IngredientBatchDTO(rs.getInt("rb_id"), rs.getInt("ingredient_id"), rs.getDouble("maengde")));
 			}
 		}
 		catch (SQLException e) { throw new DALException(e); }
 		return list;
 	}
 
-	@Override
-	public void createIngredientBatch(IngredientBatchDTO Ingredientbatch)
+	public void createIngredientBatch(IngredientBatchDTO ingredientBatch)
 			throws DALException {
 		Connector.doUpdate(
-				"INSERT INTO Ingredientbatch (rb_id, Ingredient_id, maengde) VALUES " +
-				"(" + Ingredientbatch.getRbId() + ", " + Ingredientbatch.getIngredientId() + ", " + Ingredientbatch.getMaengde() + ")"
+				"INSERT INTO ingredientbatch (rb_id, ingredient_id, maengde) VALUES " +
+				"(" + ingredientBatch.getRbId() + ", " + ingredientBatch.getIngredientId() + ", " + ingredientBatch.getMaengde() + ")"
 			);
 		
 	}
 
-	@Override
-	public void updateIngredientBatch(IngredientBatchDTO Ingredientbatch)
+	public void updateIngredientBatch(IngredientBatchDTO ingredientBatch)
 			throws DALException {
 		Connector.doUpdate(
-				"UPDATE Ingredientbatch SET  rb_id = '" + Ingredientbatch.getRbId() + "', Ingredient_id =  '" + 
-						Ingredientbatch.getIngredientId() +"' " + "WHERE maengde = " + Ingredientbatch.getMaengde());
+				"UPDATE ingredientbatch SET  rb_id = '" + ingredientBatch.getRbId() + "', ingredient_id =  '" + 
+						ingredientBatch.getIngredientId() +"' " + "WHERE maengde = " + ingredientBatch.getMaengde());
 		
 	}
 

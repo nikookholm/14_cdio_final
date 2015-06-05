@@ -12,7 +12,7 @@ public class ProductBatchCompImpl implements ProductBatchCompDAO {
 	
 	public ProductBatchCompDTO getProductBatchComp(int pbId, int rbId)	throws DALException {
 		
-		ResultSet rs = Connector.doQuery(("SELECT * FROM ProductBatchComponent  WHERE pb_id =" + pbId + "AND rb_Id = " +  rbId));
+		ResultSet rs = Connector.doQuery(("SELECT * FROM productbatchcomponent  WHERE pb_id =" + pbId + "AND rb_id = " +  rbId));
 	    try {
 	    	if (!rs.first()) throw new DALException("Operatoeren " + pbId + " findes ikke");
 	    	return new ProductBatchCompDTO (rs.getInt("pb_id"), rs.getInt("rb_id"), rs.getDouble("tara"), rs.getDouble("netto"), rs.getInt("opr_id"));
@@ -26,7 +26,7 @@ public class ProductBatchCompImpl implements ProductBatchCompDAO {
 			throws DALException {
 		
 		List<ProductBatchCompDTO> list = new ArrayList<ProductBatchCompDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM ProductBatchComponent WHERE pb_id= " + pbId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM productbatchcomponent WHERE pb_id= " + pbId);
 		try
 		{
 			while (rs.next()) 
@@ -44,7 +44,7 @@ public class ProductBatchCompImpl implements ProductBatchCompDAO {
 			throws DALException {
 		
 		List<ProductBatchCompDTO> list = new ArrayList<ProductBatchCompDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM ProductBatchComponent");
+		ResultSet rs = Connector.doQuery("SELECT * FROM productbatchcomponent");
 		try
 		{
 			while (rs.next()) 
@@ -57,10 +57,10 @@ public class ProductBatchCompImpl implements ProductBatchCompDAO {
 	}
 
 	
-	public void createProductBatchComp(ProductBatchCompDTO ProductBatchComponent)
+	public void createProductBatchComp(ProductBatchCompDTO productbatchcomponent)
 			throws DALException {
-		Connector.doUpdate("INSERT INTO ProductBatchComponent (opr_id, netto, tara, rb_id, pb_id) VALUES" + 
-			"(" + ProductBatchComponent.getOprId() + ", " + ProductBatchComponent.getNetto() + ", " + ProductBatchComponent.getTara() + ", " + ProductBatchComponent.getRbId() + ", " + ProductBatchComponent.getPbId()+ ")" 
+		Connector.doUpdate("INSERT INTO productbatchcomponent (opr_id, netto, tara, rb_id, pb_id) VALUES" + 
+			"(" + productbatchcomponent.getOprId() + ", " + productbatchcomponent.getNetto() + ", " + productbatchcomponent.getTara() + ", " + productbatchcomponent.getRbId() + ", " + productbatchcomponent.getPbId()+ ")" 
 			);
 		
 	
@@ -68,11 +68,11 @@ public class ProductBatchCompImpl implements ProductBatchCompDAO {
 	}
 
 	
-	public void updateProductBatchComp(ProductBatchCompDTO ProductBatchComponent)
+	public void updateProductBatchComp(ProductBatchCompDTO productbatchcomponent)
 			throws DALException {
 		Connector.doUpdate(
-				"UPDATE ProductBatchComponent SET opr_id = '" + ProductBatchComponent.getOprId() + "', netto = '" + ProductBatchComponent.getNetto() + "', tara = '" + ProductBatchComponent.getTara() + "' " + "WHERE rb_id = " + ProductBatchComponent.getRbId() +
-				"' " + "WHERE pb_id = " + ProductBatchComponent.getPbId()); 
+				"UPDATE produktbatchcomponent SET opr_id = '" + productbatchcomponent.getOprId() + "', netto = '" + productbatchcomponent.getNetto() + "', tara = '" + productbatchcomponent.getTara() + "' " + "WHERE rb_id = " + productbatchcomponent.getRbId() +
+				"' " + "WHERE pb_id = " + productbatchcomponent.getPbId()); 
 			
 		
 		

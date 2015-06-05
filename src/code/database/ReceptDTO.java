@@ -12,21 +12,21 @@ public class ReceptDTO
 	/** Recept nr i omraadet 1-99999999 */
 	int receptId;
 	/** Receptnavn min. 2 max. 20 karakterer */
-	String receptNavn;
+	String receptName;
 	/** liste af kompenenter i recepten */
 	
     
-	public ReceptDTO(int receptId, String receptNavn)
+	public ReceptDTO(int receptId, String receptName)
 	{
         this.receptId = receptId;
-        this.receptNavn = receptNavn;
+        this.receptName = receptName;
     }
 
     public int getReceptId() { return receptId; }
 	public void setReceptId(int receptId) { this.receptId = receptId; }
-	public String getReceptNavn() { return receptNavn; }
-	public void setReceptNavn(String receptNavn) { this.receptNavn = receptNavn; }
+	public String getReceptName() { return receptName; }
+	public void setReceptName(String receptName) { this.receptName = receptName; }
 	public String toString() { 
-		return receptId + "\t" + receptNavn; 
+		return receptId + "\t" + receptName; 
 	}
 }

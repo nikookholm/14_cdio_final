@@ -10,26 +10,26 @@ package code.database;
 public class IngredientDTO 
 {
     /** i omraadet 1-99999999 vaelges af brugerne */
-    int IngredientId;                     
+    int ingredientId;                     
     /** min. 2 max. 20 karakterer */
-    String IngredientNavn;                
+    String ingredientName;                
     /** min. 2 max. 20 karakterer */
     String leverandoer;         
 	
-	public IngredientDTO(int IngredientId, String IngredientNavn, String leverandoer)
+	public IngredientDTO(int ingredientId, String ingredientName, String leverandoer)
 	{
-		this.IngredientId = IngredientId;
-		this.IngredientNavn = IngredientNavn;
+		this.ingredientId = ingredientId;
+		this.ingredientName = ingredientName;
 		this.leverandoer = leverandoer;
 	}
 	
-    public int getIngredientId() { return IngredientId; }
-    public void setIngredientId(int IngredientId) { this.IngredientId = IngredientId; }
-    public String getIngredientNavn() { return IngredientNavn; }
-    public void setIngredientNavn(String IngredientNavn) { this.IngredientNavn = IngredientNavn; }
+    public int getIngredientId() { return ingredientId; }
+    public void setIngredientId(int IngredientId) { this.ingredientId = IngredientId; }
+    public String getIngredientName() { return ingredientName; }
+    public void setIngredientName(String ingredientName) { this.ingredientName = ingredientName; }
     public String getLeverandoer() { return leverandoer; }
     public void setLeverandoer(String leverandoer) { this.leverandoer = leverandoer; }
     public String toString() { 
-		return IngredientId + "\t" + IngredientNavn +"\t" + leverandoer; 
+		return ingredientId + "\t" + ingredientName +"\t" + leverandoer; 
 	}
 }

@@ -9,9 +9,9 @@ public class ProductBatchImpl implements ProductBatchDAO {
 
 	@Override
 	public ProductBatchDTO getProductBatch(int pbId) throws DALException {
-		ResultSet rs = Connector.doQuery("SELECT * FROM ProductBatch WHERE pb_id = " + pbId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM productbatch WHERE pb_id = " + pbId);
 	    try {
-	    	if (!rs.first()) throw new DALException("ProductBatch " + pbId + " findes ikke");
+	    	if (!rs.first()) throw new DALException("productbatch" + pbId + " findes ikke");
 	    	return new ProductBatchDTO (rs.getInt("pb_id"), rs.getInt("recept_id"), rs.getInt("status"));
 	    }
 	    catch (SQLException e) {throw new DALException(e); }
@@ -19,24 +19,24 @@ public class ProductBatchImpl implements ProductBatchDAO {
 
 	
 	@Override
-	public void createProductBatch(ProductBatchDTO ProductBatch) throws DALException {
+	public void createProductBatch(ProductBatchDTO productbatch) throws DALException {
 		Connector.doUpdate(
-				"INSERT INTO ProductBatch(pb_id, recept_id, status) VALUES " +
-				"(" + ProductBatch.getPbId() + ", '" + ProductBatch.getReceptId() + "', '" + ProductBatch.getStatus() + "')"
+				"INSERT INTO productbatch(pb_id, recept_id, status) VALUES " +
+				"(" + productbatch.getPbId() + ", '" + productbatch.getReceptId() + "', '" + productbatch.getStatus() + "')"
 			);
 	}
 
 	@Override
-	public void updateProductBatch(ProductBatchDTO ProductBatch) throws DALException {
+	public void updateProductBatch(ProductBatchDTO productbatch) throws DALException {
 		Connector.doUpdate(
-				"UPDATE ProductBatch SET status = '" + ProductBatch.getStatus() + "', recept_id =  '" + ProductBatch.getReceptId() + "' WHERE pb_id = " + ProductBatch.getPbId()
+				"UPDATE productbatch SET status = '" + productbatch.getStatus() + "', recept_id =  '" + productbatch.getReceptId() + "' WHERE pb_id = " + productbatch.getPbId()
 		);
 	}
 	
 	@Override
 	public List<ProductBatchDTO> getProductBatchList() throws DALException {
 		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM ProductBatch");
+		ResultSet rs = Connector.doQuery("SELECT * FROM productbatch");
 		try
 		{
 			while (rs.next()) 

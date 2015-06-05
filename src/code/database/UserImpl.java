@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class UserImpl implements UserDAO {
 	public UserDTO getUser(int oprId) throws DALException {
-		ResultSet rs = Connector.doQuery("SELECT * FROM User WHERE opr_id = " + oprId);
+		ResultSet rs = Connector.doQuery("SELECT * FROM user WHERE opr_id = " + oprId);
 	    try {
 	    	if (!rs.first()) throw new DALException("Useren " + oprId + " findes ikke");
 	    	return new UserDTO (rs.getInt("opr_id"), rs.getString("opr_name"), rs.getString("ini"), rs.getString("cpr"), rs.getString("password"), rs.getString("role"));
@@ -20,7 +20,7 @@ public class UserImpl implements UserDAO {
 	
 	public void createUser(UserDTO opr) throws DALException {		
 		Connector.doUpdate(
-				"INSERT INTO User(opr_id, opr_name, ini, cpr, password, role) VALUES " +
+				"INSERT INTO user(opr_id, opr_name, ini, cpr, password, role) VALUES " +
 						"(" + opr.getOprId() + ", '" + opr.getOprName() + "', '" + opr.getIni() + "', '" + 
 						opr.getCpr() + "', '" + opr.getPassword() + "','" + opr.getRole() + "')"
 		);
@@ -28,7 +28,7 @@ public class UserImpl implements UserDAO {
 
 	public void updateUser(UserDTO opr) throws DALException {
 		Connector.doUpdate(
-				"UPDATE User SET  opr_name = '" + opr.getOprName() + "', ini =  '" + opr.getIni() + 
+				"UPDATE user SET  opr_name = '" + opr.getOprName() + "', ini =  '" + opr.getIni() + 
 				"', cpr = '" + opr.getCpr() + "', password = '" + opr.getPassword() + "', role = '" + opr.getRole() + "' WHERE opr_id = " +
 				opr.getOprId()
 		);
@@ -36,7 +36,7 @@ public class UserImpl implements UserDAO {
 	
 	public List<UserDTO> getUserList() throws DALException {
 		List<UserDTO> list = new ArrayList<UserDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM User");
+		ResultSet rs = Connector.doQuery("SELECT * FROM user");
 		try
 		{
 			while (rs.next()) 
@@ -51,7 +51,7 @@ public class UserImpl implements UserDAO {
 	
 	public void deleteUser(UserDTO opr) throws DALException {
 		Connector.doUpdate(
-				"DELETE User WHERE opr_id = '" + opr.getOprId());
+				"DELETE user WHERE opr_id = '" + opr.getOprId());
 	}
 		
 		
