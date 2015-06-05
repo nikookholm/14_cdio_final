@@ -12,24 +12,24 @@ public class UserImpl implements UserDAO {
 		ResultSet rs = Connector.doQuery("SELECT * FROM User WHERE opr_id = " + oprId);
 	    try {
 	    	if (!rs.first()) throw new DALException("Useren " + oprId + " findes ikke");
-	    	return new UserDTO (rs.getInt("opr_id"), rs.getString("opr_navn"), rs.getString("ini"), rs.getString("cpr"), rs.getString("password"));
+	    	return new UserDTO (rs.getInt("opr_id"), rs.getString("opr_navn"), rs.getString("ini"), rs.getString("cpr"), rs.getString("password"), rs.getString("role"));
 	    }
 	    catch (SQLException e) {throw new DALException(e); }
 		
 	}
 	
 	public void createUser(UserDTO opr) throws DALException {		
-			Connector.doUpdate(
-				"INSERT INTO User(opr_id, opr_navn, ini, cpr, password) VALUES " +
-				"(" + opr.getOprId() + ", '" + opr.getOprNavn() + "', '" + opr.getIni() + "', '" + 
-				opr.getCpr() + "', '" + opr.getPassword() + "')"
-			);
+		Connector.doUpdate(
+				"INSERT INTO User(opr_id, opr_navn, ini, cpr, password, role) VALUES " +
+						"(" + opr.getOprId() + ", '" + opr.getOprNavn() + "', '" + opr.getIni() + "', '" + 
+						opr.getCpr() + "', '" + opr.getPassword() + "','" + opr.getRole() + "')"
+		);
 	}
-	
+
 	public void updateUser(UserDTO opr) throws DALException {
 		Connector.doUpdate(
 				"UPDATE User SET  opr_navn = '" + opr.getOprNavn() + "', ini =  '" + opr.getIni() + 
-				"', cpr = '" + opr.getCpr() + "', password = '" + opr.getPassword() + "' WHERE opr_id = " +
+				"', cpr = '" + opr.getCpr() + "', password = '" + opr.getPassword() + "', role = '" + opr.getRole() + "' WHERE opr_id = " +
 				opr.getOprId()
 		);
 	}
@@ -41,11 +41,17 @@ public class UserImpl implements UserDAO {
 		{
 			while (rs.next()) 
 			{
-				list.add(new UserDTO(rs.getInt("opr_id"), rs.getString("opr_navn"), rs.getString("ini"), rs.getString("cpr"), rs.getString("password")));
+				list.add(new UserDTO(rs.getInt("opr_id"), rs.getString("opr_navn"), rs.getString("ini"), rs.getString("cpr"), rs.getString("password"), rs.getString("role")));
 			}
 		}
 		catch (SQLException e) { throw new DALException(e); }
 		return list;
+	}
+
+	
+	public void deleteUser(UserDTO opr) throws DALException {
+		Connector.doUpdate(
+				"DELETE User WHERE opr_id = '" + opr.getOprId());
 	}
 		
 		

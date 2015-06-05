@@ -8,4 +8,5 @@ public interface UserDAO {
 	List<UserDTO> getUserList() throws DALException;
 	void createUser(UserDTO opr) throws DALException;
 	void updateUser(UserDTO opr) throws DALException;
+	void deleteUser(UserDTO opr) throws DALException;
 }

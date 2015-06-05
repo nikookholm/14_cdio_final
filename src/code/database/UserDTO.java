@@ -18,15 +18,18 @@ public class UserDTO
 	/** User cpr-nr 10 karakterer */
 	String cpr;                 
 	/** User password min. 7 max. 8 karakterer */
-	String password;            
-
-	public UserDTO(int oprId, String oprNavn, String ini, String cpr, String password)
+	String password;  
+	/** User role: Administrator, Farmaceut, Værkfører eller Operator */
+	String role;
+	
+	public UserDTO(int oprId, String oprNavn, String ini, String cpr, String password, String role)
 	{
 		this.oprId = oprId;
 		this.oprNavn = oprNavn;
 		this.ini = ini;
 		this.cpr = cpr;
 		this.password = password;
+		this.role = role;
 	}
 	
     public UserDTO(UserDTO opr)
@@ -36,6 +39,7 @@ public class UserDTO
     	this.ini = opr.getIni();
     	this.cpr = opr.getCpr();
     	this.password = opr.getPassword();
+    	this.role = opr.getRole();
     }
     
     public int getOprId() { return oprId; }
@@ -48,5 +52,7 @@ public class UserDTO
 	public void setCpr(String cpr) { this.cpr = cpr; }
 	public String getPassword() { return password; }
 	public void setPassword(String password) { this.password = password; }
+	public String getRole() { return role; }
+	public void setRole(String role) { this.role = role;}
 	public String toString() { return oprId + "\t" + oprNavn + "\t" + ini + "\t" + cpr + "\t" + password; }
 }
