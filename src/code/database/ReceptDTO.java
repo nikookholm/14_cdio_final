@@ -1,5 +1,7 @@
 package code.database;
 
+import java.io.Serializable;
+
 /**
  * Recept Data Objekt
  * 
@@ -7,7 +9,7 @@ package code.database;
  * @version 1.2
  */
 
-public class ReceptDTO 
+public class ReceptDTO implements Serializable
 {
 	/** Recept nr i omraadet 1-99999999 */
 	int receptId;
@@ -15,7 +17,9 @@ public class ReceptDTO
 	String receptName;
 	/** liste af kompenenter i recepten */
 	
-    
+    public ReceptDTO(){
+    	
+    }
 	public ReceptDTO(int receptId, String receptName)
 	{
         this.receptId = receptId;

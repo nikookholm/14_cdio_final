@@ -1,12 +1,17 @@
 package code.database;
 
-public class ReceptCompDTO
+import java.io.Serializable;
+
+public class ReceptCompDTO implements Serializable
 {
 	int receptId;                  // auto genereres fra 1..n   
 	int ingredientId;             // i omraadet 1-99999999
 	double nomNetto;            // skal vaere positiv og passende stor
 	double tolerance;           // skal vaere positiv og passende stor
 	
+	public ReceptCompDTO(){
+		
+	}
 	public ReceptCompDTO(int receptId, int ingredientId, double nomNetto, double tolerance)
 	{
 		this.receptId = receptId;
