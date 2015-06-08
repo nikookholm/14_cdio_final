@@ -1,16 +1,10 @@
 package code.database;
 
-import java.io.Serializable;
-
-public class ProductBatchDTO implements Serializable
+public class ProductBatchDTO 
 {
 	int pbId;                     // i omraadet 1-99999999
 	int status;					// 0: ikke paabegyndt, 1: under produktion, 2: afsluttet
 	int receptId;
-	
-	public ProductBatchDTO(){
-		
-	}
 	
 	public ProductBatchDTO(int pbId, int status, int receptId)
 	{
@@ -19,6 +13,12 @@ public class ProductBatchDTO implements Serializable
 		this.receptId = receptId;
 	}
 	
+	public ProductBatchDTO(ProductBatchDTO pb)
+	{
+		this.pbId = pb.getPbId();
+		this.status = pb.getStatus();
+		this.receptId = pb.getReceptId();
+	}
 	public int getPbId() { return pbId; }
 	public void setPbId(int pbId) { this.pbId = pbId; }
 	public int getStatus() { return status; }
@@ -27,4 +27,3 @@ public class ProductBatchDTO implements Serializable
 	public void setReceptId(int receptId) { this.receptId = receptId; }
 	public String toString() { return pbId + "\t" + status + "\t" + receptId; }
 }
-

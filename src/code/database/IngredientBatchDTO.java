@@ -1,21 +1,23 @@
 package code.database;
 
-import java.io.Serializable;
-
-public class IngredientBatchDTO implements Serializable
+public class IngredientBatchDTO
 {
 	int rbId;                     // i omraadet 1-99999999
 	int ingredientId;             // i omraadet 1-99999999
 	double maengde;             // kan vaere negativ 
 
-	public IngredientBatchDTO(){
-		
-	}
 	public IngredientBatchDTO(int rbId, int ingredientId, double maengde)
 	{
 		this.rbId = rbId;
 		this.ingredientId = ingredientId;
 		this.maengde = maengde;
+	}
+	
+	public IngredientBatchDTO(IngredientBatchDTO ingrBatch)
+	{
+		this.rbId = ingrBatch.getRbId();
+		this.ingredientId = ingrBatch.getIngredientId();
+		this.maengde = ingrBatch.getMaengde();
 	}
 	
 	public int getRbId() { return rbId; }

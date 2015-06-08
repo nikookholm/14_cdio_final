@@ -12,7 +12,7 @@ public class UserImpl implements UserDAO {
 		ResultSet rs = Connector.doQuery("SELECT * FROM user WHERE opr_id = " + oprId);
 	    try {
 	    	if (!rs.first()) throw new DALException("Useren " + oprId + " findes ikke");
-	    	return new UserDTO (rs.getInt("opr_id"), rs.getString("opr_name"), rs.getString("ini"), rs.getString("cpr"), rs.getString("password"), rs.getString("role"));
+	    	return new UserDTO (rs.getInt("opr_id"), rs.getString("opr_name"), rs.getString("ini"), rs.getString("cpr"), rs.getString("password"), rs.getInt("role"), rs.getBoolean("active"));
 	    }
 	    catch (SQLException e) {throw new DALException(e); }
 		
@@ -20,16 +20,16 @@ public class UserImpl implements UserDAO {
 	
 	public void createUser(UserDTO opr) throws DALException {		
 		Connector.doUpdate(
-				"INSERT INTO user(opr_id, opr_name, ini, cpr, password, role) VALUES " +
+				"INSERT INTO user(opr_id, opr_name, ini, cpr, password, role, active) VALUES " +
 						"(" + opr.getOprId() + ", '" + opr.getOprName() + "', '" + opr.getIni() + "', '" + 
-						opr.getCpr() + "', '" + opr.getPassword() + "','" + opr.getRole() + "')"
+						opr.getCpr() + "', '" + opr.getPassword() + "','" + opr.getRole() + "','" +opr.getActive() + "')"
 		);
 	}
 
 	public void updateUser(UserDTO opr) throws DALException {
 		Connector.doUpdate(
 				"UPDATE user SET  opr_name = '" + opr.getOprName() + "', ini =  '" + opr.getIni() + 
-				"', cpr = '" + opr.getCpr() + "', password = '" + opr.getPassword() + "', role = '" + opr.getRole() + "' WHERE opr_id = " +
+				"', cpr = '" + opr.getCpr() + "', password = '" + opr.getPassword() + "', role = '" + opr.getRole() + "', active = '" + opr.getActive() + "' WHERE opr_id = " +
 				opr.getOprId()
 		);
 	}
@@ -41,7 +41,7 @@ public class UserImpl implements UserDAO {
 		{
 			while (rs.next()) 
 			{
-				list.add(new UserDTO(rs.getInt("opr_id"), rs.getString("opr_name"), rs.getString("ini"), rs.getString("cpr"), rs.getString("password"), rs.getString("role")));
+				list.add(new UserDTO(rs.getInt("opr_id"), rs.getString("opr_name"), rs.getString("ini"), rs.getString("cpr"), rs.getString("password"), rs.getInt("role"), rs.getBoolean("active")));
 			}
 		}
 		catch (SQLException e) { throw new DALException(e); }
@@ -56,4 +56,3 @@ public class UserImpl implements UserDAO {
 		
 		
 }
-	

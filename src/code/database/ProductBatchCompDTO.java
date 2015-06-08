@@ -1,8 +1,6 @@
 package code.database;
 
-import java.io.Serializable;
-
-public class ProductBatchCompDTO implements Serializable
+public class ProductBatchCompDTO 
 {
 	int pbId; 	  // produktbatchets id
 	int rbId;        // i omraadet 1-99999999
@@ -11,9 +9,6 @@ public class ProductBatchCompDTO implements Serializable
 	int oprId;					// operatoer-nummer
 
 	
-	public ProductBatchCompDTO(){
-		
-	}
 	public ProductBatchCompDTO(int pbId, int rbId, double tara, double netto, int oprId)
 	{
 		this.pbId = pbId;
@@ -21,6 +16,15 @@ public class ProductBatchCompDTO implements Serializable
 		this.tara = tara;
 		this.netto = netto;
 		this.oprId = oprId;
+	}
+	
+	public ProductBatchCompDTO(ProductBatchCompDTO pbComp)
+	{
+		this.pbId = pbComp.getPbId();
+		this.rbId = pbComp.getRbId();
+		this.tara = pbComp.getTara();
+		this.netto = pbComp.getNetto();
+		this.oprId = pbComp.getOprId();
 	}
 	
 	public int getPbId() { return pbId; }

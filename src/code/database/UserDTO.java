@@ -1,7 +1,5 @@
 package code.database;
 
-import java.io.Serializable;
-
 /**
  * User Data Access Objekt
  * 
@@ -9,8 +7,7 @@ import java.io.Serializable;
  * @version 1.2
  */
 
-
-public class UserDTO implements Serializable
+public class UserDTO
 {
 	/** User-identifikationsnummer (opr_id) i omraadet 1-99999999. Vaelges af brugerne */
 	int oprId;                     
@@ -23,12 +20,11 @@ public class UserDTO implements Serializable
 	/** User password min. 7 max. 8 karakterer */
 	String password;  
 	/** User role: Administrator, Farmaceut, Værkfører eller Operator */
-	String role;
+	int role;
+	/**User status: boolean for true or false if active */
+	boolean active;
 	
-	public UserDTO(){
-		
-	}
-	public UserDTO(int oprId, String oprName, String ini, String cpr, String password, String role)
+	public UserDTO(int oprId, String oprName, String ini, String cpr, String password, int role, boolean active)
 	{
 		this.oprId = oprId;
 		this.oprName = oprName;
@@ -36,6 +32,7 @@ public class UserDTO implements Serializable
 		this.cpr = cpr;
 		this.password = password;
 		this.role = role;
+		this.active = active;
 	}
 	
     public UserDTO(UserDTO opr)
@@ -46,6 +43,7 @@ public class UserDTO implements Serializable
     	this.cpr = opr.getCpr();
     	this.password = opr.getPassword();
     	this.role = opr.getRole();
+    	this.active = opr.getActive();
     }
     
     public int getOprId() { return oprId; }
@@ -58,7 +56,9 @@ public class UserDTO implements Serializable
 	public void setCpr(String cpr) { this.cpr = cpr; }
 	public String getPassword() { return password; }
 	public void setPassword(String password) { this.password = password; }
-	public String getRole() { return role; }
-	public void setRole(String role) { this.role = role;}
+	public int getRole() { return role; }
+	public void setRole(int role) { this.role = role;}
+	public boolean getActive() { return active; }
+	public void setActive(boolean active) {	this.active = active;}
 	public String toString() { return oprId + "\t" + oprName + "\t" + ini + "\t" + cpr + "\t" + password; }
 }

@@ -1,7 +1,5 @@
 package code.database;
 
-import java.io.Serializable;
-
 /**
  * Ingredient Data Objekt
  * 
@@ -9,7 +7,7 @@ import java.io.Serializable;
  * @version 1.2
  */
 
-public class IngredientDTO implements Serializable
+public class IngredientDTO 
 {
     /** i omraadet 1-99999999 vaelges af brugerne */
     int ingredientId;                     
@@ -18,14 +16,18 @@ public class IngredientDTO implements Serializable
     /** min. 2 max. 20 karakterer */
     String leverandoer;         
 	
-    public IngredientDTO(){
-    	
-    }
 	public IngredientDTO(int ingredientId, String ingredientName, String leverandoer)
 	{
 		this.ingredientId = ingredientId;
 		this.ingredientName = ingredientName;
 		this.leverandoer = leverandoer;
+	}
+	
+	public IngredientDTO(IngredientDTO ingr)
+	{
+		this.ingredientId = ingr.getIngredientId();
+		this.ingredientName = ingr.getIngredientName();
+		this.leverandoer = ingr.getLeverandoer();
 	}
 	
     public int getIngredientId() { return ingredientId; }
