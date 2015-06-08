@@ -1,42 +1,36 @@
 package code.shared;
 
-/**
- * <p>
- * FieldVerifier validates that the name the user enters is valid.
- * </p>
- * <p>
- * This class is in the <code>shared</code> package because we use it in both
- * the client code and on the server. On the client, we verify that the name is
- * valid before sending an RPC request so the user doesn't have to wait for a
- * network round trip to get feedback. On the server, we verify that the name is
- * correct to ensure that the input is correct regardless of where the RPC
- * originates.
- * </p>
- * <p>
- * When creating a class that is used on both the client and the server, be sure
- * that all code is translatable and does not use native JavaScript. Code that
- * is not translatable (such as code that interacts with a database or the file
- * system) cannot be compiled into client-side JavaScript. Code that uses native
- * JavaScript (such as Widgets) cannot be run on the server.
- * </p>
- */
+
 public class FieldVerifier {
 
-	/**
-	 * Verifies that the specified name is valid for our service.
-	 * 
-	 * In this example, we only require that the name is at least four
-	 * characters. In your application, you can use more complex checks to ensure
-	 * that usernames, passwords, email addresses, URLs, and other fields have the
-	 * proper syntax.
-	 * 
-	 * @param name the name to validate
-	 * @return true if valid, false if invalid
-	 */
 	public static boolean isValidName(String name) {
 		if (name == null) {
 			return false;
 		}
-		return name.length() > 3;
+		return name.length() > 1 && name.length() <= 20;
 	}
+	// CPR skal bestå af 10 tegn der alle er cifre. Der er ikke taget hensyn til at dato skal passe
+	public static boolean isCPRValid(String cpr){
+		if(cpr == null){
+			return false;
+		}
+		try{
+			@SuppressWarnings("unused")// verifyCPR findes kun til at lave checket
+			int verifyCPR = Integer.parseInt(cpr);
+		}
+		catch(NumberFormatException e){
+			return false;
+		}
+		return cpr.length() == 10;
+	}
+	// Initialer skal være mellem 2 og 4 karakterer, der er ikke taget nogen hensyn til karakter type
+	public static boolean isInitialsValid(String ini){
+		if(ini.equals(null)){
+			return false;
+		}
+		else{
+			return (ini.length() >= 2) && (ini.length() <=4);
+		}
+	}
+	
 }

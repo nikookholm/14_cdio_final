@@ -10,6 +10,12 @@ h1 {
   text-align: center;
 }
 
+/* dependant style for text boxes */
+.gwt-TextBox-invalidEntry {
+	border-color: red !important;
+}
+
+
 .sendButton {
   display: block;
   font-size: 16pt;
@@ -32,3 +38,4 @@ h1 {
 #closeButton {
   margin: 15px 6px 6px;
 }
+

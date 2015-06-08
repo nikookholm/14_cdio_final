@@ -1,35 +1,31 @@
 package code.client.views;
 
-import code.client.DatabaseService;
 import code.client.controllers.MainController;
-import code.database.DALException;
 import code.database.UserDTO;
 import code.shared.FieldVerifier;
 
-import com.google.gwt.dev.asm.tree.IntInsnNode;
+import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLHeadElement;
+import com.google.gwt.dom.builder.shared.HtmlHeadBuilder;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class CreateUserView extends Composite {
 	VerticalPanel vPanel;
-	
+
 	TextBox nameBox, iniBox, cprBox;
 	ListBox roleList;
 	Button okBtn;
 	Grid table;
-
+	Label viewInfo;
 	MainController mc;
 
 	// Flag der skal afgøre om ok knappen skal gøres tilgænglig
@@ -46,33 +42,111 @@ public class CreateUserView extends Composite {
 		initWidget(vPanel);
 
 
-		
-		
-
 		okBtn = new Button("Ok");
 		okBtn.setEnabled(false);
-
+		viewInfo = new Label("Indtast den nye brugers oplysninger");
 		table = new Grid(4,2);
 		table.setWidget(0, 0, new Label("Navn"));
-		table.setWidget(0, 1, nameBox = new TextBox());
+		table.setWidget(0, 1, nameBox =new TextBox());
 		table.setWidget(1, 0, new Label("Initialer"));
 		table.setWidget(1, 1, iniBox = new TextBox());
 		table.setWidget(2, 0, new Label("CPR"));
 		table.setWidget(2, 1, cprBox = new TextBox());
 		table.setWidget(3, 0, new Label("Rolle"));
 		table.setWidget(3, 1, roleList = new ListBox());
-		
+
 		roleList.addItem("Operatør");
 		roleList.addItem("Værkfører");
 		roleList.addItem("Farmaceut");
 		roleList.addItem("Administrator");
-	    vPanel.add(table);
-	    
-	    vPanel.add(okBtn);
-	    
+		vPanel.add(table);
 
-			
+		nameBox.addKeyUpHandler(new NameBoxHandler());
+		iniBox.addKeyUpHandler(new IniBoxHandler());
+		cprBox.addKeyUpHandler(new CprBoxHandler());
+
+		vPanel.add(okBtn);
+
+
+
+
+
+
+		//okBtn.addClickHandler(new ClickHandler() {
+		//		UserDTO user = new UserDTO(0, nameBox.getText(), iniBox.getText(), cprBox.getText(),
+		//				"", roleList.getTabIndex()); 
+		// Der kan laves en specifik konstruktør med navn, ini, cpr- nummer og role;
+
+		//			@Override
+		//	public void onClick(ClickEvent event) {
+		//				mc.databaseService.Service.user_Table_Create(user);
+		// Skal have fat i databaseService, hvor der skal sendes et userDTO
+		// databaseService er private
+		// den siger at der mangler en konstant, hvilket nok har med implementerings 
+		// metoden at gøre
+
+		// - on success skal der komme et view der fortæller at personen er gemt
+		// on failure skal der komme et view der fortæller at det er gået galt
+		//			}
+		//		});
+
+
+	}
+
+
+	private class NameBoxHandler implements KeyUpHandler{
+
+		@Override
+		public void onKeyUp(KeyUpEvent event) {
+			if(!FieldVerifier.isValidName(nameBox.getText())){
+				nameBox.setStyleName("gwt-TextBox-invalidEntry");
+				nameCheck = false;
+			}
+			else{
+				nameBox.removeStyleName("gwt-TextBox-invalidEntry");
+				nameCheck = true;
+			}
+			okButtonEnabler();
+
 		}
+	}
+	private class IniBoxHandler implements KeyUpHandler{
+
+		@Override
+		public void onKeyUp(KeyUpEvent event) {
+			if(!FieldVerifier.isInitialsValid(iniBox.getText())){
+				iniBox.setStyleName("gwt-TextBox-invalidEntry");
+				iniCheck = false;
+			}
+			else{
+				iniBox.removeStyleName("gwt-TextBox-invalidEntry");
+				iniCheck = true;
+			}
+			okButtonEnabler();
+		}
+	}
+	private class CprBoxHandler implements KeyUpHandler{
+
+		@Override
+		public void onKeyUp(KeyUpEvent event) {
+			if(!FieldVerifier.isCPRValid(cprBox.getText())){
+				cprBox.setStyleName("gwt-TextBox-invalidEntry");
+				cprCheck = false;
+			}
+			else{
+				cprBox.removeStyleName("gwt-TextBox-invalidEntry");
+				cprCheck = true;
+			}
+			okButtonEnabler();
+		}
+	}
+	public void okButtonEnabler(){
+		if(nameCheck && iniCheck && cprCheck){
+			okBtn.setEnabled(true);
+		}
+		else okBtn.setEnabled(false);
+
+	}
 }
 
 
