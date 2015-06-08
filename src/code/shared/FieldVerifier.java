@@ -34,7 +34,7 @@ public class FieldVerifier {
 	}
 	// leverandørs text af råvare skal være mellem 2-20 karakterer 
 	public static boolean leverandoerValid(String lev){
-		if(!lev.equals(null)){
+		if(lev.equals(null)){
 		return false;
 		}
 		else{
@@ -44,13 +44,14 @@ public class FieldVerifier {
 	
 	// råvare navn skal være mellem 2-20 karakterer
 	public static boolean ingredientName(String ingName){
-		if(!ingName.equals(null)){
+		if(ingName.equals(null)){
 			return false;
 		}
 		else{
 			return(ingName.length() >= 2) && (ingName.length() <= 20);
 		}
 	}
+	
 	//råvareId skal bestå af tegnerne som tallerne fra 1 til 99999999
 	public static boolean ingredientId(String ingId){
 		if(ingId.equals(null)){
