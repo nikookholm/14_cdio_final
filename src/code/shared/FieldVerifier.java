@@ -66,6 +66,59 @@ public class FieldVerifier {
 		}
 		return ingId.length() >0 && ingId.length() <= 8;
 	}
+	
+	//ProduktBatchID skal være imellem 1 og 99999999 
+	public static boolean ispbNoValid(String str)
+	{
+		int i;
+		try{
+			i = Integer.parseInt(str);
+		}catch(NumberFormatException e){
+			return false;
+		}
+		
+		if(1<=i && i<=99999999){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	//ReceptID skal være imellem 1 og 99999999 
+	public static boolean isReceptNoValid(String str)
+	{
+		int i;
+		try{
+			i = Integer.parseInt(str);
+		}catch(NumberFormatException e){
+			return false;
+		}
+		
+		if(1<=i && i<=99999999){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	//Status kan være 0,1,2
+	public static boolean isStatusValid(String str)
+	{
+		int i;
+		try{
+			i = Integer.parseInt(str);
+		}catch(NumberFormatException e){
+			return false;
+		}
+		
+		if(0<=i && i<=2){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	
 }
 
 
