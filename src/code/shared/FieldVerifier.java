@@ -32,5 +32,72 @@ public class FieldVerifier {
 			return (ini.length() >= 2) && (ini.length() <=4);
 		}
 	}
+	// leverandørs text af råvare skal være mellem 2-20 karakterer 
+	public static boolean leverandoerValid(String lev){
+		if(!lev.equals(null)){
+		return false;
+		}
+		else{
+			return (lev.length() >=2) && (lev.length() <=20);
+		}
+	}
 	
+	// råvare navn skal være mellem 2-20 karakterer
+	public static boolean ingredientName(String ingName){
+		if(!ingName.equals(null)){
+			return false;
+		}
+		else{
+			return(ingName.length() >= 2) && (ingName.length() <= 20);
+		}
+	}
+	//råvareId skal bestå af tegnerne som tallerne fra 1 til 99999999
+	public static boolean ingredientId(String ingId){
+		if(ingId.equals(null)){
+			return false;
+		}
+		try{
+			int ingrId = Integer.parseInt(ingId);
+		}
+		catch(NumberFormatException e){
+			return false;
+			
+		}
+		return ingId.length() >0 && ingId.length() <= 8;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
