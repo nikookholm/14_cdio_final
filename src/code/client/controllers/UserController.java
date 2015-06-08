@@ -1,5 +1,6 @@
 package code.client.controllers;
 
+import code.client.views.CreateUserView;
 import code.client.views.MainView;
 import code.database.UserDTO;
 
@@ -22,7 +23,7 @@ public class UserController {
 	
 	public Widget createUser()
 	{
-		return new Widget();
+		return new CreateUserView(mc);
 	}
 	
 	public Widget updateUser(UserDTO user)
