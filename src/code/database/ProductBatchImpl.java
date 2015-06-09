@@ -12,7 +12,7 @@ public class ProductBatchImpl implements ProductBatchDAO {
 		ResultSet rs = Connector.doQuery("SELECT * FROM productbatch WHERE pb_id = " + pbId);
 	    try {
 	    	if (!rs.first()) throw new DALException("productbatch" + pbId + " findes ikke");
-	    	return new ProductBatchDTO (rs.getInt("pb_id"), rs.getInt("recept_id"), rs.getInt("status"), rs.getString("date"));
+	    	return new ProductBatchDTO (rs.getInt("pb_id"), rs.getInt("recept_id"), rs.getInt("status"), rs.getDate("date").getTime());
 	    }
 	    catch (SQLException e) {throw new DALException(e); }
 	}
@@ -43,7 +43,7 @@ public class ProductBatchImpl implements ProductBatchDAO {
 		{
 			while (rs.next()) 
 			{
-				list.add(new ProductBatchDTO(rs.getInt("pb_id"), rs.getInt("recept_id"), rs.getInt("status"), rs.getString("date")));
+				list.add(new ProductBatchDTO(rs.getInt("pb_id"), rs.getInt("recept_id"), rs.getInt("status"), rs.getTime("date").getTime()));
 			}
 		}
 		catch (SQLException e) { throw new DALException(e); }
