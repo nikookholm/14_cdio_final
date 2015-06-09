@@ -48,7 +48,7 @@ public class FieldVerifier {
 			return false;
 		}
 		else{
-			return(ingName.length() >= 2) && (ingName.length() <= 20);
+			return ingName.length() >= 2 && ingName.length() <= 20;
 		}
 	}
 	

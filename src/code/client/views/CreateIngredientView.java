@@ -44,7 +44,7 @@ public class CreateIngredientView extends Composite{
 		this.vPanel = new VerticalPanel();
 		initWidget(vPanel);
 
-		this.tabel = new Grid(4,2);
+		this.tabel = new Grid(3,2);
 
 		tabel.setWidget(0, 0, leverandoerLabel);
 		tabel.setWidget(0, 1, leverandoerBox);
@@ -52,25 +52,24 @@ public class CreateIngredientView extends Composite{
 		tabel.setWidget(1, 1, ingredientNameBox);
 		tabel.setWidget(2, 0, ingredientIdLabel);
 		tabel.setWidget(2, 1, ingredientIdBox   = new TextBox());
-		tabel.setWidget(3, 0, cancelButton);
-		tabel.setWidget(3, 1, OkButton);
-		OkButton.setEnabled(false);
 
-		this.subTable = new Grid(1,3);
+
+		this.subTable = new Grid(1,2);
 
 		subTable.setWidget(0, 0, cancelButton);
-		subTable.setWidget(0, 1, clearButton);
-		subTable.setWidget(0, 2, OkButton);
+		subTable.setWidget(0, 1, OkButton);
 
+		OkButton.setEnabled(false);
+		cancelButton.setEnabled(true);
 
 		vPanel.add(tabel);
-		vPanel.add(subTable);
 
 		ingredientIdBox.addKeyUpHandler(new ingredientId());
 		ingredientNameBox.addKeyUpHandler(new ingredientName());
 		leverandoerBox.addKeyUpHandler(new leverandoer());
 
-		vPanel.add(OkButton);
+		vPanel.add(subTable);
+
 	}
 
 	private class ingredientId implements KeyUpHandler{
@@ -85,6 +84,7 @@ public class CreateIngredientView extends Composite{
 			else{
 				ingredientIdBox.removeStyleName("gwt-TextBox-invalidEntry");
 				ingredientIdCheck = true;
+				okButtonEnabler();
 			}
 
 		}
@@ -103,8 +103,9 @@ public class CreateIngredientView extends Composite{
 
 			}
 			else{
-				ingredientNameBox.setStyleName("gwt-TextBox-invalidEntry");
+				ingredientNameBox.removeStyleName("gwt-TextBox-invalidEntry");
 				ingredientNameCheck = true;
+				okButtonEnabler();
 
 			}
 		}
@@ -121,6 +122,7 @@ public class CreateIngredientView extends Composite{
 			else{
 				leverandoerBox.setStyleName("gwt-TextBox-invalidEnrtry");
 				leverandoerCheck = true;
+				okButtonEnabler();
 			}
 		}
 
@@ -131,6 +133,9 @@ public class CreateIngredientView extends Composite{
 		}
 		else OkButton.setEnabled(false);
 
+	}
+	public void cancelButtonEnable(){
+		
 	}
 
 
