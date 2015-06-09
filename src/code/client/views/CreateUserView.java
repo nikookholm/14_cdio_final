@@ -1,4 +1,4 @@
-package code.client.views;
+	package code.client.views;
 
 import code.client.controllers.MainController;
 import code.database.UserDTO;
@@ -10,6 +10,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
@@ -68,27 +69,34 @@ public class CreateUserView extends Composite {
 		vPanel.add(okBtn);
 
 
-
-
-
-
-		//okBtn.addClickHandler(new ClickHandler() {
-		//		UserDTO user = new UserDTO(0, nameBox.getText(), iniBox.getText(), cprBox.getText(),
-		//				"", roleList.getTabIndex()); 
+		okBtn.addClickHandler(new ClickHandler() {
+				UserDTO user = new UserDTO(0, nameBox.getText(), iniBox.getText(), cprBox.getText(),"",1,true); 
 		// Der kan laves en specifik konstruktør med navn, ini, cpr- nummer og role;
 
-		//			@Override
-		//	public void onClick(ClickEvent event) {
-		//				mc.databaseService.Service.user_Table_Create(user);
+					@Override
+			public void onClick(ClickEvent event) {
+						 mc.databaseService.user_table_create(user, new AsyncCallback<Void>() {
+							
+							@Override
+							public void onSuccess(Void result) {
+								
+								
+							}
+							
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
+						});
+						 
 		// Skal have fat i databaseService, hvor der skal sendes et userDTO
 		// databaseService er private
 		// den siger at der mangler en konstant, hvilket nok har med implementerings 
 		// metoden at gøre
 
-		// - on success skal der komme et view der fortæller at personen er gemt
-		// on failure skal der komme et view der fortæller at det er gået galt
-		//			}
-		//		});
+					}
+				});
 
 
 	}

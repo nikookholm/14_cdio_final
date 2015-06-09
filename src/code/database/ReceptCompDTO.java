@@ -1,6 +1,8 @@
 package code.database;
 
-public class ReceptCompDTO
+import java.io.Serializable;
+
+public class ReceptCompDTO implements Serializable
 {
 	int receptId;                  // auto genereres fra 1..n   
 	int ingredientId;             // i omraadet 1-99999999

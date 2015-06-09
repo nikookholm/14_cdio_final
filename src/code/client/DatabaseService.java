@@ -18,7 +18,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("database")
 public interface DatabaseService extends RemoteService {
 	void	  				 user_table_create(UserDTO user);
-	ArrayList<UserDTO>		 user_table_list(UserDTO edittedUser);
+	ArrayList<UserDTO>		 user_table_list();
 	void 					 user_table_update(UserDTO user);
 	
 	void	 				 ingredients_table_create(IngredientDTO ingredient);

@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class MainController {
 	
-	private final DatabaseServiceAsync databaseService = GWT
+	public final DatabaseServiceAsync databaseService = GWT
 			.create(DatabaseService.class);
 	
 	private UserController userController;

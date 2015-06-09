@@ -1,5 +1,7 @@
 package code.database;
 
+import java.io.Serializable;
+
 /**
  * User Data Access Objekt
  * 
@@ -7,7 +9,7 @@ package code.database;
  * @version 1.2
  */
 
-public class UserDTO
+public class UserDTO implements Serializable
 {
 	/** User-identifikationsnummer (opr_id) i omraadet 1-99999999. Vaelges af brugerne */
 	int oprId;                     

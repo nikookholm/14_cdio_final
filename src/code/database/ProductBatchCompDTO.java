@@ -1,6 +1,8 @@
 package code.database;
 
-public class ProductBatchCompDTO 
+import java.io.Serializable;
+
+public class ProductBatchCompDTO implements Serializable 
 {
 	int pbId; 	  // produktbatchets id
 	int rbId;        // i omraadet 1-99999999
