@@ -1,8 +1,10 @@
 package code.server;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import code.client.DatabaseService;
+import code.database.Connector;
 import code.database.DALException;
 import code.database.IngredientBatchDTO;
 import code.database.IngredientDTO;
@@ -21,6 +23,15 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		DatabaseService {
+	
+	public DatabaseServiceImpl() {
+		try {
+			new Connector();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void user_table_create(UserDTO user) {
