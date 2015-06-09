@@ -17,7 +17,7 @@ public interface WeightServiceAsync {
 	void getTara(AsyncCallback<Double> callback);
 	void getWeight(AsyncCallback<Double> callback);
 	void rm20(int type, String message, AsyncCallback<String> callback);
-	void printToDisplay(String message, AsyncCallback<Void> callback);
+	void printToDisplay(String message, AsyncCallback<Boolean> callback);
 	void clearDisplay(AsyncCallback<Void> callback);
 	void listenForTarget(AsyncCallback<Void> callback);
 	

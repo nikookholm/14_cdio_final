@@ -11,7 +11,7 @@ public interface WeightService extends RemoteService {
 	double getTara();
 	double getWeight();
 	String rm20(int type, String message);
-	void printToDisplay(String message);
+	boolean printToDisplay(String message);
 	void clearDisplay();
-	void listenForTarget();
+	void listenForTarget() throws Exception;
 }
