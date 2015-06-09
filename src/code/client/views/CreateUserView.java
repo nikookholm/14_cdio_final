@@ -47,7 +47,9 @@ public class CreateUserView extends Composite {
 		okBtn = new Button("Ok");
 		okBtn.setEnabled(false);
 		viewInfo = new Label("Indtast den nye brugers oplysninger");
-		presentSuccess.setText(user.getOprName() + " er oprettet i databasen");
+		
+		vPanel.add(viewInfo);
+		
 		table = new Grid(4,2);
 		table.setWidget(0, 0, new Label("Navn"));
 		table.setWidget(0, 1, nameBox =new TextBox());
@@ -81,11 +83,6 @@ public class CreateUserView extends Composite {
 			}
 		});
 
-
-	}
-
-
-	public CreateUserView() {
 
 	}
 

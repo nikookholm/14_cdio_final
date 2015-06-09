@@ -12,47 +12,44 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 public class UserController {
-	
+
 	private MainController mc;
-	
+
 	ArrayList<UserDTO> users;
-	
+
+	UserDTO userDTO;
+
 	public UserController(MainController mc)
 	{
 		this.mc = mc;
 	}
-	
+
 	public Widget login(String oprNumber)
 	{
 		mc.setUser(oprNumber);
 		return new MainView(mc);
 	}
-	
-	public Widget createUser(final UserDTO user)
+
+	public Widget createUser(UserDTO user)
 	{
-		
 		if(user != null){
-			return new CreateUserView();
-		}
-		else{
 			mc.databaseService.user_table_create(user, new AsyncCallback<Void>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
-					// TODO Auto-generated method stub
-					
+					// Skal præsentere fejl
 				}
-
 				@Override
 				public void onSuccess(Void result) {
-					return new CreateUserView(user);
-					
 				}
 			});
+			return null;	
 		}
-		
+		else{
+			return new CreateUserView(user, mc);
+		}
 	}
-	
+
 	public Widget updateUser(UserDTO user)
 	{
 		return new Widget();
@@ -60,9 +57,9 @@ public class UserController {
 
 	public Widget listUsers()
 	{
-		return new ListUsersView();
+		return new ListUsersView(mc);
 	}
-	
+
 	public Widget deactivateUser()
 	{
 		return new Widget();

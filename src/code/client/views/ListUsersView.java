@@ -21,7 +21,7 @@ public class ListUsersView extends Composite{
 	Label Header, fillerLabel, presentError;
 	FlexTable table;
 	
-	public ListUsersView(){
+	public ListUsersView(MainController mc){
 		this.mc = mc;
 		
 		vPanel = new VerticalPanel();
@@ -29,11 +29,11 @@ public class ListUsersView extends Composite{
 		
 		
 		Header       = new Label("Vis Brugere");
-		fillerLabel  = new Label("Antal brugere " + users.size());
+		
 		presentError = new Label("");
 		
 		vPanel.add(Header);
-		vPanel.add(fillerLabel);
+		
 		vPanel.add(presentError);
 		
 		table = new FlexTable();
@@ -46,14 +46,7 @@ public class ListUsersView extends Composite{
 		table.setText(0, 4, "Password");
 		table.setText(0, 5, "Rolle");
 		
-		for (int i = 0; i < users.size(); i++) {
-			table.setText(i+1, 0, Integer.toString(users.get(i).getOprId()));
-			table.setText(i+1, 0, ""+ users.get(i).getOprName() );
-			table.setText(i+1, 0, "" + users.get(i).getIni() );
-			table.setText(i+1, 0,""+ users.get(i).getCpr() );
-			table.setText(i+1, 0, ""+ users.get(i).getPassword() );
-			table.setText(i+1, 0, Integer.toString(users.get(i).getRole()));
-		}
+	
 		vPanel.add(table);
 	}
 }
