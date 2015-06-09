@@ -26,7 +26,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public ArrayList<UserDTO> user_table_list(UserDTO edittedUser) {
+	public ArrayList<UserDTO> user_table_list() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -16,7 +16,7 @@ public interface DatabaseServiceAsync {
 
 	void user_table_create(UserDTO user, AsyncCallback<Void> callback);
 	void user_table_update(UserDTO user, AsyncCallback<Void> callback);
-	void user_table_list(UserDTO userEditted, AsyncCallback<ArrayList<UserDTO>> callback);
+	void user_table_list(AsyncCallback<ArrayList<UserDTO>> callback);
 	
 	void ingredients_table_create(IngredientDTO ingredient, AsyncCallback<Void> callback);
 	void ingredients_table_update(IngredientDTO ingredient, AsyncCallback<Void> callback);
