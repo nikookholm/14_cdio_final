@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import code.database.IngredientBatchDTO;
 import code.database.IngredientBatchImpl;
 import code.database.IngredientDTO;
+import code.database.ProductBatchCompDTO;
 import code.database.ProductBatchDTO;
 import code.database.ProductBatchImpl;
 import code.database.ReceptDTO;
@@ -27,6 +28,9 @@ public interface DatabaseServiceAsync {
 	
 	void productBatch_table_create(ProductBatchDTO productBatch, AsyncCallback<Void> callback);
 	void productBatch_table_list(AsyncCallback<ArrayList<ProductBatchDTO>> callback);
+	
+	void productBatchComp_table_create(ProductBatchCompDTO pbComp, AsyncCallback<Void> callback);
+	void productBatchComp_table_list(AsyncCallback<ArrayList<ProductBatchCompDTO>> callback);
 	
 	void ingredientBatch_table_create(IngredientBatchDTO ingredient, AsyncCallback<Void> callback);
 	void ingredientBatch_table_list(AsyncCallback<ArrayList<IngredientBatchDTO>> callback);

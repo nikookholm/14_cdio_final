@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import code.database.IngredientBatchDTO;
 import code.database.IngredientDTO;
+import code.database.ProductBatchCompDTO;
 import code.database.ProductBatchDTO;
 import code.database.ReceptDTO;
 import code.database.UserDTO;
@@ -30,6 +31,9 @@ public interface DatabaseService extends RemoteService {
 	
 	void productBatch_table_create(ProductBatchDTO productBatch);
 	ArrayList<ProductBatchDTO> productBatch_table_list();
+	
+	void productBatchComp_table_create(ProductBatchCompDTO pbComp);
+	ArrayList<ProductBatchCompDTO> productBatchComp_table_list();
 	
 	void ingredientBatch_table_create(IngredientBatchDTO ingredientBatch);
 	ArrayList<IngredientBatchDTO> ingredientBatch_table_list();
