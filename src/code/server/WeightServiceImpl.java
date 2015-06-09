@@ -17,9 +17,12 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 
 	TCPConnector tcp;
 	
-	public WeightServiceImpl() throws Exception{
-		listenForTarget();
-		
+	public WeightServiceImpl(){
+		try {
+			listenForTarget();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
