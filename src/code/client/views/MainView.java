@@ -29,14 +29,14 @@ public class MainView extends Composite {
 		ClickHandler addUserHandler = new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				mc.show(mc.getUserController().createUser(null));				
+				//mc.show(mc.getUserController().createUser(null));				
 			}
 		};
 		
 		ClickHandler updateUserHandler = new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				mc.show(mc.getUserController().createUser());				
+				//mc.show(mc.getUserController().listUsers(null));				
 			}
 		};
 		

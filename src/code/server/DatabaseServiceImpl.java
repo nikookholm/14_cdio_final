@@ -4,15 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import code.client.DatabaseService;
-import code.database.Connector;
-import code.database.DALException;
-import code.database.IngredientBatchDTO;
-import code.database.IngredientDTO;
-import code.database.ProductBatchDTO;
-import code.database.ReceptDTO;
-import code.database.UserDAO;
-import code.database.UserDTO;
-import code.database.UserImpl;
+import code.database.*;
 import code.shared.FieldVerifier;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -24,12 +16,18 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		DatabaseService {
 	
+	private IngredientBatchDAO 	ingredientBatch  = new IngredientBatchImpl();
+	private IngredientDAO	   	ingredient	   	 = new IngredientImpl();
+	private ProductBatchCompDAO productBatchComp = new ProductBatchCompImpl();
+	private ProductBatchDAO 	productBatch	 = new ProductBatchImpl();
+	private ReceptCompDAO		receptComp		 = new ReceptCompImpl();
+	private ReceptDAO			recept			 = new ReceptImpl();
+	private UserDAO				user			 = new UserImpl();
+	
 	public DatabaseServiceImpl() {
 		try {
 			new Connector();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
@@ -43,7 +41,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	public ArrayList<UserDTO> user_table_list() {
 		
 		try {
-			return new UserImpl().getUserList();
+			return user.getUserList();
 		} catch (DALException e) {
 			return null;
 		}
@@ -106,6 +104,18 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public ArrayList<IngredientBatchDTO> ingredientBatch_table_list() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void productBatchComp_table_create(ProductBatchCompDTO pbComp) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ArrayList<ProductBatchCompDTO> productBatchComp_table_list() {
 		// TODO Auto-generated method stub
 		return null;
 	}
