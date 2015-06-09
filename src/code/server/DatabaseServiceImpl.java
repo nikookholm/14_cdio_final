@@ -3,11 +3,14 @@ package code.server;
 import java.util.ArrayList;
 
 import code.client.DatabaseService;
+import code.database.DALException;
 import code.database.IngredientBatchDTO;
 import code.database.IngredientDTO;
 import code.database.ProductBatchDTO;
 import code.database.ReceptDTO;
+import code.database.UserDAO;
 import code.database.UserDTO;
+import code.database.UserImpl;
 import code.shared.FieldVerifier;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -27,8 +30,13 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public ArrayList<UserDTO> user_table_list() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		try {
+			return new UserImpl().getUserList();
+		} catch (DALException e) {
+			return null;
+		}
+		
 	}
 
 	@Override

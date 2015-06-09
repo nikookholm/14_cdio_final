@@ -7,17 +7,19 @@ public class ProductBatchDTO implements Serializable
 	int pbId;                     // i omraadet 1-99999999
 	int status;					// 0: ikke paabegyndt, 1: under produktion, 2: afsluttet
 	int receptId;
+	String date = "";
 	
 	public ProductBatchDTO()
 	{
 		
 	}
 	
-	public ProductBatchDTO(int pbId, int status, int receptId)
+	public ProductBatchDTO(int pbId, int status, int receptId, String date)
 	{
 		this.pbId = pbId;
 		this.status = status;
 		this.receptId = receptId;
+		this.date = date;
 	}
 	
 	public int getPbId() { return pbId; }
@@ -26,5 +28,6 @@ public class ProductBatchDTO implements Serializable
 	public void setStatus(int status) { this.status = status; }
 	public int getReceptId() { return receptId; }
 	public void setReceptId(int receptId) { this.receptId = receptId; }
-	public String toString() { return pbId + "\t" + status + "\t" + receptId; }
+	public String getDate() { return date; }
+	public String toString() { return pbId + "\t" + status + "\t" + receptId +"\t" +date; }
 }
