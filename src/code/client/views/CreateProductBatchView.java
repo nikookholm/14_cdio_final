@@ -28,7 +28,7 @@ public class CreateProductBatchView extends Composite
 	MainController mc;
 	
 	VerticalPanel VPanel;
-	Button OKButton;
+	Button OKButton, cancelButton;
 	Label infoLabel;
 	Grid table;
 	Label pbNoLabel, receptNoLabel, dateLabel, statLabel;
@@ -57,9 +57,12 @@ public class CreateProductBatchView extends Composite
 		
 		OKButton = new Button("OK");
 		OKButton.setEnabled(false);
+		cancelButton = new Button("Cancel");
+		cancelButton.setEnabled(true);
 		
 		infoLabel = new Label("Intast den nye ProduktBatchs oplysninger hér.");
 		table = new Grid(4, 2);
+		table.setTitle("Create new ProductBatch");
 		table.setWidget(0, 0, pbNoLabel);
 		table.setWidget(0, 1, pbNoBox);
 		table.setWidget(1, 0, receptNoLabel);
@@ -69,6 +72,8 @@ public class CreateProductBatchView extends Composite
 		table.setWidget(3, 0, statLabel);
 		table.setWidget(3, 1, statBox);
 		
+		dateBox.setText(pbC.getDate());
+		
 		pbNoBox.addKeyUpHandler(new PbNoBoxHandler());
 		receptNoBox.addKeyUpHandler(new ReceptNoBoxHandler());
 		dateBox.addKeyUpHandler(new DateBoxHandler());
@@ -77,45 +82,10 @@ public class CreateProductBatchView extends Composite
 		VPanel.add(infoLabel);
 		VPanel.add(table);
 		VPanel.add(OKButton);
+		VPanel.add(cancelButton);
 		
-//		OKButton.addClickHandler(new ClickHandler() 
-//		{	
-//			@Override
-//			public void onClick(ClickEvent event) 
-//			{
-//				int pbI = Integer.parseInt(pbNoBox.getText());
-//				int statI = Integer.parseInt(statBox.getText());
-//				int recI = Integer.parseInt(receptNoBox.getText());
-//				int datI = Integer.parseInt(dateBox.getText());
-//				String dato = pbC.getDate();
-//				ProductBatchDTO uDTO = new ProductBatchDTO(pbI, statI, recI);
-//				
-//				try 
-//				{
-//					mc.service.create(create, new AsyncCallback<Void>() 
-//						{
-//							@Override
-//							public void onSuccess(Void result) 
-//							{
-//								Window.alert("ProduktBatchen er gemt succefuldt");
-//							}
-//	
-//							@Override
-//							public void onFailure(Throwable caught) 
-//							{ProduktBatchID
-//								Window.alert("Server fejl!" + caught.getMessage());
-//							}
-//	
-//						}
-//					);
-//				} 
-//				catch (Exception e) 
-//				{
-//					e.printStackTrace();
-//				}
-//				OKButton.setEnabled(true);
-//			}
-//		});
+//		OKButton.addClickHandler(new PBClickHandler());
+	
 	}
 	
 	private class PbNoBoxHandler implements KeyUpHandler
@@ -123,13 +93,10 @@ public class CreateProductBatchView extends Composite
 		@Override
 		public void onKeyUp(KeyUpEvent event) 
 		{
-			if( (FieldVerifier.ispbNoValid(pbNoBox.getText())) == false)
-			{
+			if( (FieldVerifier.ispbNoValid(pbNoBox.getText())) == false) {
 				pbNoBox.setStyleName("gwt-TextBox-invalidEntry");
 				pbNoValidity = false;
-			}
-			else
-			{
+			}else{
 				pbNoBox.removeStyleName("gwt-TextBox-invalidEntry");
 				pbNoValidity = true;
 			}
@@ -142,19 +109,15 @@ public class CreateProductBatchView extends Composite
 		@Override
 		public void onKeyUp(KeyUpEvent event) 
 		{
-			if(!FieldVerifier.isReceptNoValid(receptNoBox.getText()))
-			{
+			if(!FieldVerifier.isReceptNoValid(receptNoBox.getText())) {
 				receptNoBox.setStyleName("gwt-TextBox-invalidEntry");
 				receptNoValidity = false;
-			}
-			else
-			{
+			}else{
 				receptNoBox.removeStyleName("gwt-TextBox-invalidEntry");
 				receptNoValidity = true;
 			}
 			OKButtonValidity();
 		}
-
 	}
 	
 	private class DateBoxHandler implements KeyUpHandler
@@ -162,15 +125,10 @@ public class CreateProductBatchView extends Composite
 		@Override
 		public void onKeyUp(KeyUpEvent event) 
 		{
-			if(!FieldVerifier.isValidName(dateBox.getText()))
-			{
-				dateBox.setStyleName("gwt-TextBox-invalidEntry");
-				dateValidity = false;
-			}
-			else
-			{
-				dateBox.removeStyleName("gwt-TextBox-invalidEntry");
+			if(!dateBox.getText().isEmpty()){
 				dateValidity = true;
+			}else{
+				dateBox.setStyleName("gwt-TextBox-invalidEntry");
 			}
 			OKButtonValidity();
 		}
@@ -181,13 +139,10 @@ public class CreateProductBatchView extends Composite
 		@Override
 		public void onKeyUp(KeyUpEvent event) 
 		{
-			if(!FieldVerifier.isStatusValid(statBox.getText()))
-			{
+			if(!FieldVerifier.isStatusValid(statBox.getText()))	{
 				statBox.setStyleName("gwt-TextBox-invalidEntry");
 				statValidity = false;
-			}
-			else
-			{
+			}else{
 				statBox.removeStyleName("gwt-TextBox-invalidEntry");
 				statValidity = true;
 			}
@@ -198,11 +153,54 @@ public class CreateProductBatchView extends Composite
 	private void OKButtonValidity()
 	{
 		if(pbNoValidity && receptNoValidity && dateValidity && statValidity)
-		{
 			OKButton.setEnabled(true);
-		}
-		else OKButton.setEnabled(false);
+		else 
+			OKButton.setEnabled(false);
 	}
+/*	
+	private class PBClickHandler implements ClickHandler 
+	{
+		int pbI;
+		int statI;
+		int recI;
+		int datI;
+		
+	      @Override
+	      public void onClick(ClickEvent event) {
+				try {
+					this.pbI = Integer.parseInt(pbNoBox.getText());
+					this.statI = Integer.parseInt(statBox.getText());
+					this.recI = Integer.parseInt(receptNoBox.getText());
+					this.datI = Integer.parseInt(dateBox.getText());
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				}
+				
+				ProductBatchDTO uDTO = new ProductBatchDTO(pbI, statI, recI, datI);
+	    	  
+				try {
+					mc.service.create(create, new AsyncCallback<Void>() {
+							@Override
+							public void onSuccess(Void result) {
+								Window.alert("ProduktBatchen er gemt succefuldt");
+							}
 	
+							@Override
+							public void onFailure(Throwable caught) {
+								Window.alert("Server fejl!" + caught.getMessage());
+							}
+						}
+					);
+				} 
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+				OKButton.setEnabled(true);
+	      }
+	   }
+*/
 	
 }
+
+
+

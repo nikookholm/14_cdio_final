@@ -1,40 +1,53 @@
 package code.client.views;
 
+import java.util.List;
+
 import code.*;
 import code.client.DatabaseServiceAsync;
 import code.client.controllers.MainController;
 import code.client.controllers.ProductBatchController;
 import code.database.DALException;
+import code.database.ProductBatchDTO;
 import code.server.DatabaseServiceImpl;
 
 import com.google.gwt.*;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ListProductBatchView extends Composite
 {
 	ProductBatchController pbC;
+	MainController mc;
 	VerticalPanel VPanel;
+	Label pbNoLabel, receptNoLabel, dateLabel, statLabel;
+	Label infoLabel;
 	
-	public ListProductBatchView(MainController mc) throws DALException
+	List<ProductBatchDTO> ls;
+
+	public ListProductBatchView(final MainController mc) throws DALException
 	{
+		this.mc = mc;
 		VPanel = new VerticalPanel();
-		VPanel.setHeight("100px");
 		initWidget(this.VPanel);
 		
-		final FlexTable ft = new FlexTable();
-		ft.getCellFormatter().setWidth(0, 0, "100px");
-		ft.getCellFormatter().setWidth(0, 1, "100px");
-		ft.getCellFormatter().setWidth(0, 2, "100px");
+		pbNoLabel		= new Label("prodBatchNo");
+		receptNoLabel	= new Label("receptNo");
+		dateLabel		= new Label("date");
+		statLabel		= new Label("status");
 		
-		ft.setTitle("ProductBatchListView");
+		infoLabel = new Label("Intast den nye ProduktBatchs oplysninger hér.");
+		final FlexTable flex = new FlexTable();
+		flex.setTitle("ProductBatchListView");
+		flex.setWidget(0, 0, pbNoLabel);
+		flex.setWidget(0, 1, receptNoLabel);
+		flex.setWidget(0, 2, dateLabel);
+		flex.setWidget(0, 3, statLabel);
 		
-		ft.setText(0, 0, "pbID");
-		ft.setText(0, 1, "receptID");
-		ft.setText(0, 2, "Status");
+		VPanel.add(flex);
 		
-//		mc.show(widget);
+		
 		
 	}
 	
