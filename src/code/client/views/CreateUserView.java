@@ -1,4 +1,4 @@
-	package code.client.views;
+package code.client.views;
 
 import code.client.controllers.MainController;
 import code.database.UserDTO;
@@ -26,8 +26,9 @@ public class CreateUserView extends Composite {
 	ListBox roleList;
 	Button okBtn;
 	Grid table;
-	Label viewInfo;
+	Label viewInfo, presentSuccess;
 	MainController mc;
+
 
 	// Flag der skal afgøre om ok knappen skal gøres tilgænglig
 	boolean nameCheck = false; 
@@ -36,9 +37,9 @@ public class CreateUserView extends Composite {
 
 
 
-	public CreateUserView(final MainController mc){
+	public CreateUserView(final UserDTO user, final MainController mc){
 
-		this.mc = mc;
+
 		this.vPanel = new VerticalPanel();
 		initWidget(vPanel);
 
@@ -46,6 +47,7 @@ public class CreateUserView extends Composite {
 		okBtn = new Button("Ok");
 		okBtn.setEnabled(false);
 		viewInfo = new Label("Indtast den nye brugers oplysninger");
+		presentSuccess.setText(user.getOprName() + " er oprettet i databasen");
 		table = new Grid(4,2);
 		table.setWidget(0, 0, new Label("Navn"));
 		table.setWidget(0, 1, nameBox =new TextBox());
@@ -70,34 +72,20 @@ public class CreateUserView extends Composite {
 
 
 		okBtn.addClickHandler(new ClickHandler() {
-				UserDTO user = new UserDTO(0, nameBox.getText(), iniBox.getText(), cprBox.getText(),"",1,true); 
-		// Der kan laves en specifik konstruktør med navn, ini, cpr- nummer og role;
-
-					@Override
+			UserDTO newUser = new UserDTO(0,nameBox.getText(),iniBox.getText(),"", cprBox.getText(),roleList.getTabIndex(),true);
+			@Override
 			public void onClick(ClickEvent event) {
-						 mc.databaseService.user_table_create(user, new AsyncCallback<Void>() {
-							
-							@Override
-							public void onSuccess(Void result) {
-								
-								
-							}
-							
-							@Override
-							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
-								
-							}
-						});
-						 
-		// Skal have fat i databaseService, hvor der skal sendes et userDTO
-		// databaseService er private
-		// den siger at der mangler en konstant, hvilket nok har med implementerings 
-		// metoden at gøre
 
-					}
-				});
+				mc.getUserController().createUser(newUser);
 
+			}
+		});
+
+
+	}
+
+
+	public CreateUserView() {
 
 	}
 
