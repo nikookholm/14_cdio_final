@@ -1,6 +1,8 @@
 package code.database;
 
-public class IngredientBatchDTO
+import java.io.Serializable;
+
+public class IngredientBatchDTO implements Serializable
 {
 	int rbId;                     // i omraadet 1-99999999
 	int ingredientId;             // i omraadet 1-99999999

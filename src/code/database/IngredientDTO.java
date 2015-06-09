@@ -1,5 +1,7 @@
 package code.database;
 
+import java.io.Serializable;
+
 /**
  * Ingredient Data Objekt
  * 
@@ -7,7 +9,7 @@ package code.database;
  * @version 1.2
  */
 
-public class IngredientDTO 
+public class IngredientDTO implements Serializable
 {
     /** i omraadet 1-99999999 vaelges af brugerne */
     int ingredientId;                     
