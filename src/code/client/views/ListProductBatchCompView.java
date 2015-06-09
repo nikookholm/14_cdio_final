@@ -36,6 +36,8 @@ public class ListProductBatchCompView extends Composite {
 		ft.getCellFormatter().setWidth(0, 0, "100px");
 		ft.getCellFormatter().setWidth(0, 1, "100px");
 		ft.getCellFormatter().setWidth(0, 2, "100px");
+		ft.getCellFormatter().setWidth(0, 3, "100px");
+		ft.getCellFormatter().setWidth(0, 4, "100px");
 
 		ft.setTitle("ProductBatchCompListView");
 
