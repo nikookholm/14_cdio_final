@@ -8,10 +8,17 @@ import code.database.IngredientDTO;
 
 public class IngredientController {
 	
+
+	MainController mc;
+	
 	IngredientDAO ingDAO;
 	IngredientDAO ingDTO;
 	
-	
+	public IngredientController(MainController mc){
+		this.mc = mc;
+		
+		
+	}
 	public void createIngredient(IngredientDTO ingDTO) throws Exception {
 		
 		Connector con = new Connector();
