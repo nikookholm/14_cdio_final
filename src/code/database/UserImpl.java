@@ -34,8 +34,8 @@ public class UserImpl implements UserDAO {
 		);
 	}
 	
-	public List<UserDTO> getUserList() throws DALException {
-		List<UserDTO> list = new ArrayList<UserDTO>();
+	public ArrayList<UserDTO> getUserList() throws DALException {
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 		ResultSet rs = Connector.doQuery("SELECT * FROM user");
 		try
 		{
