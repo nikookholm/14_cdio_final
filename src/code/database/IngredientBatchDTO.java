@@ -4,7 +4,12 @@ public class IngredientBatchDTO
 {
 	int rbId;                     // i omraadet 1-99999999
 	int ingredientId;             // i omraadet 1-99999999
-	double maengde;             // kan vaere negativ 
+	double maengde;             // kan vaere negativ
+	
+	public IngredientBatchDTO()
+	{
+		
+	}
 
 	public IngredientBatchDTO(int rbId, int ingredientId, double maengde)
 	{

@@ -15,6 +15,11 @@ public class IngredientDTO
     String ingredientName;                
     /** min. 2 max. 20 karakterer */
     String leverandoer;         
+    
+    public IngredientDTO()
+    {
+    	
+    }
 	
 	public IngredientDTO(int ingredientId, String ingredientName, String leverandoer)
 	{

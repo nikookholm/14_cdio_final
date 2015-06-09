@@ -24,6 +24,11 @@ public class UserDTO
 	/**User status: boolean for true or false if active */
 	boolean active;
 	
+	public UserDTO()
+	{
+		
+	}
+	
 	public UserDTO(int oprId, String oprName, String ini, String cpr, String password, int role, boolean active)
 	{
 		this.oprId = oprId;

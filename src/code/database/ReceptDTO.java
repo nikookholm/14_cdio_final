@@ -15,6 +15,10 @@ public class ReceptDTO
 	String receptName;
 	/** liste af kompenenter i recepten */
 	
+	public ReceptDTO()
+	{
+		
+	}
     
 	public ReceptDTO(int receptId, String receptName)
 	{
