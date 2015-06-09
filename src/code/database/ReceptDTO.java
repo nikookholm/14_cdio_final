@@ -21,12 +21,6 @@ public class ReceptDTO
         this.receptId = receptId;
         this.receptName = receptName;
     }
-	
-	public ReceptDTO(ReceptDTO recept)
-	{
-		this.receptId = recept.getReceptId();
-		this.receptName = recept.getReceptName();
-	}
 
     public int getReceptId() { return receptId; }
 	public void setReceptId(int receptId) { this.receptId = receptId; }

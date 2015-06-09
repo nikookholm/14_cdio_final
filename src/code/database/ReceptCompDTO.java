@@ -14,14 +14,6 @@ public class ReceptCompDTO
 		this.nomNetto = nomNetto;
 		this.tolerance = tolerance;
 	}
-	
-	public ReceptCompDTO(ReceptCompDTO receptComp)
-	{
-		this.receptId = receptComp.getReceptId();
-		this.ingredientId = receptComp.getIngredientId();
-		this.nomNetto = receptComp.getNomNetto();
-		this.tolerance = receptComp.getTolerance();
-	}
 
 	public int getReceptId() { return receptId; }
 	public void setReceptId(int receptId) { this.receptId = receptId; }

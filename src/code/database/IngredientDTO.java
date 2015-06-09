@@ -23,13 +23,6 @@ public class IngredientDTO
 		this.leverandoer = leverandoer;
 	}
 	
-	public IngredientDTO(IngredientDTO ingr)
-	{
-		this.ingredientId = ingr.getIngredientId();
-		this.ingredientName = ingr.getIngredientName();
-		this.leverandoer = ingr.getLeverandoer();
-	}
-	
     public int getIngredientId() { return ingredientId; }
     public void setIngredientId(int IngredientId) { this.ingredientId = IngredientId; }
     public String getIngredientName() { return ingredientName; }

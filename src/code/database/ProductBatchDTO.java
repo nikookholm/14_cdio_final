@@ -13,12 +13,6 @@ public class ProductBatchDTO
 		this.receptId = receptId;
 	}
 	
-	public ProductBatchDTO(ProductBatchDTO pb)
-	{
-		this.pbId = pb.getPbId();
-		this.status = pb.getStatus();
-		this.receptId = pb.getReceptId();
-	}
 	public int getPbId() { return pbId; }
 	public void setPbId(int pbId) { this.pbId = pbId; }
 	public int getStatus() { return status; }

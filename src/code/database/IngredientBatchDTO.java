@@ -13,13 +13,6 @@ public class IngredientBatchDTO
 		this.maengde = maengde;
 	}
 	
-	public IngredientBatchDTO(IngredientBatchDTO ingrBatch)
-	{
-		this.rbId = ingrBatch.getRbId();
-		this.ingredientId = ingrBatch.getIngredientId();
-		this.maengde = ingrBatch.getMaengde();
-	}
-	
 	public int getRbId() { return rbId; }
 	public void setRbId(int rbId) { this.rbId = rbId; }
 	public int getIngredientId() { return ingredientId; }

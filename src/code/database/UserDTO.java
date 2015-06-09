@@ -34,17 +34,6 @@ public class UserDTO
 		this.role = role;
 		this.active = active;
 	}
-	
-    public UserDTO(UserDTO opr)
-    {
-    	this.oprId = opr.getOprId();
-    	this.oprName = opr.getOprName();
-    	this.ini = opr.getIni();
-    	this.cpr = opr.getCpr();
-    	this.password = opr.getPassword();
-    	this.role = opr.getRole();
-    	this.active = opr.getActive();
-    }
     
     public int getOprId() { return oprId; }
 	public void setOprId(int oprId) { this.oprId = oprId; }

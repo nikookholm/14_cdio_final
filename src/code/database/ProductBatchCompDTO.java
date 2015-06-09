@@ -18,15 +18,6 @@ public class ProductBatchCompDTO
 		this.oprId = oprId;
 	}
 	
-	public ProductBatchCompDTO(ProductBatchCompDTO pbComp)
-	{
-		this.pbId = pbComp.getPbId();
-		this.rbId = pbComp.getRbId();
-		this.tara = pbComp.getTara();
-		this.netto = pbComp.getNetto();
-		this.oprId = pbComp.getOprId();
-	}
-	
 	public int getPbId() { return pbId; }
 	public void setPbId(int pbId) { this.pbId = pbId; }
 	public int getRbId() { return rbId; }
