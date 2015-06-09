@@ -2,6 +2,7 @@ package code.server;
 
 import code.client.WeightService;
 import code.client.controllers.WeightProcedures;
+import code.shared.WeightException;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -17,7 +18,7 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 
 	TCPConnector tcp;
 	
-	public WeightServiceImpl(){
+	public WeightServiceImpl() throws WeightException{
 		try {
 			listenForTarget();
 		} catch (Exception e) {
@@ -26,7 +27,7 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 	}
 	
 	@Override
-	public double getTara() {
+	public double getTara() throws WeightException {
 		String temp;
 		tcp.send("T\r\n");
 		temp = tcp.receive();
@@ -37,13 +38,12 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 		}
 		else
 		{
-			System.out.println(">>>");
-			return 0;
+			throw new WeightException("Der skete en fejl, da tara prøvede at hentes");
 		}
 	}
 
 	@Override
-	public double getWeight() {
+	public double getWeight() throws WeightException{
 		{
 			String temp;
 			tcp.send("S\r\n");
@@ -54,13 +54,13 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 			}
 			else
 			{
-				return 0;
+				throw new WeightException("Der skete en fejl, da vægten forsøgte at aflæses");	
 			}
 		}
 	}
 
 	@Override
-	public String rm20(int type, String message) {
+	public String rm20(int type, String message) throws WeightException {
 		String result;
 		type = 8;
 		String request = "RM20 " + type + " \"" + message + "\" \" \" \" \"\r\n";

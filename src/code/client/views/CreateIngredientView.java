@@ -1,6 +1,7 @@
 package code.client.views;
 
 import code.client.controllers.MainController;
+import code.database.IngredientDTO;
 import code.shared.FieldVerifier;
 
 import com.google.gwt.event.dom.client.KeyUpEvent;
@@ -38,20 +39,24 @@ public class CreateIngredientView extends Composite{
 
 
 
-	public  CreateIngredientView(final MainController mc){
+	public  CreateIngredientView(final MainController mc, IngredientDTO createdIng){
+		
+		
 
 		this.mc = mc;
 		this.vPanel = new VerticalPanel();
 		initWidget(vPanel);
 
-		this.tabel = new Grid(3,2);
-
-		tabel.setWidget(0, 0, leverandoerLabel);
-		tabel.setWidget(0, 1, leverandoerBox);
-		tabel.setWidget(1, 0, ingredientNameLabel);
-		tabel.setWidget(1, 1, ingredientNameBox);
-		tabel.setWidget(2, 0, ingredientIdLabel);
-		tabel.setWidget(2, 1, ingredientIdBox   = new TextBox());
+		this.tabel = new Grid(4,2);
+		
+		tabel.setWidget(0, 0, new Label("Stat"));
+		tabel.setWidget(0, 1, new TextBox());
+		tabel.setWidget(1, 0, leverandoerLabel);
+		tabel.setWidget(1, 1, leverandoerBox);
+		tabel.setWidget(2, 0, ingredientNameLabel);
+		tabel.setWidget(2, 1, ingredientNameBox);
+		tabel.setWidget(3, 0, ingredientIdLabel);
+		tabel.setWidget(3, 1, ingredientIdBox   = new TextBox());
 
 
 		this.subTable = new Grid(1,2);
@@ -135,6 +140,8 @@ public class CreateIngredientView extends Composite{
 
 	}
 	public void cancelButtonEnable(){
+		
+		mc.show(new MainView(mc));
 		
 	}
 
