@@ -1,5 +1,7 @@
 package code.client;
 
+import code.shared.WeightException;
+
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -8,10 +10,10 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("weight")
 public interface WeightService extends RemoteService {
-	double getTara();
-	double getWeight();
-	String rm20(int type, String message);
-	boolean printToDisplay(String message);
-	void clearDisplay();
+	double getTara() throws WeightException;
+	double getWeight() throws WeightException;
+	String rm20(int type, String message) throws WeightException;
+	boolean printToDisplay(String message) throws WeightException;
+	void clearDisplay() throws WeightException;
 	void listenForTarget() throws Exception;
 }
