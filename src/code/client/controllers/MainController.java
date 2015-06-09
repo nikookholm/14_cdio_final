@@ -14,17 +14,26 @@ public class MainController {
 			.create(DatabaseService.class);
 	
 	private UserController userController;
+	private IngredientController ingredientController;
+	private ProductBatchController productBatchController;
 	private String user;
 
 	public MainController()
 	{
 		userController = new UserController(this);
+		ingredientController = new IngredientController(this);
+		//productBatchController = new ProductBatchController(this);
 		show(new LoginView(this));
 	}
 	
 	public UserController getUserController()
 	{
 		return userController;
+	}
+	
+	public IngredientController getIngredientController()
+	{
+		return ingredientController;
 	}
 	
 	public void show(Widget widget)

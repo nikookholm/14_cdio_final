@@ -2,6 +2,8 @@ package code.client.views;
 
 import code.client.controllers.MainController;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -12,20 +14,77 @@ public class MainView extends Composite {
 	
 	private MainController mc;
 	
-	public MainView(MainController mc)
+	public MainView(final MainController mc)
 	{
 		this.mc = mc;
 		VerticalPanel panel = new VerticalPanel();
 		
-		//panel.add(new Label("Hej " + mc.getUser()));
+		Anchor addUser			= new Anchor("Opret bruger");
+		Anchor updateUser		= new Anchor("Se og rediger brugere");
+		Anchor addIngredient	= new Anchor("Opret ny ingrediens");
+		Anchor updateIngredient = new Anchor("Se og rediger ingredienser");
+		Anchor addProductBatch	= new Anchor("Opret ny produkt batch");
+		Anchor listProductBatch = new Anchor("Se alle produkt batches");
+		
+		ClickHandler addUserHandler = new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				mc.show(mc.getUserController().createUser(null));				
+			}
+		};
+		
+		ClickHandler updateUserHandler = new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				mc.show(mc.getUserController().createUser());				
+			}
+		};
+		
+		ClickHandler addIngredientHandler = new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				mc.show(mc.getIngredientController().createIngredient(null));				
+			}
+		};
+		
+		ClickHandler updateIngredientHandler = new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				//mc.show(mc.getIngredientController());				
+			}
+		};
+		
+		ClickHandler addProductBatchHandler = new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				//mc.show(mc.getIngredientController());				
+			}
+		};
+		
+		ClickHandler listProductBatchHandler = new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				//mc.show(mc.getIngredientController());				
+			}
+		};
 		
 		panel.add(new Label("Brugeradministration"));
-		panel.add(new Anchor("Opret bruger"));
-		panel.add(new Anchor("Se og rediger brugere"));
+		addUser.addClickHandler(addUserHandler);
+		panel.add(addUser);
+		updateUser.addClickHandler(updateUserHandler);
+		panel.add(updateUser);
 		
 		panel.add(new Label("Råvare/ingredienser"));
-		panel.add(new Anchor("Opret ny ingrediens"));
-		panel.add(new Anchor("Se og rediger ingredienser"));
+		addIngredient.addClickHandler(addIngredientHandler);
+		panel.add(addIngredient);
+		updateIngredient.addClickHandler(updateIngredientHandler);
+		panel.add(updateIngredient);
+		
+		panel.add(new Label("Produkt batches"));
+		addProductBatch.addClickHandler(addProductBatchHandler);
+		panel.add(addProductBatch);
+		listProductBatch.addClickHandler(listProductBatchHandler);
+		panel.add(listProductBatch);
 		
 		initWidget(panel);
 		
