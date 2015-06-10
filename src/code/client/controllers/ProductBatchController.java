@@ -23,6 +23,8 @@ public class ProductBatchController
 	
 	public Widget createProductBatch(ProductBatchDTO pbDTO)
 	{
+		this.pbDTO = pbDTO;
+		
 		if(pbDTO != null){
 			mc.databaseService.productBatch_table_create(pbDTO, new AsyncCallback<Void>() {
 				
@@ -36,7 +38,7 @@ public class ProductBatchController
 					Window.alert("Server fejl!" + caught.getMessage());
 				}
 			});
-			return new CreateProductBatchView(pbDTO, mc);	
+			return null;	
 		}
 		else{
 			return new CreateProductBatchView(pbDTO, mc);

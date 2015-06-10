@@ -38,7 +38,7 @@ public class CreateProductBatchView extends Composite
 	boolean pbNoValidity 		= false;
 	boolean receptNoValidity	= false;
 	
-	public CreateProductBatchView(final ProductBatchDTO pbDTO, final MainController mc)
+	public CreateProductBatchView(ProductBatchDTO pbDTO, MainController mc)
 	{
 		this.mc = mc;
 		this.VPanel = new VerticalPanel();
@@ -46,7 +46,6 @@ public class CreateProductBatchView extends Composite
 		
 		pbNoLabel		= new Label("prodBatchNo");
 		receptNoLabel	= new Label("receptNo");
-
 		pbNoBox		= new TextBox();
 		receptNoBox	= new TextBox();
 		
@@ -60,7 +59,7 @@ public class CreateProductBatchView extends Composite
 			this.flex = new FlexTable();
 			
 		}else{
-			infoLabel = new Label("Intast den nye ProduktBatchs oplysninger hér.");
+			infoLabel = new Label("Intast den nye ProduktBatchs oplysninger hér");
 			this.table = new Grid(3, 2);
 			table.setTitle("Create new ProductBatch");
 			table.setWidget(0, 0, pbNoLabel);
