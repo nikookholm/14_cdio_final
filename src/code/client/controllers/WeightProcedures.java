@@ -18,7 +18,7 @@ import code.shared.WeightException;
 public class WeightProcedures {
 
 	UserDTO opr;
-	
+
 	DatabaseService dbs = new DatabaseServiceImpl();
 	WeightService ws;
 
@@ -64,41 +64,43 @@ public class WeightProcedures {
 
 	private void confirmOperator() throws WeightException
 	{
-		
+
 		String validateOpr;
 		String message = "Er du" + opr;
 		String valid = "1";
-		
+
 		validateOpr = ws.rm20(4, message);
 		if(validateOpr.equals(valid)){
 			chooseProductNumber();
 		}else{
 			login();	
 		}
-		
+
 	}
 
 	private void chooseProductNumber() throws WeightException
 	{
-		
+
 		String message = "indtast produktnummer";
 		String produktNummer;
 		int produktNr;
 		ReceptDTO recept;
 		ProductBatchDTO pbDTO;
-		
+	 	int pbId;
+
 		produktNummer = ws.rm20(4, message);
-		
+
 		if(produktNummer.matches("\\D")){
 			produktNr = Integer.parseInt(produktNummer);
-			pbDTO = dbs.produ
-			recept = dbs.recept_table_get(produktNr);
-			
+			pbDTO = dbs.productBatch_table_get(produktNr);
+			recept = dbs.recept_table_get(pbDTO.getReceptId());
+		}else{
+			chooseProductNumber();
 		}
 
 	}
 
-	private void ingredientLine(IngredientDTO ingredient)
+	private void ingredientLine(IngredientDTO ingredient) throws WeightException
 	{
 
 		// udfører de nedstående metoder
@@ -109,11 +111,11 @@ public class WeightProcedures {
 		updateStatus();
 	}
 
-	private void clearAndTara()
+	private void clearAndTara() throws WeightException
 	{
-
-		//		weightService.clearWeight();
-		//		weightService.taraWeight();
+		
+//			ws.clear.
+			ws.getTara();
 
 	}
 

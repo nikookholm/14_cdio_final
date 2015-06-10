@@ -4,7 +4,6 @@ import code.*;
 import code.client.controllers.MainController;
 import code.client.controllers.ProductBatchController;
 import code.database.ProductBatchDTO;
-import code.database.UserDTO;
 import code.shared.FieldVerifier;
 
 import com.google.gwt.*;
@@ -16,6 +15,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -30,7 +30,8 @@ public class CreateProductBatchView extends Composite
 	VerticalPanel VPanel;
 	Button OKButton, cancelButton;
 	Label infoLabel;
-	Grid table;
+	Grid table, subTable;
+	FlexTable flex;
 	Label pbNoLabel, receptNoLabel;
 	TextBox pbNoBox, receptNoBox, statBox;
 	
@@ -54,21 +55,30 @@ public class CreateProductBatchView extends Composite
 		cancelButton = new Button("Cancel");
 		cancelButton.setEnabled(true);
 		
-		infoLabel = new Label("Intast den nye ProduktBatchs oplysninger hér.");
-		table = new Grid(3, 2);
-		table.setTitle("Create new ProductBatch");
-		table.setWidget(0, 0, pbNoLabel);
-		table.setWidget(0, 1, pbNoBox);
-		table.setWidget(1, 0, receptNoLabel);
-		table.setWidget(1, 1, receptNoBox);
-		table.setWidget(2, 0, OKButton);
-		table.setWidget(2, 1, cancelButton);
+		if(pbDTO != null){
+			infoLabel = new Label("Dette er det nyligt oprettet ProduktBatch");
+			this.flex = new FlexTable();
+			
+		}else{
+			infoLabel = new Label("Intast den nye ProduktBatchs oplysninger hér.");
+			this.table = new Grid(3, 2);
+			table.setTitle("Create new ProductBatch");
+			table.setWidget(0, 0, pbNoLabel);
+			table.setWidget(0, 1, pbNoBox);
+			table.setWidget(1, 0, receptNoLabel);
+			table.setWidget(1, 1, receptNoBox);
+		}
+		
+		this.subTable = new Grid(1, 2);
+		subTable.setWidget(0, 0, cancelButton);
+		subTable.setWidget(0, 0, OKButton);
 		
 		pbNoBox.addKeyUpHandler(new PbNoBoxHandler());
 		receptNoBox.addKeyUpHandler(new ReceptNoBoxHandler());
 		
 		VPanel.add(infoLabel);
 		VPanel.add(table);
+		VPanel.add(subTable);
 		
 		OKButton.addClickHandler(new OKClickHandler());
 		cancelButton.addClickHandler(new cancelClickHandler());
@@ -127,6 +137,7 @@ public class CreateProductBatchView extends Composite
 	    @Override
 	    public void onClick(ClickEvent event) {
 			mc.getProductBatchController().createProductBatch(pbDTO);
+			
       }
    }
 	

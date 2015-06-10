@@ -1,16 +1,13 @@
 package code.client.controllers;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import code.client.views.CreateProductBatchView;
-import code.client.views.CreateUserView;
 import code.client.views.ListProductBatchView;
-import code.client.views.ListUsersView;
 import code.database.*;
 
 public class ProductBatchController 
@@ -31,7 +28,7 @@ public class ProductBatchController
 				
 				@Override
 				public void onSuccess(Void result) {
-					//Tillykke du er dygtig
+					
 				}
 				
 				@Override
@@ -39,7 +36,7 @@ public class ProductBatchController
 					Window.alert("Server fejl!" + caught.getMessage());
 				}
 			});
-			return null;	
+			return new CreateProductBatchView(pbDTO, mc);	
 		}
 		else{
 			return new CreateProductBatchView(pbDTO, mc);

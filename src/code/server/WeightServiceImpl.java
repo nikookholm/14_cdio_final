@@ -1,8 +1,16 @@
 package code.server;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 import code.client.WeightService;
 import code.client.controllers.WeightProcedures;
 import code.shared.WeightException;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -12,14 +20,14 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class WeightServiceImpl extends RemoteServiceServlet implements
 		WeightService {
-	
-	String 	host = "169.254.2.2";
-	int 	port = 8000;
 
+	String contentOfFile;
+	String[] adressArray;
 	TCPConnector tcp;
 	
 	public WeightServiceImpl() throws WeightException{
 		try {
+			fileRead();
 			listenForTarget();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,23 +87,62 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 	}
 	
 	@Override
-	public boolean printToDisplay(String message) {
+	public boolean printToDisplay(String message) throws WeightException {
 		tcp.send("D " + message + "\r\n");
 		return ("D A".equals(tcp.receive())) ? true : false;
 	}
 
 	@Override
-	public void clearDisplay() {
-		//DW-kommando
+	public void clearDisplay() throws WeightException {
+		String result;
+		String request = "DW\r\n";
+		tcp.send(request);
+		result = tcp.receive();
+		
+		if(result.equals("DW A"));
+		{
+			getWeight();
+		}
+		{throw new WeightException("Der opstod en fejl, da vægten prøvede at skifte til vægt-visning");}
+			
 	}
 
 	@Override
 	public void listenForTarget() throws Exception{
-		tcp = new TCPConnector(host, port);
-		tcp.connect();
+		TCPConnector tcp;
+		
+		boolean noTarget = false;
+		String host = null;
+		int port = 0;
+		while(!noTarget)
+		{
+			for(String ip : adressArray) 
+			{
+				host = ip.substring(0, ip.indexOf(":"));
+				try
+				{
+					port = Integer.parseInt(ip.substring(ip.indexOf(":")+1));
+				}
+				catch(NumberFormatException e)
+				{
+					e.printStackTrace();
+				}
+				
+				tcp = new TCPConnector(host, port);
+				if(tcp.connect())
+				{
+					new WeightProcedures(this).start();
+				}
+			}
+		}
+		
+		
 		//Lytter efter vægt-terminaler på IP'er. Hvis den finder en ip, køres WeightProcedures
 	}
-
-
 	
+	public void fileRead() throws IOException
+	{	
+		contentOfFile = FileUtils.readFileToString(new File("ip_port.txt"));
+		adressArray = ArrayUtils.toArray(contentOfFile.replaceAll("\\r", "").split("\n"));
+	}
 }
