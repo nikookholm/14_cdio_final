@@ -37,6 +37,7 @@ public interface DatabaseServiceAsync {
 	
 	void ingredientBatch_table_create(IngredientBatchDTO ingredient, AsyncCallback<Void> callback);
 	void ingredientBatch_table_list(AsyncCallback<ArrayList<IngredientBatchDTO>> callback);
+	void ingredientBatch_table_get(int id, AsyncCallback<IngredientBatchDTO> callback);
 	
 	
 }
