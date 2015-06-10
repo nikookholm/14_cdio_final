@@ -70,7 +70,7 @@ public class CreateProductBatchView extends Composite
 		
 		this.subTable = new Grid(1, 2);
 		subTable.setWidget(0, 0, cancelButton);
-		subTable.setWidget(0, 0, OKButton);
+		subTable.setWidget(0, 1, OKButton);
 		
 		pbNoBox.addKeyUpHandler(new PbNoBoxHandler());
 		receptNoBox.addKeyUpHandler(new ReceptNoBoxHandler());
@@ -83,7 +83,7 @@ public class CreateProductBatchView extends Composite
 		cancelButton.addClickHandler(new cancelClickHandler());
 		
 	}
-	
+
 	private class PbNoBoxHandler implements KeyUpHandler
 	{
 		@Override
@@ -126,8 +126,11 @@ public class CreateProductBatchView extends Composite
 	
 	private class OKClickHandler implements ClickHandler 
 	{
-		int pbI = Integer.parseInt(pbNoBox.getText());
-		int recI = Integer.parseInt(receptNoBox.getText());
+//		pbI = Integer.parseInt(pbNoBox.getText());
+//		recI = Integer.parseInt(receptNoBox.getText());
+
+		int pbI = parser(pbNoBox.getText());
+		int recI = parser(receptNoBox.getText());
 		int statI = 0;
 		long datI;
 		
@@ -138,6 +141,14 @@ public class CreateProductBatchView extends Composite
 			mc.getProductBatchController().createProductBatch(pbDTO);
 			
       }
+	    
+	    private int parser(String str)
+	    {
+	    	int no = 0;
+	    	no = Integer.parseInt(str);
+	    	
+	    	return no;
+	    }
    }
 	
 	private class cancelClickHandler implements ClickHandler

@@ -14,7 +14,7 @@ public class ProductBatchController
 {
 	MainController mc;
 	ProductBatchDTO pbDTO;
-	
+	ArrayList<ProductBatchDTO> pbs;
 	
 	public ProductBatchController(MainController mc)
 	{
@@ -54,18 +54,18 @@ public class ProductBatchController
 				Window.alert("Server fejl!" + caught.getMessage());
 			}
 			@Override
-			public void onSuccess(ArrayList<ProductBatchDTO> ls) {
-				//Tillykke du er dygtig
+			public void onSuccess(ArrayList<ProductBatchDTO> result) {
+				SortedPBList(result);
 			}
 		});
-		return new ListProductBatchView(pbDTO, mc);
+		return new ListProductBatchView(pbs, mc);
 	}
 	
 	public void SortedPBList(ArrayList<ProductBatchDTO> ls) {
-		ls = new ArrayList<ProductBatchDTO>();
+		pbs = new ArrayList<ProductBatchDTO>();
 
-		for (int i=0; i<ls.size(); i++) {
-			ls.add(ls.get(i));
+		for (int i=0; i<pbs.size(); i++) {
+			pbs.add(pbs.get(i));
 		}
 	}
 	
