@@ -22,7 +22,7 @@ public class LoginView extends Composite {
 		Button okBtn    = new Button("Login");
 		Button clearBtn = new Button("Ryd");
 		okBtn.addClickHandler(new obBtnClick());
-		//clearBtn.addClickHandler(new clearBtnClick());
+		clearBtn.addClickHandler(new clearBtnClick());
 		
 		panel.add(oprNumber);
 		panel.add(okBtn);
@@ -41,14 +41,14 @@ public class LoginView extends Composite {
 		
 	}
 
-//	private class obBtnClick implements ClickHandler
-//	{
-//
-//		@Override
-//		public void onClick(ClickEvent event) {
-//			mc.show(mc.getUserController().login(oprNumber.getText()));			
-//		}
-//		
-//	}
+	private class clearBtnClick implements ClickHandler
+	{
+
+		@Override
+		public void onClick(ClickEvent event) {
+			
+		}
+		
+	}
 
 }
