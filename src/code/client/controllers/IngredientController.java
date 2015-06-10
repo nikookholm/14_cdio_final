@@ -38,6 +38,7 @@ public class IngredientController {
 				@Override
 				public void onFailure(Throwable caught) {
 					
+					
 				}
 			});			
 			return null;
