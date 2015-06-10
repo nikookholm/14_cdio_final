@@ -24,6 +24,7 @@ public class MainController {
 		userController = new UserController(this);
 		ingredientController = new IngredientController(this);
 		productBatchController = new ProductBatchController(this);
+		productBatchCompController = new ProductBatchCompController(this);
 		show(new LoginView(this));
 	}
 	
@@ -44,7 +45,7 @@ public class MainController {
 	
 	public ProductBatchCompController getProductBatchCompController()
 	{
-		return productBatchController;
+		return productBatchCompController;
 	}
 	
 	public void show(Widget widget)

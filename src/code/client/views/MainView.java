@@ -25,6 +25,7 @@ public class MainView extends Composite {
 		Anchor updateIngredient = new Anchor("Se og rediger ingredienser");
 		Anchor addProductBatch	= new Anchor("Opret ny produkt batch");
 		Anchor listProductBatch = new Anchor("Se alle produkt batches");
+		Anchor listProductBatchComp = new Anchor("Se alle produkt batches");
 		
 		ClickHandler addUserHandler = new ClickHandler() {
 			@Override
