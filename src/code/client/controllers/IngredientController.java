@@ -6,8 +6,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import code.client.views.CreateIngredientView;
-import code.database.Connector;
-import code.database.IngredientDAO;
 import code.database.IngredientDTO;
 
 public class IngredientController {
@@ -52,7 +50,7 @@ public class IngredientController {
 		}
 	}
 
-	public List<IngredientDTO> ingredientList(){
+	public List<IngredientDTO> listIngredients(){
 		
 		
 	

@@ -9,6 +9,7 @@ import code.client.controllers.MainController;
 import code.database.DALException;
 import code.database.IngredientDTO;
 
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
@@ -40,7 +41,7 @@ public class ListIngredientsView extends Composite
 		initWidget(this.vPanel);
 		this.ingls = ingls;
 
-		this.tabel = new Grid(1, 3);
+		this.tabel = new Grid(1, 4);
 		
 		flexTabel = new FlexTable();
 
@@ -48,6 +49,8 @@ public class ListIngredientsView extends Composite
 		tabel.setWidget(0, 0, NameLabel);
 		tabel.setWidget(0, 1, IdLabel);
 		tabel.setWidget(0, 2, leverandoer);
+		tabel.setWidget(0, 3, new Label());
+		
 		
 		vPanel.add(tabel);
 
@@ -58,6 +61,9 @@ public class ListIngredientsView extends Composite
 			flexTabel.setWidget(i+1, 0, new Label(ingls.get(i).getIngredientId()   + ""));
 			flexTabel.setWidget(i+1, 1, new Label(ingls.get(i).getIngredientName() + ""));
 			flexTabel.setWidget(i+1, 2, new Label(ingls.get(i).getLeverandoer()    + ""));
+			flexTabel.setWidget(i+1, 3, new Anchor("rediger"));
+			
+			
 		}
 		
 		
