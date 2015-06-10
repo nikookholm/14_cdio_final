@@ -56,7 +56,11 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void ingredients_table_create(IngredientDTO ingredient) {
-		// TODO Auto-generated method stub
+		try {
+			this.ingredient.createIngredient(ingredient);
+		} catch (DALException e) {
+			// ERROR :'(
+		}
 		
 	}
 
