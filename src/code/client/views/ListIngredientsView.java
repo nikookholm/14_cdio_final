@@ -63,7 +63,6 @@ public class ListIngredientsView extends Composite
 			flexTabel.setWidget(i+1, 2, new Label(ingls.get(i).getLeverandoer()    + ""));
 			flexTabel.setWidget(i+1, 3, new Anchor("rediger"));
 			
-			
 		}
 		
 		

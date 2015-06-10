@@ -1,11 +1,13 @@
 package code.client.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import code.client.views.CreateIngredientView;
+import code.client.views.ListIngredientsView;
 import code.database.IngredientDTO;
 
 public class IngredientController {
@@ -19,12 +21,10 @@ public class IngredientController {
 		
 		
 	}
+	
 	public Widget createIngredient(IngredientDTO ingDTO) {
-		
-//		IngredientDTO ingDTO;
 
 		if(ingDTO!= null){
-			
 			
 			// opret dto i database
 			mc.databaseService.ingredients_table_create(ingDTO, new AsyncCallback<Void>() {
@@ -32,10 +32,7 @@ public class IngredientController {
 				@Override
 				public void onSuccess(Void result) {
 					
-					//ingDTO = ;
-					
-					
-					
+					//ingDTO = ;				
 				}
 				
 				@Override
@@ -52,16 +49,29 @@ public class IngredientController {
 
 	public Widget  listIngredients(){
 		
-		
+		mc.databaseService.ingredients_table_list(new AsyncCallback<ArrayList<IngredientDTO>>() {
+			
+			@Override
+			public void onSuccess(ArrayList<IngredientDTO> result) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	
-		//List<IngredientDTO> ingLs = ingDAO.getIngredientList();
 		
-		return null;
+		return null ;//new ListIngredientsView(mc, lsIngDTO);
 
-		
 	}
 	
-	public void updateIngredient(){
+	public Widget updateIngredient(){
+		
+		return null;
 		
 	}
 	
