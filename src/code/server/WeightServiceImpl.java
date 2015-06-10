@@ -1,8 +1,6 @@
 package code.server;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
 import code.client.WeightService;
@@ -20,11 +18,13 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class WeightServiceImpl extends RemoteServiceServlet implements
 		WeightService {
-
+	
+	//globale variabler
 	String contentOfFile;
-	String[] adressArray;
+	String[] addressArray;
 	TCPConnector tcp;
 	
+	//Konstruktøren, der starter weightProcedures hvis fileRead() og listenForTarget() kører.
 	public WeightServiceImpl() throws WeightException{
 		try {
 			fileRead();
@@ -34,6 +34,7 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 		}
 	}
 	
+	//Metoden, der tarerer vægten
 	@Override
 	public double getTara() throws WeightException {
 		String temp;
@@ -50,6 +51,7 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 		}
 	}
 
+	//metoden, der henter vægten
 	@Override
 	public double getWeight() throws WeightException{
 		{
@@ -66,7 +68,8 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 			}
 		}
 	}
-
+	
+	//rm20-kommandoen, der sender en besked til vægten og får en respons tilbage
 	@Override
 	public String rm20(int type, String message) throws WeightException {
 		String result;
@@ -86,12 +89,14 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 		}
 	}
 	
+	//Metoden, der printer til displayet
 	@Override
 	public boolean printToDisplay(String message) throws WeightException {
 		tcp.send("D " + message + "\r\n");
 		return ("D A".equals(tcp.receive())) ? true : false;
 	}
 
+	//Metoden, der fjerner printdisplayet og viser vægt-displayet igen
 	@Override
 	public void clearDisplay() throws WeightException {
 		String result;
@@ -106,7 +111,9 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 		{throw new WeightException("Der opstod en fejl, da vægten prøvede at skifte til vægt-visning");}
 			
 	}
-
+	
+	//Metoden der lytter på .txt-filen fra fileRead(), lavet et array og finder om ip:port kan bruges til at forbinde
+	//Hvis det lykkes, startes weightProcedures.start()
 	@Override
 	public void listenForTarget() throws Exception{
 		TCPConnector tcp;
@@ -116,7 +123,7 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 		int port = 0;
 		while(!noTarget)
 		{
-			for(String ip : adressArray) 
+			for(String ip : addressArray) 
 			{
 				host = ip.substring(0, ip.indexOf(":"));
 				try
@@ -140,9 +147,11 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 		//Lytter efter vægt-terminaler på IP'er. Hvis den finder en ip, køres WeightProcedures
 	}
 	
+	//metoden bruger Apache Commons FileUtils og ArrayUtils og tager input-filen som en lang String
+	//derpå splitter den på linebreak og laver til array.
 	public void fileRead() throws IOException
 	{	
 		contentOfFile = FileUtils.readFileToString(new File("ip_port.txt"));
-		adressArray = ArrayUtils.toArray(contentOfFile.replaceAll("\\r", "").split("\n"));
+		addressArray = ArrayUtils.toArray(contentOfFile.replaceAll("\\r", "").split("\n"));
 	}
 }
