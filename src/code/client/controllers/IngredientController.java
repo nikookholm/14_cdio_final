@@ -50,7 +50,7 @@ public class IngredientController {
 		}
 	}
 
-	public List<IngredientDTO> listIngredients(){
+	public Widget  listIngredients(){
 		
 		
 	
