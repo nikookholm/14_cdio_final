@@ -21,6 +21,7 @@ public interface DatabaseService extends RemoteService {
 	void	  				 user_table_create(UserDTO user);
 	ArrayList<UserDTO>		 user_table_list();
 	void 					 user_table_update(UserDTO user);
+	UserDTO					 user_table_get(int id);
 	
 	void	 				 ingredients_table_create(IngredientDTO ingredient);
 	void 					 ingredients_table_update(IngredientDTO ingredient);

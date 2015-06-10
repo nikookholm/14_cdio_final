@@ -120,6 +120,17 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		return null;
 	}
 
+	@Override
+	public UserDTO user_table_get(int id) {
+		
+		try {
+			return user.getUser(id);
+		} catch (DALException e) {
+			return null;
+		}
+		
+	}
+
 
 
 	
