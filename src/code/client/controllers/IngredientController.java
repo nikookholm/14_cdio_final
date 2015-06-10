@@ -15,7 +15,6 @@ public class IngredientController {
 
 	MainController mc;
 	
-	IngredientDAO ingDAO;
 	
 	public IngredientController(MainController mc){
 		this.mc = mc;
@@ -24,7 +23,8 @@ public class IngredientController {
 	}
 	public Widget createIngredient(IngredientDTO ingDTO) {
 		
-//		ingDAO.createIngredient(ingDTO);
+//		IngredientDTO ingDTO;
+
 		if(ingDTO!= null){
 			
 			
@@ -34,17 +34,21 @@ public class IngredientController {
 				@Override
 				public void onSuccess(Void result) {
 					
+					//ingDTO = ;
+					
+					
+					
 				}
 				
 				@Override
 				public void onFailure(Throwable caught) {
-					// TODO Auto-generated method stub
 					
 				}
 			});			
 			return null;
 		}else{
-			return new CreateIngredientView(mc);
+			
+			return new CreateIngredientView(mc, ingDTO);
 		}
 	}
 
@@ -52,9 +56,9 @@ public class IngredientController {
 		
 		
 	
-		List<IngredientDTO> ingLs = ingDAO.getIngredientList();
+		//List<IngredientDTO> ingLs = ingDAO.getIngredientList();
 		
-		return ingLs;
+		return null;
 
 		
 	}

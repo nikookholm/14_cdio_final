@@ -36,21 +36,28 @@ public class CreateIngredientView extends Composite{
 	private Button clearButton  = new Button("clear");
 
 	Grid tabel, subTable;
+	IngredientDTO createdIng;
 
 
 
 	public  CreateIngredientView(final MainController mc, IngredientDTO createdIng){
 		
 		
-
+		
+		this.createdIng = createdIng;
 		this.mc = mc;
 		this.vPanel = new VerticalPanel();
 		initWidget(vPanel);
+		
+		if(createdIng!= null){
+			vPanel.add(new Label(createdIng.getIngredientName() + "er oprettet"));
+			
+		}
 
 		this.tabel = new Grid(4,2);
 		
-		tabel.setWidget(0, 0, new Label("Stat"));
-		tabel.setWidget(0, 1, new TextBox());
+//		tabel.setWidget(0, 0, new Label("Status")); // ud fra tabelen og skal vises nå iralevant
+//		tabel.setWidget(0, 1, new TextBox());
 		tabel.setWidget(1, 0, leverandoerLabel);
 		tabel.setWidget(1, 1, leverandoerBox);
 		tabel.setWidget(2, 0, ingredientNameLabel);
@@ -98,6 +105,7 @@ public class CreateIngredientView extends Composite{
 
 
 	}
+	
 	private class ingredientName implements KeyUpHandler{
 
 		@Override
@@ -116,6 +124,7 @@ public class CreateIngredientView extends Composite{
 		}
 
 	}
+	
 	private class leverandoer implements KeyUpHandler{
 
 		@Override
@@ -132,6 +141,7 @@ public class CreateIngredientView extends Composite{
 		}
 
 	}
+	
 	public void okButtonEnabler(){
 		if(ingredientIdCheck && ingredientNameCheck && leverandoerCheck){
 			OkButton.setEnabled(true);
