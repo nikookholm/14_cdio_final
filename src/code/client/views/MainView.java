@@ -57,14 +57,14 @@ public class MainView extends Composite {
 		ClickHandler addProductBatchHandler = new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				//mc.show(mc.getProductBatchController().createProductBatch(null));				
+				mc.show(mc.getProductBatchController().createProductBatch(null));				
 			}
 		};
 		
 		ClickHandler listProductBatchHandler = new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				//mc.show(mc.getProductBatchController().listProductBatch());				
+				mc.show(mc.getProductBatchController().listProductBatch());				
 			}
 		};
 		
