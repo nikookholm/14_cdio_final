@@ -158,7 +158,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		try {
 			return ingredientBatch.getIngredientBatch(id);
 		} catch (DALException e) {
-			// Do or die ...
+			return null;
 		}
 	}
 
