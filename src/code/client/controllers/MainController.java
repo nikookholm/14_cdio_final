@@ -22,7 +22,7 @@ public class MainController {
 	{
 		userController = new UserController(this);
 		ingredientController = new IngredientController(this);
-		productBatchController = new ProductBatchController(this);
+		//productBatchController = new ProductBatchController(this);
 		show(new LoginView(this));
 	}
 	
