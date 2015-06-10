@@ -26,6 +26,7 @@ public interface DatabaseServiceAsync {
 	
 	void recept_table_create(ReceptDTO recept, AsyncCallback<Void> callback);
 	void recept_table_list(AsyncCallback<ArrayList<ReceptDTO>> callback);
+	void recept_table_get(int id, AsyncCallback<ReceptDTO> callback);
 	
 	void productBatch_table_create(ProductBatchDTO productBatch, AsyncCallback<Void> callback);
 	void productBatch_table_list(AsyncCallback<ArrayList<ProductBatchDTO>> callback);

@@ -131,6 +131,15 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		
 	}
 
+	@Override
+	public ReceptDTO recept_table_get(int id) {
+		try {
+			return recept.getRecept(id);
+		} catch (DALException e) {
+			return null;
+		}
+	}
+
 
 
 	
