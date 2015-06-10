@@ -1,30 +1,73 @@
 package code.client.controllers;
 
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
 
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Widget;
+
+import code.client.views.CreateProductBatchView;
+import code.client.views.CreateUserView;
+import code.client.views.ListProductBatchView;
+import code.client.views.ListUsersView;
 import code.database.*;
 
 public class ProductBatchController 
 {
-	ProductBatchDAO pbDAO;
+	MainController mc;
 	ProductBatchDTO pbDTO;
 	
-	public void createProductBatch(ProductBatchDTO pbDTO) throws Exception
+	
+	public ProductBatchController(MainController mc)
 	{
-		Connector con = new Connector();
-		pbDAO.createProductBatch(pbDTO);
-		
-		printProductBatch();
+		this.mc = mc;
 	}
 	
-	public List<ProductBatchDTO> listProductBatch() throws Exception
+	public Widget createProductBatch(ProductBatchDTO pbDTO)
 	{
-		Connector con = new Connector();
-		List<ProductBatchDTO> ls = pbDAO.getProductBatchList();
-		
-		return ls;
+		if(pbDTO != null){
+			mc.databaseService.productBatch_table_create(pbDTO, new AsyncCallback<Void>() {
+				
+				@Override
+				public void onSuccess(Void result) {
+					//Tillykke du er dygtig
+				}
+				
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert("Server fejl!" + caught.getMessage());
+				}
+			});
+			return null;	
+		}
+		else{
+			return new CreateProductBatchView(pbDTO, mc);
+		}
+	}
+	
+	public Widget listProductBatch()
+	{
+		mc.databaseService.productBatch_table_list(new AsyncCallback<ArrayList<ProductBatchDTO>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Server fejl!" + caught.getMessage());
+			}
+			@Override
+			public void onSuccess(ArrayList<ProductBatchDTO> ls) {
+				//Tillykke du er dygtig
+			}
+		});
+		return new ListProductBatchView(pbDTO, mc);
+	}
+	
+	public void SortedPBList(ArrayList<ProductBatchDTO> ls) {
+		ls = new ArrayList<ProductBatchDTO>();
+
+		for (int i=0; i<ls.size(); i++) {
+			ls.add(ls.get(i));
+		}
 	}
 	
 	private void printProductBatch()
@@ -32,11 +75,4 @@ public class ProductBatchController
 		
 	}
 	
-	public String getDate()
-	{
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/M/dd");
-		String currentDate = sdf.format(new Date()); 
-		
-		return currentDate;
-	}
 }

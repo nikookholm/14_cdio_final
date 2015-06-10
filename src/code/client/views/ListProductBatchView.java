@@ -11,6 +11,9 @@ import code.database.ProductBatchDTO;
 import code.server.DatabaseServiceImpl;
 
 import com.google.gwt.*;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Label;
@@ -20,13 +23,15 @@ public class ListProductBatchView extends Composite
 {
 	ProductBatchController pbC;
 	MainController mc;
+	
 	VerticalPanel VPanel;
-	Label pbNoLabel, receptNoLabel, dateLabel, statLabel;
+	Button backButton;
 	Label infoLabel;
+	Label pbNoLabel, receptNoLabel, dateLabel, statLabel;
 	
 	List<ProductBatchDTO> ls;
 
-	public ListProductBatchView(final MainController mc) throws DALException
+	public ListProductBatchView(final ProductBatchDTO pbDTO, final MainController mc)
 	{
 		this.mc = mc;
 		VPanel = new VerticalPanel();
@@ -34,22 +39,37 @@ public class ListProductBatchView extends Composite
 		
 		pbNoLabel		= new Label("prodBatchNo");
 		receptNoLabel	= new Label("receptNo");
-		dateLabel		= new Label("date");
+		dateLabel		= new Label("dato");
 		statLabel		= new Label("status");
 		
-		infoLabel = new Label("Intast den nye ProduktBatchs oplysninger hér.");
+		backButton = new Button("Tilbage");
+		backButton.setEnabled(true);
+		
+		infoLabel = new Label("Listevisning over ProduktBatchses.");
 		final FlexTable flex = new FlexTable();
 		flex.setTitle("ProductBatchListView");
 		flex.setWidget(0, 0, pbNoLabel);
 		flex.setWidget(0, 1, receptNoLabel);
 		flex.setWidget(0, 2, dateLabel);
 		flex.setWidget(0, 3, statLabel);
+		flex.setWidget(1, 3, backButton);
 		
+		
+		
+		VPanel.add(infoLabel);
 		VPanel.add(flex);
 		
-		
+		backButton.addClickHandler(new backClickHandler());
 		
 	}
 	
-	
+	private class backClickHandler implements ClickHandler
+	{
+		@Override
+		public void onClick(ClickEvent event) {
+			
+			mc.show(new MainView(mc));
+		}
+		
+	}
 }

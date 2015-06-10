@@ -31,15 +31,13 @@ public class CreateProductBatchView extends Composite
 	Button OKButton, cancelButton;
 	Label infoLabel;
 	Grid table;
-	Label pbNoLabel, receptNoLabel, dateLabel, statLabel;
-	TextBox pbNoBox, receptNoBox, dateBox, statBox;
+	Label pbNoLabel, receptNoLabel;
+	TextBox pbNoBox, receptNoBox, statBox;
 	
 	boolean pbNoValidity 		= false;
 	boolean receptNoValidity	= false;
-	boolean dateValidity 		= false;
-	boolean statValidity 		= false;
 	
-	public CreateProductBatchView(final MainController mc)
+	public CreateProductBatchView(final ProductBatchDTO pbDTO, final MainController mc)
 	{
 		this.mc = mc;
 		this.VPanel = new VerticalPanel();
@@ -47,13 +45,9 @@ public class CreateProductBatchView extends Composite
 		
 		pbNoLabel		= new Label("prodBatchNo");
 		receptNoLabel	= new Label("receptNo");
-		dateLabel		= new Label("date");
-		statLabel		= new Label("status");
 
 		pbNoBox		= new TextBox();
 		receptNoBox	= new TextBox();
-		dateBox		= new TextBox();
-		statBox		= new TextBox();
 		
 		OKButton = new Button("OK");
 		OKButton.setEnabled(false);
@@ -61,31 +55,24 @@ public class CreateProductBatchView extends Composite
 		cancelButton.setEnabled(true);
 		
 		infoLabel = new Label("Intast den nye ProduktBatchs oplysninger hér.");
-		table = new Grid(4, 2);
+		table = new Grid(3, 2);
 		table.setTitle("Create new ProductBatch");
 		table.setWidget(0, 0, pbNoLabel);
 		table.setWidget(0, 1, pbNoBox);
 		table.setWidget(1, 0, receptNoLabel);
 		table.setWidget(1, 1, receptNoBox);
-		table.setWidget(2, 0, dateLabel);
-		table.setWidget(2, 1, dateBox);
-		table.setWidget(3, 0, statLabel);
-		table.setWidget(3, 1, statBox);
-		
-		dateBox.setText(pbC.getDate());
+		table.setWidget(2, 0, OKButton);
+		table.setWidget(2, 1, cancelButton);
 		
 		pbNoBox.addKeyUpHandler(new PbNoBoxHandler());
 		receptNoBox.addKeyUpHandler(new ReceptNoBoxHandler());
-		dateBox.addKeyUpHandler(new DateBoxHandler());
-		statBox.addKeyUpHandler(new StatBoxHandler());
 		
 		VPanel.add(infoLabel);
 		VPanel.add(table);
-		VPanel.add(OKButton);
-		VPanel.add(cancelButton);
 		
-//		OKButton.addClickHandler(new PBClickHandler());
-	
+		OKButton.addClickHandler(new OKClickHandler());
+		cancelButton.addClickHandler(new cancelClickHandler());
+		
 	}
 	
 	private class PbNoBoxHandler implements KeyUpHandler
@@ -120,87 +107,39 @@ public class CreateProductBatchView extends Composite
 		}
 	}
 	
-	private class DateBoxHandler implements KeyUpHandler
-	{
-		@Override
-		public void onKeyUp(KeyUpEvent event) 
-		{
-			if(!dateBox.getText().isEmpty()){
-				dateValidity = true;
-			}else{
-				dateBox.setStyleName("gwt-TextBox-invalidEntry");
-			}
-			OKButtonValidity();
-		}
-	}
-	
-	private class StatBoxHandler implements KeyUpHandler
-	{
-		@Override
-		public void onKeyUp(KeyUpEvent event) 
-		{
-			if(!FieldVerifier.isStatusValid(statBox.getText()))	{
-				statBox.setStyleName("gwt-TextBox-invalidEntry");
-				statValidity = false;
-			}else{
-				statBox.removeStyleName("gwt-TextBox-invalidEntry");
-				statValidity = true;
-			}
-			OKButtonValidity();
-		}
-	}
-	
 	private void OKButtonValidity()
 	{
-		if(pbNoValidity && receptNoValidity && dateValidity && statValidity)
+		if(pbNoValidity && receptNoValidity)
 			OKButton.setEnabled(true);
 		else 
 			OKButton.setEnabled(false);
 	}
-/*	
-	private class PBClickHandler implements ClickHandler 
-	{
-		int pbI;
-		int statI;
-		int recI;
-		int datI;
-		
-	      @Override
-	      public void onClick(ClickEvent event) {
-				try {
-					this.pbI = Integer.parseInt(pbNoBox.getText());
-					this.statI = Integer.parseInt(statBox.getText());
-					this.recI = Integer.parseInt(receptNoBox.getText());
-					this.datI = Integer.parseInt(dateBox.getText());
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				}
-				
-				ProductBatchDTO uDTO = new ProductBatchDTO(pbI, statI, recI, datI);
-	    	  
-				try {
-					mc.service.create(create, new AsyncCallback<Void>() {
-							@Override
-							public void onSuccess(Void result) {
-								Window.alert("ProduktBatchen er gemt succefuldt");
-							}
 	
-							@Override
-							public void onFailure(Throwable caught) {
-								Window.alert("Server fejl!" + caught.getMessage());
-							}
-						}
-					);
-				} 
-				catch (Exception e) {
-					e.printStackTrace();
-				}
-				OKButton.setEnabled(true);
-	      }
-	   }
-*/
+	private class OKClickHandler implements ClickHandler 
+	{
+		int pbI = Integer.parseInt(pbNoBox.getText());
+		int recI = Integer.parseInt(receptNoBox.getText());
+		int statI = 0;
+		long datI;
+		
+		ProductBatchDTO pbDTO = new ProductBatchDTO(pbI, statI, recI, datI);
+		
+	    @Override
+	    public void onClick(ClickEvent event) {
+			mc.getProductBatchController().createProductBatch(pbDTO);
+      }
+   }
+	
+	private class cancelClickHandler implements ClickHandler
+	{
+		@Override
+		public void onClick(ClickEvent event) {
+			mc.show(new MainView(mc));
+		}
+		
+	}
+	
+	
 	
 }
-
-
 
