@@ -33,7 +33,7 @@ public interface DatabaseService extends RemoteService {
 	
 	void 					   productBatch_table_create(ProductBatchDTO productBatch);
 	ArrayList<ProductBatchDTO> productBatch_table_list();
-	ProductBatchDTO			   productBatch_table_get(int id);
+	ProductBatchDTO			   productBatch_table_get(int id); 
 	
 	void productBatchComp_table_create(ProductBatchCompDTO pbComp);
 	ArrayList<ProductBatchCompDTO> productBatchComp_table_list();

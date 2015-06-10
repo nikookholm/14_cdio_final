@@ -143,7 +143,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public ProductBatchDTO productBatch_table_get(int id) {
 		try {
-			return productBatch.getProductBatch(id);
+			return productBatch.getProductBatch(id); 
 		} catch (DALException e) {
 			return null;
 		}
