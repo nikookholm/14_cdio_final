@@ -50,7 +50,7 @@ public class MainView extends Composite {
 		ClickHandler updateIngredientHandler = new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				//mc.show(mc.getIngredientController());				
+				mc.show(mc.getIngredientController().listIngredients());				
 			}
 		};
 		
