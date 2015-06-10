@@ -16,6 +16,16 @@
     <url-pattern>/cdio_final/database</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>weightServlet</servlet-name>
+    <servlet-class>code.server.WeightServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>weightServlet</servlet-name>
+    <url-pattern>/cdio_final/weight</url-pattern>
+  </servlet-mapping>
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>Cdio_final.html</welcome-file>
