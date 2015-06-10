@@ -17,12 +17,14 @@ import code.shared.WeightException;
 
 public class WeightProcedures {
 
-	private int oprNr;
-
+	UserDTO opr;
+	
 	DatabaseService dbs = new DatabaseServiceImpl();
+	WeightService ws;
 
 
 	public WeightProcedures(WeightServiceImpl weightService){
+		ws = weightService;
 		start();
 
 	}
@@ -42,58 +44,57 @@ public class WeightProcedures {
 
 	private void login() throws WeightException
 	{
-		WeightService ws = new WeightServiceImpl();
 
 		String message = "Indtast dit operatør nr.";
-		String input = null;
-		String oprNr;
-		int opr;
+		String checkOprNr;
+		int oprNr;
 
-		oprNr = ws.rm20(4, message);
-		if(oprNr.matches("\\D")){
-			opr = (dbs.user_table_list(oprNr);
-			ws
-			
-			
+		checkOprNr = ws.rm20(4, message);
+		if(checkOprNr.matches("\\D")){
+			oprNr = Integer.parseInt(checkOprNr);
+			opr = (dbs.user_table_get(oprNr));
+			if(opr==null){
+				login();
+			}
+			confirmOperator();
 		}else{
 			login();
 		}
-
-
-
-
-
-
-		// skal tjekke login igennem rm20
-		//		brug weight service
-		//		return string name of operator
-		//				parse string til int
-		//		gemmes i oprNr
-
-		//		skal kigge på den returnerede rm20 besked hvis den siger "ok" Så skal operatøren
-		//have mulighed for at bruge de forskellige kommandoer i vægten.
-		//		if(dbs.getOperatorId()>null){
-		//			dbs.getOperatorId;
-		//		}else{
-		//			
-		//		}
 	}
 
-	private void confirmOperator()
+	private void confirmOperator() throws WeightException
 	{
-		// confirmer igennem RM20 besked..
-		// respond skal være fx "ok" eller "nej"
-		//hvis "ok" får man acces til afvejning, hvis "nej" så bliver man denied.
+		
+		String validateOpr;
+		String message = "Er du" + opr;
+		String valid = "1";
+		
+		validateOpr = ws.rm20(4, message);
+		if(validateOpr.equals(valid)){
+			chooseProductNumber();
+		}else{
+			login();	
+		}
+		
 	}
 
-	private void chooseProductNumber()
+	private void chooseProductNumber() throws WeightException
 	{
-
-		//		if(dbs.ProductBatch()>null){
-		//			dbs.getRecept();
-		//		}else{
-		//		adla,sdlasd?
-		//		}
+		
+		String message = "indtast produktnummer";
+		String produktNummer;
+		int produktNr;
+		ReceptDTO recept;
+		ProductBatchDTO pbDTO;
+		
+		produktNummer = ws.rm20(4, message);
+		
+		if(produktNummer.matches("\\D")){
+			produktNr = Integer.parseInt(produktNummer);
+			pbDTO = dbs.produ
+			recept = dbs.recept_table_get(produktNr);
+			
+		}
 
 	}
 
