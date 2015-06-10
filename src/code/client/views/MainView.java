@@ -29,7 +29,7 @@ public class MainView extends Composite {
 		ClickHandler addUserHandler = new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				//mc.show(mc.getUserController().createUser(null));				
+				mc.show(mc.getUserController().createUser(null));				
 			}
 		};
 		
@@ -57,14 +57,14 @@ public class MainView extends Composite {
 		ClickHandler addProductBatchHandler = new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				//mc.show(mc.getIngredientController());				
+				mc.show(mc.getProductBatchController().createProductBatch(null));				
 			}
 		};
 		
 		ClickHandler listProductBatchHandler = new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				//mc.show(mc.getIngredientController());				
+				mc.show(mc.getProductBatchController().listProductBatch());				
 			}
 		};
 		
