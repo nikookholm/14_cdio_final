@@ -34,7 +34,7 @@ public class ListIngredientsView extends Composite
 
 	ArrayList<IngredientDTO> ingls;
 
-	public ListIngredientsView(MainController mc, ArrayList<IngredientDTO> ingls) throws DALException
+	public ListIngredientsView(MainController mc, ArrayList<IngredientDTO> ingls)
 	{
 		this.mc = mc;
 		this.vPanel = new VerticalPanel();
@@ -55,18 +55,18 @@ public class ListIngredientsView extends Composite
 		vPanel.add(tabel);
 
 
-
-		for (int i = 0; i < ingls.size(); i++ ) {
-
-			flexTabel.setWidget(i+1, 0, new Label(ingls.get(i).getIngredientId()   + ""));
-			flexTabel.setWidget(i+1, 1, new Label(ingls.get(i).getIngredientName() + ""));
-			flexTabel.setWidget(i+1, 2, new Label(ingls.get(i).getLeverandoer()    + ""));
-			flexTabel.setWidget(i+1, 3, new Anchor("rediger"));
-			
-		}
-		
-		
-		vPanel.add(flexTabel);
+//
+//		for (int i = 0; i < ingls.size(); i++ ) {
+//
+//			flexTabel.setWidget(i+1, 0, new Label(ingls.get(i).getIngredientId()   + ""));
+//			flexTabel.setWidget(i+1, 1, new Label(ingls.get(i).getIngredientName() + ""));
+//			flexTabel.setWidget(i+1, 2, new Label(ingls.get(i).getLeverandoer()    + ""));
+//			flexTabel.setWidget(i+1, 3, new Anchor("rediger"));
+//			
+//		}
+//		
+//		
+//		vPanel.add(flexTabel);
 	}
 
 }

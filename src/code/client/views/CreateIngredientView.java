@@ -72,6 +72,8 @@ public class CreateIngredientView extends Composite{
 
 			@Override
 			public void onClick(ClickEvent event) {
+				IngredientDTO ingredDTO = new IngredientDTO(Integer.parseInt( ingredientIdBox.getText()), ingredientNameBox.getText(), leverandoerBox.getText());
+				mc.show(mc.getIngredientController().createIngredient(ingredDTO));
 
 			}
 		});

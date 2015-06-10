@@ -3,17 +3,20 @@ package code.client.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import code.client.views.CreateIngredientView;
 import code.client.views.ListIngredientsView;
+import code.database.DALException;
 import code.database.IngredientDTO;
 
 public class IngredientController {
 	
 
 	MainController mc;
+	ArrayList<IngredientDTO> ingls;
 	
 	
 	public IngredientController(MainController mc){
@@ -32,7 +35,7 @@ public class IngredientController {
 				@Override
 				public void onSuccess(Void result) {
 					
-					//ingDTO = ;				
+								
 				}
 				
 				@Override
@@ -41,33 +44,34 @@ public class IngredientController {
 					
 				}
 			});			
-			return null;
+			return new CreateIngredientView(mc, ingDTO);
 		}else{
 			
-			return new CreateIngredientView(mc, ingDTO);
+			return new CreateIngredientView(mc, null);
 		}
 	}
 
 	public Widget  listIngredients(){
 		
+		
+		
 		mc.databaseService.ingredients_table_list(new AsyncCallback<ArrayList<IngredientDTO>>() {
 			
 			@Override
 			public void onSuccess(ArrayList<IngredientDTO> result) {
-				// TODO Auto-generated method stub
-				
+				ingls = result;
 			}
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				
+				ingls = null;
 			}
 		});
+		
+		
+			return new ListIngredientsView(mc, ingls);
 	
 		
-		return null ;//new ListIngredientsView(mc, lsIngDTO);
-
 	}
 	
 	public Widget updateIngredient(){
