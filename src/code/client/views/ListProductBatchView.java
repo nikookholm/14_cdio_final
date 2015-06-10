@@ -6,9 +6,7 @@ import code.*;
 import code.client.DatabaseServiceAsync;
 import code.client.controllers.MainController;
 import code.client.controllers.ProductBatchController;
-import code.database.DALException;
 import code.database.ProductBatchDTO;
-import code.server.DatabaseServiceImpl;
 
 import com.google.gwt.*;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -28,6 +26,7 @@ public class ListProductBatchView extends Composite
 	Button backButton;
 	Label infoLabel;
 	Label pbNoLabel, receptNoLabel, dateLabel, statLabel;
+	FlexTable flex;
 	
 	List<ProductBatchDTO> ls;
 
@@ -46,7 +45,7 @@ public class ListProductBatchView extends Composite
 		backButton.setEnabled(true);
 		
 		infoLabel = new Label("Listevisning over ProduktBatchses.");
-		final FlexTable flex = new FlexTable();
+		this.flex = new FlexTable();
 		flex.setTitle("ProductBatchListView");
 		flex.setWidget(0, 0, pbNoLabel);
 		flex.setWidget(0, 1, receptNoLabel);
