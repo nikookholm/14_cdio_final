@@ -16,6 +16,7 @@ public class MainController {
 	private UserController userController;
 	private IngredientController ingredientController;
 	private ProductBatchController productBatchController;
+	private ProductBatchCompController productBatchCompController;
 	private String user;
 
 	public MainController()
@@ -37,6 +38,11 @@ public class MainController {
 	}
 	
 	public ProductBatchController getProductBatchController()
+	{
+		return productBatchController;
+	}
+	
+	public ProductBatchCompController getProductBatchCompController()
 	{
 		return productBatchController;
 	}

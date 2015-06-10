@@ -68,6 +68,13 @@ public class MainView extends Composite {
 			}
 		};
 		
+		ClickHandler listProductBatchCompHandler = new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				mc.show(mc.getProductBatchCompController().listProductBatchComp());				
+			}
+		};
+		
 		panel.add(new Label("Brugeradministration"));
 		addUser.addClickHandler(addUserHandler);
 		panel.add(addUser);
@@ -85,6 +92,10 @@ public class MainView extends Composite {
 		panel.add(addProductBatch);
 		listProductBatch.addClickHandler(listProductBatchHandler);
 		panel.add(listProductBatch);
+		
+		panel.add(new Label("Produkt batch komponenter"));
+		listProductBatchComp.addClickHandler(listProductBatchCompHandler);
+		panel.add(listProductBatchComp);
 		
 		initWidget(panel);
 		
