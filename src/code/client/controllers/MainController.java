@@ -15,8 +15,8 @@ public class MainController {
 	public final DatabaseServiceAsync databaseService = GWT
 			.create(DatabaseService.class);
 	
-	public final WeightServiceAsync weightService = GWT
-			.create(WeightService.class);
+//	public final WeightServiceAsync weightService = GWT
+//			.create(WeightService.class);
 	
 	private UserController userController;
 	private IngredientController ingredientController;

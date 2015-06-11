@@ -20,6 +20,7 @@ public interface WeightServiceAsync {
 	void printToDisplay(String message, AsyncCallback<Boolean> callback);
 	void clearDisplay(AsyncCallback<Void> callback);
 	void listenForTarget(AsyncCallback<Void> callback);
+	void start(AsyncCallback<Void> callback);
 	
 	
 }

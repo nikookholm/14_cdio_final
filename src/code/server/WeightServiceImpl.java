@@ -26,15 +26,19 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 	TCPConnector tcp;
 	
 	//Konstruktøren, der starter weightProcedures hvis fileRead() og listenForTarget() kører.
-	public WeightServiceImpl() throws WeightException, IOException{
-		writeFile();
-		System.out.println("***************************************************************************************'");
+//	public WeightServiceImpl() throws WeightException, IOException{
+//		
+//	}
+	
+	public void start()
+	{
 		try {
 			fileRead();
 			listenForTarget();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("hej hej *********************'''''''*******************************************");
 	}
 	
 	//Metoden, der tarerer vægten
@@ -163,6 +167,8 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 		PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
 		writer.println("The first line");
 		writer.println("The second line");
+
+
 		writer.close();
 	}
 }

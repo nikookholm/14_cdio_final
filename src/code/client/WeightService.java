@@ -16,4 +16,5 @@ public interface WeightService extends RemoteService {
 	boolean printToDisplay(String message) throws WeightException;
 	void clearDisplay() throws WeightException;
 	void listenForTarget() throws Exception;
+	void start();
 }
