@@ -28,17 +28,21 @@ public class UserController {
 		return new MainView(mc);
 	}
 
-	public Widget createUser(UserDTO user)
+	public Widget createUser(final UserDTO user)
 	{
 		if(user != null){
 			mc.databaseService.user_table_create(user, new AsyncCallback<Void>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
-					// Skal præsentere fejl
+					Window.alert("FEJL");
+					mc.getUserController().createUser(null);
 				}
 				@Override
 				public void onSuccess(Void result) {
+					Window.alert(user.getOprName() + " er blevet oprettet i databasen");
+					mc.show(new MainView(mc));
+					
 				}
 			});
 			return null;	
@@ -46,7 +50,7 @@ public class UserController {
 		else{
 			return new CreateUserView(user, mc);
 		}
-	}
+	}	
 
 	public Widget updateUser(UserDTO user)
 	{

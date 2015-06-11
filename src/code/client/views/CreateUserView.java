@@ -10,6 +10,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -50,9 +51,12 @@ public class CreateUserView extends Composite {
 		
 		vPanel.add(viewInfo);
 		
+		nameBox = new TextBox();
+		
+		
 		table = new Grid(4,2);
 		table.setWidget(0, 0, new Label("Navn"));
-		table.setWidget(0, 1, nameBox =new TextBox());
+		table.setWidget(0, 1, nameBox);
 		table.setWidget(1, 0, new Label("Initialer"));
 		table.setWidget(1, 1, iniBox = new TextBox());
 		table.setWidget(2, 0, new Label("CPR"));
@@ -74,18 +78,19 @@ public class CreateUserView extends Composite {
 
 
 		okBtn.addClickHandler(new ClickHandler() {
-			UserDTO newUser = new UserDTO(0,nameBox.getText(),iniBox.getText(),"", cprBox.getText(),roleList.getTabIndex(),true);
+			
 			@Override
 			public void onClick(ClickEvent event) {
+				UserDTO newUser = new UserDTO(nameBox.getText(), iniBox.getText(), cprBox.getText(),roleList.getTabIndex()+1);
 
 				mc.getUserController().createUser(newUser);
-
+			
 			}
 		});
 
 
 	}
-
+ 
 
 	private class NameBoxHandler implements KeyUpHandler{
 
