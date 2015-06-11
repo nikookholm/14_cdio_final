@@ -12,7 +12,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface WeightService extends RemoteService {
 	double getTara() throws WeightException;
 	double getWeight() throws WeightException;
-	String rm20(int type, String message) throws WeightException;
+	String rm20(String message) throws WeightException;
 	boolean printToDisplay(String message) throws WeightException;
 	void clearDisplay() throws WeightException;
 	void listenForTarget() throws Exception;

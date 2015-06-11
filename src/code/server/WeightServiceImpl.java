@@ -83,12 +83,10 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 	
 	//rm20-kommandoen, der sender en besked til vægten og får en respons tilbage
 	@Override
-	public String rm20(int type, String message) throws WeightException {
+	public String rm20(String message) throws WeightException {
 		String result;
-		type = 8;
-		message = "flagskib";
 		//String request = "RM20 " + type + " \"" + message + "\" \"\" \"\"" + "\r\n";
-		String request = "RM20 1 \"text1\" \"text2\" \"text3\"\r\n";
+		String request = "RM20 1 \""+message+"\" \"text2\" \"text3\"\r\n";
 		tcp.send(request);
 		result = tcp.receive();
 		System.out.println(result);
