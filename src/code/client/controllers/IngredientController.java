@@ -69,7 +69,7 @@ public class IngredientController {
 		});
 		
 		
-			return new ListIngredientsView(mc, ingls);
+			return new ListIngredientsView(mc);
 	
 		
 	}

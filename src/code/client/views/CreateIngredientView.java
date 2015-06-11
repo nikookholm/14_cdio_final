@@ -49,7 +49,7 @@ public class CreateIngredientView extends Composite{
 		initWidget(vPanel);
 
 		if(createdIng!= null){
-			vPanel.add(new Label(createdIng.getIngredientName() + "er oprettet"));
+			vPanel.add(new Label(createdIng.getIngredientName() + " blev oprettet"));
 
 		}
 
