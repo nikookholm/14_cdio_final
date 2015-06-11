@@ -5,18 +5,13 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-
-
-
 import org.junit.Before;
 import org.junit.Test;
 
-import connector01917.Connector;
-import daoimpl01917.MySQLReceptKompDAO;
-import daointerfaces01917.DALException;
-import daointerfaces01917.ProduktBatchKompDAO;
-import dto01917.ProduktBatchKompDTO;
-import dto01917.ReceptKompDTO;
+import code.database.Connector;
+import code.database.DALException;
+import code.database.ReceptCompDTO;
+import code.database.ReceptCompImpl;
 
 public class TestReceptKompDAO {
 
@@ -36,10 +31,10 @@ public class TestReceptKompDAO {
 	@Test
 	public void testgetReceptKomp() throws DALException{
 
-		List<ReceptCompDTO> list = rk.getReceptKompList();
-		int v = rk.getReceptKompList().get(0).getRaavareId();
+		List<ReceptCompDTO> list = rk.getReceptCompList();
+		int v = rk.getReceptCompList().get(0).getIngredientId();
 		
-		List<ReceptCompDTO> actual = rk.getReceptKompList(v);
+		List<ReceptCompDTO> actual = rk.getReceptCompList(v);
 		ReceptCompDTO expected = list.get(0);
 		
 		boolean theSameElement = true;
@@ -52,7 +47,7 @@ public class TestReceptKompDAO {
 	public void testGetReceptKompList() throws DALException{
 		boolean listMoreThanZero = false;
 
-		if(rk.getReceptKompList().size() > 0){
+		if(rk.getReceptCompList().size() > 0){
 			listMoreThanZero = true;
 		}
 		assertTrue(listMoreThanZero);
@@ -60,11 +55,11 @@ public class TestReceptKompDAO {
 
 	@Test
 	public void getReceptKompListWithReceptID() throws DALException{
-		int receptID = rk.getReceptKompList().get(0).getReceptId();
+		int receptID = rk.getReceptCompList().get(0).getReceptId();
 		
 		boolean listMoreThanZero = false;
 
-		if(rk.getReceptKompList(receptID).size() > 0){
+		if(rk.getReceptCompList(receptID).size() > 0){
 			listMoreThanZero = true;
 		}
 		assertTrue(listMoreThanZero);
@@ -81,9 +76,9 @@ public class TestReceptKompDAO {
 		double expected = 0.2;
 		
 		try{
-			one = rk.getReceptKompList().get(0);
+			one = rk.getReceptCompList().get(0);
 			one.setTolerance(expected);
-			rk.updateReceptKomp(one);
+			rk.updateReceptComp(one);
 		}catch(DALException e){
 			e.printStackTrace();
 		}

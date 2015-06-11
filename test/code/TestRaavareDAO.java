@@ -2,7 +2,6 @@ package code;
 
 
 import static org.junit.Assert.*;
-import daoimpl01917.MySQLRaavareDAO;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -10,10 +9,12 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import connector01917.Connector;
-import daointerfaces01917.DALException;
-import daointerfaces01917.RaavareDAO;
-import dto01917.RaavareDTO;
+import code.database.Connector;
+import code.database.DALException;
+import code.database.IngredientDAO;
+import code.database.IngredientDTO;
+import code.database.IngredientImpl;
+import code.database.*;
 
 public class TestRaavareDAO {
 
@@ -34,18 +35,18 @@ public class TestRaavareDAO {
 	
 
 		IngredientDTO testVare = null;
-		List<IngredientDTO> raavareList = rd.getRaavareList();
-		int ID = raavareList.get(0).getRaavareId();
-		testVare = rd.getRaavare(ID);
+		List<IngredientDTO> raavareList = rd.getIngredientList();
+		int ID = raavareList.get(0).getIngredientId();
+		testVare = rd.getIngredient(ID);
 
 		IngredientDTO actual = testVare;
 		IngredientDTO expected = raavareList.get(0);
 
 		boolean elementsAreTheSame = true;
 		
-		if (actual.getRaavareId() 	!= expected.getRaavareId()) 	   elementsAreTheSame = false;
-		if (!actual.getRaavareNavn().equals(expected.getRaavareNavn())) elementsAreTheSame = false;
-		if (!actual.getLeverandoer().equals(expected.getLeverandoer())) elementsAreTheSame = false;
+		if (actual.getIngredientId() 	!= expected.getIngredientId()) 	   		elementsAreTheSame = false;
+		if (!actual.getIngredientName().equals(expected.getIngredientName())) 	elementsAreTheSame = false;
+		if (!actual.getLeverandoer().equals(expected.getLeverandoer())) 		elementsAreTheSame = false;
 
 		assertTrue(elementsAreTheSame);
 
@@ -54,7 +55,7 @@ public class TestRaavareDAO {
 	@Test
 	public void testGetRaavareList() throws DALException{
 
-		List<IngredientDTO> list = rd.getRaavareList();
+		List<IngredientDTO> list = rd.getIngredientList();
 		
 		assertTrue(list.size()>1);
 	} 
@@ -62,12 +63,12 @@ public class TestRaavareDAO {
 	@Test
 	public void TestCreateRaavare() throws DALException{
 	
-		List<IngredientDTO> list = rd.getRaavareList();
-		int currentHighestID  = list.get(list.size()-1).getRaavareId();
+		List<IngredientDTO> list = rd.getIngredientList();
+		int currentHighestID  = list.get(list.size()-1).getIngredientId();
 		
-		int expected = rd.getRaavareList().size()+1;
-		rd.createRaavare(new IngredientDTO(currentHighestID+1, "Banan", "stedet"));
-		int actual =  rd.getRaavareList().size();
+		int expected = rd.getIngredientList().size()+1;
+		rd.createIngredient(new IngredientDTO(currentHighestID+1, "Banan", "stedet"));
+		int actual =  rd.getIngredientList().size();
 		
 		
 
@@ -80,11 +81,10 @@ public class TestRaavareDAO {
 		IngredientDTO dto = null;
 		String expected = "bullerbassen";
 		try {
-			dto = rd.getRaavareList().get(0);
+			dto = rd.getIngredientList().get(0);
 			dto.setLeverandoer(expected);
-			rd.updateRaavare(dto);
+			rd.updateIngredient(dto);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String actual = dto.getLeverandoer();

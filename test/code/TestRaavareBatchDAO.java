@@ -10,11 +10,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import connector01917.Connector;
-import daoimpl01917.MySQLRaavareBatchDAO;
-import daointerfaces01917.DALException;
-import daointerfaces01917.RaavareBatchDAO;
-import dto01917.RaavareBatchDTO;
+import code.database.Connector;
+import code.database.DALException;
+import code.database.IngredientBatchDAO;
+import code.database.IngredientBatchDTO;
+import code.database.IngredientBatchImpl;
 
 public class TestRaavareBatchDAO {
 
@@ -33,16 +33,13 @@ public class TestRaavareBatchDAO {
 	
 	@Test
 	public void testGetRaavareBatch() throws DALException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		
-		
-		
-		
+	
 		IngredientBatchDAO rbDAO= null;
 		
-		List<IngredientBatchDTO> rbDAOList = dao.getIngredientsBatchList();
-		int validId = dao.getIngredientsBatchList().get(0).getRbId();
+		List<IngredientBatchDTO> rbDAOList = dao.getIngredientBatchList();
+		int validId = dao.getIngredientBatchList().get(0).getRbId();
 		
-		IngredientBatchDTO actual = dao.getIngredientsBatch(validId);
+		IngredientBatchDTO actual = dao.getIngredientBatch(validId);
 		IngredientBatchDTO expected = rbDAOList.get(0);
 		
 		boolean sameElements = true;
@@ -53,7 +50,7 @@ public class TestRaavareBatchDAO {
 	@Test
 	public void testGetRaavareBatchList() throws DALException {
 		
-		List<IngredientBatchDTO> list = dao.getIngredientsBatchList();
+		List<IngredientBatchDTO> list = dao.getIngredientBatchList();
 		
 		assertTrue(list.size()>1);
 		
@@ -62,7 +59,7 @@ public class TestRaavareBatchDAO {
 	@Test
 	public void testGetRaavareBatchListWithraavareId() throws DALException {
 		
-		List<IngredientBatchDTO> list1 = dao.getIngredientsBatchList();
+		List<IngredientBatchDTO> list1 = dao.getIngredientBatchList();
 		
 		assertTrue(list1.size()>1);
 		
@@ -71,12 +68,12 @@ public class TestRaavareBatchDAO {
 	@Test
 	public void TestCreateRaavareBatch() throws DALException {
 		
-		List<IngredientBatchDTO> list = dao.getIngredientsBatchList();
+		List<IngredientBatchDTO> list = dao.getIngredientBatchList();
 		int currentList = list.get(list.size()-1).getRbId();
 		
-		int expected = dao.getIngredientsBatchList().size()+1;
-		dao.createRaavareBatch(new IngredientBatchDTO(currentList+1, 7, 23));
-		int actual = dao.getIngredientsBatchList().size();
+		int expected = dao.getIngredientBatchList().size()+1;
+		dao.createIngredientBatch(new IngredientBatchDTO(currentList+1, 7, 23));
+		int actual = dao.getIngredientBatchList().size();
 		
 		assertEquals(expected, actual);
 	}
@@ -86,13 +83,13 @@ public class TestRaavareBatchDAO {
 		IngredientBatchDTO dto = null;
 		int expected = 148;
 		try {
-			dto = dao.getIngredientsBatchList().get(0);
-			dto.setRaavareId(expected);
-			dao.updateRaavareBatch(dto);
+			dto = dao.getIngredientBatchList().get(0);
+			dto.setIngredientId(expected);
+			dao.updateIngredientBatch(dto);
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
-		int actual = dto.getRaavareId();
+		int actual = dto.getIngredientId();
 		assertEquals(expected, actual);
 	}
 

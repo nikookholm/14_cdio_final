@@ -8,15 +8,11 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import connector01917.Connector;
-import daoimpl01917.MySQLProduktBatchDAO;
-import daoimpl01917.MySQLProduktBatchKompDAO;
-import daointerfaces01917.DALException;
-import daointerfaces01917.ProduktBatchDAO;
-import daointerfaces01917.ProduktBatchKompDAO;
-import dto01917.ProduktBatchDTO;
-import dto01917.ProduktBatchKompDTO;
-import dto01917.RaavareBatchDTO;
+import code.database.Connector;
+import code.database.DALException;
+import code.database.ProductBatchCompDAO;
+import code.database.ProductBatchCompDTO;
+import code.database.ProductBatchCompImpl;
 
 public class TestProduktBatchKompDAO {
 	ProductBatchCompDAO dao = new ProductBatchCompImpl();
@@ -36,10 +32,10 @@ public class TestProduktBatchKompDAO {
 		
 		ProductBatchCompDAO pbkDAO = null;
 		
-		List<ProductBatchCompDTO> pbkDTO = dao.getProduktBatchKompList();
-		int validId = dao.getProduktBatchKompList().get(0).getPbId();
+		List<ProductBatchCompDTO> pbkDTO = dao.getProductBatchCompList();
+		int validId = dao.getProductBatchCompList().get(0).getPbId();
 		
-		List<ProductBatchCompDTO> actual = dao.getProduktBatchKompList(validId);
+		List<ProductBatchCompDTO> actual = dao.getProductBatchCompList(validId);
 		ProductBatchCompDTO expected = pbkDTO.get(0);
 		
 		boolean sameEelement = true;
@@ -54,7 +50,7 @@ public class TestProduktBatchKompDAO {
 	public void testgetProdukBatchKompListPbId() throws DALException {
 		
 		
-		List<ProductBatchCompDTO> list = dao.getProduktBatchKompList(1);
+		List<ProductBatchCompDTO> list = dao.getProductBatchCompList(1);
 		
 		assertTrue(list.size()>1);
 		
@@ -65,7 +61,7 @@ public class TestProduktBatchKompDAO {
 	public void testProduktBatchKompList() throws DALException {
 
 		
-List<ProductBatchCompDTO> list = dao.getProduktBatchKompList();
+List<ProductBatchCompDTO> list = dao.getProductBatchCompList();
 		
 		assertTrue(list.size()>1);	
 	
@@ -78,9 +74,9 @@ List<ProductBatchCompDTO> list = dao.getProduktBatchKompList();
 		ProductBatchCompDTO dto = null;
 		double expected = 14.8;
 		try {
-			dto = dao.getProduktBatchKompList().get(0);
+			dto = dao.getProductBatchCompList().get(0);
 			dto.setNetto(expected);
-			dao.updateProduktBatchKomp(dto);
+			dao.updateProductBatchComp(dto);
 		} catch (DALException e) {
 			e.printStackTrace();
 		}

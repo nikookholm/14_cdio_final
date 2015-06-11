@@ -7,11 +7,11 @@ import java.util.List;
 
 import org.junit.*;
 
-import connector01917.Connector;
-import daoimpl01917.MySQLReceptDAO;
-import daointerfaces01917.DALException;
-import daointerfaces01917.ReceptDAO;
-import dto01917.ReceptDTO;
+import code.database.Connector;
+import code.database.DALException;
+import code.database.ReceptDAO;
+import code.database.ReceptDTO;
+import code.database.ReceptImpl;
 
 public class TestReceptDAO {
 
@@ -41,7 +41,7 @@ public class TestReceptDAO {
 		boolean areSame = true;
 
 		if(actual.getReceptId() != expected.getReceptId()) 				areSame = false;
-		if(!actual.getReceptNavn().equals(expected.getReceptNavn())) 	areSame = false;
+		if(!actual.getReceptName().equals(expected.getReceptName())) 	areSame = false;
 
 		assertTrue(areSame);
 	}
@@ -74,10 +74,10 @@ public class TestReceptDAO {
 		String expected = "Kirk";
 		
 		rec = re.getReceptList().get(0);
-		rec.setReceptNavn(expected);
+		rec.setReceptName(expected);
 		re.updateRecept(rec);
 		
-		String actual = rec.getReceptNavn();
+		String actual = rec.getReceptName();
 		
 		assertEquals(expected, actual);
 	}
