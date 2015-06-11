@@ -16,8 +16,8 @@ public class IngredientBatchImpl implements IngredientBatchDAO {
 	    catch (SQLException e) {throw new DALException(e); }
 	}
 
-	public List<IngredientBatchDTO> getIngredientBatchList() throws DALException {
-		List<IngredientBatchDTO> list = new ArrayList<IngredientBatchDTO>();
+	public ArrayList<IngredientBatchDTO> getIngredientBatchList() throws DALException {
+		ArrayList<IngredientBatchDTO> list = new ArrayList<IngredientBatchDTO>();
 		ResultSet rs = Connector.doQuery("SELECT * FROM ingredientbatch");
 		try
 		{
@@ -31,10 +31,10 @@ public class IngredientBatchImpl implements IngredientBatchDAO {
 	}
 
 
-	public List<IngredientBatchDTO> getIngredientBatchList(int ingredientId)
+	public ArrayList<IngredientBatchDTO> getIngredientBatchList(int ingredientId)
 			throws DALException {
 		
-		List<IngredientBatchDTO> list = new ArrayList<IngredientBatchDTO>();
+		ArrayList<IngredientBatchDTO> list = new ArrayList<IngredientBatchDTO>();
 		ResultSet rs = Connector.doQuery("SELECT * FROM ingredientbatch WHERE ingredient_id = '" + ingredientId + "' ");
 		try
 		{

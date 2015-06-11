@@ -98,14 +98,17 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void productBatch_table_create(ProductBatchDTO productBatch) {
-		// TODO Auto-generated method stub
-		
+		try {
+			this.productBatch.createProductBatch(productBatch);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public ArrayList<ProductBatchDTO> productBatch_table_list() {
-		// TODO Auto-generated method stub
-		return null;
+		return productBatch.getProductBatchList();
 	}
 
 	@Override
