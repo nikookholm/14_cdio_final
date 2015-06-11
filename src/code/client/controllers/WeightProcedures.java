@@ -28,19 +28,23 @@ public class WeightProcedures {
 
 	public WeightProcedures(WeightServiceImpl weightService){
 		ws = weightService;
-		start();
+		try {
+			start();
+		} catch (WeightException e) {
+			
+		}
 	}
 
-	public void start()
+	public void start() throws WeightException
 	{
 		login();
-		confirmOperator();
-		chooseProductNumber();
+//		confirmOperator();
+//		chooseProductNumber();
 
-		for (IngredientDTO ingredient : ALLE_RAAVARE_LINJER)
-		{
-			ingredientLine(ingredient);
-		}
+//		for (IngredientDTO ingredient : ALLE_RAAVARE_LINJER)
+//		{
+//			ingredientLine(ingredient);
+//		}
 	}
 	
 	private void login() throws WeightException
@@ -104,7 +108,7 @@ public class WeightProcedures {
 			if(verifyrReceptBalancing.equals(valid)){
 				allIngredient = dbs.ingredients_table_list();
 
-				ingredientLine(ingredient);
+//				ingredientLine(ingredient);
 			}
 		}else{
 			chooseProductNumber();
