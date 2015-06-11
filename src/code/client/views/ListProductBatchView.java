@@ -25,7 +25,7 @@ public class ListProductBatchView extends Composite
 {
 	MainController mc;
 	ProductBatchController pbC;
-	List<ProductBatchDTO> ls;
+	List<ProductBatchDTO> pbLS;
 	
 	VerticalPanel VPanel;
 	Button backButton;
@@ -37,6 +37,7 @@ public class ListProductBatchView extends Composite
 	public ListProductBatchView(ArrayList<ProductBatchDTO> pbLS, MainController mc)
 	{
 		this.mc = mc;
+		this.pbLS = pbLS;
 		VPanel = new VerticalPanel();
 		initWidget(this.VPanel);
 		
@@ -56,13 +57,13 @@ public class ListProductBatchView extends Composite
 		flex.setWidget(0, 2, dateLabel);
 		flex.setWidget(0, 3, statLabel);
 		
-//		for (int i = 0; i < ls.size(); i++ ) {
-//			flex.setWidget(i+1, 0, new Label(ls.get(i).getPbId()     + ""));
-//			flex.setWidget(i+1, 1, new Label(ls.get(i).getReceptId() + ""));
-//			flex.setWidget(i+1, 2, new Label(ls.get(i).getDate()     + ""));
-//			flex.setWidget(i+1, 3, new Label(ls.get(i).getStatus()   + ""));
-//			flex.setWidget(i+1, 4, new Anchor("Redigér"));
-//		}
+		for (int i = 0; i < pbLS.size(); i++ ) {
+			flex.setText(i+1, 0, "" + pbLS.get(i).getPbId() );
+			flex.setText(i+1, 1, "" + pbLS.get(i).getReceptId() );
+			flex.setText(i+1, 2, "" + pbLS.get(i).getDate() );
+			flex.setText(i+1, 3, "" + pbLS.get(i).getStatus() );
+			flex.setWidget(i+1, 4, new Anchor("Redigér"));
+		}
 		
 		this.subTable = new Grid(1, 2);
 		subTable.setWidget(0, 0, backButton);
@@ -82,6 +83,5 @@ public class ListProductBatchView extends Composite
 			
 			mc.show(new MainView(mc));
 		}
-		
 	}
 }

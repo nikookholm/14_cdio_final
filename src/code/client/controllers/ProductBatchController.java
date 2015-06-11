@@ -35,10 +35,10 @@ public class ProductBatchController
 				
 				@Override
 				public void onFailure(Throwable caught) {
-					Window.alert("Server fejl!" + caught.getMessage());
+					Window.alert("Server fejl! : " + caught.getMessage());
 				}
 			});
-			return null;	
+			return new CreateProductBatchView(pbDTO, mc);	
 		}
 		else{
 			return new CreateProductBatchView(pbDTO, mc);

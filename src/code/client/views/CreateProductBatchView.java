@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HasAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
@@ -28,6 +29,7 @@ public class CreateProductBatchView extends Composite
 	MainController mc;
 	
 	VerticalPanel VPanel;
+	HorizontalPanel HPanel;
 	Button OKButton, cancelButton;
 	Label infoLabel;
 	Grid table, subTable;
@@ -68,9 +70,14 @@ public class CreateProductBatchView extends Composite
 			table.setWidget(1, 1, receptNoBox);
 		}
 		
-		this.subTable = new Grid(1, 2);
-		subTable.setWidget(0, 0, cancelButton);
-		subTable.setWidget(0, 1, OKButton);
+	this.subTable = new Grid(1, 1);
+		subTable.setWidget(0, 0, HPanel = new HorizontalPanel());
+		
+		HPanel.setHorizontalAlignment(HasAlignment.ALIGN_RIGHT);
+		
+		HPanel.add(OKButton);
+		HPanel.add(cancelButton);
+//		subTable.setWidget(0, 1, OKButton);
 		
 		pbNoBox.addKeyUpHandler(new PbNoBoxHandler());
 		receptNoBox.addKeyUpHandler(new ReceptNoBoxHandler());
@@ -126,29 +133,21 @@ public class CreateProductBatchView extends Composite
 	
 	private class OKClickHandler implements ClickHandler 
 	{
-//		pbI = Integer.parseInt(pbNoBox.getText());
-//		recI = Integer.parseInt(receptNoBox.getText());
-
-		int pbI = parser(pbNoBox.getText());
-		int recI = parser(receptNoBox.getText());
-		int statI = 0;
-		long datI;
-		
-		ProductBatchDTO pbDTO = new ProductBatchDTO(pbI, statI, recI, datI);
-		
 	    @Override
 	    public void onClick(ClickEvent event) {
+			
+			int pbI = Integer.parseInt(pbNoBox.getText());
+			int recI = Integer.parseInt(receptNoBox.getText());
+			
+			int statI = 0;
+			long datI = 0;
+			
+			ProductBatchDTO pbDTO = new ProductBatchDTO(pbI, statI, recI, datI);
+			
 			mc.getProductBatchController().createProductBatch(pbDTO);
 			
       }
 	    
-	    private int parser(String str)
-	    {
-	    	int no = 0;
-	    	no = Integer.parseInt(str);
-	    	
-	    	return no;
-	    }
    }
 	
 	private class cancelClickHandler implements ClickHandler
