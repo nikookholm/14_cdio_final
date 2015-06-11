@@ -77,8 +77,11 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public ArrayList<IngredientDTO> ingredients_table_list() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return ingredient.getIngredientList();
+		} catch (DALException e) {
+			return null;
+		}
 	}
 
 	@Override

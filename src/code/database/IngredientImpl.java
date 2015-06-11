@@ -18,8 +18,8 @@ public class IngredientImpl implements IngredientDAO {
 		
 	}
 	
-	public List<IngredientDTO> getIngredientList() throws DALException {
-		List<IngredientDTO> list = new ArrayList<IngredientDTO>();
+	public ArrayList<IngredientDTO> getIngredientList() throws DALException {
+		ArrayList<IngredientDTO> list = new ArrayList<IngredientDTO>();
 		ResultSet rs = Connector.doQuery("SELECT * FROM ingredient");
 		try
 		{
