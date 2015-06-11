@@ -1,8 +1,13 @@
 package code.server;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import code.client.WeightService;
 import code.client.controllers.WeightProcedures;
@@ -21,7 +26,7 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 		WeightService {
 	
 	//globale variabler
-	String contentOfFile;
+	String filename = "ip_port.txt";
 	String[] addressArray;
 	TCPConnector tcp;
 	
@@ -156,19 +161,18 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 	
 	//metoden bruger Apache Commons FileUtils og ArrayUtils og tager input-filen som en lang String
 	//derpå splitter den på linebreak og laver til array.
-	public void fileRead() throws IOException
-	{	
-		contentOfFile = FileUtils.readFileToString(new File("ip_port.txt"));
-		addressArray = ArrayUtils.toArray(contentOfFile.replaceAll("\\r", "").split("\n"));
-	}
-	
-	public void writeFile() throws IOException
+	public String[] fileRead() throws IOException
 	{
-		PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
-		writer.println("The first line");
-		writer.println("The second line");
-
-
-		writer.close();
+		FileInputStream fileInput = new FileInputStream(filename);
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInput));
+		List<String> lines = new ArrayList<String>();
+		String line = null;
+		while ((line = bufferedReader.readLine()) != null) {
+			lines.add(line);
+		}
+		bufferedReader.close();
+		addressArray = lines.toArray(new String[lines.size()]);
+		return addressArray;
 	}
+
 }
