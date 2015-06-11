@@ -33,7 +33,12 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void user_table_create(UserDTO user) {
-		// TODO Auto-generated method stub
+		try {
+			new UserImpl().createUser(user);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
