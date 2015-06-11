@@ -26,6 +26,7 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 	
 	//Konstruktøren, der starter weightProcedures hvis fileRead() og listenForTarget() kører.
 	public WeightServiceImpl() throws WeightException{
+		System.out.println("***************************************************************************************'");
 		try {
 			fileRead();
 			listenForTarget();

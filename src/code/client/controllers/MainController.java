@@ -2,6 +2,8 @@ package code.client.controllers;
 
 import code.client.DatabaseService;
 import code.client.DatabaseServiceAsync;
+import code.client.WeightService;
+import code.client.WeightServiceAsync;
 import code.client.views.LoginView;
 
 import com.google.gwt.core.client.GWT;
@@ -12,6 +14,9 @@ public class MainController {
 	
 	public final DatabaseServiceAsync databaseService = GWT
 			.create(DatabaseService.class);
+	
+	public final WeightServiceAsync weightService = GWT
+			.create(WeightService.class);
 	
 	private UserController userController;
 	private IngredientController ingredientController;
