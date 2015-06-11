@@ -36,8 +36,8 @@ public class ProductBatchImpl implements ProductBatchDAO {
 	}
 	
 	@Override
-	public List<ProductBatchDTO> getProductBatchList() throws DALException {
-		List<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
+	public ArrayList<ProductBatchDTO> getProductBatchList() throws DALException {
+		ArrayList<ProductBatchDTO> list = new ArrayList<ProductBatchDTO>();
 		ResultSet rs = Connector.doQuery("SELECT * FROM productbatch");
 		try
 		{
