@@ -2,6 +2,7 @@ package code.server;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import code.client.WeightService;
 import code.client.controllers.WeightProcedures;
@@ -25,7 +26,8 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 	TCPConnector tcp;
 	
 	//Konstruktøren, der starter weightProcedures hvis fileRead() og listenForTarget() kører.
-	public WeightServiceImpl() throws WeightException{
+	public WeightServiceImpl() throws WeightException, IOException{
+		writeFile();
 		System.out.println("***************************************************************************************'");
 		try {
 			fileRead();
@@ -154,5 +156,13 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 	{	
 		contentOfFile = FileUtils.readFileToString(new File("ip_port.txt"));
 		addressArray = ArrayUtils.toArray(contentOfFile.replaceAll("\\r", "").split("\n"));
+	}
+	
+	public void writeFile() throws IOException
+	{
+		PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
+		writer.println("The first line");
+		writer.println("The second line");
+		writer.close();
 	}
 }
