@@ -35,20 +35,17 @@ public class UserController {
 
 				@Override
 				public void onFailure(Throwable caught) {
-					Window.alert("FEJL");
-					mc.getUserController().createUser(null);
+					
 				}
 				@Override
 				public void onSuccess(Void result) {
-					Window.alert(user.getOprName() + " er blevet oprettet i databasen");
-					mc.show(new MainView(mc));
 					
 				}
 			});
-			return null;	
+			return new CreateUserView(user, mc)	;
 		}
 		else{
-			return new CreateUserView(user, mc);
+			return new CreateUserView(null, mc);
 		}
 	}	
 

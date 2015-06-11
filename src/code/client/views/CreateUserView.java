@@ -5,6 +5,7 @@ import code.database.UserDTO;
 import code.shared.FieldVerifier;
 
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLHeadElement;
+import com.google.gwt.aria.client.GridcellRole;
 import com.google.gwt.dom.builder.shared.HtmlHeadBuilder;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -15,6 +16,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
@@ -25,17 +28,16 @@ public class CreateUserView extends Composite {
 
 	TextBox nameBox, iniBox, cprBox;
 	ListBox roleList;
-	Button okBtn;
+	Button okBtn, cancelBtn;
 	Grid table;
 	Label viewInfo, presentSuccess;
 	MainController mc;
-
+	HorizontalPanel hPanel1, hPanel2;
 
 	// Flag der skal afgøre om ok knappen skal gøres tilgænglig
 	boolean nameCheck = false; 
 	boolean iniCheck  = false;
 	boolean cprCheck  = false;
-
 
 
 	public CreateUserView(final UserDTO user, final MainController mc){
@@ -44,17 +46,25 @@ public class CreateUserView extends Composite {
 		this.vPanel = new VerticalPanel();
 		initWidget(vPanel);
 
+		if(user != null){
+			vPanel.add(new Label(user.getOprName() + " er oprettet"));
+		}
 
 		okBtn = new Button("Ok");
 		okBtn.setEnabled(false);
+		cancelBtn = new Button("cancel");
 		viewInfo = new Label("Indtast den nye brugers oplysninger");
-		
+
 		vPanel.add(viewInfo);
-		
+	
+
+
 		nameBox = new TextBox();
-		
-		
-		table = new Grid(4,2);
+
+
+
+
+		table = new Grid(5,2);
 		table.setWidget(0, 0, new Label("Navn"));
 		table.setWidget(0, 1, nameBox);
 		table.setWidget(1, 0, new Label("Initialer"));
@@ -63,6 +73,15 @@ public class CreateUserView extends Composite {
 		table.setWidget(2, 1, cprBox = new TextBox());
 		table.setWidget(3, 0, new Label("Rolle"));
 		table.setWidget(3, 1, roleList = new ListBox());
+		table.setWidget(4, 1, hPanel1 = new HorizontalPanel());
+
+		hPanel1.add(okBtn);
+		hPanel1.add(cancelBtn);
+
+
+
+
+
 
 		roleList.addItem("Operatør");
 		roleList.addItem("Værkfører");
@@ -74,23 +93,31 @@ public class CreateUserView extends Composite {
 		iniBox.addKeyUpHandler(new IniBoxHandler());
 		cprBox.addKeyUpHandler(new CprBoxHandler());
 
-		vPanel.add(okBtn);
 
 
 		okBtn.addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
 				UserDTO newUser = new UserDTO(nameBox.getText(), iniBox.getText(), cprBox.getText(),roleList.getTabIndex()+1);
 
-				mc.getUserController().createUser(newUser);
-			
+				mc.show(mc.getUserController().createUser(newUser));
+
 			}
 		});
-
-
+		
+		cancelBtn.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+			mc.show(new MainView(mc));
+				
+			}
+		});
 	}
- 
+	
+	
+
 
 	private class NameBoxHandler implements KeyUpHandler{
 
