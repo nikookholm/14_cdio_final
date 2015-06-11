@@ -9,15 +9,16 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import connector01917.*;
-import daoimpl01917.*;
-import daointerfaces01917.*;
-import dto01917.*;
+import code.database.Connector;
+import code.database.DALException;
+import code.database.UserDAO;
+import code.database.UserDTO;
+import code.database.UserImpl;
 
 
 public class TestOperatoerDAO {
 	
-	UsersDAO opDao  = new UserImpl();
+	UserDAO opDao  = new UserImpl();
 	
 	@Before
 	public void connect()
@@ -31,18 +32,18 @@ public class TestOperatoerDAO {
 	
 	@Test
 	public void TestGetOperatoer() throws DALException {
-		UsersDTO testOperatoer = null;
-		List<UsersDTO> operatoerList = opDao.getOperatoerList();
+		UserDTO testOperatoer = null;
+		List<UserDTO> operatoerList = opDao.getUserList();
 		int ID = operatoerList.get(0).getOprId();
-		testOperatoer = opDao.getOperatoer(ID);
+		testOperatoer = opDao.getUser(ID);
 
-		UsersDTO actual = testOperatoer;
-		UsersDTO expected = operatoerList.get(0);
+		UserDTO actual = testOperatoer;
+		UserDTO expected = operatoerList.get(0);
 
 		boolean theSame = true;
 		
 		if (actual.getOprId() 	!= expected.getOprId()) 	   		theSame = false;
-		if (!actual.getOprNavn().equals(expected.getOprNavn())) 	theSame = false;
+		if (!actual.getOprName().equals(expected.getOprName())) 	theSame = false;
 		if (!actual.getCpr().equals(expected.getCpr())) 			theSame = false;
 		if (!actual.getIni().equals(expected.getIni())) 			theSame = false;
 		if (!actual.getPassword().equals(expected.getPassword())) 	theSame = false;
@@ -53,19 +54,19 @@ public class TestOperatoerDAO {
 	@Test
 	public void getOperatoerList() throws DALException {
 	
-		List<UsersDTO> list = opDao.getOperatoerList();
+		List<UserDTO> list = opDao.getUserList();
 		
 		assertTrue(list.size()>1);
 	}
 	
 	@Test
 	public void createOperatoer() throws DALException{
-		List<UsersDTO> list = opDao.getOperatoerList();
+		List<UserDTO> list = opDao.getUserList();
 		int currentHighestID  = list.get(list.size()-1).getOprId();
 		
-		int expected = opDao.getOperatoerList().size()+1;
-		opDao.createOperatoer(new UsersDTO(currentHighestID+1, "Jens Jensen", "JJ", "090591-2929", "Ss123Ss"));
-		int actual =  opDao.getOperatoerList().size();
+		int expected = opDao.getUserList().size()+1;
+		opDao.createUser(new UserDTO(currentHighestID+1, "Jens Jensen", "JJ", "090591-2929", "Ss123Ss", 1, true));
+		int actual =  opDao.getUserList().size();
 		
 		
 
@@ -74,18 +75,18 @@ public class TestOperatoerDAO {
 	
 	@Test
 	public void updateOperatoer() throws DALException {
-		UsersDTO opDto = null;
+		UserDTO opDto = null;
 		String expected = "Jens Jensen";
 		
 		try {
-			opDto = opDao.getOperatoerList().get(0);
-			opDto.setOprNavn(expected);
-			opDao.updateOperatoer(opDto);
+			opDto = opDao.getUserList().get(0);
+			opDto.setOprName(expected);
+			opDao.updateUser(opDto);
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String actual = opDto.getOprNavn();
+		String actual = opDto.getOprName();
 		assertEquals(expected, actual);
 	}
 
