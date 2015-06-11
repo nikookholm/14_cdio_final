@@ -9,12 +9,10 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import connector01917.Connector;
-import daoimpl01917.MySQLProduktBatchDAO;
-import daointerfaces01917.DALException;
-import daointerfaces01917.ProduktBatchDAO;
-import dto01917.ProduktBatchDTO;
-import dto01917.RaavareDTO;
+import code.database.ProductBatchDAO;
+import code.database.ProductBatchImpl;
+import code.database.*;
+
 
 public class TestProduktBatchDAO {
 	
@@ -34,9 +32,9 @@ public class TestProduktBatchDAO {
 	public void testGetProduktBatch() throws DALException
 	{
 		ProductBatchDTO testBatch = null;
-		List<ProductBatchDTO> pbList = pbDao.getProduktBatchList();
+		List<ProductBatchDTO> pbList = pbDao.getProductBatchList();
 		int validId = pbList.get(0).getPbId();
-		testBatch = pbDao.getProduktBatch(validId);
+		testBatch = pbDao.getProductBatch(validId);
 		
 		ProductBatchDTO actual = testBatch;
 		ProductBatchDTO expected = pbList.get(0);
@@ -54,19 +52,19 @@ public class TestProduktBatchDAO {
 	@Test
 	public void testGetProduktBatchList() throws DALException {
 		
-		List<ProductBatchDTO> pbList = pbDao.getProduktBatchList();
+		List<ProductBatchDTO> pbList = pbDao.getProductBatchList();
 		
 		assertTrue(pbList.size()>1);
 	}
 	
 	@Test
 	public void testCreateProduktBatch() throws DALException {
-		List<ProductBatchDTO> pbList = pbDao.getProduktBatchList();
+		List<ProductBatchDTO> pbList = pbDao.getProductBatchList();
 		int currentHighestId  = pbList.get(pbList.size()-1).getPbId();
 	
-		int expected = pbDao.getProduktBatchList().size()+1;
-		pbDao.createProduktBatch(new ProductBatchDTO(currentHighestId+1, 1, 1));
-		int actual = pbDao.getProduktBatchList().size();
+		int expected = pbDao.getProductBatchList().size()+1;
+		pbDao.createProductBatch(new ProductBatchDTO(currentHighestId+1, 1, 1, 0));
+		int actual = pbDao.getProductBatchList().size();
 	
 		assertEquals(expected, actual);
 	}
@@ -76,9 +74,9 @@ public class TestProduktBatchDAO {
 		ProductBatchDTO pbList = null;
 		int expected = 1;
 		try {
-			pbList = pbDao.getProduktBatchList().get(0);
+			pbList = pbDao.getProductBatchList().get(0);
 			pbList.setReceptId(expected);
-			pbDao.updateProduktBatch(pbList);
+			pbDao.updateProductBatch(pbList);
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
