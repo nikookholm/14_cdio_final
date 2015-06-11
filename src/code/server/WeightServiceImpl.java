@@ -86,7 +86,7 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 	public String rm20(int type, String message) throws WeightException {
 		String result;
 		type = 8;
-		String request = "RM20 " + type + " \"" + message + "\" \" \" \" \"\r\n";
+		String request = "D Hej\r\n";// "RM20 " + type + " \"" + message + "\" \" \" \" \"\r\n";
 		tcp.send(request);
 		result = tcp.receive();
 		System.out.println(result);
@@ -128,8 +128,6 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 	//Hvis det lykkes, startes weightProcedures.start()
 	@Override
 	public void listenForTarget() throws Exception{
-		TCPConnector tcp;
-		
 		boolean noTarget = false;
 		String host = null;
 		int port = 0;
