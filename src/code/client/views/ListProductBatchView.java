@@ -25,7 +25,7 @@ public class ListProductBatchView extends Composite
 {
 	MainController mc;
 	ProductBatchController pbC;
-	List<ProductBatchDTO> pbLS;
+	ArrayList<ProductBatchDTO> pbLS;
 	
 	VerticalPanel VPanel;
 	Button backButton;
@@ -57,10 +57,10 @@ public class ListProductBatchView extends Composite
 		flex.setWidget(0, 2, dateLabel);
 		flex.setWidget(0, 3, statLabel);
 		
-		for (int i = 0; i < pbLS.size(); i++ ) {
+		for (int i = 0; i<pbLS.size(); i++ ) {
 			flex.setText(i+1, 0, "" + pbLS.get(i).getPbId() );
 			flex.setText(i+1, 1, "" + pbLS.get(i).getReceptId() );
-			flex.setText(i+1, 2, "" + pbLS.get(i).getDate() );
+			flex.setText(i+1, 2, "" + pbLS.get(i).getDateTime() );
 			flex.setText(i+1, 3, "" + pbLS.get(i).getStatus() );
 			flex.setWidget(i+1, 4, new Anchor("Redigér"));
 		}
@@ -80,7 +80,6 @@ public class ListProductBatchView extends Composite
 	{
 		@Override
 		public void onClick(ClickEvent event) {
-			
 			mc.show(new MainView(mc));
 		}
 	}

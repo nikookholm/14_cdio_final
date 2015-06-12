@@ -14,6 +14,7 @@ public class ProductBatchController
 {
 	MainController mc;
 	ProductBatchDTO pbDTO;
+	
 	ArrayList<ProductBatchDTO> pbs;
 	
 	public ProductBatchController(MainController mc)
@@ -27,12 +28,10 @@ public class ProductBatchController
 		
 		if(pbDTO != null){
 			mc.databaseService.productBatch_table_create(pbDTO, new AsyncCallback<Void>() {
-				
 				@Override
 				public void onSuccess(Void result) {
 					
 				}
-				
 				@Override
 				public void onFailure(Throwable caught) {
 					Window.alert("Server fejl! : " + caught.getMessage());
@@ -48,7 +47,6 @@ public class ProductBatchController
 	public Widget listProductBatch()
 	{
 		mc.databaseService.productBatch_table_list(new AsyncCallback<ArrayList<ProductBatchDTO>>() {
-
 			@Override
 			public void onFailure(Throwable caught) {
 				Window.alert("Server fejl!" + caught.getMessage());

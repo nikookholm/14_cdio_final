@@ -3,14 +3,12 @@ package code;
 
 import static org.junit.Assert.*;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import code.database.ProductBatchDAO;
-import code.database.ProductBatchImpl;
 import code.database.*;
 
 
@@ -23,16 +21,14 @@ public class TestProduktBatchDAO {
 	{
 		try {
 			new Connector();
-		} catch (Exception e) {
-		
-		}
+		} catch (Exception e) {	}
 	}
 
 	@Test
 	public void testGetProduktBatch() throws DALException
 	{
 		ProductBatchDTO testBatch = null;
-		List<ProductBatchDTO> pbList = pbDao.getProductBatchList();
+		ArrayList<ProductBatchDTO> pbList = pbDao.getProductBatchList();
 		int validId = pbList.get(0).getPbId();
 		testBatch = pbDao.getProductBatch(validId);
 		
@@ -43,7 +39,7 @@ public class TestProduktBatchDAO {
 		
 		if (actual.getPbId() 	!= expected.getPbId()) 	   	theSame = false;
 		if (actual.getReceptId() != expected.getReceptId()) theSame = false;
-		if (actual.getStatus() != expected.getStatus()) 	theSame = false;
+		if (actual.getStatus() 	!= expected.getStatus()) 	theSame = false;
 
 		assertTrue(theSame);
 		
@@ -51,19 +47,19 @@ public class TestProduktBatchDAO {
 	
 	@Test
 	public void testGetProduktBatchList() throws DALException {
-		
-		List<ProductBatchDTO> pbList = pbDao.getProductBatchList();
-		
+		ArrayList<ProductBatchDTO> pbList = pbDao.getProductBatchList();
+
 		assertTrue(pbList.size()>1);
 	}
 	
 	@Test
 	public void testCreateProduktBatch() throws DALException {
-		List<ProductBatchDTO> pbList = pbDao.getProductBatchList();
+		ArrayList<ProductBatchDTO> pbList = pbDao.getProductBatchList();
 		int currentHighestId  = pbList.get(pbList.size()-1).getPbId();
+		String dateTime = "";
 	
 		int expected = pbDao.getProductBatchList().size()+1;
-		pbDao.createProductBatch(new ProductBatchDTO(currentHighestId+1, 1, 1, 0));
+		pbDao.createProductBatch(new ProductBatchDTO(currentHighestId+1, 1, 1, dateTime ));
 		int actual = pbDao.getProductBatchList().size();
 	
 		assertEquals(expected, actual);
@@ -71,6 +67,7 @@ public class TestProduktBatchDAO {
 	
 	@Test
 	public void testUpdateProduktBatch() {
+		
 		ProductBatchDTO pbList = null;
 		int expected = 1;
 		try {
@@ -78,10 +75,10 @@ public class TestProduktBatchDAO {
 			pbList.setReceptId(expected);
 			pbDao.updateProductBatch(pbList);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		int actual = pbList.getReceptId();
+		
 		assertEquals(expected, actual);
 	}
 
