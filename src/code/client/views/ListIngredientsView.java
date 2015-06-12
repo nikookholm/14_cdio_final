@@ -29,7 +29,7 @@ public class ListIngredientsView extends Composite
 	Label NameLabel  	 = new Label("ingredient Name");
 	Label IdLabel 		 = new Label("ingredint Id");
 	Label leverandoer	 = new Label("leverandoer");
-	Anchor edit			 = new Anchor("rediger");
+	Anchor edit;
 	
 	TextBox NameBox, IdBox, leverandoerBox;
 
@@ -45,7 +45,7 @@ public class ListIngredientsView extends Composite
 		this.ingls = ingls;
 		
 		flexTabel = new FlexTable();
-
+		
 
 		flexTabel.setWidget(0, 0, NameLabel);
 		flexTabel.setWidget(0, 1, IdLabel);
@@ -56,12 +56,12 @@ public class ListIngredientsView extends Composite
 			
 			@Override
 			public void onSuccess(ArrayList<IngredientDTO> result) {
-				for (int i = 0; i<ingls.size(); i++) {
+				for (int i = 0; i<result.size(); i++) {
 
 					flexTabel.setText(i+1, 0, result.get(i).getIngredientId()  + "");
 					flexTabel.setText(i+1, 1, result.get(i).getIngredientName() + "");
 					flexTabel.setText(i+1, 2, result.get(i).getLeverandoer()    + "");
-					flexTabel.setText(i+1, 3, edit + "");	
+					flexTabel.setWidget(i+1, 3, edit = new Anchor("rediger"));
 				}				
 			}
 			
