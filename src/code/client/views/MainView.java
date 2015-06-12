@@ -115,9 +115,9 @@ public class MainView extends Composite {
 		
 		panel.add(new Label("Recepter"));
 		addRecept.addClickHandler(addReceptHandler);
-		panel.add(addProductBatch);
+		panel.add(addRecept);
 		listRecepts.addClickHandler(listReceptsHandler);
-		panel.add(listProductBatch);
+		panel.add(listRecepts);
 		
 		initWidget(panel);
 		
