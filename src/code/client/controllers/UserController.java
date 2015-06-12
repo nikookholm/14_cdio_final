@@ -7,6 +7,7 @@ import code.client.views.ListUsersView;
 import code.client.views.MainView;
 import code.database.UserDTO;
 
+import com.google.gwt.core.client.Callback;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
@@ -24,8 +25,22 @@ public class UserController {
 
 	public Widget login(String oprNumber, String password)
 	{
-		
-		//mc.setUser(oprNumber);
+		mc.databaseService.user_table_get(Integer.parseInt(oprNumber), new AsyncCallback<UserDTO>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("FEEEEEEEEEEEEEEJL");
+			}
+
+			@Override
+			public void onSuccess(UserDTO result) {
+				parseUserDTO(result);
+			}
+		});
+
+
+
+		mc.setUser(userDTO);
 		return new MainView(mc);
 	}
 
@@ -36,11 +51,11 @@ public class UserController {
 
 				@Override
 				public void onFailure(Throwable caught) {
-					
+
 				}
 				@Override
 				public void onSuccess(Void result) {
-					
+
 				}
 			});
 			return new CreateUserView(user, mc)	;
@@ -61,7 +76,7 @@ public class UserController {
 
 			@Override
 			public void onFailure(Throwable caught) {
-			Window.alert("Der skete en fejl, da systemet skulle have adgang til databasen");
+				Window.alert("Der skete en fejl, da systemet skulle have adgang til databasen");
 			}
 			@Override
 			public void onSuccess(ArrayList<UserDTO> result) {
@@ -87,6 +102,11 @@ public class UserController {
 			}
 
 		}
+
+	}
+
+	private void parseUserDTO(UserDTO result){
+		this.userDTO = result;
 
 	}
 }
