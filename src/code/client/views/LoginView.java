@@ -15,7 +15,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class LoginView extends Composite {
 	
 	private MainController mc;
-
+	TextBox oprNumber   = new TextBox();
+	TextBox password    = new TextBox();
 	
 	public LoginView(MainController mc)
 	{
@@ -24,15 +25,13 @@ public class LoginView extends Composite {
 		
 		FlexTable table = new FlexTable();
 
-		TextBox oprNumber   = new TextBox();
-		TextBox password    = new TextBox();
 		Button okBtn    	= new Button("Login");
 		Button clearBtn		= new Button("Ryd");
 		okBtn.addClickHandler(new obBtnClick());
 		clearBtn.addClickHandler(new clearBtnClick());
 		
 		HorizontalPanel buttonPanel = new HorizontalPanel();
-		buttonPanel.add(oprNumber);
+		buttonPanel.add(clearBtn);
 		buttonPanel.add(okBtn);
 		
 				
@@ -54,7 +53,7 @@ public class LoginView extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			mc.show(mc.getUserController().login("23"));			
+			mc.show(mc.getUserController().login(oprNumber.getText(), password.getText()));			
 		}
 		
 	}
@@ -64,7 +63,8 @@ public class LoginView extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			
+			oprNumber.setText("");
+			password.setText("");
 		}
 		
 	}

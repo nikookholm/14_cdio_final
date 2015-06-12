@@ -5,6 +5,7 @@ import code.client.DatabaseServiceAsync;
 import code.client.WeightService;
 import code.client.WeightServiceAsync;
 import code.client.views.LoginView;
+import code.database.UserDTO;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -22,7 +23,7 @@ public class MainController {
 	private IngredientController ingredientController;
 	private ProductBatchController productBatchController;
 	private ProductBatchCompController productBatchCompController;
-	private String user;
+	private UserDTO user;
 
 	public MainController()
 	{
@@ -56,15 +57,16 @@ public class MainController {
 	public void show(Widget widget)
 	{
 		RootPanel.get("main").clear();
+		if (user == null) widget = new LoginView(this);
 		RootPanel.get("main").add(widget);
 	}
 	
-	public void setUser(String user)
+	public void setUser(UserDTO user)
 	{
 		this.user = user;
 	}
 	
-	public String getUser()
+	public UserDTO getUser()
 	{
 		return user;
 	}
