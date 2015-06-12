@@ -53,8 +53,7 @@ public class LoginView extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-		//	mc.show(mc.getUserController().login(oprNumber.getText(), password.getText()));		
-			mc.show(new MainView(mc));
+			mc.show(mc.getUserController().login(oprNumber.getText(), password.getText()));
 		}
 		
 	}
