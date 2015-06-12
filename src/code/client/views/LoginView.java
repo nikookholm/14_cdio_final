@@ -33,8 +33,7 @@ public class LoginView extends Composite {
 		HorizontalPanel buttonPanel = new HorizontalPanel();
 		buttonPanel.add(clearBtn);
 		buttonPanel.add(okBtn);
-		
-				
+
 		panel.add(new Label("Login"));
 		table.setText(0, 0, "Operatør ID:");
 		table.setWidget(0, 1, oprNumber);

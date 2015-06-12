@@ -19,13 +19,15 @@ public class MainView extends Composite {
 		this.mc = mc;
 		VerticalPanel panel = new VerticalPanel();
 		
-		Anchor addUser			= new Anchor("Opret bruger");
-		Anchor updateUser		= new Anchor("Se og rediger brugere");
-		Anchor addIngredient	= new Anchor("Opret ny ingrediens");
-		Anchor updateIngredient = new Anchor("Se og rediger ingredienser");
-		Anchor addProductBatch	= new Anchor("Opret ny produkt batch");
-		Anchor listProductBatch = new Anchor("Se alle produkt batches");
-		Anchor listProductBatchComp = new Anchor("Se alle produkt batches");
+		Anchor addUser				= new Anchor("Opret bruger");
+		Anchor updateUser			= new Anchor("Se og rediger brugere");
+		Anchor addIngredient		= new Anchor("Opret ny ingrediens");
+		Anchor updateIngredient		= new Anchor("Se og rediger ingredienser");
+		Anchor addProductBatch		= new Anchor("Opret ny produkt batch");
+		Anchor listProductBatch		= new Anchor("Se alle produkt batches");
+		Anchor listProductBatchComp = new Anchor("Se alle produkt batch komponenter");
+		Anchor addRecept			= new Anchor("Opret recept");
+		Anchor listRecepts			= new Anchor("Se alle recepter");
 		
 		ClickHandler addUserHandler = new ClickHandler() {
 			@Override
@@ -76,6 +78,20 @@ public class MainView extends Composite {
 			}
 		};
 		
+		ClickHandler addReceptHandler = new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				mc.show(mc.getReceptController().createRecept(null));				
+			}
+		};
+		
+		ClickHandler listReceptsHandler = new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				//mc.show(mc.getReceptController().listRecepts());				
+			}
+		};
+		
 		panel.add(new Label("Brugeradministration"));
 		addUser.addClickHandler(addUserHandler);
 		panel.add(addUser);
@@ -98,9 +114,14 @@ public class MainView extends Composite {
 		listProductBatchComp.addClickHandler(listProductBatchCompHandler);
 		panel.add(listProductBatchComp);
 		
+		panel.add(new Label("Recepter"));
+		addRecept.addClickHandler(addReceptHandler);
+		panel.add(addProductBatch);
+		listRecepts.addClickHandler(listReceptsHandler);
+		panel.add(listProductBatch);
+		
 		initWidget(panel);
 		
-	
 	}
 	
 	

@@ -28,11 +28,12 @@ public class MainController {
 
 	public MainController()
 	{
-		userController = new UserController(this);
-		ingredientController = new IngredientController(this);
-		productBatchController = new ProductBatchController(this);
+		userController 			   = new UserController(this);
+		ingredientController	   = new IngredientController(this);
+		productBatchController 	   = new ProductBatchController(this);
 		productBatchCompController = new ProductBatchCompController(this);
-		receptController = new ReceptController(this);
+		receptController		   = new ReceptController(this);
+		
 		show(new LoginView(this));
 	}
 	
