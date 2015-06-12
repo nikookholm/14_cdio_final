@@ -55,8 +55,18 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void user_table_update(UserDTO user) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub	
+	}
+	
+	@Override
+	public UserDTO user_table_get(int id) {
 		
+		try {
+			return user.getUser(id);
+		} catch (DALException e) {
+			return null;
+		}
+	
 	}
 
 	@Override
@@ -149,17 +159,6 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public UserDTO user_table_get(int id) {
-		
-		try {
-			return user.getUser(id);
-		} catch (DALException e) {
-			return null;
-		}
-		
-	}
-
-	@Override
 	public ReceptDTO recept_table_get(int id) {
 		try {
 			return recept.getRecept(id);
@@ -181,6 +180,16 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	public IngredientBatchDTO ingredientBatch_table_get(int id) {
 		try {
 			return ingredientBatch.getIngredientBatch(id);
+		} catch (DALException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public ArrayList<ReceptCompDTO> receptComp_table_get(int id) {
+		// TODO Auto-generated method stub
+		try {
+			return receptComp.getReceptCompList(id);
 		} catch (DALException e) {
 			return null;
 		}
