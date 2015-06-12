@@ -68,9 +68,6 @@ public class ListProductBatchView extends Composite
 			
 			flex.setWidget(i+1, 5, edit = new Anchor("Redigér"));
 			edit.addClickHandler(new editClickHandler());
-			
-//			table.setWidget(i+1, 8, edit = new Anchor("rediger"));
-//			edit.addClickHandler(new EditButtonHandler());
 		}
 		
 		this.subTable = new Grid(1, 2);
@@ -101,11 +98,11 @@ public class ListProductBatchView extends Composite
 			}
 			selectedRow = flex.getCellForEvent(event).getRowIndex();
 
-			pbNoBox.setText(flex.getText(selectedRow, 1));
-			receptNoBox.setText(flex.getText(selectedRow, 2));
+			pbNoBox.setText(flex.getText(selectedRow, 0));
+			receptNoBox.setText(flex.getText(selectedRow, 1));
 			
-			flex.setWidget(selectedRow, 1, pbNoBox);
-			flex.setWidget(selectedRow, 2, receptNoBox);
+			flex.setWidget(selectedRow, 0, pbNoBox);
+			flex.setWidget(selectedRow, 1, receptNoBox);
 			
 		}
 
