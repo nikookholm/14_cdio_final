@@ -42,6 +42,7 @@ public interface DatabaseService extends RemoteService {
 	void ingredientBatch_table_create(IngredientBatchDTO ingredientBatch);
 	ArrayList<IngredientBatchDTO> ingredientBatch_table_list();
 	IngredientBatchDTO			ingredientBatch_table_get(int id);
+	void						ingredientBatch_table_update(IngredientBatchDTO ingredientBatch);
 	
 	ArrayList<ReceptCompDTO> receptComp_table_get(int id);
 }
