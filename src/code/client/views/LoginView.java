@@ -17,6 +17,8 @@ public class LoginView extends Composite {
 	private MainController mc;
 	TextBox oprNumber   = new TextBox();
 	TextBox password    = new TextBox();
+	Button okBtn    	= new Button("Login");
+	Button clearBtn		= new Button("Ryd");
 	
 	public LoginView(MainController mc)
 	{
@@ -25,8 +27,7 @@ public class LoginView extends Composite {
 		
 		FlexTable table = new FlexTable();
 
-		Button okBtn    	= new Button("Login");
-		Button clearBtn		= new Button("Ryd");
+	
 		okBtn.addClickHandler(new obBtnClick());
 		clearBtn.addClickHandler(new clearBtnClick());
 		
@@ -53,7 +54,8 @@ public class LoginView extends Composite {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			mc.show(mc.getUserController().login(oprNumber.getText(), password.getText()));			
+		//	mc.show(mc.getUserController().login(oprNumber.getText(), password.getText()));		
+			mc.show(new MainView(mc));
 		}
 		
 	}

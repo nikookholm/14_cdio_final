@@ -57,7 +57,7 @@ public class MainController {
 	public void show(Widget widget)
 	{
 		RootPanel.get("main").clear();
-		if (user == null) widget = new LoginView(this);
+	//	if (user == null) widget = new LoginView(this);
 		RootPanel.get("main").add(widget);
 	}
 	

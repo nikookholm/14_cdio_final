@@ -22,9 +22,10 @@ public class UserController {
 		this.mc = mc;
 	}
 
-	public Widget login(String oprNumber)
+	public Widget login(String oprNumber, String password)
 	{
-		mc.setUser(oprNumber);
+		
+		//mc.setUser(oprNumber);
 		return new MainView(mc);
 	}
 
@@ -60,8 +61,7 @@ public class UserController {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-
+			Window.alert("Der skete en fejl, da systemet skulle have adgang til databasen");
 			}
 			@Override
 			public void onSuccess(ArrayList<UserDTO> result) {
