@@ -58,11 +58,11 @@ public class MainController {
 	
 	public void show(Widget widget)
 	{
-		if (user != null)
-		{
+		//if (user != null)
+		//{
 			RootPanel.get("main").clear();
 			RootPanel.get("main").add(widget);
-		}
+		//}
 	}
 	
 	public void setUser(UserDTO user)
