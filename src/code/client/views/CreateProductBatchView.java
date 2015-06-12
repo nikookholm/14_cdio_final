@@ -40,7 +40,7 @@ public class CreateProductBatchView extends Composite
 	
 	boolean pbNoValidity 		= false;
 	boolean receptNoValidity	= false;
-	SimpleDateFormat dateTime 	= new SimpleDateFormat("yyyy/MM/dd-HH:mm");
+//	SimpleDateFormat dateTime 	= new SimpleDateFormat("yyyy/MM/dd-HH:mm");
 	
 	public CreateProductBatchView(ProductBatchDTO pbDTO, MainController mc)
 	{
@@ -72,7 +72,7 @@ public class CreateProductBatchView extends Composite
 			table.setWidget(1, 1, receptNoBox);
 		}
 		
-	this.subTable = new Grid(1, 1);
+		this.subTable = new Grid(1, 1);
 		subTable.setWidget(0, 0, HPanel = new HorizontalPanel());
 		
 		HPanel.setHorizontalAlignment(HasAlignment.ALIGN_RIGHT);
@@ -140,7 +140,7 @@ public class CreateProductBatchView extends Composite
 			int recI = Integer.parseInt(receptNoBox.getText());
 			int statI = 0;
 			String datI = "";
-			datI = dateTime.format(new Date());
+//			datI = dateTime.format(new Date());
 			
 			ProductBatchDTO pbDTO = new ProductBatchDTO(pbI, statI, recI, datI);
 			
