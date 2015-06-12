@@ -8,6 +8,7 @@ import code.database.IngredientDTO;
 import code.database.ProductBatchCompDTO;
 import code.database.ProductBatchDTO;
 import code.database.ProductBatchImpl;
+import code.database.ReceptCompDTO;
 import code.database.ReceptDTO;
 import code.database.UserDTO;
 
@@ -38,6 +39,8 @@ public interface DatabaseServiceAsync {
 	void ingredientBatch_table_create(IngredientBatchDTO ingredient, AsyncCallback<Void> callback);
 	void ingredientBatch_table_list(AsyncCallback<ArrayList<IngredientBatchDTO>> callback);
 	void ingredientBatch_table_get(int id, AsyncCallback<IngredientBatchDTO> callback);
+	
+	void receptComp_table_get(int id, AsyncCallback<ArrayList<ReceptCompDTO>> callback);
 	
 	
 }

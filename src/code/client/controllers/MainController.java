@@ -23,14 +23,17 @@ public class MainController {
 	private IngredientController ingredientController;
 	private ProductBatchController productBatchController;
 	private ProductBatchCompController productBatchCompController;
+	private ReceptController receptController;
 	private UserDTO user;
 
 	public MainController()
 	{
-		userController = new UserController(this);
-		ingredientController = new IngredientController(this);
-		productBatchController = new ProductBatchController(this);
+		userController 			   = new UserController(this);
+		ingredientController	   = new IngredientController(this);
+		productBatchController 	   = new ProductBatchController(this);
 		productBatchCompController = new ProductBatchCompController(this);
+		receptController		   = new ReceptController(this);
+		
 		show(new LoginView(this));
 	}
 	
@@ -52,6 +55,11 @@ public class MainController {
 	public ProductBatchCompController getProductBatchCompController()
 	{
 		return productBatchCompController;
+	}
+	
+	public ReceptController getReceptController()
+	{
+		return receptController;
 	}
 	
 	public void show(Widget widget)

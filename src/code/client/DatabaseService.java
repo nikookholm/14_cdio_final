@@ -6,6 +6,7 @@ import code.database.IngredientBatchDTO;
 import code.database.IngredientDTO;
 import code.database.ProductBatchCompDTO;
 import code.database.ProductBatchDTO;
+import code.database.ReceptCompDTO;
 import code.database.ReceptDTO;
 import code.database.UserDTO;
 
@@ -41,4 +42,6 @@ public interface DatabaseService extends RemoteService {
 	void ingredientBatch_table_create(IngredientBatchDTO ingredientBatch);
 	ArrayList<IngredientBatchDTO> ingredientBatch_table_list();
 	IngredientBatchDTO			ingredientBatch_table_get(int id);
+	
+	ArrayList<ReceptCompDTO> receptComp_table_get(int id);
 }

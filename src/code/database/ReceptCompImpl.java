@@ -19,9 +19,9 @@ public class ReceptCompImpl implements ReceptCompDAO {
 	}
 
 	@Override
-	public List<ReceptCompDTO> getReceptCompList(int receptId) throws DALException {
+	public ArrayList<ReceptCompDTO> getReceptCompList(int receptId) throws DALException {
 
-		List<ReceptCompDTO> list = new ArrayList<ReceptCompDTO>();
+		ArrayList<ReceptCompDTO> list = new ArrayList<ReceptCompDTO>();
 		ResultSet rs = Connector.doQuery("SELECT * FROM receptcomponent");
 		try
 		{
@@ -35,9 +35,9 @@ public class ReceptCompImpl implements ReceptCompDAO {
 	}
 
 	@Override
-	public List<ReceptCompDTO> getReceptCompList() throws DALException {
+	public ArrayList<ReceptCompDTO> getReceptCompList() throws DALException {
 
-		List<ReceptCompDTO> list = new ArrayList<ReceptCompDTO>();
+		ArrayList<ReceptCompDTO> list = new ArrayList<ReceptCompDTO>();
 		ResultSet rs = Connector.doQuery("SELECT * FROM receptcomponent");
 		try
 		{
