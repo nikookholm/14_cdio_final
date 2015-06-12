@@ -19,14 +19,10 @@ public class Cdio_final implements EntryPoint {
 			
 			@Override
 			public void onSuccess(Void result) {
-				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				
 			}
 		});
 		new MainController();		
