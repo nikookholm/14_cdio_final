@@ -86,14 +86,19 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void recept_table_create(ReceptDTO recept) {
-		// TODO Auto-generated method stub
+		try {
+			this.recept.createRecept(recept);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Override
 	public ArrayList<ReceptDTO> recept_table_list() {
 		// TODO Auto-generated method stub
-		return null;
+		return recept.getReceptList();
 	}
 
 	@Override

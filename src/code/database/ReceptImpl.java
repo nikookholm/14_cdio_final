@@ -19,9 +19,9 @@ public class ReceptImpl implements ReceptDAO {
 	}
 
 	@Override
-	public List<ReceptDTO> getReceptList() throws DALException {
+	public ArrayList<ReceptDTO> getReceptList() throws DALException {
 		
-		List<ReceptDTO> list = new ArrayList<ReceptDTO>();
+		ArrayList<ReceptDTO> list = new ArrayList<ReceptDTO>();
 			ResultSet rs = Connector.doQuery("SELECT * FROM recept");
 		try
 		{
