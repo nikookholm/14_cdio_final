@@ -34,13 +34,15 @@ public class UserController {
 
 			@Override
 			public void onSuccess(UserDTO result) {
+
 				parseUserDTO(result);
 			}
 		});
 
+		if(password.equals(this.userDTO.getPassword())){
 
-
-		mc.setUser(userDTO);
+			mc.setUser(this.userDTO);
+		}
 		return new MainView(mc);
 	}
 
