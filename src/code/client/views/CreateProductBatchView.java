@@ -154,7 +154,6 @@ public class CreateProductBatchView extends Composite
 		public void onClick(ClickEvent event) {
 			mc.show(new MainView(mc));
 		}
-		
 	}
 	
 	

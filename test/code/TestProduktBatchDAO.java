@@ -3,7 +3,9 @@ package code;
 
 import static org.junit.Assert.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
@@ -56,8 +58,10 @@ public class TestProduktBatchDAO {
 	public void testCreateProduktBatch() throws DALException {
 		ArrayList<ProductBatchDTO> pbList = pbDao.getProductBatchList();
 		int currentHighestId  = pbList.get(pbList.size()-1).getPbId();
+		SimpleDateFormat simpleDateTime = new SimpleDateFormat("yyyy/MM/dd-HH:mm");
 		String dateTime = "";
-	
+		dateTime = simpleDateTime.format(new Date());
+		
 		int expected = pbDao.getProductBatchList().size()+1;
 		pbDao.createProductBatch(new ProductBatchDTO(currentHighestId+1, 1, 1, dateTime ));
 		int actual = pbDao.getProductBatchList().size();
