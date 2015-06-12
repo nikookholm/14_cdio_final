@@ -19,6 +19,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasAlignment;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
@@ -36,7 +37,7 @@ public class CreateProductBatchView extends Composite
 	Grid table, subTable;
 	FlexTable flex;
 	Label pbNoLabel, receptNoLabel;
-	TextBox pbNoBox, receptNoBox, statBox;
+	TextBox pbNoBox, receptNoBox;
 	
 	boolean pbNoValidity 		= false;
 	boolean receptNoValidity	= false;
@@ -52,6 +53,7 @@ public class CreateProductBatchView extends Composite
 		receptNoLabel	= new Label("receptNo");
 		pbNoBox		= new TextBox();
 		receptNoBox	= new TextBox();
+		pbNoBox.setFocus(true);
 		
 		OKButton = new Button("OK");
 		cancelButton = new Button("Cancel");
@@ -71,11 +73,12 @@ public class CreateProductBatchView extends Composite
 			table.setWidget(1, 0, receptNoLabel);
 			table.setWidget(1, 1, receptNoBox);
 		}
-		
 		this.subTable = new Grid(1, 1);
-		subTable.setWidget(0, 0, HPanel = new HorizontalPanel());
 		
-		HPanel.setHorizontalAlignment(HasAlignment.ALIGN_RIGHT);
+		HPanel = new HorizontalPanel();
+		subTable.setWidget(0, 0, HPanel );
+		
+		HPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		HPanel.add(OKButton);
 		HPanel.add(cancelButton);
 		

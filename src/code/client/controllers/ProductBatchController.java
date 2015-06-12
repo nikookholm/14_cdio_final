@@ -53,18 +53,10 @@ public class ProductBatchController
 			}
 			@Override
 			public void onSuccess(ArrayList<ProductBatchDTO> result) {
-				SortedPBList(result);
+				pbs = result;
 			}
 		});
 		return new ListProductBatchView(pbs, mc);
-	}
-	
-	public void SortedPBList(ArrayList<ProductBatchDTO> ls) {
-		pbs = new ArrayList<ProductBatchDTO>();
-
-		for (int i=0; i<pbs.size(); i++) {
-			pbs.add(pbs.get(i));
-		}
 	}
 	
 	private void printProductBatch()
