@@ -23,7 +23,7 @@ public class ListReceptView extends Composite{
 	
 	ArrayList<ReceptDTO> list;
 	
-	public ListReceptView(ReceptDTO receptDTO, MainController mc)
+	public ListReceptView(ArrayList<ReceptDTO> receptDTO, MainController mc)
 	{
 		this.mc = mc;
 		VPanel = new VerticalPanel();

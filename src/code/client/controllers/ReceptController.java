@@ -13,7 +13,7 @@ import code.database.ReceptDTO;
 public class ReceptController {
 
 	MainController mc;
-	ReceptDTO receptDTO;
+	ArrayList<ReceptDTO> receptDTO;
 	
 	public ReceptController(MainController mc)
 	{
@@ -45,21 +45,22 @@ public class ReceptController {
 		
 	}
 	
-	public void getReceptList()
+	public Widget getReceptList()
 	{		
 		mc.databaseService.recept_table_list(new AsyncCallback<ArrayList<ReceptDTO>>() {
 			
 			@Override
 			public void onSuccess(ArrayList<ReceptDTO> result) {
-				
+				receptDTO = result;
 			}
 			
 			@Override
 			public void onFailure(Throwable caught) {
+				receptDTO = null;
 				Window.alert("Listen over recepter kunne ikke hentes"+caught.getMessage());
 			}
 		});
 		
-		//return new ListReceptView();
+		return new ListReceptView(receptDTO, mc);
 	}
 }
