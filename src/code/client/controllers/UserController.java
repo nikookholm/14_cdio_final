@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import code.client.views.CreateUserView;
 import code.client.views.ListUsersView;
+import code.client.views.LoginView;
 import code.client.views.MainView;
 import code.database.UserDTO;
 
@@ -16,34 +17,39 @@ public class UserController {
 
 	private MainController mc;
 	ArrayList<UserDTO> users;
-	private UserDTO userDTO;
+	private UserDTO currentUser;
+	private Widget returnView;
 
 	public UserController(MainController mc)
 	{
 		this.mc = mc;
 	}
 
-	public Widget login(String oprNumber, String password)
+	public Widget login(final String oprNumber, final String password)
 	{
 		mc.databaseService.user_table_get(Integer.parseInt(oprNumber), new AsyncCallback<UserDTO>() {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("FEEEEEEEEEEEEEEJL");
+				//Window.alert("FEEEEEEEEEEEEEEJL");
+				mc.show(new LoginView(mc));
 			}
 
 			@Override
 			public void onSuccess(UserDTO result) {
 
 				parseUserDTO(result);
+				
+				if (password.equals(currentUser.getPassword()) ){
+
+					mc.setUser(currentUser);
+					mc.show(new MainView(mc));
+				}
 			}
 		});
 
-		if(password.equals(this.userDTO.getPassword())){
 
-			mc.setUser(this.userDTO);
-		}
-		return new MainView(mc);
+		return returnView;
 	}
 
 	public Widget createUser(final UserDTO user)
@@ -108,7 +114,7 @@ public class UserController {
 	}
 
 	private void parseUserDTO(UserDTO result){
-		this.userDTO = result;
+		this.currentUser = result;
 
 	}
 }

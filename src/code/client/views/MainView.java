@@ -45,7 +45,7 @@ public class MainView extends Composite {
 		ClickHandler addIngredientHandler = new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				mc.show(mc.getIngredientController().createIngredient(null));				
+				mc.show(mc.getIngredientController().createIngredient(null));
 			}
 		};
 		

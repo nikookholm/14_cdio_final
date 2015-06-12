@@ -58,11 +58,15 @@ public class MainController {
 	
 	public void show(Widget widget)
 	{
-		//if (user != null)
-		//{
-			RootPanel.get("main").clear();
+		RootPanel.get("main").clear();
+		if (user != null)
+		{
 			RootPanel.get("main").add(widget);
-		//}
+		}
+		else
+		{
+			RootPanel.get("main").add(new LoginView(this));
+		}
 	}
 	
 	public void setUser(UserDTO user)
