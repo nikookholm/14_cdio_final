@@ -13,7 +13,7 @@ import code.database.*;
 public class ProductBatchCompController 
 {
 	MainController mc;
-	ProductBatchCompDTO pbCompDTO;
+	ArrayList<ProductBatchCompDTO> pbCompDTO;
 
 	public ProductBatchCompController(MainController mc)
 	{
@@ -32,7 +32,7 @@ public class ProductBatchCompController
 			@Override
 			public void onSuccess(ArrayList<ProductBatchCompDTO> list)
 			{
-				//Success
+				SortedPBCompList(list);
 			}
 		});
 		return new ListProductBatchCompView(pbCompDTO, mc);
@@ -40,11 +40,11 @@ public class ProductBatchCompController
 	
 	public void SortedPBCompList(ArrayList<ProductBatchCompDTO> list)
 	{
-		list = new ArrayList<ProductBatchCompDTO>();
+		pbCompDTO = new ArrayList<ProductBatchCompDTO>();
 		
-		for(int i = 0; i < list.size(); i++)
+		for(int i = 0; i < pbCompDTO.size(); i++)
 		{
-			list.add(list.get(i));
+			pbCompDTO.add(pbCompDTO.get(i));
 		}
 	}
 }

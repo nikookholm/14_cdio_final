@@ -7,7 +7,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import code.client.views.CreateReceptView;
-import code.client.views.ListReceptView;
+import code.client.views.ListReceptsView;
 import code.database.ReceptDTO;
 
 public class ReceptController {
@@ -61,6 +61,6 @@ public class ReceptController {
 			}
 		});
 		
-		return new ListReceptView(receptDTO, mc);
+		return new ListReceptsView(receptDTO, mc);
 	}
 }

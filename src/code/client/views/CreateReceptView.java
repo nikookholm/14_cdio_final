@@ -45,12 +45,12 @@ public class CreateReceptView extends Composite
 		
 		if(receptDTO != null)
 		{
-			vPanel.add(new Label(receptDTO.getReceptName() + "blev oprettet"));
+			vPanel.add(new Label(receptDTO.getReceptName() + " blev oprettet"));
 		}
 		
 		this.table = new Grid(2,2);
 		
-		table.setWidget(0, 1, receptNameLabel);
+		table.setWidget(0, 0, receptNameLabel);
 		table.setWidget(0, 1, receptNameBox);
 		table.setWidget(1, 0, receptIdLabel);
 		table.setWidget(1, 1, receptIdBox);
