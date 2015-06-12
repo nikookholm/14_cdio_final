@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import code.client.views.CreateReceptView;
+import code.client.views.ListReceptView;
 import code.database.ReceptDTO;
 
 public class ReceptController {
@@ -58,6 +59,7 @@ public class ReceptController {
 				Window.alert("Listen over recepter kunne ikke hentes"+caught.getMessage());
 			}
 		});
-		return new ListReceptView();
+		
+		//return new ListReceptView();
 	}
 }

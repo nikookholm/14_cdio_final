@@ -2,10 +2,6 @@ package code.client.views;
 
 import code.client.controllers.MainController;
 import code.client.controllers.ReceptController;
-import code.client.views.CreateIngredientView.ingredientId;
-import code.client.views.CreateIngredientView.ingredientName;
-import code.client.views.CreateIngredientView.leverandoer;
-import code.database.IngredientDTO;
 import code.database.ReceptDTO;
 import code.shared.FieldVerifier;
 
@@ -98,6 +94,48 @@ public class CreateReceptView extends Composite
 		public void onKeyUp(KeyUpEvent event)
 		{
 			if(!FieldVerifier.isReceptNoValid(receptIdBox.getText()))
+			{
+				receptIdBox.setStyleName("gwt-Textbox-invalidEntry");
+				receptIdCheck = false;
+			}
+			else{
+				receptIdBox.removeStyleName("gwt-TextBox-invalidEntry");
+				receptIdCheck = true;
+				okButtonEnabler();
+			}
 		}
+	}
+	
+	private class receptName implements KeyUpHandler
+	{
+		@Override
+		public void onKeyUp(KeyUpEvent event)
+		{
+			if(!FieldVerifier.isValidName(receptNameBox.getText()))
+			{
+				receptNameBox.setStyleName("gwt-Textbox-invalidEntry");
+				receptNameCheck = false;
+			}
+			else{
+				receptNameBox.removeStyleName("gwt-TextBox-invalidEntry");
+				receptNameCheck = true;
+				okButtonEnabler();
+			}
+		}
+	}
+	
+	public void okButtonEnabler(){
+		if(receptIdCheck && receptNameCheck){
+			OkButton.setEnabled(true);
+		}
+		else OkButton.setEnabled(false);
+
+	}
+	public void cancelButtonEnable(){
+		if(receptIdCheck && receptNameCheck){
+			OkButton.setEnabled(true);
+
+		}
+		else OkButton.setEnabled(true);
 	}
 }
