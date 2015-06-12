@@ -11,6 +11,7 @@ import code.database.IngredientBatchDTO;
 import code.database.IngredientDTO;
 import code.database.ProductBatchCompDTO;
 import code.database.ProductBatchDTO;
+import code.database.ReceptCompDTO;
 import code.database.ReceptDTO;
 import code.database.UserDTO;
 import code.server.DatabaseServiceImpl;
@@ -22,6 +23,11 @@ public class WeightProcedures {
 	UserDTO opr;
 	IngredientBatchDTO iBDTO;
 	IngredientDTO iDTO;
+	ReceptDTO receptDTO;
+	ReceptCompDTO receptCompDTO;
+	ProductBatchDTO pBDTO;
+	ProductBatchCompDTO pBCDTO;
+	ArrayList<ReceptCompDTO> ingredientsLines;
 
 	DatabaseService dbs = new DatabaseServiceImpl();
 	WeightService ws;
@@ -38,13 +44,18 @@ public class WeightProcedures {
 	public void start() throws WeightException
 	{
 		login();
-//		confirmOperator();
-//		chooseProductNumber();
-
-//		for (IngredientDTO ingredient : ALLE_RAAVARE_LINJER)
-//		{
-//			ingredientLine(ingredient);
-//		}
+		confirmOperator();
+		enterProductNumber();
+		updateStatus();
+		
+		for (ReceptCompDTO ingredient : ingredientsLines)
+		{
+			try {
+				ingredientLine(ingredient);
+			} catch (InterruptedException e) {
+				
+			}
+		}
 	}
 	
 	private void login() throws WeightException
@@ -76,7 +87,7 @@ public class WeightProcedures {
 		validateOpr = ws.rm20(4, message);
 		if(validateOpr.equals(valid)){
 
-			chooseProductNumber();
+			enterProductNumber();
 
 		}else{
 			login();	
@@ -84,45 +95,46 @@ public class WeightProcedures {
 
 	}
 
-	private void chooseProductNumber() throws WeightException
+	private void enterProductNumber() throws WeightException
 	{
 		String message = "indtast produktnummer";
 		String produktNummer;
 		int produktNr;
-		ReceptDTO recept = null;
-		ProductBatchDTO pbDTO;
-		@SuppressWarnings("null")
-		String message1 = "vil du afveje" + recept.getReceptName();
+		String message1 = "vil du afveje" + receptDTO.getReceptName();
 		String verifyrReceptBalancing;
 		String valid = "1";
-		ArrayList<IngredientDTO> allIngredient;
+		int receptId;
 
+		
 		produktNummer = ws.rm20(4, message);
-
 		if(produktNummer.matches("\\D")){
 			produktNr = Integer.parseInt(produktNummer);
-			pbDTO = dbs.productBatch_table_get(produktNr);
-			recept = dbs.recept_table_get(pbDTO.getReceptId());
-			recept.getReceptName();
+			
+			pBDTO = dbs.productBatch_table_get(produktNr);
+			receptId = pBDTO.getReceptId();
+			receptDTO = dbs.recept_table_get(receptId);
+			receptDTO.getReceptName();
+			
 			verifyrReceptBalancing = ws.rm20(4, message1);
 			if(verifyrReceptBalancing.equals(valid)){
-				allIngredient = dbs.ingredients_table_list();
-
-//				ingredientLine(ingredient);
+			ingredientsLines = dbs.receptComp_table_get(receptId);
+			
 			}
 		}else{
-			chooseProductNumber();
+			enterProductNumber();
 		}
 
 	}
-
-	private void ingredientLine(IngredientDTO ingredient) throws WeightException, InterruptedException
-	{		
-		clearAndTara();
-		updateStatus();
-		enterIngredientBatchNumber();
-		updateStatus();
+	
+	
+	private void updateStatus()
+	{
+		
+		
+		
+		
 	}
+
 
 	private void clearAndTara() throws WeightException, InterruptedException
 	{
@@ -146,31 +158,25 @@ public class WeightProcedures {
 
 	}
 
-	private void updateStatus()
-	{
-		
-		
-		
-		// opdatere listen af de indtastede værdier, fx. de afvejde ingredienser
-
-	}
 
 	private void enterIngredientBatchNumber() throws WeightException
 	{
 		
-		double savedValue = 0;
+		double weightValue = 0;
 		int ingredientID;
 		String verifyId;
 		String message1 = "indtast ingredientsBatch nummer på første ingredients";
-		
 		
 		verifyId = ws.rm20(4, message1);
 			
 			if(verifyId.matches("\\D")){
 				ingredientID = Integer.parseInt(verifyId);
 				iBDTO = dbs.ingredientBatch_table_get(ingredientID);
-				iBDTO.setMaengde(ingredientID);
+				iBDTO.setMaengde(weightValue);
 				
+				
+				
+			
 					if(iBDTO==null){
 						enterIngredientBatchNumber();
 					}			
@@ -181,5 +187,13 @@ public class WeightProcedures {
 //		iBDTO.setMaengde(savedValue);
 
 
+	}
+	private void ingredientLine(ReceptCompDTO ingredient) throws WeightException, InterruptedException
+	{			
+		clearAndTara();
+		enterIngredientBatchNumber();
+		
+		
+//		iDTO.setIngredientId(IngredientId);
 	}
 }
