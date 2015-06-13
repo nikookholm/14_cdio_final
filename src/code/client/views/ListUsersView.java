@@ -6,6 +6,8 @@ import javax.management.relation.RoleNotFoundException;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
@@ -17,6 +19,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import code.client.controllers.MainController;
 import code.database.UserDTO;
+import code.shared.FieldVerifier;
 
 public class ListUsersView extends Composite{
 
@@ -27,11 +30,15 @@ public class ListUsersView extends Composite{
 	VerticalPanel vPanel;
 	Label Header, fillerLabel, presentError;
 	FlexTable table;
-	Anchor edit, ok, cancel, prevCancel;
+	Anchor edit, ok, prevCancel = null;
 	int selectedRow;
 	TextBox nameBox, iniBox, pwBox;
 	ListBox roleBox;
 	CheckBox deactivate;
+	
+	boolean nameCheck = false; 
+	boolean iniCheck  = false;
+	boolean cprCheck  = false;
 
 	public ListUsersView(ArrayList<UserDTO> users, MainController mc){
 		this.users = users;
@@ -64,21 +71,18 @@ public class ListUsersView extends Composite{
 			table.setText(i+1, 5, 	"" + parseRole(this.users.get(i).getRole()));
 			table.setText(i+1, 6, 	"" + this.users.get(i).getActive());
 
-			table.setWidget(i+1, 8, edit = new Anchor("rediger"));
+			table.setWidget(i+1, 7, edit = new Anchor("rediger"));
 			edit.addClickHandler(new EditButtonHandler());
 
 		}
 
 		vPanel.add(table);
 
-
-
 		nameBox 	= new TextBox();
 		iniBox 		= new TextBox();
 		pwBox 		= new TextBox();
 		roleBox 	= new ListBox();
 		deactivate  = new CheckBox();
-
 
 
 	}
@@ -93,10 +97,14 @@ public class ListUsersView extends Composite{
 			}
 			//Finds the row the user clicked
 			selectedRow = table.getCellForEvent(event).getRowIndex();
+			
 
 			nameBox.setText(table.getText(selectedRow, 1));
+			//nameBox.setWidth("150px");
 			iniBox.setText(table.getText(selectedRow, 2));
+			//iniBox.setWidth("40px");
 			pwBox.setText(table.getText(selectedRow, 4));
+			//pwBox.setWidth("100px");
 
 			roleBox.addItem("Operatør");
 			roleBox.addItem("Værkfører");
@@ -108,12 +116,14 @@ public class ListUsersView extends Composite{
 			deactivate.setValue(table.getText(selectedRow, 6).equals("true"));
 
 			table.setWidget(selectedRow, 1, nameBox);
+			nameBox.addKeyUpHandler(new NameBoxHandler());
+			
 			table.setWidget(selectedRow, 2, iniBox);
+			iniBox.addKeyUpHandler(new IniBoxHandler());
 			table.setWidget(selectedRow, 4, pwBox);
 			table.setWidget(selectedRow, 5, roleBox);
 			table.setWidget(selectedRow, 6, deactivate);
-			table.setWidget(selectedRow, 7, cancel = new Anchor("cancel"));	
-			table.clearCell(selectedRow, 8);
+		
 			table.setWidget(selectedRow, 8, ok = new Anchor("ok"));
 
 			nameBox.setFocus(true);
@@ -126,24 +136,39 @@ public class ListUsersView extends Composite{
 			final String role = roleBox.getItemText(roleBox.getTabIndex());
 			final String isActive = "" + parseCheckBox(deactivate.getFormValue());
 
-			final Anchor ok = new Anchor("ok");
-
+			//final Anchor ok = new Anchor("ok");
+			
+			
+			Anchor cancel = new Anchor("cancel");
+			prevCancel = cancel;
+			
 			cancel.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
 
+					nameBox.setText(name);
+					nameBox.fireEvent(new KeyUpEvent() {});
+						
+					iniBox.setText(ini);
+					iniBox.fireEvent(new KeyUpEvent() {});
+							
 					table.setText(selectedRow, 1,	name);
 					table.setText(selectedRow, 2, 	ini);
 					table.setText(selectedRow, 4, 	pw);
 					table.setText(selectedRow, 5, 	role);
 					table.setText(selectedRow, 6, 	isActive);
+					table.setWidget(selectedRow, 7, edit);
+					
+					
+					table.clearCell(selectedRow, 8);
 
+					prevCancel = null;
 				}
 			}); 
-
-
+			table.setWidget(selectedRow, 7, cancel);
 		}
+		
 	}
 
 	private String parseRole(int roleNo){
@@ -168,5 +193,48 @@ public class ListUsersView extends Composite{
 		else return false;
 		
 	}
+	
+	private class NameBoxHandler implements KeyUpHandler{
+
+		@Override
+		public void onKeyUp(KeyUpEvent event) {
+			if(!FieldVerifier.isValidName(nameBox.getText())){
+				nameBox.setStyleName("gwt-TextBox-invalidEntry");
+				nameCheck = false;
+			}
+			else{
+				nameBox.removeStyleName("gwt-TextBox-invalidEntry");
+				nameCheck = true;
+			}
+			okButtonEnabler();
+
+		}
+	}
+	private class IniBoxHandler implements KeyUpHandler{
+
+		@Override
+		public void onKeyUp(KeyUpEvent event) {
+			if(!FieldVerifier.isInitialsValid(iniBox.getText())){
+				iniBox.setStyleName("gwt-TextBox-invalidEntry");
+				iniCheck = false;
+			}
+			else{
+				iniBox.removeStyleName("gwt-TextBox-invalidEntry");
+				iniCheck = true;
+			}
+			okButtonEnabler();
+		}
+	}
+	
+		
+	
+	public void okButtonEnabler(){
+		if(nameCheck && iniCheck && cprCheck){
+			ok.setEnabled(true);
+		}
+		else ok.setEnabled(false);
+
+	}
+	
 
 }
