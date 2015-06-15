@@ -43,24 +43,24 @@ public class WeightProcedures {
 	public void start() throws WeightException
 	{
 		login();
-		confirmOperator();
-		enterProductNumber();
-		updateStatus();
-
-		for (ReceptCompDTO ingredient : ingredientsLines)
-		{
-			try {
-				ingredientLine(ingredient);
-			} catch (InterruptedException e) {
-
-			}
-
-		}
-		updateStatus();
+//		confirmOperator();
+//		enterProductNumber();
+//		updateStatus();
+//
+//		for (ReceptCompDTO ingredient : ingredientsLines)
+//		{
+//			try {
+//				ingredientLine(ingredient);
+//			} catch (InterruptedException e) {
+//
+//			}
+//
+//		}
+//		updateStatus();
 
 		// if(slutproduktion==true){
 		// printer sluttidspunktet 
-		//	}
+//			}
 	}
 
 
@@ -70,22 +70,21 @@ public class WeightProcedures {
 		String checkOprNr;
 		int oprNr;
 
-		checkOprNr = ws.rm20(4, message);
+		checkOprNr = ws.rm20(8, message);
 		if(checkOprNr.matches("\\D")){
 			oprNr = Integer.parseInt(checkOprNr);
 			opr = dbs.user_table_get(oprNr);
+			System.out.println("Dit oprNr er" + opr.toString());
 			if(opr==null){
 				login();
+			}else{
+				confirmOperator();
 			}
-			confirmOperator();
-		}else{
-			login();
 		}
 	}
 
 	private void confirmOperator() throws WeightException
 	{
-
 		String validateOpr;
 		String message = "Er du" + opr;
 		String valid = "1";
@@ -146,7 +145,6 @@ public class WeightProcedures {
 		String message = "Sæt tarabeholder på vægten og tryk OK";
 		String message2 = "Sæt ingrediens på vægten, afvej og tryk OK";
 
-
 		ws.clearDisplay();
 		while(ws.getWeight() > 0){
 			ws.rm20(4,"Aflast vægten, tak");
@@ -161,14 +159,12 @@ public class WeightProcedures {
 
 	private void enterIngredientBatchNumber() throws WeightException
 	{
-
 		double weightValue = 0;
 		int ingredientID;
 		String verifyId;
 		String message1 = "indtast ingredientsBatch nummeret på den første ingredients du vil afveje";
 
 		verifyId = ws.rm20(4, message1);
-
 		if(verifyId.matches("\\D")){
 			ingredientID = Integer.parseInt(verifyId);
 			iBDTO = dbs.ingredientBatch_table_get(ingredientID);
