@@ -4,10 +4,13 @@ import java.util.ArrayList;
 
 import code.client.controllers.MainController;
 import code.database.IngredientBatchDTO;
+import code.database.IngredientDTO;
 import code.database.ProductBatchDTO;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
@@ -32,10 +35,9 @@ public class ListIngredientBatchView extends Composite
 
 	ArrayList<IngredientBatchDTO> ingrBatchDTO;
 
-	public ListIngredientBatchView(ArrayList<IngredientBatchDTO> ingrBatchDTO, MainController mc)
+	public ListIngredientBatchView(final MainController mc)
 	{
 		this.mc = mc;
-		this.ingrBatchDTO = ingrBatchDTO;
 		VPanel = new VerticalPanel();
 		initWidget(this.VPanel);
 
@@ -47,18 +49,29 @@ public class ListIngredientBatchView extends Composite
 		backButton.setEnabled(true);
 
 		infoLabel = new Label("Liste over råvarebatches");
-		this.ft = new FlexTable();
+		ft = new FlexTable();
 		ft.setTitle("IngredientBatchView");
 		ft.setWidget(0, 0, rbIdLabel);
 		ft.setWidget(0, 1, ingredientIdLabel);
 		ft.setWidget(0, 2, maengdeLabel);
-
-		for (int i = 0; i<ingrBatchDTO.size(); i++) {
-			ft.setText(i+1, 0,"" + this.ingrBatchDTO.get(i).getRbId());
-			ft.setText(i+1, 1,"" + this.ingrBatchDTO.get(i).getIngredientId());
-			ft.setText(i+1, 2,"" + this.ingrBatchDTO.get(i).getMaengde());
-		}	
-
+		
+		mc.databaseService.ingredientBatch_table_list(new AsyncCallback<ArrayList<IngredientBatchDTO>>(){
+		
+			@Override
+			public void onSuccess(ArrayList<IngredientBatchDTO> result) {
+				for (int i = 0; i<result.size(); i++) {
+					ft.setText(i+1, 0,"" + result.get(i).getRbId());
+					ft.setText(i+1, 1,"" + result.get(i).getIngredientId());
+					ft.setText(i+1, 2,"" + result.get(i).getMaengde());
+				}	
+			}
+			
+			@Override
+			public void onFailure(Throwable caught){
+				Window.alert("Fejl ved ListIngredientBatchView" + caught.getMessage());
+			}
+		});
+		
 		this.subTable = new Grid(1,2);
 		subTable.setWidget(0, 0, backButton);
 

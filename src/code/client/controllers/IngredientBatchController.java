@@ -47,6 +47,12 @@ public class IngredientBatchController
 	public Widget listIngredientBatch()
 	{
 		mc.databaseService.ingredientBatch_table_list(new AsyncCallback<ArrayList<IngredientBatchDTO>>(){
+	
+			@Override
+			public void onSuccess(ArrayList<IngredientBatchDTO> list)
+			{
+				ingrBatchDTO = list;
+			}
 			
 			@Override
 			public void onFailure(Throwable caught)
@@ -54,12 +60,7 @@ public class IngredientBatchController
 				ingrBatchDTO = null;
 				Window.alert("Kunne ikke hente liste fra server" + caught.getMessage());
 			}
-			@Override
-			public void onSuccess(ArrayList<IngredientBatchDTO> list)
-			{
-				ingrBatchDTO = list;
-			}
 		});
-		return new ListIngredientBatchView(ingrBatchDTO, mc);
+		return new ListIngredientBatchView(mc);
 	}
 }

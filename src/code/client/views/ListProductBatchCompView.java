@@ -55,14 +55,26 @@ public class ListProductBatchCompView extends Composite {
 		ft.setText(0, 2, "tara");
 		ft.setText(0, 3, "netto");
 		ft.setText(0, 4, "oprID");
-
-		for (int i=0; i < this.pbCompDTO.size(); i++) {
-			ft.setText(i+1, 0, "" + this.pbCompDTO.get(i).getPbId());
-			ft.setText(i+1, 1, "" + this.pbCompDTO.get(i).getRbId());
-			ft.setText(i+1, 2, "" + this.pbCompDTO.get(i).getTara());
-			ft.setText(i+1, 3, "" + this.pbCompDTO.get(i).getNetto());
-			ft.setText(i+1, 4, "" + this.pbCompDTO.get(i).getOprId());
-		}
+		
+		mc.databaseService.productBatchComp_table_list(new AsyncCallback<ArrayList<ProductBatchCompDTO>>(){
+			
+			@Override
+			public void onSuccess(ArrayList<ProductBatchCompDTO> result){
+				for (int i=0; i < result.size(); i++) {
+					ft.setText(i+1, 0, "" + result.get(i).getPbId());
+					ft.setText(i+1, 1, "" + result.get(i).getRbId());
+					ft.setText(i+1, 2, "" + result.get(i).getTara());
+					ft.setText(i+1, 3, "" + result.get(i).getNetto());
+					ft.setText(i+1, 4, "" + result.get(i).getOprId());
+				}
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Fejl ved ListProductBatchCompView"+caught.getMessage());
+			}
+		});
+		
 		VPanel.add(ft);
 		backButton.addClickHandler(new backClickHandler());
 	}

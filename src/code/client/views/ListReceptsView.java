@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -40,10 +42,22 @@ public class ListReceptsView extends Composite{
 		ft.setText(0, 0, "recept id");
 		ft.setText(0, 1, "recept name");
 		
-		for (int i=0; i < this.receptDTO.size(); i++) {
-			ft.setText(i+1, 0, "" + this.receptDTO.get(i).getReceptId());
-			ft.setText(i+1, 1, "" + this.receptDTO.get(i).getReceptName());
-		}
+		mc.databaseService.recept_table_list(new AsyncCallback<ArrayList<ReceptDTO>>(){
+			
+			@Override
+			public void onSuccess(ArrayList<ReceptDTO> result){
+				for (int i=0; i < result.size(); i++) {
+					ft.setText(i+1, 0, "" + result.get(i).getReceptId());
+					ft.setText(i+1, 1, "" + result.get(i).getReceptName());
+				}
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Fejl ved ListReceptsView" + caught.getMessage());
+			}
+		});
+		
 		VPanel.add(ft);
 		backButton.addClickHandler(new backClickHandler());
 	}
