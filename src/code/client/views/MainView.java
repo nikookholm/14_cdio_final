@@ -122,7 +122,7 @@ public class MainView extends Composite {
 		panel.add(addUser);
 		updateUser.addClickHandler(updateUserHandler);
 		panel.add(updateUser);
-		panel.add(new HTML("<br /><br />"));
+		panel.add(new HTML("<br />"));
 		
 		panel.add(ingredientCaption);
 		ingredientCaption.setStyleName("caption");
@@ -130,7 +130,7 @@ public class MainView extends Composite {
 		panel.add(addIngredient);
 		updateIngredient.addClickHandler(updateIngredientHandler);
 		panel.add(updateIngredient);
-		panel.add(new HTML("<br /><br />"));
+		panel.add(new HTML("<br />"));
 		
 		panel.add(productBatchCaption);
 		productBatchCaption.setStyleName("caption");
@@ -138,13 +138,13 @@ public class MainView extends Composite {
 		panel.add(addProductBatch);
 		listProductBatch.addClickHandler(listProductBatchHandler);
 		panel.add(listProductBatch);
-		panel.add(new HTML("<br /><br />"));
+		panel.add(new HTML("<br />"));
 		
 		panel.add(productBatchCompCaption);
 		productBatchCompCaption.setStyleName("caption");
 		listProductBatchComp.addClickHandler(listProductBatchCompHandler);
 		panel.add(listProductBatchComp);
-		panel.add(new HTML("<br /><br />"));
+		panel.add(new HTML("<br />"));
 		
 		panel.add(receptCaption);
 		receptCaption.setStyleName("caption");
@@ -152,7 +152,7 @@ public class MainView extends Composite {
 		panel.add(addRecept);
 		listRecepts.addClickHandler(listReceptsHandler);
 		panel.add(listRecepts);
-		panel.add(new HTML("<br /><br />"));
+		panel.add(new HTML("<br />"));
 		
 		panel.add(ingredientBatchCaption);
 		ingredientBatchCaption.setStyleName("caption");
