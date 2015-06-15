@@ -2,10 +2,12 @@ package code.client.views;
 
 import code.client.controllers.MainController;
 
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -27,6 +29,15 @@ public class MainView extends Composite {
 		Anchor listProductBatchComp = new Anchor("Se alle produkt batch komponenter");
 		Anchor addRecept			= new Anchor("Opret recept");
 		Anchor listRecepts			= new Anchor("Se alle recepter");
+		Anchor addIngredientBatch 	= new Anchor("Opret ingredient batch");
+		Anchor listIngredientBatch 	= new Anchor("Se alle ingredients batch");
+		
+		Label userCaption 		  	  = new Label("Brugeradministration");
+		Label ingredientCaption	  	  = new Label("Råvare/ingredienser");
+		Label productBatchCaption	  = new Label("Produkt batches");
+		Label productBatchCompCaption = new Label("Produkt batch komponenter");
+		Label receptCaption		  	  = new Label("Recepter");
+		Label ingredientBatchCaption  = new Label("Ingredient batches");
 		
 		ClickHandler addUserHandler = new ClickHandler() {
 			@Override
@@ -87,37 +98,68 @@ public class MainView extends Composite {
 		ClickHandler listReceptsHandler = new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				//mc.show(mc.getReceptController().listRecepts());				
+				mc.show(mc.getReceptController().listRecepts());				
 			}
 		};
 		
-		panel.add(new Label("Brugeradministration"));
+		ClickHandler addIngredientBatchHandler = new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				mc.show(mc.getIngredientBatchController().createIngredientBatch(null));				
+			}
+		};
+		
+		ClickHandler listIngredientBatchHandler = new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				mc.show(mc.getIngredientBatchController().listIngredientBatch());				
+			}
+		};
+		
+		panel.add(userCaption);
+		userCaption.setStyleName("caption");
 		addUser.addClickHandler(addUserHandler);
 		panel.add(addUser);
 		updateUser.addClickHandler(updateUserHandler);
 		panel.add(updateUser);
+		panel.add(new HTML("<br /><br />"));
 		
-		panel.add(new Label("Råvare/ingredienser"));
+		panel.add(ingredientCaption);
+		ingredientCaption.setStyleName("caption");
 		addIngredient.addClickHandler(addIngredientHandler);
 		panel.add(addIngredient);
 		updateIngredient.addClickHandler(updateIngredientHandler);
 		panel.add(updateIngredient);
+		panel.add(new HTML("<br /><br />"));
 		
-		panel.add(new Label("Produkt batches"));
+		panel.add(productBatchCaption);
+		productBatchCaption.setStyleName("caption");
 		addProductBatch.addClickHandler(addProductBatchHandler);
 		panel.add(addProductBatch);
 		listProductBatch.addClickHandler(listProductBatchHandler);
 		panel.add(listProductBatch);
+		panel.add(new HTML("<br /><br />"));
 		
-		panel.add(new Label("Produkt batch komponenter"));
+		panel.add(productBatchCompCaption);
+		productBatchCompCaption.setStyleName("caption");
 		listProductBatchComp.addClickHandler(listProductBatchCompHandler);
 		panel.add(listProductBatchComp);
+		panel.add(new HTML("<br /><br />"));
 		
-		panel.add(new Label("Recepter"));
+		panel.add(receptCaption);
+		receptCaption.setStyleName("caption");
 		addRecept.addClickHandler(addReceptHandler);
 		panel.add(addRecept);
 		listRecepts.addClickHandler(listReceptsHandler);
 		panel.add(listRecepts);
+		panel.add(new HTML("<br /><br />"));
+		
+		panel.add(ingredientBatchCaption);
+		ingredientBatchCaption.setStyleName("caption");
+		addIngredientBatch.addClickHandler(addIngredientBatchHandler);
+		panel.add(addIngredientBatch);
+		listIngredientBatch.addClickHandler(listIngredientBatchHandler);
+		panel.add(listIngredientBatch);
 		
 		initWidget(panel);
 		

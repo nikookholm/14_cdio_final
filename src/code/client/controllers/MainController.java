@@ -3,7 +3,9 @@ package code.client.controllers;
 import code.client.DatabaseService;
 import code.client.DatabaseServiceAsync;
 import code.client.views.LoginView;
+import code.client.views.Menu;
 import code.database.UserDTO;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -18,6 +20,7 @@ public class MainController {
 	private ProductBatchController productBatchController;
 	private ProductBatchCompController productBatchCompController;
 	private ReceptController receptController;
+	private IngredientBatchController ingredientBatchController;
 	private UserDTO user;
 
 	public MainController()
@@ -27,6 +30,7 @@ public class MainController {
 		productBatchController 	   = new ProductBatchController(this);
 		productBatchCompController = new ProductBatchCompController(this);
 		receptController		   = new ReceptController(this);
+		ingredientBatchController  = new IngredientBatchController(this);
 		
 		show(new LoginView(this));
 	}
@@ -39,6 +43,11 @@ public class MainController {
 	public IngredientController getIngredientController()
 	{
 		return ingredientController;
+	}
+	
+	public IngredientBatchController getIngredientBatchController()
+	{
+		return ingredientBatchController;
 	}
 	
 	public ProductBatchController getProductBatchController()
@@ -59,6 +68,8 @@ public class MainController {
 	public void show(Widget widget)
 	{
 		RootPanel.get("main").clear();
+		RootPanel.get("menu").clear();
+		RootPanel.get("menu").add(new Menu(this));
 		if (user != null)
 		{
 			RootPanel.get("main").add(widget);
