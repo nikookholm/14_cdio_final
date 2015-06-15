@@ -38,9 +38,9 @@ public class ReceptController {
 					Window.alert("Kunne ikke oprette en recept" +caught.getMessage());
 				}
 			});
-			return new CreateReceptView(mc, receptDTO);
+			return new CreateReceptView(receptDTO, mc);
 		}else{
-			return new CreateReceptView(mc, null);
+			return new CreateReceptView(null, mc);
 		}
 		
 	}
@@ -51,6 +51,7 @@ public class ReceptController {
 			
 			@Override
 			public void onSuccess(ArrayList<ReceptDTO> result) {
+				Window.alert(""+result.get(0).toString());
 				receptDTO = result;
 			}
 			

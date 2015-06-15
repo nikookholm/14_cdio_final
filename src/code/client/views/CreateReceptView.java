@@ -12,30 +12,31 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class CreateReceptView extends Composite
 {
-	ReceptController receptC;
+	VerticalPanel vPanel;
+	TextBox receptNameBox, receptIdBox;;//receptnavn og receptid
+	Button okButton     = new Button("OK");
+	Button cancelButton = new Button("Cancel");
+	Grid table;
+	Label viewInfo, presentSuccess;
+	Label receptNameLabel = new Label("recept name");
+	Label receptIdLabel   = new Label("recept id");
+	HorizontalPanel hPanel;
+	
+//	ReceptController receptC;
 	ReceptDTO receptDTO;
 	MainController mc;
 	
-	VerticalPanel vPanel;
-	Grid table, subTable;
 	boolean receptNameCheck	= false;
 	boolean receptIdCheck	= false;
 	
-	private TextBox receptNameBox = new TextBox();    	//receptnavn
-	private TextBox receptIdBox   = new TextBox(); 	 	//receptid
-	
-	private Label receptNameLabel = new Label("recept name");
-	private Label receptIdLabel   = new Label("recept id");
-	private Button OkButton     = new Button("Ok");
-	private Button cancelButton = new Button("cancel");
-	
-	public CreateReceptView(final MainController mc, ReceptDTO receptDTO)
+	public CreateReceptView(final ReceptDTO receptDTO, final MainController mc)
 	{
 		this.receptDTO 	= receptDTO;
 		this.mc 		= mc;
@@ -48,20 +49,28 @@ public class CreateReceptView extends Composite
 			vPanel.add(new Label(receptDTO.getReceptName() + " blev oprettet"));
 		}
 		
-		this.table = new Grid(2,2);
+		okButton.setEnabled(false);
+		viewInfo = new Label("Indtast den nye recepts oplysninger");
+		
+		vPanel.add(viewInfo);
+		
+		table = new Grid(3,2);
 		
 		table.setWidget(0, 0, receptNameLabel);
-		table.setWidget(0, 1, receptNameBox);
+		table.setWidget(0, 1, receptNameBox = new TextBox());
 		table.setWidget(1, 0, receptIdLabel);
-		table.setWidget(1, 1, receptIdBox);
+		table.setWidget(1, 1, receptIdBox 	= new TextBox());
+		table.setWidget(2, 1, hPanel = new HorizontalPanel());;
 		
-		this.subTable = new Grid(1,2);
+		hPanel.add(okButton);
+		hPanel.add(cancelButton);
 		
-		subTable.setWidget(0, 0, cancelButton);
-		subTable.setWidget(0, 1, OkButton);
+		vPanel.add(table);
 		
-		OkButton.setEnabled(false);
-		OkButton.addClickHandler(new ClickHandler() {
+		receptNameBox.addKeyUpHandler(new ReceptNameBoxHandler());
+		receptIdBox.addKeyUpHandler(new ReceptIdBoxHandler());
+
+		okButton.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -80,8 +89,7 @@ public class CreateReceptView extends Composite
 			}
 		});
 		
-		vPanel.add(table);
-
+		
 		receptIdBox.addKeyUpHandler(new receptId());
 		receptNameBox.addKeyUpHandler(new receptName());
 

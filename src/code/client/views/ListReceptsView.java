@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import code.client.controllers.MainController;
 import code.client.controllers.ReceptController;
 import code.database.ReceptDTO;
+import code.database.UserDTO;
 
 public class ListReceptsView extends Composite{
 
@@ -21,27 +22,27 @@ public class ListReceptsView extends Composite{
 	Button backButton;
 	FlexTable ft;
 	
-	ArrayList<ReceptDTO> list;
+	ArrayList<ReceptDTO> receptDTO;
 	
 	public ListReceptsView(ArrayList<ReceptDTO> receptDTO, MainController mc)
 	{
 		this.mc = mc;
+		this.receptDTO = receptDTO;
 		VPanel = new VerticalPanel();
-		VPanel.setHeight("100px");
 		
 		initWidget(this.VPanel);
 		
 		backButton = new Button("Tilbage");
 		backButton.setEnabled(true);
 		
-		this.ft = new FlexTable();
+		ft = new FlexTable();
 		ft.setTitle("ReceptView");
 		ft.setText(0, 0, "recept id");
 		ft.setText(0, 1, "recept name");
 		
-		for (int i=0; i < list.size(); i++) {
-			ft.setText(i+1, 0, "" + list.get(i).getReceptId());
-			ft.setText(i+1, 1, "" + list.get(i).getReceptName());
+		for (int i=0; i < receptDTO.size(); i++) {
+			ft.setText(i+1, 0, "" + receptDTO.get(i).getReceptId());
+			ft.setText(i+1, 1, "" + receptDTO.get(i).getReceptName());
 		}
 		VPanel.add(ft);
 		backButton.addClickHandler(new backClickHandler());
