@@ -100,7 +100,7 @@ public class CreateIngredientBatchView extends Composite
 		@Override
 		public void onKeyUp(KeyUpEvent event)
 		{
-			if(!FieldVerifier.ispbNoValid(rbIdBox.getText()))
+			if(!FieldVerifier.isrbNoValid(rbIdBox.getText()))
 			{
 				rbIdBox.setStyleName("gwt-Textbox-invalidEntry");
 				rbIdCheck = false;

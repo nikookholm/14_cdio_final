@@ -84,6 +84,25 @@ public class FieldVerifier {
 		}
 	}
 	
+	//rb skal være mellem 1 og 99999999
+	public static boolean isrbNoValid(String str)
+	{
+		int i;
+		try{
+			i = Integer.parseInt(str);
+		}catch(NumberFormatException e){
+			return false;
+		}
+		
+		if(1<=i && i<=99999999){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	//
+
 	//ReceptID skal være imellem 1 og 99999999 
 	public static boolean isReceptNoValid(String str)
 	{
