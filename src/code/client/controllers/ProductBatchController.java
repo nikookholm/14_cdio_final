@@ -44,6 +44,22 @@ public class ProductBatchController
 		}
 	}
 	
+	public void updateProductBatch(ProductBatchDTO pbDTO)
+	{
+		this.pbDTO = pbDTO;
+		mc.databaseService.productBatch_table_create(pbDTO, new AsyncCallback<Void>() {
+			@Override
+			public void onSuccess(Void result) {
+				mc.show(mc.getProductBatchController().listProductBatch());
+			}
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Server fejl! : " + caught.getMessage());
+			}
+		});
+	}
+	
+	
 	public Widget listProductBatch()
 	{
 		mc.databaseService.productBatch_table_list(new AsyncCallback<ArrayList<ProductBatchDTO>>() {
@@ -58,6 +74,8 @@ public class ProductBatchController
 		});
 		return new ListProductBatchView(pbs, mc);
 	}
+	
+	
 	
 	private void printProductBatch()
 	{

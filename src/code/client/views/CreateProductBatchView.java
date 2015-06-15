@@ -1,8 +1,5 @@
 package code.client.views;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import code.client.controllers.MainController;
 import code.client.controllers.ProductBatchController;
 import code.database.ProductBatchDTO;
@@ -12,13 +9,10 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.HasAlignment;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -41,7 +35,6 @@ public class CreateProductBatchView extends Composite
 	
 	boolean pbNoValidity 		= false;
 	boolean receptNoValidity	= false;
-//	SimpleDateFormat dateTime 	= new SimpleDateFormat("yyyy/MM/dd-HH:mm");
 	
 	public CreateProductBatchView(ProductBatchDTO pbDTO, MainController mc)
 	{
@@ -61,20 +54,20 @@ public class CreateProductBatchView extends Composite
 		cancelButton.setEnabled(true);
 		
 		if(pbDTO != null){
-			infoLabel = new Label("Dette er det nyligt oprettet ProduktBatch");
-			this.flex = new FlexTable();
+			infoLabel = new Label("ProduktBatchen " + pbDTO.getPbId() + " blev oprettet");
 			
 		}else{
 			infoLabel = new Label("Intast den nye ProduktBatchs oplysninger hér");
-			this.table = new Grid(3, 2);
-			table.setTitle("Create new ProductBatch");
-			table.setWidget(0, 0, pbNoLabel);
-			table.setWidget(0, 1, pbNoBox);
-			table.setWidget(1, 0, receptNoLabel);
-			table.setWidget(1, 1, receptNoBox);
 		}
-		this.subTable = new Grid(1, 1);
+
+		this.table = new Grid(3, 2);
+		table.setTitle("Create new ProductBatch");
+		table.setWidget(0, 0, pbNoLabel);
+		table.setWidget(0, 1, pbNoBox);
+		table.setWidget(1, 0, receptNoLabel);
+		table.setWidget(1, 1, receptNoBox);
 		
+		this.subTable = new Grid(1, 1);
 		HPanel = new HorizontalPanel();
 		subTable.setWidget(0, 0, HPanel );
 		
@@ -139,15 +132,11 @@ public class CreateProductBatchView extends Composite
 	    @Override
 	    public void onClick(ClickEvent event) {
 			
-			int pbI = Integer.parseInt(pbNoBox.getText());
-			int recI = Integer.parseInt(receptNoBox.getText());
-			int statI = 0;
-			String datI = "";
-//			datI = dateTime.format(new Date());
+	    	int statI = 0;
+			String datI = "";			
+			ProductBatchDTO pbDTO = new ProductBatchDTO(Integer.parseInt(pbNoBox.getText()), statI, Integer.parseInt(receptNoBox.getText()), datI);
 			
-			ProductBatchDTO pbDTO = new ProductBatchDTO(pbI, statI, recI, datI);
-			
-			mc.getProductBatchController().createProductBatch(pbDTO);
+			mc.show(mc.getProductBatchController().createProductBatch(pbDTO));
       }
    }
 	

@@ -1,18 +1,14 @@
 package code.client.views;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import code.*;
-import code.client.DatabaseServiceAsync;
 import code.client.controllers.MainController;
 import code.client.controllers.ProductBatchController;
 import code.database.ProductBatchDTO;
-import code.database.UserDTO;
 
-import com.google.gwt.*;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -98,13 +94,49 @@ public class ListProductBatchView extends Composite
 			}
 			selectedRow = flex.getCellForEvent(event).getRowIndex();
 
-			pbNoBox.setText(flex.getText(selectedRow, 0));
 			receptNoBox.setText(flex.getText(selectedRow, 1));
-			
-			flex.setWidget(selectedRow, 0, pbNoBox);
 			flex.setWidget(selectedRow, 1, receptNoBox);
+			flex.setWidget(selectedRow, 5, ok = new Anchor("OK"));
+			flex.setWidget(selectedRow, 6, cancel = new Anchor("Cancel"));
+			final Anchor edit = (Anchor) event.getSource();
+			
+			final String pbNo = flex.getText(selectedRow, 0);
+			final String recNo = receptNoBox.getText();
+			final String date = flex.getText(selectedRow, 2);
+			final String stat = flex.getText(selectedRow, 3);
+			
+			ok.addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					int statI = 0;
+					String datI = "";			
+					ProductBatchDTO pbDTO = new ProductBatchDTO(Integer.parseInt(pbNoBox.getText()), statI, Integer.parseInt(receptNoBox.getText()), datI);
+					mc.getProductBatchController().updateProductBatch(pbDTO);
+				}
+			});
+			
+			prevCancel = cancel;
+			cancel.addClickHandler(new ClickHandler() {
+				@Override
+				public void onClick(ClickEvent event) {
+					receptNoBox.setText(recNo);
+					receptNoBox.fireEvent(new KeyUpEvent() {});
+					
+					flex.setText(selectedRow, 0, pbNo);
+					flex.setText(selectedRow, 1, recNo);
+					flex.setText(selectedRow, 2, date);
+					flex.setText(selectedRow, 3, stat);
+					flex.setWidget(selectedRow, 5, edit);
+					
+					flex.clearCell(selectedRow, 6);
+					
+					prevCancel = null;
+				}
+			});
+			
+			flex.setWidget(selectedRow, 6, cancel);
 			
 		}
-
+		
 	}
 }
