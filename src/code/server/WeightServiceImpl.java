@@ -86,7 +86,7 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 	public String rm20(int type, String message) throws WeightException {
 		String result;
 		//String request = "RM20 " + type + " \"" + message + "\" \"\" \"\"" + "\r\n";
-		String request = "RM20 1 \""+message+"\" \"text2\" \"text3\"\r\n";
+		String request = "RM20 8 \""+message+"\" \"text2\" \"text3\"\r\n";
 		tcp.send(request);
 		result = tcp.receive();
 		System.out.println(result);
