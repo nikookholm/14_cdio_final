@@ -159,8 +159,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public ArrayList<ProductBatchCompDTO> productBatchComp_table_list() {
-		// TODO Auto-generated method stub
-		return null;
+		return productBatchComp.getProductBatchCompList();
 	}
 
 	@Override

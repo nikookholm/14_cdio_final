@@ -22,10 +22,10 @@ public class ProductBatchCompImpl implements ProductBatchCompDAO {
 	}
 
 	
-	public List<ProductBatchCompDTO> getProductBatchCompList(int pbId)
+	public ArrayList<ProductBatchCompDTO> getProductBatchCompList(int pbId)
 			throws DALException {
 		
-		List<ProductBatchCompDTO> list = new ArrayList<ProductBatchCompDTO>();
+		ArrayList<ProductBatchCompDTO> list = new ArrayList<ProductBatchCompDTO>();
 		ResultSet rs = Connector.doQuery("SELECT * FROM productbatchcomponent WHERE pb_id= " + pbId);
 		try
 		{
@@ -40,10 +40,10 @@ public class ProductBatchCompImpl implements ProductBatchCompDAO {
 	}
 
 
-	public List<ProductBatchCompDTO> getProductBatchCompList()
+	public ArrayList<ProductBatchCompDTO> getProductBatchCompList()
 			throws DALException {
 		
-		List<ProductBatchCompDTO> list = new ArrayList<ProductBatchCompDTO>();
+		ArrayList<ProductBatchCompDTO> list = new ArrayList<ProductBatchCompDTO>();
 		ResultSet rs = Connector.doQuery("SELECT * FROM productbatchcomponent");
 		try
 		{
