@@ -3,11 +3,7 @@ package code.client.controllers;
 import java.util.ArrayList;
 
 import code.client.views.CreateIngredientBatchView;
-import code.client.views.CreateIngredientView;
-import code.client.views.ListIngredientBatchView;
-import code.client.views.ListProductBatchCompView;
 import code.database.IngredientBatchDTO;
-import code.database.IngredientDTO;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -54,12 +50,13 @@ public class IngredientBatchController
 			@Override
 			public void onFailure(Throwable caught)
 			{
+				ingrBatchDTO = null;
 				Window.alert("Kunne ikke hente liste fra server" + caught.getMessage());
 			}
 			@Override
 			public void onSuccess(ArrayList<IngredientBatchDTO> list)
 			{
-				SortedIBList(list);
+				ingrBatchDTO = list;
 			}
 		});
 		//return new ListIngredientBatchView(ingrBatchDTO, mc);
