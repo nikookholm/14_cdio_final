@@ -60,6 +60,6 @@ public class IngredientBatchController
 				ingrBatchDTO = list;
 			}
 		});
-		return new ListIngredientBatchView(mc);
+		return new ListIngredientBatchView(ingrBatchDTO, mc);
 	}
 }
