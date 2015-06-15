@@ -13,7 +13,7 @@ public class ReceptImpl implements ReceptDAO {
 		ResultSet rs = Connector.doQuery("SELECT * FROM recept WHERE recept_id = " + receptId);
 	    try {
 	    	if (!rs.first()) throw new DALException("Recepten " + receptId + " findes ikke");
-	    	return new ReceptDTO (rs.getInt("recept_id"), rs.getString("recept_name"));
+	    	return new ReceptDTO (rs.getString("recept_name"), rs.getInt("recept_id"));
 	    }
 	    catch (SQLException e) {throw new DALException(e); }
 	}
@@ -27,7 +27,7 @@ public class ReceptImpl implements ReceptDAO {
 		{
 			while (rs.next()) 
 			{
-				list.add(new ReceptDTO(rs.getInt("recept_id"), rs.getString("recept_name")));
+				list.add(new ReceptDTO(rs.getString("recept_name"), rs.getInt("recept_id")));
 			}
 		}
 		catch (SQLException e) { throw new DALException(e); }

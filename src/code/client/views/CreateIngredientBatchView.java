@@ -59,7 +59,7 @@ public class CreateIngredientBatchView extends Composite
 		table.setWidget(1, 0, ingredientIdLabel);
 		table.setWidget(1, 1, ingredientIdBox);
 		table.setWidget(2, 0, maengdeLabel);
-		table.setWidget(2, 1, maengdeLabel);
+		table.setWidget(2, 1, maengdeBox);
 		
 		this.subTable = new Grid(1,2);
 		
@@ -67,15 +67,15 @@ public class CreateIngredientBatchView extends Composite
 		subTable.setWidget(0, 1, OkButton);
 	
 		OkButton.setEnabled(false);
-//		OkButton.addClickHandler(new ClickHandler() {
-//			
-//			@Override
-//			public void onClick(ClickEvent event) {
-//				IngredientBatchDTO ingrBatchDTO = new IngredientBatchDTO(Integer.parseInt(rbIdBox.getText()), Integer.parseInt(ingredientIdBox.getText()), Double.parseDouble(maengdeBox.getText()));
-//				mc.show(mc.getIngredientBatchController().createIngredientBatch(ingrBatchDTO));
-//
-//			}
-//		});
+		OkButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				IngredientBatchDTO ingrBatchDTO = new IngredientBatchDTO(Integer.parseInt(rbIdBox.getText()), Integer.parseInt(ingredientIdBox.getText()), Double.parseDouble(maengdeBox.getText()));
+				mc.show(mc.getIngredientBatchController().createIngredientBatch(ingrBatchDTO));
+
+			}
+		});
 		
 		cancelButton.setEnabled(true);
 		cancelButton.addClickHandler(new ClickHandler() {

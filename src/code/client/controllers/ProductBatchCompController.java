@@ -32,19 +32,9 @@ public class ProductBatchCompController
 			@Override
 			public void onSuccess(ArrayList<ProductBatchCompDTO> list)
 			{
-				SortedPBCompList(list);
+				pbCompDTO = list;
 			}
 		});
 		return new ListProductBatchCompView(pbCompDTO, mc);
-	}
-	
-	public void SortedPBCompList(ArrayList<ProductBatchCompDTO> list)
-	{
-		pbCompDTO = new ArrayList<ProductBatchCompDTO>();
-		
-		for(int i = 0; i < pbCompDTO.size(); i++)
-		{
-			pbCompDTO.add(pbCompDTO.get(i));
-		}
 	}
 }

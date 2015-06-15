@@ -62,14 +62,4 @@ public class IngredientBatchController
 		});
 		return new ListIngredientBatchView(mc);
 	}
-	
-	public void SortedIBList(ArrayList<IngredientBatchDTO> list)
-	{
-		ingrBatchDTO = new ArrayList<IngredientBatchDTO>();
-		
-		for(int i = 0; i < ingrBatchDTO.size(); i++)
-		{
-			ingrBatchDTO.add(ingrBatchDTO.get(i));
-		}
-	}
 }

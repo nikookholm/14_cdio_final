@@ -42,7 +42,7 @@ public class ListProductBatchCompView extends Composite {
 		backButton = new Button("Tilbage");
 		backButton.setEnabled(true);
 
-		this.ft = new FlexTable();
+		ft = new FlexTable();
 		ft.getCellFormatter().setWidth(0, 0, "100px");
 		ft.getCellFormatter().setWidth(0, 1, "100px");
 		ft.getCellFormatter().setWidth(0, 2, "100px");
@@ -56,12 +56,12 @@ public class ListProductBatchCompView extends Composite {
 		ft.setText(0, 3, "netto");
 		ft.setText(0, 4, "oprID");
 
-		for (int i=0; i < pbCompDTO.size(); i++) {
-			ft.setText(i+1, 0, "" + pbCompDTO.get(i).getPbId());
-			ft.setText(i+1, 1, "" + pbCompDTO.get(i).getRbId());
-			ft.setText(i+1, 2, "" + pbCompDTO.get(i).getTara());
-			ft.setText(i+1, 3, "" + pbCompDTO.get(i).getNetto());
-			ft.setText(i+1, 4, "" + pbCompDTO.get(i).getOprId());
+		for (int i=0; i < this.pbCompDTO.size(); i++) {
+			ft.setText(i+1, 0, "" + this.pbCompDTO.get(i).getPbId());
+			ft.setText(i+1, 1, "" + this.pbCompDTO.get(i).getRbId());
+			ft.setText(i+1, 2, "" + this.pbCompDTO.get(i).getTara());
+			ft.setText(i+1, 3, "" + this.pbCompDTO.get(i).getNetto());
+			ft.setText(i+1, 4, "" + this.pbCompDTO.get(i).getOprId());
 		}
 		VPanel.add(ft);
 		backButton.addClickHandler(new backClickHandler());

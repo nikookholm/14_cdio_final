@@ -40,9 +40,9 @@ public class ListReceptsView extends Composite{
 		ft.setText(0, 0, "recept id");
 		ft.setText(0, 1, "recept name");
 		
-		for (int i=0; i < receptDTO.size(); i++) {
-			ft.setText(i+1, 0, "" + receptDTO.get(i).getReceptId());
-			ft.setText(i+1, 1, "" + receptDTO.get(i).getReceptName());
+		for (int i=0; i < this.receptDTO.size(); i++) {
+			ft.setText(i+1, 0, "" + this.receptDTO.get(i).getReceptId());
+			ft.setText(i+1, 1, "" + this.receptDTO.get(i).getReceptName());
 		}
 		VPanel.add(ft);
 		backButton.addClickHandler(new backClickHandler());
@@ -50,6 +50,7 @@ public class ListReceptsView extends Composite{
 	
 	private class backClickHandler implements ClickHandler
 	{
+		@Override
 		public void onClick(ClickEvent event)
 		{
 			mc.show(new MainView(mc));
