@@ -33,7 +33,6 @@ public interface DatabaseServiceAsync {
 	void productBatch_table_list(AsyncCallback<ArrayList<ProductBatchDTO>> callback);
 	void productBatch_table_get(int id, AsyncCallback<ProductBatchDTO> callback); 
 	
-	void productBatchComp_table_create(ProductBatchCompDTO pbComp, AsyncCallback<Void> callback);
 	void productBatchComp_table_list(AsyncCallback<ArrayList<ProductBatchCompDTO>> callback);
 	
 	void ingredientBatch_table_create(IngredientBatchDTO ingredient, AsyncCallback<Void> callback);

@@ -35,10 +35,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	public void user_table_create(UserDTO user) {
 		try {
 			new UserImpl().createUser(user);
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (DALException e) {}
 		
 	}
 
@@ -55,7 +52,9 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void user_table_update(UserDTO user) {
-		// TODO Auto-generated method stub	
+		try {
+			this.user.updateUser(user);
+		} catch (DALException e) {}	
 	}
 	
 	@Override
@@ -83,10 +82,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	public void ingredients_table_update(IngredientDTO ingredient) {
 		try {
 			this.ingredient.updateIngredient(ingredient);
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (DALException e) {}
 		
 	}
 
@@ -103,16 +99,12 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	public void recept_table_create(ReceptDTO recept) {
 		try {
 			this.recept.createRecept(recept);
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (DALException e) {}
 		
 	}
 
 	@Override
 	public ArrayList<ReceptDTO> recept_table_list() {
-		// TODO Auto-generated method stub
 		try {
 			return recept.getReceptList();
 		} catch (DALException e) {
@@ -124,10 +116,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	public void productBatch_table_create(ProductBatchDTO productBatch) {
 		try {
 			this.productBatch.createProductBatch(productBatch);
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (DALException e) {}
 	}
 
 	@Override
@@ -141,25 +130,28 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void ingredientBatch_table_create(IngredientBatchDTO ingredientBatch) {
-		// TODO Auto-generated method stub
+		try {
+			this.ingredientBatch.createIngredientBatch(ingredientBatch);
+		} catch (DALException e) {}
 		
 	}
 
 	@Override
 	public ArrayList<IngredientBatchDTO> ingredientBatch_table_list() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void productBatchComp_table_create(ProductBatchCompDTO pbComp) {
-		// TODO Auto-generated method stub
-		
+		try {
+			return ingredientBatch.getIngredientBatchList();
+		} catch (DALException e) {
+			return null;
+		}
 	}
 
 	@Override
 	public ArrayList<ProductBatchCompDTO> productBatchComp_table_list() {
-		return productBatchComp.getProductBatchCompList();
+		try {
+			return productBatchComp.getProductBatchCompList();
+		} catch (DALException e) {
+			return null;
+		}
 	}
 
 	@Override
@@ -191,7 +183,6 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public ArrayList<ReceptCompDTO> receptComp_table_get(int id) {
-		// TODO Auto-generated method stub
 		try {
 			return receptComp.getReceptCompList(id);
 		} catch (DALException e) {
@@ -203,10 +194,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	public void ingredientBatch_table_update(IngredientBatchDTO ingredientBatch) {
 		try {
 			this.ingredientBatch.updateIngredientBatch(ingredientBatch);
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (DALException e) {}
 	}
 
 
