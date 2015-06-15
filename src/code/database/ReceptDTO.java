@@ -22,11 +22,11 @@ public class ReceptDTO implements Serializable
 		
 	}
     
-	public ReceptDTO(int receptId, String receptName)
+	public ReceptDTO(String receptName, int receptId)
 	{
-        this.receptId = receptId;
         this.receptName = receptName;
-    }
+        this.receptId = receptId;
+	}
 
     public int getReceptId() { return receptId; }
 	public void setReceptId(int receptId) { this.receptId = receptId; }

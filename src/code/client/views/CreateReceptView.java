@@ -67,14 +67,14 @@ public class CreateReceptView extends Composite
 		
 		vPanel.add(table);
 		
-		receptNameBox.addKeyUpHandler(new ReceptNameBoxHandler());
-		receptIdBox.addKeyUpHandler(new ReceptIdBoxHandler());
+		receptIdBox.addKeyUpHandler(new receptId());
+		receptNameBox.addKeyUpHandler(new receptName());
 
 		okButton.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				ReceptDTO receptDTO = new ReceptDTO(Integer.parseInt(receptIdBox.getText()), receptNameBox.getText());
+				ReceptDTO receptDTO = new ReceptDTO(receptNameBox.getText(), Integer.parseInt(receptIdBox.getText()));
 				mc.show(mc.getReceptController().createRecept(receptDTO));
 
 			}
@@ -88,12 +88,6 @@ public class CreateReceptView extends Composite
 				mc.show(new MainView(mc));
 			}
 		});
-		
-		
-		receptIdBox.addKeyUpHandler(new receptId());
-		receptNameBox.addKeyUpHandler(new receptName());
-
-		vPanel.add(subTable);
 	}
 	
 	private class receptId implements KeyUpHandler
@@ -134,16 +128,16 @@ public class CreateReceptView extends Composite
 	
 	public void okButtonEnabler(){
 		if(receptIdCheck && receptNameCheck){
-			OkButton.setEnabled(true);
+			okButton.setEnabled(true);
 		}
-		else OkButton.setEnabled(false);
+		else okButton.setEnabled(false);
 
 	}
 	public void cancelButtonEnable(){
 		if(receptIdCheck && receptNameCheck){
-			OkButton.setEnabled(true);
+			okButton.setEnabled(true);
 
 		}
-		else OkButton.setEnabled(true);
+		else okButton.setEnabled(true);
 	}
 }
