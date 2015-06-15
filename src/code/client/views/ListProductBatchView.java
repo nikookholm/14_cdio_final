@@ -56,11 +56,12 @@ public class ListProductBatchView extends Composite
 		flex.setText(0, 2, "dato");
 		flex.setText(0, 3, "status");
 		
-		for ( int i=0 ; i<pbLS.size() ; i++ ) {
-			flex.setText(i+1, 0, "" + this.pbLS.get(i).getPbId() );
-			flex.setText(i+1, 1, "" + this.pbLS.get(i).getReceptId() );
-			flex.setText(i+1, 2, "" + this.pbLS.get(i).getDateTime() );
-			flex.setText(i+1, 3, "" + this.pbLS.get(i).getStatus() );
+		int i = 0;
+		for (ProductBatchDTO pbDTO : pbLS) {
+			flex.setText(i+1, 0, "" + pbDTO.getPbId() );
+			flex.setText(i+1, 1, "" + pbDTO.getReceptId() );
+			flex.setText(i+1, 2, "" + pbDTO.getDateTime() );
+			flex.setText(i+1, 3, "" + pbDTO.getStatus() );
 			
 			flex.setWidget(i+1, 5, edit = new Anchor("Redigér"));
 			edit.addClickHandler(new editClickHandler());

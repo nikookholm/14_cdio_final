@@ -56,23 +56,13 @@ public class ListIngredientBatchView extends Composite
 		ft.setWidget(0, 1, ingredientIdLabel);
 		ft.setWidget(0, 2, maengdeLabel);
 		
-		mc.databaseService.ingredientBatch_table_list(new AsyncCallback<ArrayList<IngredientBatchDTO>>(){
-		
-			@Override
-			public void onSuccess(ArrayList<IngredientBatchDTO> result) {
-				for (int i = 0; i<result.size(); i++) {
-					ft.setText(i+1, 0,"" + result.get(i).getRbId());
-					ft.setText(i+1, 1,"" + result.get(i).getIngredientId());
-					ft.setText(i+1, 2,"" + result.get(i).getMaengde());
-				}	
-			}
-			
-			@Override
-			public void onFailure(Throwable caught){
-				Window.alert("Fejl ved ListIngredientBatchView" + caught.getMessage());
-			}
-		});
-		
+		int i = 0;
+		for (IngredientBatchDTO ingrBatch : ingrBatchDTO) {
+			ft.setText(i+1, 0,"" + ingrBatch.getRbId());
+			ft.setText(i+1, 1,"" + ingrBatch.getIngredientId());
+			ft.setText(i+1, 2,"" + ingrBatch.getMaengde());
+		}	
+
 		this.subTable = new Grid(1,2);
 		subTable.setWidget(0, 0, backButton);
 
