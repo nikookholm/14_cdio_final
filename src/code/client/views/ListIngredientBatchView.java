@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import code.client.controllers.MainController;
 import code.database.IngredientBatchDTO;
-import code.database.IngredientDTO;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -59,13 +58,11 @@ public class ListIngredientBatchView extends Composite
 					flexTable.setText(i+1, 0, result.get(i).getRbId()  + "");
 					flexTable.setText(i+1, 1, result.get(i).getIngredientId() + "");
 					flexTable.setText(i+1, 2, result.get(i).getMaengde()    + "");
-					flexTable.setWidget(i+1, 3, edit = new Anchor("rediger"));
 				}	
 			}
 		});
 
 		vPanel.add(flexTable);
-
 
 	}
 }
