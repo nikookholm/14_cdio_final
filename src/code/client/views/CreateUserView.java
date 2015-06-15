@@ -99,7 +99,7 @@ public class CreateUserView extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				UserDTO newUser = new UserDTO(nameBox.getText(), iniBox.getText(), cprBox.getText(),roleList.getTabIndex()+1);
+				UserDTO newUser = new UserDTO(nameBox.getText(), iniBox.getText(), cprBox.getText(),roleList.getSelectedIndex());
 
 				mc.show(mc.getUserController().createUser(newUser));
 
@@ -116,8 +116,6 @@ public class CreateUserView extends Composite {
 		});
 	}
 	
-	
-
 
 	private class NameBoxHandler implements KeyUpHandler{
 
