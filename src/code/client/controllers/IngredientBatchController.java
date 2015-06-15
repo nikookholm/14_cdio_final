@@ -37,10 +37,10 @@ public class IngredientBatchController
 					
 				}
 			});			
-			return new CreateIngredientBatchView(mc, ingrBatchDTO);
+			return new CreateIngredientBatchView (ingrBatchDTO, mc);
 		}else{
 			
-			return new CreateIngredientBatchView(mc, null);
+			return new CreateIngredientBatchView(null, mc);
 		}
 	}
 	
@@ -61,6 +61,6 @@ public class IngredientBatchController
 				Window.alert("Kunne ikke hente liste fra server" + caught.getMessage());
 			}
 		});
-		return new ListIngredientBatchView(mc);
+		return new ListIngredientBatchView(ingrBatchDTO, mc);
 	}
 }

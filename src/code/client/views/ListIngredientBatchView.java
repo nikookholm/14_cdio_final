@@ -35,9 +35,10 @@ public class ListIngredientBatchView extends Composite
 
 	ArrayList<IngredientBatchDTO> ingrBatchDTO;
 
-	public ListIngredientBatchView(final MainController mc)
+	public ListIngredientBatchView(ArrayList<IngredientBatchDTO> ingrBatchDTO, final MainController mc)
 	{
 		this.mc = mc;
+		this.ingrBatchDTO = ingrBatchDTO;
 		VPanel = new VerticalPanel();
 		initWidget(this.VPanel);
 

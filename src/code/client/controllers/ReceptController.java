@@ -51,7 +51,6 @@ public class ReceptController {
 			
 			@Override
 			public void onSuccess(ArrayList<ReceptDTO> result) {
-				Window.alert(""+result.get(0).toString());
 				receptDTO = result;
 			}
 			

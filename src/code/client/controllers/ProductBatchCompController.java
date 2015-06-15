@@ -25,15 +25,17 @@ public class ProductBatchCompController
 		mc.databaseService.productBatchComp_table_list(new AsyncCallback<ArrayList<ProductBatchCompDTO>>(){
 			
 			@Override
-			public void onFailure(Throwable caught)
-			{
-				Window.alert("Kunne ikke hente liste fra server" + caught.getMessage());
-			}
-			@Override
 			public void onSuccess(ArrayList<ProductBatchCompDTO> list)
 			{
 				pbCompDTO = list;
 			}
+			
+			@Override
+			public void onFailure(Throwable caught)
+			{
+				Window.alert("Kunne ikke hente liste fra server" + caught.getMessage());
+			}
+			
 		});
 		return new ListProductBatchCompView(pbCompDTO, mc);
 	}
