@@ -45,7 +45,7 @@ public class ReceptController {
 		
 	}
 	
-	public Widget getReceptList()
+	public Widget listRecepts()
 	{		
 		mc.databaseService.recept_table_list(new AsyncCallback<ArrayList<ReceptDTO>>() {
 			

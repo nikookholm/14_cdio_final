@@ -3,6 +3,7 @@ package code.client.controllers;
 import java.util.ArrayList;
 
 import code.client.views.CreateIngredientBatchView;
+import code.client.views.ListIngredientBatchView;
 import code.database.IngredientBatchDTO;
 
 import com.google.gwt.user.client.Window;
@@ -59,8 +60,7 @@ public class IngredientBatchController
 				ingrBatchDTO = list;
 			}
 		});
-		//return new ListIngredientBatchView(ingrBatchDTO, mc);
-		return null;
+		return new ListIngredientBatchView(mc);
 	}
 	
 	public void SortedIBList(ArrayList<IngredientBatchDTO> list)
