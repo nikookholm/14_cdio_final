@@ -36,7 +36,7 @@ public class Menu extends Composite {
 			mainMenuAnchor.addClickHandler(new mainMenuHandler());
 			
 			table.setWidget(0, 0, mainMenuAnchor);
-			table.setWidget(0,  1, logoutPanel);
+			table.setWidget(0, 1, logoutPanel);
 		}
 		
 		initWidget(table);
