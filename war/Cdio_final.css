@@ -21,6 +21,15 @@ h1 {
   font-size: 16pt;
 }
 
+.caption {
+	font-size: 28px;
+}
+
+.input-text
+{
+	font-weight: bold;
+}
+
 /** Most GWT widgets already have a style name defined */
 .gwt-DialogBox {
   width: 400px;

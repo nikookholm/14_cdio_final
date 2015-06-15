@@ -19,6 +19,10 @@ public class LoginView extends Composite {
 	TextBox password    = new TextBox();
 	Button okBtn    	= new Button("Login");
 	Button clearBtn		= new Button("Ryd");
+	Label  loginLabel   = new Label("Login");
+	Label	oprLabel	= new Label("Operatør ID:");
+	Label  passwordLabel = new Label("Adgangskode:");
+	
 	
 	public LoginView(MainController mc)
 	{
@@ -35,12 +39,15 @@ public class LoginView extends Composite {
 		buttonPanel.add(clearBtn);
 		buttonPanel.add(okBtn);
 
-		panel.add(new Label("Login"));
-		table.setText(0, 0, "Operatør ID:");
+		panel.add(loginLabel);
+		loginLabel.setStyleName("caption");
+		table.setWidget(0, 0, oprLabel);
+		oprLabel.setStyleName("input-text");
 		table.setWidget(0, 1, oprNumber);
-		table.setText(1, 0, "Adgangskode:");
+		table.setWidget(1, 0, passwordLabel);
+		passwordLabel.setStyleName("input-text");
 		table.setWidget(1, 1, password);
-		table.setWidget(2,  0, buttonPanel);
+		table.setWidget(2, 0, buttonPanel);
 		table.getFlexCellFormatter().setColSpan(2, 0, 2);
 		
 		panel.add(table);
