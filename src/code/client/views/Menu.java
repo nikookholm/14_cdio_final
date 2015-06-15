@@ -24,13 +24,12 @@ public class Menu extends Composite {
 		{
 			logoutPanel.add(new Label("Du er logget ind som "));
 			logoutPanel.add(new Label(mc.getUser().getOprName()));
-			logoutPanel.add(new Label("&nbsp;("));
+			logoutPanel.add(new Label(" ("));
 			logoutPanel.add(logoutAnchor);
 			logoutPanel.add(new Label(")"));
 			
 			table.setWidget(0, 0, mainMenuAnchor);
 			table.setWidget(0,  1, logoutPanel);
-			table.getCellFormatter().addStyleName(0, 1, "");
 		}
 		
 		initWidget(table);

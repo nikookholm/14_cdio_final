@@ -69,6 +69,7 @@ public class MainController {
 	{
 		RootPanel.get("main").clear();
 		RootPanel.get("menu").clear();
+		
 		RootPanel.get("menu").add(new Menu(this));
 		if (user != null)
 		{
