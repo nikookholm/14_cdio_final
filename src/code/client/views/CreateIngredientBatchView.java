@@ -39,7 +39,7 @@ public class CreateIngredientBatchView extends Composite
 	private Button OkButton    		= new Button("Ok");
 	private Button cancelButton 	= new Button("cancel");
 	
-	public CreateIngredientBatchView(IngredientBatchDTO ingrBatchDTO, final MainController mc)
+	public CreateIngredientBatchView(final IngredientBatchDTO ingrBatchDTO, final MainController mc)
 	{
 		this.ingrBatchDTO 	= ingrBatchDTO;
 		this.mc				= mc;
