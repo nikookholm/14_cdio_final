@@ -51,8 +51,8 @@ public class ListProductBatchView extends Composite
 		infoLabel = new Label("Listevisning over ProduktBatches");
 		this.flex = new FlexTable();
 		flex.setTitle("ProductBatchListView");
-		flex.setText(0, 0, "prodBatchNo");
-		flex.setText(0, 1, "receptNo");
+		flex.setText(0, 0, "ProductBatch id");
+		flex.setText(0, 1, "Recept id");
 		flex.setText(0, 2, "dato");
 		flex.setText(0, 3, "status");
 		

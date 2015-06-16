@@ -23,45 +23,35 @@ public class ListReceptsView extends Composite{
 	VerticalPanel VPanel;
 	Button backButton;
 	FlexTable ft;
-	
+
 	ArrayList<ReceptDTO> receptDTO;
-	
+
 	public ListReceptsView(ArrayList<ReceptDTO> receptDTO, MainController mc)
 	{
 		this.mc = mc;
 		this.receptDTO = receptDTO;
 		VPanel = new VerticalPanel();
-		
+
 		initWidget(this.VPanel);
-		
+
 		backButton = new Button("Tilbage");
 		backButton.setEnabled(true);
-		
+
 		ft = new FlexTable();
 		ft.setTitle("ReceptView");
 		ft.setText(0, 0, "recept id");
 		ft.setText(0, 1, "recept name");
-		
-		mc.databaseService.recept_table_list(new AsyncCallback<ArrayList<ReceptDTO>>(){
-			
-			@Override
-			public void onSuccess(ArrayList<ReceptDTO> result){
-				for (int i=0; i < result.size(); i++) {
-					ft.setText(i+1, 0, "" + result.get(i).getReceptId());
-					ft.setText(i+1, 1, "" + result.get(i).getReceptName());
-				}
-			}
-			
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Fejl ved ListReceptsView" + caught.getMessage());
-			}
-		});
-		
+
+		int i = 0;
+		for (ReceptDTO recept : receptDTO) {
+			ft.setText(i+1, 0, "" + recept.getReceptId());
+			ft.setText(i+1, 1, "" + recept.getReceptName());
+		}
+
 		VPanel.add(ft);
 		backButton.addClickHandler(new backClickHandler());
 	}
-	
+
 	private class backClickHandler implements ClickHandler
 	{
 		@Override

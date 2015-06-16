@@ -50,11 +50,11 @@ public class ListProductBatchCompView extends Composite {
 		ft.getCellFormatter().setWidth(0, 4, "100px");
 
 		ft.setTitle("ProductBatchCompListView");
-		ft.setText(0, 0, "pbID");
-		ft.setText(0, 1, "rbID");
-		ft.setText(0, 2, "tara");
-		ft.setText(0, 3, "netto");
-		ft.setText(0, 4, "oprID");
+		ft.setText(0, 0, "ProductBatch id");
+		ft.setText(0, 1, "IngredientBatch id");
+		ft.setText(0, 2, "taravaegt");
+		ft.setText(0, 3, "nettovaegt");
+		ft.setText(0, 4, "Operator id");
 		
 		int i = 0;
 		for(ProductBatchCompDTO pbC : pbCompDTO) {

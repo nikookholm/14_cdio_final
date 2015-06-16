@@ -23,8 +23,8 @@ public class ListIngredientBatchView extends Composite
 {
 	MainController mc;
 	VerticalPanel VPanel;
-	Label rbIdLabel 		= new Label("råvarebatch_id");
-	Label ingredientIdLabel	= new Label("råvare_id");
+	Label rbIdLabel 		= new Label("råvarebatch id");
+	Label ingredientIdLabel	= new Label("råvare id");
 	Label maengdeLabel		= new Label("maengde");;
 	Label infoLabel;
 	Button backButton;

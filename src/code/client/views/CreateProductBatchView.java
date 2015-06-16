@@ -42,8 +42,8 @@ public class CreateProductBatchView extends Composite
 		this.VPanel = new VerticalPanel();
 		initWidget(VPanel);
 		
-		pbNoLabel		= new Label("prodBatchNo");
-		receptNoLabel	= new Label("receptNo");
+		pbNoLabel		= new Label("ProductBatchNumber");
+		receptNoLabel	= new Label("ReceptNumber");
 		pbNoBox		= new TextBox();
 		receptNoBox	= new TextBox();
 		pbNoBox.setFocus(true);
