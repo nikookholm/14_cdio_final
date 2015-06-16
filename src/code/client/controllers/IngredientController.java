@@ -29,7 +29,6 @@ public class IngredientController {
 
 		if(ingDTO!= null){
 			
-			// opret dto i database
 			mc.databaseService.ingredients_table_create(ingDTO, new AsyncCallback<Void>() {
 				
 				@Override
@@ -74,12 +73,50 @@ public class IngredientController {
 		
 	}
 	
-	public Widget updateIngredient(){
+	public Widget updateIngredient(IngredientDTO ingrDto){
+		
+		mc.databaseService.ingredients_table_update(ingrDto, new AsyncCallback<Void>() {
+			
+			@Override
+			public void onSuccess(Void result) {
+				
+				mc.show(mc.getIngredientController().listIngredients());
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+			}
+		});
 		
 		return null;
 		
 	}
 	
 	
+	
+	
+	
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
