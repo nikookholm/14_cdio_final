@@ -1,5 +1,6 @@
 package code.client.views;
 
+
 import code.client.controllers.MainController;
 import code.database.IngredientDTO;
 import code.shared.FieldVerifier;
@@ -10,7 +11,10 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -26,18 +30,20 @@ public class CreateIngredientView extends Composite{
 
 	private MainController mc;
 	
-	private TextBox leverandoerBox    = new TextBox();      //leverandoer,
-	private TextBox ingredientNameBox = new TextBox();     //raavare_navn,
-	private TextBox ingredientIdBox   = new TextBox(); 	  //raavare_Id;
+	private TextBox leverandoerBox    = new TextBox();      
+	private TextBox ingredientNameBox = new TextBox();     
+	private TextBox ingredientIdBox   = new TextBox(); 	  
 
-	private Label leverandoerLabel    = new Label("leverandoer");
-	private Label ingredientNameLabel = new Label("ingredient name");
-	private Label ingredientIdLabel   = new Label("ingredient Id");
+	private Label createIng			  = new Label("Opret ny råvare");
+	private Label leverandoerLabel    = new Label("Leverandør");
+	private Label ingredientNameLabel = new Label("Navn");
+	private Label ingredientIdLabel   = new Label("Id");
 
 	private Button OkButton     = new Button("Ok");
-	private Button cancelButton = new Button("cancel");
+	private Button cancelButton = new Button("Annuller");
 
-	Grid tabel, subTable;
+	FlexTable ft = new FlexTable();
+
 	IngredientDTO createdIng;
 
 	public  CreateIngredientView(final MainController mc, IngredientDTO createdIng){
@@ -47,26 +53,35 @@ public class CreateIngredientView extends Composite{
 		this.vPanel = new VerticalPanel();
 
 		initWidget(vPanel);
+		
+		vPanel.add(createIng);
+		createIng.setStyleName("caption");
 
 		if(createdIng!= null){
 			vPanel.add(new Label(createdIng.getIngredientName() + " blev oprettet"));
 
 		}
 
-		this.tabel = new Grid(3,2);
+		ft.setWidget(0, 0, ingredientIdLabel);
+		ingredientIdLabel.setStyleName("input-text");
+		ft.setWidget(0, 1, ingredientIdBox);
+		
+		ft.setWidget(1, 0, ingredientNameLabel);
+		ingredientNameLabel.setStyleName("input-tect");
+		ft.setWidget(1, 1, ingredientNameBox);
+		
+		ft.setWidget(2, 0, leverandoerLabel);
+		leverandoerLabel.setStyleName("input-text");
+		ft.setWidget(2, 1, leverandoerBox);
 
-		tabel.setWidget(0, 0, leverandoerLabel);
-		tabel.setWidget(0, 1, leverandoerBox);
-		tabel.setWidget(1, 0, ingredientNameLabel);
-		tabel.setWidget(1, 1, ingredientNameBox);
-		tabel.setWidget(2, 0, ingredientIdLabel);
-		tabel.setWidget(2, 1, ingredientIdBox);
 
-		this.subTable = new Grid(1,2);
-
-		subTable.setWidget(0, 0, cancelButton);
-		subTable.setWidget(0, 1, OkButton);
-
+		HorizontalPanel hBtnPanle = new HorizontalPanel();
+		hBtnPanle.add(cancelButton);
+		hBtnPanle.add(OkButton);
+		ft.setWidget(3, 0, hBtnPanle);
+		ft.getFlexCellFormatter().setColSpan(3, 0, 2);
+		ft.getFlexCellFormatter().setAlignment(3, 0, HasHorizontalAlignment.ALIGN_RIGHT, HasVerticalAlignment.ALIGN_MIDDLE);
+		
 		OkButton.setEnabled(false);
 		OkButton.addClickHandler(new ClickHandler() {
 
@@ -86,14 +101,15 @@ public class CreateIngredientView extends Composite{
 				mc.show(new MainView(mc));
 			}
 		});
+		
+		
 
-		vPanel.add(tabel);
+		vPanel.add(ft);
 
 		ingredientIdBox.addKeyUpHandler(new ingredientId());
 		ingredientNameBox.addKeyUpHandler(new ingredientName());
 		leverandoerBox.addKeyUpHandler(new leverandoer());
 
-		vPanel.add(subTable);
 	}
 
 	private class ingredientId implements KeyUpHandler{
