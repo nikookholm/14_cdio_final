@@ -30,7 +30,14 @@ public class ListUsersView extends Composite{
 	ArrayList<UserDTO> users;
 
 	VerticalPanel vPanel;
-	Label Header, fillerLabel, presentError;
+	Label idLabel		= new Label("ID");
+	Label nameLabel		= new Label("Navn");
+	Label iniLabel		= new Label("Initialer");
+	Label cprLabel		= new Label("CPR");
+	Label passwordLabel	= new Label("Password");
+	Label roleLabel		= new Label("Rolle");
+	Label Header		= new Label("Vis Brugere");
+	Label fillerLabel, presentError;
 	FlexTable table;
 	Anchor edit,ok, prevCancel = null;
 	int selectedRow;
@@ -46,25 +53,34 @@ public class ListUsersView extends Composite{
 	public ListUsersView(ArrayList<UserDTO> users, MainController mc){
 		this.users = users;
 		this.mc = mc;
-
 		vPanel = new VerticalPanel();
-		initWidget(vPanel);
-
-		Header       = new Label("Vis Brugere ");
+		
 		presentError = new Label("");
 
-		vPanel.add(Header);
-		vPanel.add(presentError);
 		table = new FlexTable();
-
-
-		table.setText(0, 0, "ID");
-		table.setText(0, 1, "Navn");
-		table.setText(0, 2, "Initialer");
-		table.setText(0, 3, "CPR");
-		table.setText(0, 4, "Password");
-		table.setText(0, 5, "Rolle");
-
+		
+		vPanel.add(Header);
+		Header.setStyleName("caption");
+		vPanel.add(presentError);
+		table.setWidget(0, 0, idLabel);
+		idLabel.setStyleName("input-text");
+		table.setWidget(0, 1, nameLabel);
+		nameLabel.setStyleName("input-text");
+		table.setWidget(0, 2, iniLabel);
+		iniLabel.setStyleName("input-text");
+		table.setWidget(0, 3, cprLabel);
+		cprLabel.setStyleName("input-text");
+		table.setWidget(0, 4, passwordLabel);
+		passwordLabel.setStyleName("input-text");
+		table.setWidget(0, 5, roleLabel);
+		roleLabel.setStyleName("input-text");
+		table.getCellFormatter().setWidth(0, 0, "150px;");
+		table.getCellFormatter().setWidth(0, 1, "150px;");
+		table.getCellFormatter().setWidth(0, 2, "150px;");
+		table.getCellFormatter().setWidth(0, 3, "150px;");
+		table.getCellFormatter().setWidth(0, 4, "150px;");
+		table.getCellFormatter().setWidth(0, 5, "150px;");
+		
 		for (int i = 0; i < this.users.size(); i++) {
 			table.setText(i+1, 0,	"" + this.users.get(i).getOprId());
 			table.setText(i+1, 1, 	"" + this.users.get(i).getOprName());
@@ -80,6 +96,7 @@ public class ListUsersView extends Composite{
 		}
 
 		vPanel.add(table);
+		initWidget(this.vPanel);
 
 		nameBox 	= new TextBox();
 		iniBox 		= new TextBox();
