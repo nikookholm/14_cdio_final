@@ -18,7 +18,6 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.sun.java.swing.plaf.windows.resources.windows;
 
 public class ListProductBatchView extends Composite
 {
@@ -47,7 +46,7 @@ public class ListProductBatchView extends Composite
 		pbNoBox		= new TextBox();
 		receptNoBox	= new TextBox();
 		
-		backButton = new Button("Annullér");
+		backButton = new Button("Tilbage");
 		backButton.setEnabled(true);
 		
 		infoLabel = new Label("Listevisning over ProduktBatches");

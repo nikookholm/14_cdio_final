@@ -46,9 +46,16 @@ public class CreateReceptView extends Composite
 		this.mc 		= mc;
 		vPanel			= new VerticalPanel();
 		
+		receptNameBox.setFocus(true);
+		okButton.setEnabled(false);
+		cancelButton.setEnabled(true);
+		
+		
 		if(receptDTO != null)
 		{
 			vPanel.add(new Label(receptDTO.getReceptName() + " blev oprettet"));
+		}else{
+			vPanel.add(new Label("Indtast oplysninger"));
 		}
 		
 		table = new Grid(3,2);
@@ -65,7 +72,7 @@ public class CreateReceptView extends Composite
 		table.setWidget(1, 1, receptIdBox);
 		table.setWidget(2, 1, hPanel = new HorizontalPanel());;
 		
-		okButton.setEnabled(false);
+	;
 		hPanel.add(okButton);
 		hPanel.add(cancelButton);
 		
@@ -86,7 +93,6 @@ public class CreateReceptView extends Composite
 			}
 		});
 	
-		cancelButton.setEnabled(true);
 		cancelButton.addClickHandler(new ClickHandler() {
 
 			@Override

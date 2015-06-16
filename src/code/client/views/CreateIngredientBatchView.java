@@ -36,7 +36,7 @@ public class CreateIngredientBatchView extends Composite
 	Label ibIdLabel 		= new Label("RåvareBatch ID");
 	Label ingredientIdLabel	= new Label("Råvare ID");
 	Label maengdeLabel		= new Label("Mængde");
-	Button okButton    		= new Button("Ok");
+	Button okButton    		= new Button("OK");
 	Button cancelButton 	= new Button("Fortryd");
 	
 	boolean rbIdCheck			= false;
@@ -49,12 +49,18 @@ public class CreateIngredientBatchView extends Composite
 		this.mc				= mc;
 		vPanel				= new VerticalPanel();
 		
+		rbIdBox.setFocus(true);
+		cancelButton.setEnabled(true);
+		okButton.setEnabled(false);
+		
 		if(ingrBatchDTO != null)
 		{
 			vPanel.add(new Label("Råvarebatchen med råvare ID'en: "+ ingrBatchDTO.getRbId() + "blev oprettet."));
+		}else{
+			vPanel.add(new Label("Indtast oplysninger"));
 		}
 		
-		table = new Grid(3,3);
+		table = new Grid(4,2);
 		
 		vPanel.add(infoLabel);
 		infoLabel.setStyleName("caption");
@@ -71,7 +77,6 @@ public class CreateIngredientBatchView extends Composite
 		table.setWidget(2, 1, maengdeBox);
 		table.setWidget(3, 1, hPanel = new HorizontalPanel());
 		
-		okButton.setEnabled(false);
 		hPanel.add(okButton);
 		hPanel.add(cancelButton);
 		
@@ -93,7 +98,6 @@ public class CreateIngredientBatchView extends Composite
 			}
 		});
 		
-		cancelButton.setEnabled(true);
 		cancelButton.addClickHandler(new ClickHandler() {
 
 			@Override

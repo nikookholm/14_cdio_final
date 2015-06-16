@@ -22,16 +22,22 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class CreateProductBatchView extends Composite
 {
 	ProductBatchController pbC;
+	ProductBatchDTO pbDTO;
 	MainController mc;
 	
-	VerticalPanel VPanel;
-	HorizontalPanel HPanel;
-	Button OKButton, cancelButton;
-	Label infoLabel;
+	VerticalPanel vPanel;
+	HorizontalPanel hPanel;
 	Grid table, subTable;
+	
+	TextBox pbNoBox		= new TextBox();
+	TextBox receptNoBox	= new TextBox();
+	Label infoLabel		= new Label("Opret ny produktbatch");
+	Label viewInfo		= new Label("Indtast produkbatchens oplysninger: ");
+	Label pbNoLabel		= new Label("ProductBatch ID"); 
+	Label receptNoLabel	= new Label("Recept ID");
+	Button okButton		= new Button("OK");
+	Button cancelButton	= new Button("Fortryd");
 	FlexTable flex;
-	Label pbNoLabel, receptNoLabel;
-	TextBox pbNoBox, receptNoBox;
 	
 	boolean pbNoValidity 		= false;
 	boolean receptNoValidity	= false;
@@ -39,52 +45,48 @@ public class CreateProductBatchView extends Composite
 	public CreateProductBatchView(ProductBatchDTO pbDTO, MainController mc)
 	{
 		this.mc = mc;
-		this.VPanel = new VerticalPanel();
-		initWidget(VPanel);
+		this.pbDTO = pbDTO;
+		vPanel = new VerticalPanel();
 		
-		pbNoLabel		= new Label("ProductBatch ID");
-		receptNoLabel	= new Label("Recept ID");
-		pbNoBox		= new TextBox();
-		receptNoBox	= new TextBox();
 		pbNoBox.setFocus(true);
 		
-		OKButton = new Button("OK");
-		cancelButton = new Button("Annullér");
-		OKButton.setEnabled(false);
+		okButton.setEnabled(false);
 		cancelButton.setEnabled(true);
 		
 		if(pbDTO != null){
-			infoLabel = new Label("ProduktBatchen " + pbDTO.getPbId() + " blev oprettet");
+			vPanel.add(new Label("ProduktBatchen: " + pbDTO.getPbId() + "blev oprettet"));
 			
 		}else{
-			infoLabel = new Label("Intast den nye ProduktBatchs oplysninger hér");
+			vPanel.add(new Label("Indtast oplysninger"));
 		}
 
-		this.table = new Grid(3, 2);
-		table.setTitle("Create new ProductBatch");
+		table = new Grid(3, 2);
+		
+		vPanel.add(infoLabel);
+		infoLabel.setStyleName("caption");
+		vPanel.add(viewInfo);
+		viewInfo.setStyleName("input-text");
 		table.setWidget(0, 0, pbNoLabel);
+		pbNoLabel.setStyleName("input-text");
 		table.setWidget(0, 1, pbNoBox);
 		table.setWidget(1, 0, receptNoLabel);
+		receptNoLabel.setStyleName("input-text");
 		table.setWidget(1, 1, receptNoBox);
+		table.setWidget(2, 1, hPanel = new HorizontalPanel());
+
+		hPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+		hPanel.add(okButton);
+		hPanel.add(cancelButton);
 		
-		this.subTable = new Grid(1, 1);
-		HPanel = new HorizontalPanel();
-		subTable.setWidget(0, 0, HPanel );
+		vPanel.add(table);
+		vPanel.add(hPanel);
+		initWidget(this.vPanel);
 		
-		HPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-		HPanel.add(OKButton);
-		HPanel.add(cancelButton);
-		
+		okButton.addClickHandler(new OKClickHandler());
+		cancelButton.addClickHandler(new cancelClickHandler());
+
 		pbNoBox.addKeyUpHandler(new PbNoBoxHandler());
 		receptNoBox.addKeyUpHandler(new ReceptNoBoxHandler());
-		
-		VPanel.add(infoLabel);
-		VPanel.add(table);
-		VPanel.add(subTable);
-		
-		OKButton.addClickHandler(new OKClickHandler());
-		cancelButton.addClickHandler(new cancelClickHandler());
-		
 	}
 
 	private class PbNoBoxHandler implements KeyUpHandler
@@ -122,9 +124,9 @@ public class CreateProductBatchView extends Composite
 	private void OKButtonValidity()
 	{
 		if(pbNoValidity && receptNoValidity)
-			OKButton.setEnabled(true);
+			okButton.setEnabled(true);
 		else 
-			OKButton.setEnabled(false);
+			okButton.setEnabled(false);
 	}
 	
 	private class OKClickHandler implements ClickHandler 
