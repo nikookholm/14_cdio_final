@@ -19,6 +19,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class ListProductBatchCompView extends Composite {
@@ -26,8 +28,10 @@ public class ListProductBatchCompView extends Composite {
 	ProductBatchCompController pbCompC;
 	MainController mc;
 	VerticalPanel VPanel;
+	Label infoLabel;
 	Button backButton;
 	FlexTable ft;
+	Grid subTable;
 
 	ArrayList<ProductBatchCompDTO> pbCompDTO;
 
@@ -41,15 +45,16 @@ public class ListProductBatchCompView extends Composite {
 
 		backButton = new Button("Tilbage");
 		backButton.setEnabled(true);
-
+		
+		infoLabel = new Label("Liste over produktbatchkomponenter i systemet");
+		ft.setTitle("Liste over produktbatchkomponenter i systemet");
+		
 		ft = new FlexTable();
-		ft.getCellFormatter().setWidth(0, 0, "100px");
-		ft.getCellFormatter().setWidth(0, 1, "100px");
-		ft.getCellFormatter().setWidth(0, 2, "100px");
-		ft.getCellFormatter().setWidth(0, 3, "100px");
-		ft.getCellFormatter().setWidth(0, 4, "100px");
-
-		ft.setTitle("ProductBatchCompListView");
+		ft.getCellFormatter().setWidth(0, 0, "150px");
+		ft.getCellFormatter().setWidth(0, 1, "150px");
+		ft.getCellFormatter().setWidth(0, 2, "150px");
+		ft.getCellFormatter().setWidth(0, 3, "150px");
+		ft.getCellFormatter().setWidth(0, 4, "150px");
 		ft.setText(0, 0, "ProductBatch id");
 		ft.setText(0, 1, "IngredientBatch id");
 		ft.setText(0, 2, "taravaegt");
@@ -66,7 +71,13 @@ public class ListProductBatchCompView extends Composite {
 			ft.setText(i+1, 4, "" + pbC.getOprId());
 		}
 		
+		this.subTable = new Grid (1,2);
+		subTable.setWidget(0, 0, backButton);
+		
+		VPanel.add(infoLabel);
 		VPanel.add(ft);
+		VPanel.add(subTable);
+		
 		backButton.addClickHandler(new backClickHandler());
 	}
 

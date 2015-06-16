@@ -9,6 +9,8 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import code.client.controllers.MainController;
@@ -21,8 +23,10 @@ public class ListReceptsView extends Composite{
 	ReceptController receptC;
 	MainController mc;
 	VerticalPanel VPanel;
+	Label infoLabel;
 	Button backButton;
 	FlexTable ft;
+	Grid subTable;
 
 	ArrayList<ReceptDTO> receptDTO;
 
@@ -37,18 +41,29 @@ public class ListReceptsView extends Composite{
 		backButton = new Button("Tilbage");
 		backButton.setEnabled(true);
 
+		infoLabel = new Label("Liste over recepter i systemet");
+		ft.setTitle("Liste over recepter i systemet");
+		
 		ft = new FlexTable();
-		ft.setTitle("ReceptView");
+		ft.getCellFormatter().setWidth(0, 0, "150px");
+		ft.getCellFormatter().setWidth(0, 1, "150px");
 		ft.setText(0, 0, "recept id");
 		ft.setText(0, 1, "recept name");
 
 		int i = 0;
 		for (ReceptDTO recept : receptDTO) {
+			i++;
 			ft.setText(i+1, 0, "" + recept.getReceptId());
 			ft.setText(i+1, 1, "" + recept.getReceptName());
 		}
 
+		this.subTable = new Grid (1,2);
+		subTable.setWidget(0, 0, backButton);
+		
+		VPanel.add(infoLabel);
 		VPanel.add(ft);
+		VPanel.add(subTable);
+		
 		backButton.addClickHandler(new backClickHandler());
 	}
 

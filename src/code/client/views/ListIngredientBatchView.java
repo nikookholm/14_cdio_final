@@ -49,15 +49,19 @@ public class ListIngredientBatchView extends Composite
 		backButton = new Button("Tilbage");
 		backButton.setEnabled(true);
 
-		infoLabel = new Label("Liste over råvarebatches");
+		infoLabel = new Label("Liste over råvarebatches i systemet");
 		ft = new FlexTable();
 		ft.setTitle("IngredientBatchView");
+		ft.getCellFormatter().setWidth(0, 0, "150px");
+		ft.getCellFormatter().setWidth(0, 1, "150px");
+		ft.getCellFormatter().setWidth(0, 2, "150px");
 		ft.setWidget(0, 0, rbIdLabel);
 		ft.setWidget(0, 1, ingredientIdLabel);
 		ft.setWidget(0, 2, maengdeLabel);
 		
 		int i = 0;
 		for (IngredientBatchDTO ingrBatch : ingrBatchDTO) {
+			i++;
 			ft.setText(i+1, 0,"" + ingrBatch.getRbId());
 			ft.setText(i+1, 1,"" + ingrBatch.getIngredientId());
 			ft.setText(i+1, 2,"" + ingrBatch.getMaengde());
