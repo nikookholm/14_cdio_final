@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import code.client.controllers.MainController;
 import code.database.IngredientBatchDTO;
-import code.database.IngredientDTO;
-import code.database.ProductBatchDTO;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -35,7 +33,7 @@ public class ListIngredientBatchView extends Composite
 
 	ArrayList<IngredientBatchDTO> ingrBatchDTO;
 
-	public ListIngredientBatchView(ArrayList<IngredientBatchDTO> ingrBatchDTO, final MainController mc)
+	public ListIngredientBatchView(ArrayList<IngredientBatchDTO> ingrBatchDTO, MainController mc)
 	{
 		this.mc = mc;
 		this.ingrBatchDTO = ingrBatchDTO;
@@ -46,18 +44,15 @@ public class ListIngredientBatchView extends Composite
 		ingredientIdBox = new TextBox();
 		maengdeBox 		= new TextBox();
 
-		backButton = new Button("Tilbage");
-		backButton.setEnabled(true);
-
 		infoLabel = new Label("Liste over råvarebatches i systemet");
 		ft = new FlexTable();
 		ft.setTitle("IngredientBatchView");
-		ft.getCellFormatter().setWidth(0, 0, "150px");
-		ft.getCellFormatter().setWidth(0, 1, "150px");
-		ft.getCellFormatter().setWidth(0, 2, "150px");
 		ft.setWidget(0, 0, rbIdLabel);
 		ft.setWidget(0, 1, ingredientIdLabel);
 		ft.setWidget(0, 2, maengdeLabel);
+//		ft.getCellFormatter().setWidth(0, 0, "150px;");
+//		ft.getCellFormatter().setWidth(0, 1, "150px;");
+//		ft.getCellFormatter().setWidth(0, 2, "150px;");
 		
 		int i = 0;
 		for (IngredientBatchDTO ingrBatch : ingrBatchDTO) {
@@ -67,6 +62,8 @@ public class ListIngredientBatchView extends Composite
 			ft.setText(i+1, 2,"" + ingrBatch.getMaengde());
 		}	
 
+		backButton = new Button("Tilbage");
+		backButton.setEnabled(true);
 		this.subTable = new Grid(1,2);
 		subTable.setWidget(0, 0, backButton);
 

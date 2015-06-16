@@ -50,14 +50,14 @@ public class ReceptController {
 		mc.databaseService.recept_table_list(new AsyncCallback<ArrayList<ReceptDTO>>() {
 			
 			@Override
-			public void onSuccess(ArrayList<ReceptDTO> result) {
-				receptDTO = result;
+			public void onSuccess(ArrayList<ReceptDTO> list) {
+				receptDTO = list;
 			}
 			
 			@Override
 			public void onFailure(Throwable caught) {
 				receptDTO = null;
-				Window.alert("Listen over recepter kunne ikke hentes"+caught.getMessage());
+				Window.alert("Listen over recepter kunne ikke hentes "+caught.getMessage());
 			}
 		});
 		

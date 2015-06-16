@@ -3,12 +3,10 @@ package code.client.views;
 import java.util.ArrayList;
 import java.util.List;
 
-import code.client.DatabaseServiceAsync;
-import code.client.DatabaseService;
+
 import code.database.*;
 import code.client.controllers.MainController;
 import code.client.controllers.ProductBatchCompController;
-import code.client.controllers.ProductBatchController;
 import code.database.DALException;
 import code.server.DatabaseServiceImpl;
 
@@ -42,24 +40,21 @@ public class ListProductBatchCompView extends Composite {
 		VPanel = new VerticalPanel();
 		VPanel.setHeight("100px");
 		initWidget(this.VPanel);
-
-		backButton = new Button("Tilbage");
-		backButton.setEnabled(true);
 		
 		infoLabel = new Label("Liste over produktbatchkomponenter i systemet");
-		ft.setTitle("Liste over produktbatchkomponenter i systemet");
+		//ft.setTitle("Liste over produktbatchkomponenter i systemet");
 		
 		ft = new FlexTable();
-		ft.getCellFormatter().setWidth(0, 0, "150px");
-		ft.getCellFormatter().setWidth(0, 1, "150px");
-		ft.getCellFormatter().setWidth(0, 2, "150px");
-		ft.getCellFormatter().setWidth(0, 3, "150px");
-		ft.getCellFormatter().setWidth(0, 4, "150px");
 		ft.setText(0, 0, "ProductBatch id");
 		ft.setText(0, 1, "IngredientBatch id");
-		ft.setText(0, 2, "taravaegt");
-		ft.setText(0, 3, "nettovaegt");
+		ft.setText(0, 2, "Taravægt");
+		ft.setText(0, 3, "Nettovægt");
 		ft.setText(0, 4, "Operator id");
+		ft.getCellFormatter().setWidth(0, 0, "150px;");
+		ft.getCellFormatter().setWidth(0, 1, "150px;");
+		ft.getCellFormatter().setWidth(0, 2, "150px;");
+		ft.getCellFormatter().setWidth(0, 3, "150px;");
+		ft.getCellFormatter().setWidth(0, 4, "150px;");
 		
 		int i = 0;
 		for(ProductBatchCompDTO pbC : pbCompDTO) {
@@ -71,8 +66,11 @@ public class ListProductBatchCompView extends Composite {
 			ft.setText(i+1, 4, "" + pbC.getOprId());
 		}
 		
+		backButton = new Button("Tilbage");
+		backButton.setEnabled(true);
 		this.subTable = new Grid (1,2);
 		subTable.setWidget(0, 0, backButton);
+		
 		
 		VPanel.add(infoLabel);
 		VPanel.add(ft);

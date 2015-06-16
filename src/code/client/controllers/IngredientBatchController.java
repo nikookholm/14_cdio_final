@@ -24,7 +24,7 @@ public class IngredientBatchController
 
 		if(ingrBatchDTO!= null){
 			
-			// opret dto i database
+			// opretter dto i database
 			mc.databaseService.ingredientBatch_table_create(ingrBatchDTO, new AsyncCallback<Void>() {
 				
 				@Override

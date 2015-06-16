@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -16,7 +15,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import code.client.controllers.MainController;
 import code.client.controllers.ReceptController;
 import code.database.ReceptDTO;
-import code.database.UserDTO;
 
 public class ListReceptsView extends Composite{
 
@@ -35,20 +33,16 @@ public class ListReceptsView extends Composite{
 		this.mc = mc;
 		this.receptDTO = receptDTO;
 		VPanel = new VerticalPanel();
-
 		initWidget(this.VPanel);
-
-		backButton = new Button("Tilbage");
-		backButton.setEnabled(true);
-
+		
 		infoLabel = new Label("Liste over recepter i systemet");
-		ft.setTitle("Liste over recepter i systemet");
+		//ft.setTitle("Liste over recepter i systemet");
 		
 		ft = new FlexTable();
-		ft.getCellFormatter().setWidth(0, 0, "150px");
-		ft.getCellFormatter().setWidth(0, 1, "150px");
 		ft.setText(0, 0, "recept id");
 		ft.setText(0, 1, "recept name");
+		ft.getCellFormatter().setWidth(0, 0, "150px;");
+		ft.getCellFormatter().setWidth(0, 1, "150px;");
 
 		int i = 0;
 		for (ReceptDTO recept : receptDTO) {
@@ -57,6 +51,8 @@ public class ListReceptsView extends Composite{
 			ft.setText(i+1, 1, "" + recept.getReceptName());
 		}
 
+		backButton = new Button("Tilbage");
+		backButton.setEnabled(true);
 		this.subTable = new Grid (1,2);
 		subTable.setWidget(0, 0, backButton);
 		
