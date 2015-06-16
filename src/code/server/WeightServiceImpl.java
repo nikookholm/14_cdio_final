@@ -23,29 +23,29 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  */
 @SuppressWarnings("serial")
 public class WeightServiceImpl extends RemoteServiceServlet implements
-		WeightService {
-	
+WeightService {
+
 	//globale variabler
 	String filename = "ip_port.txt";
 	String[] addressArray;
 	TCPConnector tcp;
-	
+
 	//Konstruktøren, der starter weightProcedures hvis fileRead() og listenForTarget() kører.
-//	public WeightServiceImpl() throws WeightException, IOException{
-//		
-//	}
-	
+	//	public WeightServiceImpl() throws WeightException, IOException{
+	//		
+	//	}
+
 	public void start()
 	{
 		try {
-			fileRead();
+			//fileRead();
 			listenForTarget();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("hej hej *********************'''''''*******************************************");
+		System.out.println("***********Start() i WS er stoppen**************");
 	}
-	
+
 	//Metoden, der tarerer vægten
 	@Override
 	public double getTara() throws WeightException {
@@ -80,27 +80,33 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 			}
 		}
 	}
-	
+
 	//rm20-kommandoen, der sender en besked til vægten og får en respons tilbage
 	@Override
 	public String rm20(int type, String message) throws WeightException {
-		String result;
+		String result = null;
 		//String request = "RM20 " + type + " \"" + message + "\" \"\" \"\"" + "\r\n";
-		String request = "RM20 8 \""+message+"\" \"text2\" \"text3\"\r\n";
+		String request = "RM20 8 \""+message+"\" \"\" \"&3\"\r\n";
 		tcp.send(request);
+	//	String junk = tcp.receive();
 		result = tcp.receive();
 		System.out.println(result);
-		
+		String answer = null;
 		if (result.startsWith("RM20 B"))
 		{
-			return tcp.receive();
+			while(!(answer= tcp.receive()).startsWith("RM20 A")){
+				answer = tcp.receive();
+			}
+			System.out.println(answer);
+		
+			return answer.substring(6);
 		}
 		else
 		{
 			return result;
 		}
 	}
-	
+
 	//Metoden, der printer til displayet
 	@Override
 	public boolean printToDisplay(String message) throws WeightException {
@@ -115,15 +121,15 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 		String request = "DW\r\n";
 		tcp.send(request);
 		result = tcp.receive();
-		
+
 		if(result.equals("DW A"));
 		{
 			getWeight();
 		}
 		{throw new WeightException("Der opstod en fejl, da vægten prøvede at skifte til vægt-visning");}
-			
+
 	}
-	
+
 	//Metoden der lytter på .txt-filen fra fileRead(), lavet et array og finder om ip:port kan bruges til at forbinde
 	//Hvis det lykkes, startes weightProcedures.start()
 	@Override
@@ -131,32 +137,32 @@ public class WeightServiceImpl extends RemoteServiceServlet implements
 		boolean noTarget = false;
 		String host = null;
 		int port = 0;
-		while(!noTarget)
+		//		while(!noTarget)
+		//		{
+		//			for(String ip : addressArray) 
+		//			{
+		//				host = ip.substring(0, ip.indexOf(":"));
+		//				try
+		//				{
+		//					port = Integer.parseInt(ip.substring(ip.indexOf(":")+1));
+		//				}
+		//				catch(NumberFormatException e)
+		//				{
+		//					e.printStackTrace();
+		//				}
+		//				
+		tcp = new TCPConnector("10.16.111.53", 8000);
+		if(tcp.connect())
 		{
-			for(String ip : addressArray) 
-			{
-				host = ip.substring(0, ip.indexOf(":"));
-				try
-				{
-					port = Integer.parseInt(ip.substring(ip.indexOf(":")+1));
-				}
-				catch(NumberFormatException e)
-				{
-					e.printStackTrace();
-				}
-				
-				tcp = new TCPConnector(host, port);
-				if(tcp.connect())
-				{
-					new WeightProcedures(this).start();
-				}
-			}
+			new WeightProcedures(this);
 		}
-		
-		
+		//			}
+		//		}
+
+
 		//Lytter efter vægt-terminaler på IP'er. Hvis den finder en ip, køres WeightProcedures
 	}
-	
+
 	//metoden bruger Apache Commons FileUtils og ArrayUtils og tager input-filen som en lang String
 	//derpå splitter den på linebreak og laver til array.
 	public String[] fileRead() throws IOException
