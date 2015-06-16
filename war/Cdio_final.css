@@ -48,3 +48,7 @@ h1 {
   margin: 15px 6px 6px;
 }
 
+body
+{
+	height: 100%;
+}
