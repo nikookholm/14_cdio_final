@@ -36,7 +36,7 @@ public class ListUsersView extends Composite{
 	Label cprLabel		= new Label("CPR");
 	Label passwordLabel	= new Label("Password");
 	Label roleLabel		= new Label("Rolle");
-	Label Header		= new Label("Vis Brugere");
+	Label Header		= new Label("Operatører");
 	Label fillerLabel, presentError;
 	FlexTable table;
 	Anchor edit,ok, prevCancel = null;
