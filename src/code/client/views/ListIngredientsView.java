@@ -191,16 +191,6 @@ public class ListIngredientsView extends Composite
 				}
 			}
 		}
-
-		//		public void linkHandler(){
-		//
-		//			if(selectedNameCheck && selectedLeverandoerCheck){
-		//				
-		//				ok.setEnabled(true);
-		//			}
-		//			else ok.setEnabled(false);
-		//		}
-
 	}
 
 
