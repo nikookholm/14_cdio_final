@@ -26,7 +26,12 @@ public class ListProductBatchCompView extends Composite {
 	ProductBatchCompController pbCompC;
 	MainController mc;
 	VerticalPanel VPanel;
-	Label infoLabel;
+	Label 	infoLabel				= new Label("ProduktBatch Komponenter");
+	Label 	productBatchIdLabel		= new Label("ProduktBatch ID");
+	Label	ingredientBatchIdLabel	= new Label("RåvareBatch ID");
+	Label	taraWeightLabel			= new Label("Tara værdi");
+	Label	nettoWeightLabel		= new Label("Netto værdi");
+	Label	operatorIdLabel			= new Label("Operatør ID");
 	Button backButton;
 	FlexTable ft;
 	Grid subTable;
@@ -37,17 +42,24 @@ public class ListProductBatchCompView extends Composite {
 	{
 		this.mc = mc;
 		this.pbCompDTO = pbCompDTO;
+		
 		VPanel = new VerticalPanel();
 		VPanel.setHeight("100px");
-		initWidget(this.VPanel);
 		
-		infoLabel = new Label("Liste over produktbatchkomponenter i systemet");
 		ft = new FlexTable();
-		ft.setText(0, 0, "productBatch id");
-		ft.setText(0, 1, "ingredientBatch id");
-		ft.setText(0, 2, "taraweight");
-		ft.setText(0, 3, "nettoweight");
-		ft.setText(0, 4, "operator id");
+		
+		VPanel.add(infoLabel);
+		infoLabel.setStyleName("caption");
+		ft.setWidget(0, 0, productBatchIdLabel);
+		productBatchIdLabel.setStyleName("input-text");
+		ft.setWidget(0, 1, ingredientBatchIdLabel);
+		ingredientBatchIdLabel.setStyleName("input-text");
+		ft.setWidget(0, 2, taraWeightLabel);
+		taraWeightLabel.setStyleName("input-text");
+		ft.setWidget(0, 3, nettoWeightLabel);
+		nettoWeightLabel.setStyleName("input-text");
+		ft.setWidget(0, 4, operatorIdLabel);
+		operatorIdLabel.setStyleName("input-text");
 		ft.getCellFormatter().setWidth(0, 0, "150px;");
 		ft.getCellFormatter().setWidth(0, 1, "150px;");
 		ft.getCellFormatter().setWidth(0, 2, "150px;");
@@ -68,11 +80,10 @@ public class ListProductBatchCompView extends Composite {
 		backButton.setEnabled(true);
 		this.subTable = new Grid (1,2);
 		subTable.setWidget(0, 0, backButton);
-		
-		
-		VPanel.add(infoLabel);
+
 		VPanel.add(ft);
 		VPanel.add(subTable);
+		initWidget(this.VPanel);
 		
 		backButton.addClickHandler(new backClickHandler());
 	}

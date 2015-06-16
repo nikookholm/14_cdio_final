@@ -21,7 +21,9 @@ public class ListReceptsView extends Composite{
 	ReceptController receptC;
 	MainController mc;
 	VerticalPanel VPanel;
-	Label infoLabel;
+	Label infoLabel				= new Label("Recepter");
+	Label receptIdLabel			= new Label("Recept ID");
+	Label receptNameLabel		= new Label("Recept navn");
 	Button backButton;
 	FlexTable ft;
 	Grid subTable;
@@ -32,14 +34,17 @@ public class ListReceptsView extends Composite{
 	{
 		this.mc = mc;
 		this.receptDTO = receptDTO;
-		VPanel = new VerticalPanel();
-		initWidget(this.VPanel);
 		
-		infoLabel = new Label("Liste over recepter i systemet");
+		VPanel = new VerticalPanel();
 		
 		ft = new FlexTable();
-		ft.setText(0, 0, "recept id");
-		ft.setText(0, 1, "recept name");
+		
+		VPanel.add(infoLabel);
+		infoLabel.setStyleName("caption");
+		ft.setWidget(0, 0, receptIdLabel);
+		receptIdLabel.setStyleName("input-text");
+		ft.setWidget(0, 1, receptNameLabel);
+		receptNameLabel.setStyleName("input-text");
 		ft.getCellFormatter().setWidth(0, 0, "150px;");
 		ft.getCellFormatter().setWidth(0, 1, "150px;");
 
@@ -55,9 +60,9 @@ public class ListReceptsView extends Composite{
 		this.subTable = new Grid (1,2);
 		subTable.setWidget(0, 0, backButton);
 		
-		VPanel.add(infoLabel);
 		VPanel.add(ft);
 		VPanel.add(subTable);
+		initWidget(this.VPanel);
 		
 		backButton.addClickHandler(new backClickHandler());
 	}

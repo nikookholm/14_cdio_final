@@ -21,12 +21,11 @@ public class ListIngredientBatchView extends Composite
 {
 	MainController mc;
 	VerticalPanel VPanel;
-	Label rbIdLabel 		= new Label("productbatch id");
-	Label ingredientIdLabel	= new Label("ingredient id");
-	Label maengdeLabel		= new Label("maengde");;
-	Label infoLabel;
+	Label ibIdLabel 		= new Label("RåvareBatch ID");
+	Label ingredientIdLabel	= new Label("Råvare ID");
+	Label maengdeLabel		= new Label("Mængde");;
+	Label infoLabel			= new Label("RåvareBatch");	
 	Button backButton;
-	TextBox rbIdBox, ingredientIdBox, maengdeBox;
 
 	FlexTable ft;
 	Grid subTable;
@@ -37,21 +36,22 @@ public class ListIngredientBatchView extends Composite
 	{
 		this.mc = mc;
 		this.ingrBatchDTO = ingrBatchDTO;
+		
 		VPanel = new VerticalPanel();
-		initWidget(this.VPanel);
-
-		rbIdBox 		= new TextBox();
-		ingredientIdBox = new TextBox();
-		maengdeBox 		= new TextBox();
-
-		infoLabel = new Label("Liste over råvarebatches i systemet");
+	
 		ft = new FlexTable();
-		ft.setWidget(0, 0, rbIdLabel);
+		
+		VPanel.add(infoLabel);
+		infoLabel.setStyleName("caption");
+		ft.setWidget(0, 0, ibIdLabel);
+		ibIdLabel.setStyleName("input-text");
 		ft.setWidget(0, 1, ingredientIdLabel);
+		ingredientIdLabel.setStyleName("input-text");
 		ft.setWidget(0, 2, maengdeLabel);
-//		ft.getCellFormatter().setWidth(0, 0, "150px;");
-//		ft.getCellFormatter().setWidth(0, 1, "150px;");
-//		ft.getCellFormatter().setWidth(0, 2, "150px;");
+		maengdeLabel.setStyleName("input-text");
+		ft.getCellFormatter().setWidth(0, 0, "150px;");
+		ft.getCellFormatter().setWidth(0, 1, "150px;");
+		ft.getCellFormatter().setWidth(0, 2, "150px;");
 		
 		int i = 0;
 		for (IngredientBatchDTO ingrBatch : ingrBatchDTO) {
@@ -66,9 +66,9 @@ public class ListIngredientBatchView extends Composite
 		this.subTable = new Grid(1,2);
 		subTable.setWidget(0, 0, backButton);
 
-		VPanel.add(infoLabel);
 		VPanel.add(ft);
 		VPanel.add(subTable);
+		initWidget(this.VPanel);
 
 		backButton.addClickHandler(new backClickHandler());
 	}
