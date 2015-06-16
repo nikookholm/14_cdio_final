@@ -185,6 +185,7 @@ public class ListIngredientsView extends Composite
 					selectedLeverandoer.setStyleName("gwt-TextBox-invalidEntry");
 					selectedLeverandoerCheck = false;
 				}
+			
 				else{
 					selectedLeverandoer.removeStyleName("gwt-TextBox-invalidEntry");
 					selectedLeverandoerCheck = true;
