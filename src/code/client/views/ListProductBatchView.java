@@ -102,7 +102,7 @@ public class ListProductBatchView extends Composite
 			flex.setWidget(selectedRow, 5, ok = new Anchor("OK"));
 			flex.setWidget(selectedRow, 6, cancel = new Anchor("Annullér"));
 			final Anchor edit = (Anchor) event.getSource();
-			
+			 
 			final String pbNo = flex.getText(selectedRow, 0);
 			final String recNo = receptNoBox.getText();
 			final String stat = flex.getText(selectedRow, 2);
