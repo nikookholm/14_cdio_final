@@ -36,7 +36,6 @@ public class ListReceptsView extends Composite{
 		initWidget(this.VPanel);
 		
 		infoLabel = new Label("Liste over recepter i systemet");
-		//ft.setTitle("Liste over recepter i systemet");
 		
 		ft = new FlexTable();
 		ft.setText(0, 0, "recept id");

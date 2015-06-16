@@ -21,8 +21,8 @@ public class ListIngredientBatchView extends Composite
 {
 	MainController mc;
 	VerticalPanel VPanel;
-	Label rbIdLabel 		= new Label("råvarebatch id");
-	Label ingredientIdLabel	= new Label("råvare id");
+	Label rbIdLabel 		= new Label("productbatch id");
+	Label ingredientIdLabel	= new Label("ingredient id");
 	Label maengdeLabel		= new Label("maengde");;
 	Label infoLabel;
 	Button backButton;
@@ -46,7 +46,6 @@ public class ListIngredientBatchView extends Composite
 
 		infoLabel = new Label("Liste over råvarebatches i systemet");
 		ft = new FlexTable();
-		ft.setTitle("IngredientBatchView");
 		ft.setWidget(0, 0, rbIdLabel);
 		ft.setWidget(0, 1, ingredientIdLabel);
 		ft.setWidget(0, 2, maengdeLabel);

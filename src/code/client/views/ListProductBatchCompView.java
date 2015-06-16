@@ -42,14 +42,12 @@ public class ListProductBatchCompView extends Composite {
 		initWidget(this.VPanel);
 		
 		infoLabel = new Label("Liste over produktbatchkomponenter i systemet");
-		//ft.setTitle("Liste over produktbatchkomponenter i systemet");
-		
 		ft = new FlexTable();
-		ft.setText(0, 0, "ProductBatch id");
-		ft.setText(0, 1, "IngredientBatch id");
-		ft.setText(0, 2, "Taravægt");
-		ft.setText(0, 3, "Nettovægt");
-		ft.setText(0, 4, "Operator id");
+		ft.setText(0, 0, "productBatch id");
+		ft.setText(0, 1, "ingredientBatch id");
+		ft.setText(0, 2, "taraweight");
+		ft.setText(0, 3, "nettoweight");
+		ft.setText(0, 4, "operator id");
 		ft.getCellFormatter().setWidth(0, 0, "150px;");
 		ft.getCellFormatter().setWidth(0, 1, "150px;");
 		ft.getCellFormatter().setWidth(0, 2, "150px;");
