@@ -22,7 +22,7 @@ public class ProductBatchController
 		this.mc = mc;
 	}
 	
-	public Widget createProductBatch(ProductBatchDTO pbDTO)
+	public Widget createProductBatch(final ProductBatchDTO pbDTO)
 	{
 		this.pbDTO = pbDTO;
 		
@@ -30,7 +30,7 @@ public class ProductBatchController
 			mc.databaseService.productBatch_table_create(pbDTO, new AsyncCallback<Void>() {
 				@Override
 				public void onSuccess(Void result) {
-					
+//					Window.alert("PB oprettet! Værdi: pbID:" + pbDTO.getPbId() + ", recID" + pbDTO.getReceptId() + ", stat:" + pbDTO.getStatus() + ", dato:" + pbDTO.getDateTime() );
 				}
 				@Override
 				public void onFailure(Throwable caught) {

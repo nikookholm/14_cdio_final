@@ -29,7 +29,7 @@ CREATE TABLE receptcomponent(recept_id INT, ingredient_id INT, nom_netto REAL, t
    FOREIGN KEY (recept_id) REFERENCES recept(recept_id), 
    FOREIGN KEY (ingredient_id) REFERENCES ingredient(ingredient_id)) ENGINE=innoDB;
 
-CREATE TABLE productbatch(pb_id INT PRIMARY KEY, status INT, recept_id INT, date timestamp, 
+CREATE TABLE productbatch(pb_id INT PRIMARY KEY, recept_id INT, status INT, date TEXT, 
    FOREIGN KEY (recept_id) REFERENCES recept(recept_id)) ENGINE=innoDB;
 
 CREATE TABLE productbatchcomponent(pb_id INT, rb_id INT, tara REAL, netto REAL, opr_id INT, 
@@ -85,11 +85,11 @@ INSERT INTO receptcomponent(recept_id, ingredient_id, nom_netto, tolerance) VALU
 (3, 7, 1.0, 0.1);
 
 INSERT INTO productbatch(pb_id, recept_id, status, date) VALUES
-(1, 1, 2, 0), 
-(2, 1, 2, 0),
-(3, 2, 2, 0),
-(4, 3, 1, 0),
-(5, 3, 0, 0);
+(1, 1, 2, '2058-6-7'), 
+(2, 1, 2, '2058-6-7'),
+(3, 2, 2, '2058-6-7'),
+(4, 3, 1, '2058-6-7'),
+(5, 3, 0, '2058-6-7');
 
 
 INSERT INTO productbatchcomponent(pb_id, rb_id, tara, netto, opr_id) VALUES

@@ -42,14 +42,14 @@ public class CreateProductBatchView extends Composite
 		this.VPanel = new VerticalPanel();
 		initWidget(VPanel);
 		
-		pbNoLabel		= new Label("ProductBatchNumber");
-		receptNoLabel	= new Label("ReceptNumber");
+		pbNoLabel		= new Label("ProductBatch ID");
+		receptNoLabel	= new Label("Recept ID");
 		pbNoBox		= new TextBox();
 		receptNoBox	= new TextBox();
 		pbNoBox.setFocus(true);
 		
 		OKButton = new Button("OK");
-		cancelButton = new Button("Cancel");
+		cancelButton = new Button("Annullér");
 		OKButton.setEnabled(false);
 		cancelButton.setEnabled(true);
 		
@@ -134,7 +134,7 @@ public class CreateProductBatchView extends Composite
 			
 	    	int statI = 0;
 			String datI = "";			
-			ProductBatchDTO pbDTO = new ProductBatchDTO(Integer.parseInt(pbNoBox.getText()), statI, Integer.parseInt(receptNoBox.getText()), datI);
+			ProductBatchDTO pbDTO = new ProductBatchDTO(Integer.parseInt(pbNoBox.getText()), Integer.parseInt(receptNoBox.getText()), statI, datI);
 			
 			mc.show(mc.getProductBatchController().createProductBatch(pbDTO));
       }
