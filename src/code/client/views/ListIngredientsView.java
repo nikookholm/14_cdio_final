@@ -43,10 +43,9 @@ public class ListIngredientsView extends Composite
 	
 	Anchor edit 		 = new Anchor("rediger");
 	Anchor cancel		 = new Anchor("cancel");
-	Button ok			 = new Button("ok");
+	Anchor ok			;
 	
 	TextBox NameBox, IdBox, leverandoerBox;
-//	TextBox selectedIdBox 	     = new TextBox();
 	TextBox selectedNameBox     = new TextBox();
 	TextBox selectedLeverandoer = new TextBox();
 	
@@ -64,11 +63,10 @@ public class ListIngredientsView extends Composite
 		initWidget(this.vPanel);
 
 		flexTabel = new FlexTable();
-
-		flexTabel.setWidget(0, 1, NameLabel);
+		
 		flexTabel.setWidget(0, 0, IdLabel);
+		flexTabel.setWidget(0, 1, NameLabel);
 		flexTabel.setWidget(0, 2, leverandoer);
-//		flexTabel.setWidget(0, 3, back);
 
 		mc.databaseService.ingredients_table_list(new AsyncCallback<ArrayList<IngredientDTO>>() {
 
@@ -107,6 +105,7 @@ public class ListIngredientsView extends Composite
 				cancel.fireEvent(new ClickEvent(){});}
 
 			final int selectedRow = flexTabel.getCellForEvent(event).getRowIndex();
+			final Anchor ok =   new Anchor("ok");
 
 			selectedNameBox.setText(flexTabel.getText(selectedRow, 1));
 			selectedLeverandoer.setText(flexTabel.getText(selectedRow, 2));
@@ -115,14 +114,13 @@ public class ListIngredientsView extends Composite
 			flexTabel.setWidget(selectedRow, 2, selectedLeverandoer);
 			flexTabel.setWidget(selectedRow, 3, cancel);
 			flexTabel.setWidget(selectedRow, 4, ok);
-			ok.setEnabled(false);
+						
 			selectedNameBox.addKeyUpHandler(new selName());
 			selectedLeverandoer.addKeyUpHandler(new selLeverandoer());
 			
 			final String ingName = selectedNameBox.getText();
 			final String leverandoer = selectedLeverandoer.getText();
 			final int ingredientId = Integer.parseInt(flexTabel.getText(selectedRow, 0));
-			
 			
 			Anchor newCancel = new Anchor("cansel");
 			
@@ -138,24 +136,27 @@ public class ListIngredientsView extends Composite
 					
 				}			
 			});
-			
 
-
+//			ok.setEnabled(false);
 			ok.addClickHandler(new ClickHandler() {
 				
 				@Override
 				public void onClick(ClickEvent event) {
-					
-					
+					if(selectedNameCheck && selectedNameCheck){
+						
 					IngredientDTO updateIng = new IngredientDTO(ingredientId, selectedNameBox.getText(), selectedLeverandoer.getText());
-					
 					mc.getIngredientController().updateIngredient(updateIng);
-					
 				}
+					else {
+
+						
+						selectedNameBox.setText(ingName);
+						selectedLeverandoer.setText(leverandoer);
+						
+						
+					}
+			}
 			});
-			
-			
-			
 			
 		}
 	
@@ -172,42 +173,35 @@ public class ListIngredientsView extends Composite
 					else{
 						selectedNameBox.removeStyleName("gwt-TextBox-invalidEntry");
 						selectedNameCheck = true;
-						okBtnEnabler();
+//						okBtnEnabler();
 					}
-					
-				}
-			
-			
+				}	
 		}
 		
 		private class selLeverandoer implements KeyUpHandler{
 
 			@Override
 			public void onKeyUp(KeyUpEvent event) {
-				if(FieldVerifier.leverandoerValid(selectedLeverandoer.getText())){
-					selectedLeverandoer.setStyleName("gwt-Text-invalidEntry");
+				if(!FieldVerifier.leverandoerValid(selectedLeverandoer.getText())){
+					selectedLeverandoer.setStyleName("gwt-TextBox-invalidEntry");
 					selectedLeverandoerCheck = false;
 				}
 				else{
-					selectedLeverandoer.removeStyleName("gwt-Text-invalidEntry");
+					selectedLeverandoer.removeStyleName("gwt-TextBox-invalidEntry");
 					selectedLeverandoerCheck = true;
-					okBtnEnabler();
+//					okBtnEnabler();
 				}
-				
 			}
-			
-			
 		}
 		
-		
-		public void okBtnEnabler(){
-			if(selectedNameCheck && selectedLeverandoerCheck){
-				
-				ok.setEnabled(true);
-			}
-			else ok.setEnabled(false);
-			
-		}
+//		public void linkHandler(){
+//
+//			if(selectedNameCheck && selectedLeverandoerCheck){
+//				
+//				ok.setEnabled(true);
+//			}
+//			else ok.setEnabled(false);
+//		}
 		
 	}
 	
