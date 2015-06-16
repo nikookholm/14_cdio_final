@@ -67,7 +67,7 @@ public class CreateIngredientView extends Composite{
 		ft.setWidget(0, 1, ingredientIdBox);
 		
 		ft.setWidget(1, 0, ingredientNameLabel);
-		ingredientNameLabel.setStyleName("input-tect");
+		ingredientNameLabel.setStyleName("input-text");
 		ft.setWidget(1, 1, ingredientNameBox);
 		
 		ft.setWidget(2, 0, leverandoerLabel);
@@ -98,7 +98,9 @@ public class CreateIngredientView extends Composite{
 
 			@Override
 			public void onClick(ClickEvent event) {
-				mc.show(new MainView(mc));
+				ingredientIdBox.setText("");
+				ingredientNameBox.setText("");
+				leverandoerBox.setText("");
 			}
 		});
 		
