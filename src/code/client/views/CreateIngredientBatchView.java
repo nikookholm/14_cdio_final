@@ -13,6 +13,7 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -24,50 +25,65 @@ public class CreateIngredientBatchView extends Composite
 	MainController mc;
 
 	VerticalPanel vPanel;
-	Grid table, subTable;
+	Grid table;
+	HorizontalPanel hPanel;
+	
+	TextBox rbIdBox 		= new TextBox();    	//rb_id
+	TextBox ingredientIdBox = new TextBox(); 		//ingredient_id
+	TextBox maengdeBox  	= new TextBox();		//maengde
+	Label infoLabel			= new Label("Opret ny råvarebatch");
+	Label viewInfo			= new Label("Indtast råvarebatchens oplysninger: ");
+	Label ibIdLabel 		= new Label("RåvareBatch ID");
+	Label ingredientIdLabel	= new Label("Råvare ID");
+	Label maengdeLabel		= new Label("Mængde");
+	Button okButton    		= new Button("Ok");
+	Button cancelButton 	= new Button("Fortryd");
+	
 	boolean rbIdCheck			= false;
 	boolean ingredientIdCheck	= false;
 	boolean maengdeCheck		= false;
-	
-	private TextBox rbIdBox 		= new TextBox();    	//rb_id
-	private TextBox ingredientIdBox = new TextBox(); 		//ingredient_id
-	private TextBox maengdeBox  	= new TextBox();		//maengde
-	
-	private Label rbIdLabel 		= new Label("råvarebatch_id");
-	private Label ingredientIdLabel	= new Label("råvare_id");
-	private Label maengdeLabel		= new Label("maengde");
-	private Button OkButton    		= new Button("Ok");
-	private Button cancelButton 	= new Button("cancel");
 	
 	public CreateIngredientBatchView(final IngredientBatchDTO ingrBatchDTO, final MainController mc)
 	{
 		this.ingrBatchDTO 	= ingrBatchDTO;
 		this.mc				= mc;
-		this.vPanel			= new VerticalPanel();
-		
-		initWidget(vPanel);
+		vPanel				= new VerticalPanel();
 		
 		if(ingrBatchDTO != null)
 		{
-			vPanel.add(new Label());
+			vPanel.add(new Label("Råvarebatchen med råvare ID'en: "+ ingrBatchDTO.getRbId() + "blev oprettet."));
 		}
 		
-		this.table = new Grid(3,3);
+		table = new Grid(3,3);
 		
-		table.setWidget(0, 0, rbIdLabel);
+		vPanel.add(infoLabel);
+		infoLabel.setStyleName("caption");
+		vPanel.add(viewInfo);
+		viewInfo.setStyleName("input-text");
+		table.setWidget(0, 0, ibIdLabel);
+		ibIdLabel.setStyleName("input-text");
 		table.setWidget(0, 1, rbIdBox);
 		table.setWidget(1, 0, ingredientIdLabel);
+		ingredientIdLabel.setStyleName("input-text");
 		table.setWidget(1, 1, ingredientIdBox);
 		table.setWidget(2, 0, maengdeLabel);
+		maengdeLabel.setStyleName("input-text");
 		table.setWidget(2, 1, maengdeBox);
+		table.setWidget(3, 1, hPanel = new HorizontalPanel());
 		
-		this.subTable = new Grid(1,2);
+		okButton.setEnabled(false);
+		hPanel.add(okButton);
+		hPanel.add(cancelButton);
 		
-		subTable.setWidget(0, 0, cancelButton);
-		subTable.setWidget(0, 1, OkButton);
+		vPanel.add(table);
+		vPanel.add(hPanel);
+		initWidget(this.vPanel);
 	
-		OkButton.setEnabled(false);
-		OkButton.addClickHandler(new ClickHandler() {
+		rbIdBox.addKeyUpHandler(new rbId());
+		ingredientIdBox.addKeyUpHandler(new ingredientId());
+		maengdeBox.addKeyUpHandler(new maengde());
+		
+		okButton.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
@@ -85,14 +101,6 @@ public class CreateIngredientBatchView extends Composite
 				mc.show(new MainView(mc));
 			}
 		});
-		
-		vPanel.add(table);
-
-		rbIdBox.addKeyUpHandler(new rbId());
-		ingredientIdBox.addKeyUpHandler(new ingredientId());
-		maengdeBox.addKeyUpHandler(new maengde());
-
-		vPanel.add(subTable);
 	}
 	
 	private class rbId implements KeyUpHandler
@@ -151,16 +159,16 @@ public class CreateIngredientBatchView extends Composite
 	
 	public void okButtonEnabler(){
 		if(rbIdCheck && ingredientIdCheck && maengdeCheck){
-			OkButton.setEnabled(true);
+			okButton.setEnabled(true);
 		}
-		else OkButton.setEnabled(false);
+		else okButton.setEnabled(false);
 
 	}
 	public void cancelButtonEnable(){
 		if(rbIdCheck && ingredientIdCheck && maengdeCheck){
-			OkButton.setEnabled(true);
+			okButton.setEnabled(true);
 
 		}
-		else OkButton.setEnabled(true);
+		else okButton.setEnabled(true);
 	}
 }

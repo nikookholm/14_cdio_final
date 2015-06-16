@@ -20,14 +20,18 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class CreateReceptView extends Composite
 {
 	VerticalPanel vPanel;
-	TextBox receptNameBox, receptIdBox;;//receptnavn og receptid
-	Button okButton     = new Button("OK");
-	Button cancelButton = new Button("Cancel");
 	Grid table;
-	Label viewInfo, presentSuccess;
-	Label receptNameLabel = new Label("recept name");
-	Label receptIdLabel   = new Label("recept id");
 	HorizontalPanel hPanel;
+	
+	TextBox receptNameBox	= new TextBox();
+	TextBox	receptIdBox		= new TextBox();	
+	Label infoLabel			= new Label("Opret ny recept");
+	Label viewInfo			= new Label("Indtast receptens oplysninger: ");
+	Label presentSuccess	= new Label("Recepten blev oprettet");
+	Label receptNameLabel 	= new Label("Recept navn");
+	Label receptIdLabel  	= new Label("Recept ID");
+	Button okButton    		= new Button("OK");
+	Button cancelButton 	= new Button("Fortryd");
 	
 //	ReceptController receptC;
 	ReceptDTO receptDTO;
@@ -40,32 +44,34 @@ public class CreateReceptView extends Composite
 	{
 		this.receptDTO 	= receptDTO;
 		this.mc 		= mc;
-		this.vPanel		= new VerticalPanel();
-		
-		initWidget(vPanel);
+		vPanel			= new VerticalPanel();
 		
 		if(receptDTO != null)
 		{
 			vPanel.add(new Label(receptDTO.getReceptName() + " blev oprettet"));
 		}
 		
-		okButton.setEnabled(false);
-		viewInfo = new Label("Indtast den nye recepts oplysninger");
-		
-		vPanel.add(viewInfo);
-		
 		table = new Grid(3,2);
 		
+		vPanel.add(infoLabel);
+		infoLabel.setStyleName("caption");
+		vPanel.add(viewInfo);
+		viewInfo.setStyleName("input-text");
 		table.setWidget(0, 0, receptNameLabel);
-		table.setWidget(0, 1, receptNameBox = new TextBox());
+		receptNameLabel.setStyleName("input-text");
+		table.setWidget(0, 1, receptNameBox);
 		table.setWidget(1, 0, receptIdLabel);
-		table.setWidget(1, 1, receptIdBox 	= new TextBox());
+		receptIdLabel.setStyleName("input-text");
+		table.setWidget(1, 1, receptIdBox);
 		table.setWidget(2, 1, hPanel = new HorizontalPanel());;
 		
+		okButton.setEnabled(false);
 		hPanel.add(okButton);
 		hPanel.add(cancelButton);
 		
 		vPanel.add(table);
+		vPanel.add(hPanel);
+		initWidget(this.vPanel);
 		
 		receptIdBox.addKeyUpHandler(new receptId());
 		receptNameBox.addKeyUpHandler(new receptName());
