@@ -7,6 +7,8 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
@@ -15,13 +17,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class LoginView extends Composite {
 	
 	private MainController mc;
-	TextBox oprNumber   = new TextBox();
-	TextBox password    = new TextBox();
-	Button okBtn    	= new Button("Login");
-	Button clearBtn		= new Button("Ryd");
-	Label  loginLabel   = new Label("Login");
-	Label	oprLabel	= new Label("Operatør ID:");
-	Label  passwordLabel = new Label("Adgangskode:");
+	TextBox oprNumber     = new TextBox();
+	TextBox password      = new TextBox();
+	Button  okBtn    	  = new Button("Login");
+	Button  clearBtn	  = new Button("Ryd");
+	Label   loginLabel    = new Label("Login");
+	Label   oprLabel	  = new Label("Operatør ID:");
+	Label   passwordLabel = new Label("Adgangskode:");
 	
 	
 	public LoginView(MainController mc)
@@ -49,6 +51,7 @@ public class LoginView extends Composite {
 		table.setWidget(1, 1, password);
 		table.setWidget(2, 0, buttonPanel);
 		table.getFlexCellFormatter().setColSpan(2, 0, 2);
+		table.getFlexCellFormatter().setAlignment(2, 0, HasHorizontalAlignment.ALIGN_RIGHT, HasVerticalAlignment.ALIGN_MIDDLE);
 		
 		panel.add(table);
 		initWidget(panel);
