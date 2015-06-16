@@ -4,7 +4,7 @@ package code.shared;
 public class FieldVerifier {
 
 	public static boolean isValidName(String name) {
-		if (name == null) {
+		if ((!FieldVerifier.isLettersOnly(name)) && (name == null)) {
 			return false;
 		}
 		return name.length() > 1 && name.length() <= 20;
@@ -25,7 +25,7 @@ public class FieldVerifier {
 	}
 	// Initialer skal være mellem 2 og 4 karakterer, der er ikke taget nogen hensyn til karakter type
 	public static boolean isInitialsValid(String ini){
-		if(ini.equals(null)){
+		if((!FieldVerifier.isLettersOnly(ini)) && (ini.equals(null))){
 			return false;
 		}
 		else{
@@ -34,9 +34,10 @@ public class FieldVerifier {
 	}
 	// leverandørs text af råvare skal være mellem 2-20 karakterer 
 	public static boolean leverandoerValid(String lev){
-		if(lev.equals(null)){
+		if((!FieldVerifier.isLettersOnly(lev)) && (lev.equals(null))){
 		return false;
 		}
+		
 		else{
 			return (lev.length() >=2) && (lev.length() <=20);
 		}
@@ -44,7 +45,7 @@ public class FieldVerifier {
 	
 	// råvare navn skal være mellem 2-20 karakterer
 	public static boolean ingredientName(String ingName){
-		if(ingName.equals(null)){
+		if((!FieldVerifier.isLettersOnly(ingName)) && (ingName.equals(null))){
 			return false;
 		}
 		else{
@@ -137,7 +138,16 @@ public class FieldVerifier {
 		}
 	}
 	
-	
+	//Generelt check til at afgøre om String-inputs kun er bogstaver.
+	public static boolean isLettersOnly(String str){
+		char[] chars = str.toCharArray();
+		for(char c : chars){
+			if(!Character.isLetter(c)){
+				return false;
+			}
+		}
+		return true;
+	}
 }
 
 

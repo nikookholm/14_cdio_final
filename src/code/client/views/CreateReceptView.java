@@ -1,4 +1,4 @@
-package code.client.views;
+	package code.client.views;
 
 import code.client.controllers.MainController;
 import code.client.controllers.ReceptController;
