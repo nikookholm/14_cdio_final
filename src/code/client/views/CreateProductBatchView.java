@@ -12,7 +12,6 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -29,7 +28,7 @@ public class CreateProductBatchView extends Composite
 	VerticalPanel vPanel;
 	HorizontalPanel hPanel;
 	TextBox pbNoBox, receptNoBox;
-	Label infoLabel, viewInfo, pbNoLabel, receptNoLabel;
+	Label infoLabel, pbNoLabel, receptNoLabel;
 	Button okButton, cancelButton;
 	FlexTable flex;
 	
@@ -46,7 +45,6 @@ public class CreateProductBatchView extends Composite
 		initWidget(this.vPanel);
 		
 		infoLabel		= new Label("Opret ny produktbatch");
-		viewInfo		= new Label("Indtast produkbatchens oplysninger: ");
 		pbNoLabel		= new Label("ProductBatch ID"); 
 		receptNoLabel	= new Label("Recept ID");
 		okButton		= new Button("OK");
@@ -59,7 +57,7 @@ public class CreateProductBatchView extends Composite
 		cancelButton.setEnabled(true);
 		
 		if(pbDTO != null){
-			vPanel.add(new Label("ProduktBatchen: " + pbDTO.getPbId() + " blev oprettet"));
+			vPanel.add(new Label("Produkt Batchen: " + pbDTO.getPbId() + " blev oprettet"));
 		}
 		this.flex = new FlexTable();
 		flex.setTitle("Lav ny ProduktBatch");
@@ -72,7 +70,6 @@ public class CreateProductBatchView extends Composite
 		flex.getCellFormatter().setAlignment(2, 0, HasHorizontalAlignment.ALIGN_RIGHT, HasVerticalAlignment.ALIGN_MIDDLE);
 		
 		infoLabel.setStyleName("caption");
-		viewInfo.setStyleName("input-text");
 		pbNoLabel.setStyleName("input-text");
 		receptNoLabel.setStyleName("input-text");
 		
@@ -80,7 +77,6 @@ public class CreateProductBatchView extends Composite
 		hPanel.add(okButton);
 		
 		vPanel.add(infoLabel);
-		vPanel.add(viewInfo);
 		vPanel.add(flex);
 		
 		okButton.addClickHandler(new OKClickHandler());

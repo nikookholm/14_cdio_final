@@ -76,7 +76,7 @@ public class ListProductBatchView extends Composite
 		VPanel.add(infoLabel);
 		VPanel.add(flex);
 		VPanel.add(backButton);
-		VPanel.setCellHorizontalAlignment(backButton, HasHorizontalAlignment.ALIGN_RIGHT);
+		VPanel.setCellHorizontalAlignment(backButton, HasHorizontalAlignment.ALIGN_CENTER);
 
 		backButton.addClickHandler(new backClickHandler());
 	}

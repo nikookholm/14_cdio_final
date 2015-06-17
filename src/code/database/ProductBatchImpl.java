@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class ProductBatchImpl implements ProductBatchDAO {
 
-	SimpleDateFormat dateTime = new SimpleDateFormat("yyyy/MM/dd-HH:mm");
+	SimpleDateFormat dateTime = new SimpleDateFormat("yyyy/MM/dd - HH:mm");
 	String datI = dateTime.format(new Date());
 	
 	@Override
