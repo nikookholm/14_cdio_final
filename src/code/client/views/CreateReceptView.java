@@ -40,7 +40,7 @@ public class CreateReceptView extends Composite
 	boolean receptNameCheck	= false;
 	boolean receptIdCheck	= false;
 	
-	public CreateReceptView(final ReceptDTO receptDTO, final MainController mc)
+	public CreateReceptView(ReceptDTO receptDTO, final MainController mc)
 	{
 		this.receptDTO 	= receptDTO;
 		this.mc 		= mc;

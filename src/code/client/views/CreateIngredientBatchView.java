@@ -44,7 +44,7 @@ public class CreateIngredientBatchView extends Composite
 	boolean ingredientIdCheck	= false;
 	boolean maengdeCheck		= false;
 	
-	public CreateIngredientBatchView(final IngredientBatchDTO ingrBatchDTO, final MainController mc)
+	public CreateIngredientBatchView(IngredientBatchDTO ingrBatchDTO, final MainController mc)
 	{
 		this.ingrBatchDTO 	= ingrBatchDTO;
 		this.mc				= mc;
