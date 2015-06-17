@@ -116,51 +116,65 @@ public class MainView extends Composite {
 			}
 		};
 		
-		panel.add(userCaption);
-		userCaption.setStyleName("caption");
-		addUser.addClickHandler(addUserHandler);
-		panel.add(addUser);
-		updateUser.addClickHandler(updateUserHandler);
-		panel.add(updateUser);
-		panel.add(new HTML("<br />"));
+		int role = mc.getUser().getRole();
+		if (role < 5)
+		{
+			panel.add(productBatchCompCaption);
+			productBatchCompCaption.setStyleName("caption");
+			listProductBatchComp.addClickHandler(listProductBatchCompHandler);
+			panel.add(listProductBatchComp);
+			panel.add(new HTML("<br />"));
+		}
 		
-		panel.add(ingredientCaption);
-		ingredientCaption.setStyleName("caption");
-		addIngredient.addClickHandler(addIngredientHandler);
-		panel.add(addIngredient);
-		updateIngredient.addClickHandler(updateIngredientHandler);
-		panel.add(updateIngredient);
-		panel.add(new HTML("<br />"));
+		if (role < 4)
+		{
+			panel.add(ingredientBatchCaption);
+			ingredientBatchCaption.setStyleName("caption");
+			addIngredientBatch.addClickHandler(addIngredientBatchHandler);
+			panel.add(addIngredientBatch);
+			listIngredientBatch.addClickHandler(listIngredientBatchHandler);
+			panel.add(listIngredientBatch);
+			
+			panel.add(productBatchCaption);
+			productBatchCaption.setStyleName("caption");
+			addProductBatch.addClickHandler(addProductBatchHandler);
+			panel.add(addProductBatch);
+			listProductBatch.addClickHandler(listProductBatchHandler);
+			panel.add(listProductBatch);
+			panel.add(new HTML("<br />"));		
+		}
 		
-		panel.add(productBatchCaption);
-		productBatchCaption.setStyleName("caption");
-		addProductBatch.addClickHandler(addProductBatchHandler);
-		panel.add(addProductBatch);
-		listProductBatch.addClickHandler(listProductBatchHandler);
-		panel.add(listProductBatch);
-		panel.add(new HTML("<br />"));
+		if (role < 3)
+		{
+			panel.add(ingredientCaption);
+			ingredientCaption.setStyleName("caption");
+			addIngredient.addClickHandler(addIngredientHandler);
+			panel.add(addIngredient);
+			updateIngredient.addClickHandler(updateIngredientHandler);
+			panel.add(updateIngredient);
+			panel.add(new HTML("<br />"));
+			
+			panel.add(receptCaption);
+			receptCaption.setStyleName("caption");
+			addRecept.addClickHandler(addReceptHandler);
+			panel.add(addRecept);
+			listRecepts.addClickHandler(listReceptsHandler);
+			panel.add(listRecepts);
+			panel.add(new HTML("<br />"));	
+		}
 		
-		panel.add(productBatchCompCaption);
-		productBatchCompCaption.setStyleName("caption");
-		listProductBatchComp.addClickHandler(listProductBatchCompHandler);
-		panel.add(listProductBatchComp);
-		panel.add(new HTML("<br />"));
-		
-		panel.add(receptCaption);
-		receptCaption.setStyleName("caption");
-		addRecept.addClickHandler(addReceptHandler);
-		panel.add(addRecept);
-		listRecepts.addClickHandler(listReceptsHandler);
-		panel.add(listRecepts);
-		panel.add(new HTML("<br />"));
-		
-		panel.add(ingredientBatchCaption);
-		ingredientBatchCaption.setStyleName("caption");
-		addIngredientBatch.addClickHandler(addIngredientBatchHandler);
-		panel.add(addIngredientBatch);
-		listIngredientBatch.addClickHandler(listIngredientBatchHandler);
-		panel.add(listIngredientBatch);
-		
+		if (role < 2)
+		{
+			panel.add(userCaption);
+			userCaption.setStyleName("caption");
+			addUser.addClickHandler(addUserHandler);
+			panel.add(addUser);
+			updateUser.addClickHandler(updateUserHandler);
+			panel.add(updateUser);
+			panel.add(new HTML("<br />"));
+		}
+			
+
 		initWidget(panel);
 		
 	}
