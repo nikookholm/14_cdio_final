@@ -38,7 +38,7 @@ public class ProductBatchCompController
 					}
 				pbCompDTO = list;
 				}
-				mc.show(new ListProductBatchCompView(pbCompDTO, mc));
+				
 			}
 			
 			@Override
@@ -48,6 +48,7 @@ public class ProductBatchCompController
 				pbCompDTO = null;
 			}
 		});
+		mc.show(new ListProductBatchCompView(pbCompDTO, mc));
 		return null;
 	}
 }

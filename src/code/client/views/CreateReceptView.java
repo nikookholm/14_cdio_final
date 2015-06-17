@@ -58,28 +58,25 @@ public class CreateReceptView extends Composite
 		}
 		
 		table = new FlexTable();
-		
-		vPanel.add(infoLabel);
-		vPanel.add(viewInfo);
-		infoLabel.setStyleName("caption");
-		viewInfo.setStyleName("input-text");
-		
 		table.setWidget(0, 0, receptNameLabel);
 		table.setWidget(0, 1, receptNameBox);
 		table.setWidget(1, 0, receptIdLabel);
 		table.setWidget(1, 1, receptIdBox);
-		receptIdLabel.setStyleName("input-text");
-		receptNameLabel.setStyleName("input-text");
 		table.setWidget(2, 0, hPanel = new HorizontalPanel());
 		table.getFlexCellFormatter().setColSpan(2, 0, 2);
 		table.getCellFormatter().setAlignment(2, 0, HasHorizontalAlignment.ALIGN_RIGHT, HasVerticalAlignment.ALIGN_MIDDLE);
 
+		infoLabel.setStyleName("caption");
+		viewInfo.setStyleName("input-text");
+		receptIdLabel.setStyleName("input-text");
+		receptNameLabel.setStyleName("input-text");
+		
 		hPanel.add(okButton);
 		hPanel.add(cancelButton);
-		hPanel.setCellHorizontalAlignment(hPanel, HasHorizontalAlignment.ALIGN_RIGHT);
 		
+		vPanel.add(infoLabel);
+		vPanel.add(viewInfo);
 		vPanel.add(table);
-		vPanel.add(hPanel);
 		initWidget(this.vPanel);
 		
 		receptIdBox.addKeyUpHandler(new receptId());

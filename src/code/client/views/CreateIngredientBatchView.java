@@ -62,31 +62,28 @@ public class CreateIngredientBatchView extends Composite
 		}
 		
 		table = new FlexTable();
-		
-		vPanel.add(infoLabel);
-		vPanel.add(viewInfo);
-		infoLabel.setStyleName("caption");
-		viewInfo.setStyleName("input-text");
-		
 		table.setWidget(0, 0, ibIdLabel);
 		table.setWidget(0, 1, rbIdBox);
 		table.setWidget(1, 0, ingredientIdLabel);
 		table.setWidget(1, 1, ingredientIdBox);
 		table.setWidget(2, 0, maengdeLabel);
 		table.setWidget(2, 1, maengdeBox);
+		table.setWidget(3, 0, hPanel = new HorizontalPanel());
+		table.getFlexCellFormatter().setColSpan(3, 0, 3);
+		table.getCellFormatter().setAlignment(3, 0, HasHorizontalAlignment.ALIGN_RIGHT, HasVerticalAlignment.ALIGN_MIDDLE);
+		
+		infoLabel.setStyleName("caption");
+		viewInfo.setStyleName("input-text");
 		ibIdLabel.setStyleName("input-text");
 		ingredientIdLabel.setStyleName("input-text");
 		maengdeLabel.setStyleName("input-text");
-		table.setWidget(3, 1, hPanel = new HorizontalPanel());
-		table.getFlexCellFormatter().setColSpan(2, 0, 2);
-		table.getCellFormatter().setAlignment(2, 0, HasHorizontalAlignment.ALIGN_RIGHT, HasVerticalAlignment.ALIGN_MIDDLE);
 		
 		hPanel.add(okButton);
 		hPanel.add(cancelButton);
-		hPanel.setCellHorizontalAlignment(hPanel, HasHorizontalAlignment.ALIGN_RIGHT);
 		
+		vPanel.add(infoLabel);
+		vPanel.add(viewInfo);
 		vPanel.add(table);
-		vPanel.add(hPanel);
 		initWidget(this.vPanel);
 	
 		rbIdBox.addKeyUpHandler(new rbId());
