@@ -48,9 +48,11 @@ public class ListIngredientBatchView extends Composite
 		ft.setWidget(0, 0, ibIdLabel);
 		ft.setWidget(0, 1, ingredientIdLabel);
 		ft.setWidget(0, 2, maengdeLabel);
+		
 		ibIdLabel.setStyleName("input-text");
 		ingredientIdLabel.setStyleName("input-text");
 		maengdeLabel.setStyleName("input-text");
+		
 		ft.getCellFormatter().setWidth(0, 0, "150px;");
 		ft.getCellFormatter().setWidth(0, 1, "150px;");
 		ft.getCellFormatter().setWidth(0, 2, "150px;");

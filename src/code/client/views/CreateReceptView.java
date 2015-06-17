@@ -12,6 +12,7 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
@@ -71,6 +72,7 @@ public class CreateReceptView extends Composite
 		
 		hPanel.add(okButton);
 		hPanel.add(cancelButton);
+		hPanel.setCellHorizontalAlignment(hPanel, HasHorizontalAlignment.ALIGN_RIGHT);
 		
 		vPanel.add(table);
 		vPanel.add(hPanel);
