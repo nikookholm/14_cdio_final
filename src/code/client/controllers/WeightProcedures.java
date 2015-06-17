@@ -43,66 +43,75 @@ public class WeightProcedures {
 	public void start() throws WeightException
 	{
 		login();
-//		confirmOperator();
-//		enterProductNumber();
-//		updateStatus();
-//
-//		for (ReceptCompDTO ingredient : ingredientsLines)
-//		{
-//			try {
-//				ingredientLine(ingredient);
-//			} catch (InterruptedException e) {
-//
-//			}
-//
-//		}
-//		updateStatus();
+		confirmOperator();
+		//	enterProductNumber();
+		//		updateStatus();
+		//
+		//		for (ReceptCompDTO ingredient : ingredientsLines)
+		//		{
+		//			try {
+		//				ingredientLine(ingredient);
+		//			} catch (InterruptedException e) {
+		//
+		//			}
+		//
+		//		}
+		//		updateStatus();
 
 		// if(slutproduktion==true){
 		// printer sluttidspunktet 
-//			}
+		//			}
 	}
 
 
 	private void login() throws WeightException
 	{
-		String message = "Indtast dit operatør nr.";
+		String message = "nr.";
 		String checkOprNr;
 		int oprNr;
 
 		checkOprNr = ws.rm20(8, message);
+		System.out.println(checkOprNr);
+	 checkOprNr = checkOprNr.substring(checkOprNr.indexOf("\"")+1,checkOprNr.lastIndexOf("\""));
+	System.out.println(checkOprNr);
 		if(checkOprNr.matches("\\D")){
 			oprNr = Integer.parseInt(checkOprNr);
+			
 			opr = dbs.user_table_get(oprNr);
-			System.out.println("Dit oprNr er" + opr.toString());
+			System.out.println("Dit oprNr er" + opr.getOprName());
+
 			if(opr==null){
 				login();
-			}else{
-				confirmOperator();
+				System.out.println("login er null");
+			}
 			}
 		}
-	}
+//	}  //62.79.16.17
+	//	}
+	//	}
 
 	private void confirmOperator() throws WeightException
 	{
+		System.out.println("Vi er nu i confirmOperator");
 		String validateOpr;
-		String message = "Er du" + opr;
-		String valid = "1";
+		String message = "Er du " + opr;
+		String valid = "";
 
 		validateOpr = ws.rm20(4, message);
-		if(validateOpr.equals(valid)){
-
-			enterProductNumber();
-
-		}else{
-			login();	
+		if(validateOpr != "1"){
+			login();
 		}
+		else if(validateOpr.equals(1)){
+			System.out.println(validateOpr);
+			enterProductNumber();
+		}
+		
 
 	}
 
 	private void enterProductNumber() throws WeightException
 	{
-
+		System.out.println("VI er nu i enterProdukt!");
 		//
 		String message = "indtast produktnummer";
 		String produktNummer;
@@ -126,7 +135,7 @@ public class WeightProcedures {
 			if(verifyrReceptBalancing.equals(valid)){
 				ingredientsLines = dbs.receptComp_table_get(receptId);
 
-//				asda.startAfvejningsprocedure();
+				//				asda.startAfvejningsprocedure();
 			}
 		}else{
 			enterProductNumber();
@@ -174,7 +183,7 @@ public class WeightProcedures {
 				enterIngredientBatchNumber();
 			}			
 		}
-
+//I4 A "3154307"
 		//		IngredientBatchDTO iBDTO = null;
 		//		ingredientID = iBDTO.getIngredientId();
 		//		iBDTO.setMaengde(savedValue);

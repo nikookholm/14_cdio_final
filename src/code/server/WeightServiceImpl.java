@@ -40,6 +40,8 @@ WeightService {
 		try {
 			//fileRead();
 			listenForTarget();
+			
+ tcp.disconnect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -85,10 +87,12 @@ WeightService {
 	@Override
 	public String rm20(int type, String message) throws WeightException {
 		String result = null;
+		
 		//String request = "RM20 " + type + " \"" + message + "\" \"\" \"\"" + "\r\n";
 		String request = "RM20 8 \""+message+"\" \"\" \"&3\"\r\n";
 		tcp.send(request);
-	//	String junk = tcp.receive();
+		String junk = tcp.receive();
+		System.out.println(junk);
 		result = tcp.receive();
 		System.out.println(result);
 		String answer = null;
@@ -151,7 +155,9 @@ WeightService {
 		//					e.printStackTrace();
 		//				}
 		//				
-		tcp = new TCPConnector("10.16.111.53", 8000);
+		tcp = new TCPConnector("169.254.2.2", 8000);
+//		tcp = new TCPConnector("62.79.16.17", 8000);
+//		tcp = new TCPConnector("10.16.97.77", 8000);
 		if(tcp.connect())
 		{
 			new WeightProcedures(this);
