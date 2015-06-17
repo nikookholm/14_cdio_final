@@ -3,7 +3,6 @@ package code.client.views;
 import java.util.ArrayList;
 
 import code.client.controllers.MainController;
-
 import code.database.IngredientDTO;
 import code.shared.FieldVerifier;
 
@@ -11,11 +10,16 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.thirdparty.guava.common.collect.Table;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -29,6 +33,8 @@ public class ListIngredientsView extends Composite
 	Label IdLabel 		 = new Label("Id");
 	Label leverandoer	 = new Label("Leverandoør");
 	Label info			 = new Label("RÅVER: ");
+	
+	Button back			 = new Button("Tilbage");
 
 	Anchor edit 		 = new Anchor("Rediger");
 	Anchor cancel		 = new Anchor("Annuller");
@@ -42,6 +48,9 @@ public class ListIngredientsView extends Composite
 	boolean selectedLeverandoerCheck = false;
 
 	FlexTable flexTabel;
+	Grid subT  = new Grid(1,1);
+	
+	
 
 	ArrayList<IngredientDTO> ingls;
 
@@ -58,12 +67,15 @@ public class ListIngredientsView extends Composite
 
 		flexTabel.setWidget(0, 0, IdLabel);
 		IdLabel.setStyleName("input-text");
+		flexTabel.getCellFormatter().setWidth(0, 0, "250px;");
 
 		flexTabel.setWidget(0, 1, NameLabel);
 		NameLabel.setStyleName("input-text");
+		flexTabel.getCellFormatter().setWidth(0, 1, "250px;");
 
 		flexTabel.setWidget(0, 2, leverandoer);
 		leverandoer.setStyleName("input-text");
+		flexTabel.getCellFormatter().setWidth(0, 2, "250px;");
 
 		mc.databaseService.ingredients_table_list(new AsyncCallback<ArrayList<IngredientDTO>>() {
 
@@ -87,9 +99,26 @@ public class ListIngredientsView extends Composite
 				Window.alert("fejl");
 			}
 		});
-
+		
+		back.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				mc.show(new MainView(mc));
+				
+			}
+		});
+		
+		HorizontalPanel hPanel = new HorizontalPanel();
+		
+		hPanel.add(back);
+	
+		subT.setWidget(0, 0, back);
 
 		vPanel.add(flexTabel);
+		vPanel.add(back);
+		vPanel.setCellHorizontalAlignment(back, HasHorizontalAlignment.ALIGN_CENTER);
+		
 
 	}
 

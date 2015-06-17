@@ -14,7 +14,7 @@ import org.junit.Test;
 import code.database.*;
 
 
-public class TestProduktBatchDAO {
+public class TestProductBatchDAO {
 	
 	ProductBatchDAO pbDao = new ProductBatchImpl();
 	
@@ -27,7 +27,7 @@ public class TestProduktBatchDAO {
 	}
 
 	@Test
-	public void testGetProduktBatch() throws DALException
+	public void testGetProductBatch() throws DALException
 	{
 		ProductBatchDTO testBatch = null;
 		ArrayList<ProductBatchDTO> pbList = pbDao.getProductBatchList();
@@ -48,14 +48,14 @@ public class TestProduktBatchDAO {
 	}
 	
 	@Test
-	public void testGetProduktBatchList() throws DALException {
+	public void testGetProductBatchList() throws DALException {
 		ArrayList<ProductBatchDTO> pbList = pbDao.getProductBatchList();
 
 		assertTrue(pbList.size()>1);
 	}
 	
 	@Test
-	public void testCreateProduktBatch() throws DALException {
+	public void testCreateProductBatch() throws DALException {
 		ArrayList<ProductBatchDTO> pbList = pbDao.getProductBatchList();
 		int currentHighestId  = pbList.get(pbList.size()-1).getPbId();
 		SimpleDateFormat simpleDateTime = new SimpleDateFormat("yyyy/MM/dd-HH:mm");
@@ -70,7 +70,7 @@ public class TestProduktBatchDAO {
 	}
 	
 	@Test
-	public void testUpdateProduktBatch() {
+	public void testUpdateProductBatch() {
 		
 		ProductBatchDTO pbList = null;
 		int expected = 1;

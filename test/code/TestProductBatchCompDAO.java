@@ -14,7 +14,7 @@ import code.database.ProductBatchCompDAO;
 import code.database.ProductBatchCompDTO;
 import code.database.ProductBatchCompImpl;
 
-public class TestProduktBatchKompDAO {
+public class TestProductBatchCompDAO {
 	ProductBatchCompDAO dao = new ProductBatchCompImpl();
 	
 	@Before
@@ -28,26 +28,31 @@ public class TestProduktBatchKompDAO {
 	}
 
 	@Test
-	public void testGetProduktBachKomp() throws DALException {
+	public void testGetProductBatchComp() throws DALException {
 		
-		ProductBatchCompDAO pbkDAO = null;
+//		ProductBatchCompDAO pbkDAO = null;
 		
 		List<ProductBatchCompDTO> pbkDTO = dao.getProductBatchCompList();
+		
 		int validId = dao.getProductBatchCompList().get(0).getPbId();
 		
 		List<ProductBatchCompDTO> actual = dao.getProductBatchCompList(validId);
+		
 		ProductBatchCompDTO expected = pbkDTO.get(0);
+
+		assertEquals(expected, actual);
 		
-		boolean sameEelement = true;
 		
-		assertTrue(sameEelement);
+//		boolean sameEelement = true;
+//		
+//		assertTrue(sameEelement);
 
 		
 	}
 
 
 	@Test
-	public void testgetProdukBatchKompListPbId() throws DALException {
+	public void testGetProductBatchCompListPbId() throws DALException {
 		
 		
 		List<ProductBatchCompDTO> list = dao.getProductBatchCompList(1);
@@ -58,7 +63,7 @@ public class TestProduktBatchKompDAO {
 
 	
 	@Test
-	public void testProduktBatchKompList() throws DALException {
+	public void testProductBatchCompList() throws DALException {
 
 		
 List<ProductBatchCompDTO> list = dao.getProductBatchCompList();
@@ -69,7 +74,7 @@ List<ProductBatchCompDTO> list = dao.getProductBatchCompList();
 	
 	
 	@Test
-	public void testUpdateProduktBatchKomp() throws DALException {
+	public void testUpdateProductBatchComp() throws DALException {
 		
 		ProductBatchCompDTO dto = null;
 		double expected = 14.8;

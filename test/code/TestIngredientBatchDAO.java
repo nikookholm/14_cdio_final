@@ -16,7 +16,7 @@ import code.database.IngredientBatchDAO;
 import code.database.IngredientBatchDTO;
 import code.database.IngredientBatchImpl;
 
-public class TestRaavareBatchDAO {
+public class TestIngredientBatchDAO {
 
 	
 	private IngredientBatchDAO dao = new IngredientBatchImpl();
@@ -32,7 +32,7 @@ public class TestRaavareBatchDAO {
 	}
 	
 	@Test
-	public void testGetRaavareBatch() throws DALException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+	public void testGetIngredientBatch() throws DALException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 	
 		IngredientBatchDAO rbDAO= null;
 		
@@ -48,7 +48,7 @@ public class TestRaavareBatchDAO {
 	}
 	
 	@Test
-	public void testGetRaavareBatchList() throws DALException {
+	public void testGetIngredientBatchList() throws DALException {
 		
 		List<IngredientBatchDTO> list = dao.getIngredientBatchList();
 		
@@ -57,7 +57,7 @@ public class TestRaavareBatchDAO {
 	}
 	
 	@Test
-	public void testGetRaavareBatchListWithraavareId() throws DALException {
+	public void testGetIngredientBatchListWithraavareId() throws DALException {
 		
 		List<IngredientBatchDTO> list1 = dao.getIngredientBatchList();
 		
@@ -66,7 +66,7 @@ public class TestRaavareBatchDAO {
 	}
 	
 	@Test
-	public void TestCreateRaavareBatch() throws DALException {
+	public void testCreateIngredientBatch() throws DALException {
 		
 		List<IngredientBatchDTO> list = dao.getIngredientBatchList();
 		int currentList = list.get(list.size()-1).getRbId();
@@ -79,7 +79,7 @@ public class TestRaavareBatchDAO {
 	}
 	
 	@Test
-	public void TestUpdateRaavareBatch() {
+	public void testUpdateIngredientBatch() {
 		IngredientBatchDTO dto = null;
 		int expected = 148;
 		try {
