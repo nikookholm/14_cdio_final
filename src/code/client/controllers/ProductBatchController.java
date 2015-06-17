@@ -15,15 +15,16 @@ public class ProductBatchController
 	MainController mc;
 	ProductBatchDTO pbDTO;
 	
-	ArrayList<ProductBatchDTO> pbs;
+	ArrayList<ProductBatchDTO> pbLs;
 	boolean bool = false;
+	Widget returnView;
 	
 	public ProductBatchController(MainController mc)
 	{
 		this.mc = mc;
 	}
 	
-	public Widget createProductBatch(ProductBatchDTO pbDTO)
+	public Widget createProductBatch(final ProductBatchDTO pbDTO)
 	{
 		this.pbDTO = pbDTO;
 		
@@ -51,25 +52,10 @@ public class ProductBatchController
 					}
 				});
 			}
-			return new CreateProductBatchView(pbDTO, mc);	
+			return new CreateProductBatchView(pbDTO, mc);
 		}else{
 			return new CreateProductBatchView(null, mc);
 		}
-	}
-	
-	public void updateProductBatch(ProductBatchDTO pbDTO)
-	{
-		this.pbDTO = pbDTO;
-		mc.databaseService.productBatch_table_create(pbDTO, new AsyncCallback<Void>() {
-			@Override
-			public void onSuccess(Void result) {
-				mc.show(mc.getProductBatchController().listProductBatch());
-			}
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Server fejl! : " + caught.getMessage());
-			}
-		});
 	}
 	
 	
@@ -79,13 +65,14 @@ public class ProductBatchController
 			@Override
 			public void onFailure(Throwable caught) {
 				Window.alert("Server fejl!" + caught.getMessage());
+				pbLs = null;
 			}
 			@Override
 			public void onSuccess(ArrayList<ProductBatchDTO> result) {
-				pbs = result;
+				pbLs = result;
 			}
 		});
-		return new ListProductBatchView(pbs, mc);
+		return new ListProductBatchView(pbLs, mc);
 	}
 	
 	

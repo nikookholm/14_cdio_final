@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
@@ -70,8 +71,9 @@ public class CreateReceptView extends Composite
 		receptIdLabel.setStyleName("input-text");
 		receptNameLabel.setStyleName("input-text");
 		table.setWidget(2, 0, hPanel = new HorizontalPanel());
-		//table.getFlexCellFormatter().setColSpan(2, 0, );
-		
+		table.getFlexCellFormatter().setColSpan(2, 0, 2);
+		table.getCellFormatter().setAlignment(2, 0, HasHorizontalAlignment.ALIGN_RIGHT, HasVerticalAlignment.ALIGN_MIDDLE);
+
 		hPanel.add(okButton);
 		hPanel.add(cancelButton);
 		hPanel.setCellHorizontalAlignment(hPanel, HasHorizontalAlignment.ALIGN_RIGHT);

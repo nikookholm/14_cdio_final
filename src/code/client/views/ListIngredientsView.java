@@ -10,7 +10,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.thirdparty.guava.common.collect.Table;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
@@ -32,13 +31,11 @@ public class ListIngredientsView extends Composite
 	Label NameLabel  	 = new Label("Navn");
 	Label IdLabel 		 = new Label("Id");
 	Label leverandoer	 = new Label("Leverandoør");
-	Label info			 = new Label("RÅVER: ");
-	
+	Label info			 = new Label("Råvare: ");
 	Button back			 = new Button("Tilbage");
-
 	Anchor edit 		 = new Anchor("Rediger");
-	Anchor cancel		 = new Anchor("Annuller");
-	Anchor ok			;
+	Anchor cancel		 = new Anchor("Annullér");
+	Anchor ok;
 
 	TextBox NameBox, IdBox, leverandoerBox;
 	TextBox selectedNameBox     = new TextBox();
@@ -50,8 +47,6 @@ public class ListIngredientsView extends Composite
 	FlexTable flexTabel;
 	Grid subT  = new Grid(1,1);
 	
-	
-
 	ArrayList<IngredientDTO> ingls;
 
 	public ListIngredientsView(final MainController mc)
@@ -101,7 +96,6 @@ public class ListIngredientsView extends Composite
 		});
 		
 		back.addClickHandler(new ClickHandler() {
-			
 			@Override
 			public void onClick(ClickEvent event) {
 				mc.show(new MainView(mc));
@@ -126,8 +120,6 @@ public class ListIngredientsView extends Composite
 
 		@Override
 		public void onClick(ClickEvent event) {
-
-
 			if(cancel != null){
 				cancel.fireEvent(new ClickEvent(){});}
 
@@ -155,15 +147,12 @@ public class ListIngredientsView extends Composite
 			Anchor newCancel = new Anchor("cansel");
 
 			newCancel = cancel;
-
 			newCancel.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
 					IngredientDTO updateIng = new IngredientDTO(ingredientId, ingName, leverandoer);
 					mc.getIngredientController().updateIngredient(updateIng);
-
-
 				}			
 			});
 
@@ -177,7 +166,6 @@ public class ListIngredientsView extends Composite
 						selectedLeverandoer.setText(leverandoer);
 						sL.onKeyUp(null);
 						sN.onKeyUp(null);
-
 					}
 					else  {
 
@@ -186,7 +174,6 @@ public class ListIngredientsView extends Composite
 					}
 				}
 			});
-
 		}
 
 		private class selName implements KeyUpHandler{
@@ -225,30 +212,4 @@ public class ListIngredientsView extends Composite
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
