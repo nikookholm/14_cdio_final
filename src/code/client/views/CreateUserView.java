@@ -52,17 +52,12 @@ public class CreateUserView extends Composite {
 
 		okBtn = new Button("Ok");
 		okBtn.setEnabled(false);
-		cancelBtn = new Button("cancel");
+		cancelBtn = new Button("Annullér");
 		viewInfo = new Label("Indtast den nye brugers oplysninger");
 
 		vPanel.add(viewInfo);
 	
-
-
 		nameBox = new TextBox();
-
-
-
 
 		table = new Grid(5,2);
 		table.setWidget(0, 0, new Label("Navn"));
@@ -78,11 +73,6 @@ public class CreateUserView extends Composite {
 		hPanel1.add(okBtn);
 		hPanel1.add(cancelBtn);
 
-
-
-
-
-
 		roleList.addItem("Operatør");
 		roleList.addItem("Værkfører");
 		roleList.addItem("Farmaceut");
@@ -92,8 +82,6 @@ public class CreateUserView extends Composite {
 		nameBox.addKeyUpHandler(new NameBoxHandler());
 		iniBox.addKeyUpHandler(new IniBoxHandler());
 		cprBox.addKeyUpHandler(new CprBoxHandler());
-
-
 
 		okBtn.addClickHandler(new ClickHandler() {
 
