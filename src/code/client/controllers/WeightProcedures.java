@@ -44,7 +44,7 @@ public class WeightProcedures {
 	{
 		login();
 		confirmOperator();
-		//	enterProductNumber();
+			enterProductNumber();
 		//		updateStatus();
 		//
 		//		for (ReceptCompDTO ingredient : ingredientsLines)
@@ -94,14 +94,14 @@ public class WeightProcedures {
 	{
 		System.out.println("Vi er nu i confirmOperator");
 		String validateOpr;
-		String message = "Er du " + opr;
+		String message = "Er du " + opr.getOprName();
 		String valid = "";
 
 		validateOpr = ws.rm20(4, message);
 		if(validateOpr != "1"){
 			login();
 		}
-		else if(validateOpr.equals(1)){
+		else if(validateOpr.equals("1")){
 			System.out.println(validateOpr);
 			enterProductNumber();
 		}
