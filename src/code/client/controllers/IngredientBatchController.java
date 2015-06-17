@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import code.client.views.CreateIngredientBatchView;
 import code.client.views.ListIngredientBatchView;
 import code.database.IngredientBatchDTO;
-import code.database.ReceptDTO;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -22,20 +21,23 @@ public class IngredientBatchController
 	{
 		this.mc = mc;
 	}
-
+	
+	//Widget, der ved success opretter en råvarebatch. Ved forkert indtastning returneres intet.
 	public Widget createIngredientBatch(IngredientBatchDTO ingrBatchDTO) 
 	{
 		this.ibDTO = ingrBatchDTO;
+		
 		if(ingrBatchDTO!= null){
-			int checkIngId 		= ingrBatchDTO.getIngredientId();
+			final int checkIngId	= ingrBatchDTO.getIngredientId();
 			final int checkIbId		= ingrBatchDTO.getRbId();
-			// opretter dto i database
+
 			mc.databaseService.ingredientBatch_table_get(checkIngId, new AsyncCallback<IngredientBatchDTO>(){
 				@Override
 				public void onSuccess(IngredientBatchDTO result) {
 					booln = false;
 				}
 
+				//Metoden skal fejle, da vi ikke ønsker at finde nogle ID
 				@Override
 				public void onFailure(Throwable caught) {
 					mc.databaseService.ingredientBatch_table_get(checkIbId, new AsyncCallback<IngredientBatchDTO>(){
@@ -50,7 +52,8 @@ public class IngredientBatchController
 					});
 				}		
 			});
-
+			
+			//Hvis der ikke er fundet nogen ingredients og batch-id, der findes i databasen oprettes én
 			if(booln == true){
 				mc.databaseService.ingredientBatch_table_create(ingrBatchDTO, new AsyncCallback<Void>() {
 
@@ -71,6 +74,7 @@ public class IngredientBatchController
 		}
 	}
 
+	//Widget, der kalder listen fra databaseService og returner en liste af råvarebatches, hvis success.
 	public Widget listIngredientBatch()
 	{
 		mc.databaseService.ingredientBatch_table_list(new AsyncCallback<ArrayList<IngredientBatchDTO>>(){

@@ -21,6 +21,7 @@ public class ReceptController {
 		this.mc = mc;
 	}
 
+	//Widget der laver en recept. Hvis den forsøgte oprettede recept har samme id, som én i systemet, oprettes ikke
 	public Widget createRecept(ReceptDTO receptDTO)
 	{	
 		this.rcptDTO = receptDTO;
@@ -64,9 +65,9 @@ public class ReceptController {
 		}else{
 			return new CreateReceptView(null, mc);
 		}
-
 	}
-
+	
+	//Widget, der lister recepterne for brugeren
 	public Widget listRecepts()
 	{		
 		mc.databaseService.recept_table_list(new AsyncCallback<ArrayList<ReceptDTO>>() {

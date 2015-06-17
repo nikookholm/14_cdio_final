@@ -20,6 +20,7 @@ public class ProductBatchCompController
 		this.mc = mc;
 	}
 	
+	//Widget liste-visning over produktbatchkomponenter.
 	public Widget listProductBatchComp()
 	{
 		mc.databaseService.productBatchComp_table_list(new AsyncCallback<ArrayList<ProductBatchCompDTO>>(){
@@ -27,9 +28,11 @@ public class ProductBatchCompController
 			@Override
 			public void onSuccess(ArrayList<ProductBatchCompDTO> list)
 			{
+				//hvis brugeren ikke har rollen operator vises en fuldstændig liste
 				if(mc.getUser().getRole() != 4){
 					pbCompDTO = list;
 				}
+				//hvis brugeren har rollen operator, vises kun de produktbatchkomponenter, som tilhører dennes id
 				else{
 					for(ProductBatchCompDTO pbC : list){
 						if(mc.getUser().getOprId() != pbC.getOprId()){
@@ -38,7 +41,6 @@ public class ProductBatchCompController
 					}
 				pbCompDTO = list;
 				}
-				
 			}
 			
 			@Override
