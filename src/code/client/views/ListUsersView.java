@@ -132,14 +132,11 @@ public class ListUsersView extends Composite{
 			roleBox.addItem("Værkfører");
 			roleBox.addItem("Farmaceut");
 			roleBox.addItem("Administrator");
-
 			roleBox.setItemSelected(reverseParseRole(table.getText(selectedRow, 5)), true);
-
 			deactivate.setValue(table.getText(selectedRow, 6).equals("true"));
 
 			table.setWidget(selectedRow, 1, nameBox);
 			nameBox.addKeyUpHandler(new NameBoxHandler());
-
 			table.setWidget(selectedRow, 2, iniBox);
 			iniBox.addKeyUpHandler(new IniBoxHandler());
 			table.setWidget(selectedRow, 4, pwBox);
@@ -165,7 +162,7 @@ public class ListUsersView extends Composite{
 				@Override
 				public void onClick(ClickEvent event) {
 					//gemmer de opdateret værdier
-					UserDTO updatedUser = new UserDTO(id,nameBox.getText(),iniBox.getName(), cpr ,pwBox.getText(), roleBox.getSelectedIndex(), deactivate.getValue());
+					UserDTO updatedUser = new UserDTO(id, nameBox.getText(), iniBox.getName(), cpr, pwBox.getText(), roleBox.getSelectedIndex(), deactivate.getValue());
 					mc.getUserController().updateUser(updatedUser);
 				}
 			});

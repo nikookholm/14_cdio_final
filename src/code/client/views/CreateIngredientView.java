@@ -1,6 +1,5 @@
 package code.client.views;
 
-
 import code.client.controllers.MainController;
 import code.database.IngredientDTO;
 import code.shared.FieldVerifier;
@@ -19,7 +18,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-
 public class CreateIngredientView extends Composite{
 
 	private VerticalPanel vPanel;
@@ -31,7 +29,7 @@ public class CreateIngredientView extends Composite{
 	private MainController mc;
 	
 	private TextBox leverandoerBox    = new TextBox();      
-	private TextBox ingredientNameBox = new TextBox();     
+	private TextBox ingredientNameBox = new TextBox();    
 	private TextBox ingredientIdBox   = new TextBox(); 	  
 
 	private Label createIng			  = new Label("Opret ny råvare");
@@ -39,8 +37,8 @@ public class CreateIngredientView extends Composite{
 	private Label ingredientNameLabel = new Label("Navn");
 	private Label ingredientIdLabel   = new Label("Id");
 
-	private Button OkButton     = new Button("Ok");
-	private Button cancelButton = new Button("Annuller");
+	private Button OkButton     = new Button("OK");
+	private Button cancelButton = new Button("Annullér");
 
 	FlexTable ft = new FlexTable();
 
@@ -59,7 +57,6 @@ public class CreateIngredientView extends Composite{
 
 		if(createdIng!= null){
 			vPanel.add(new Label(createdIng.getIngredientName() + " blev oprettet"));
-
 		}
 
 		ft.setWidget(0, 0, ingredientIdLabel);
@@ -73,7 +70,6 @@ public class CreateIngredientView extends Composite{
 		ft.setWidget(2, 0, leverandoerLabel);
 		leverandoerLabel.setStyleName("input-text");
 		ft.setWidget(2, 1, leverandoerBox);
-
 
 		HorizontalPanel hBtnPanle = new HorizontalPanel();
 		hBtnPanle.add(cancelButton);
@@ -89,29 +85,22 @@ public class CreateIngredientView extends Composite{
 			public void onClick(ClickEvent event) {
 				IngredientDTO ingredDTO = new IngredientDTO(Integer.parseInt( ingredientIdBox.getText()), ingredientNameBox.getText(), leverandoerBox.getText());
 				mc.show(mc.getIngredientController().createIngredient(ingredDTO));
-
 			}
 		});
 
 		cancelButton.setEnabled(true);
 		cancelButton.addClickHandler(new ClickHandler() {
-
 			@Override
 			public void onClick(ClickEvent event) {
-				ingredientIdBox.setText("");
-				ingredientNameBox.setText("");
-				leverandoerBox.setText("");
+				mc.show(new MainView(mc));
 			}
 		});
 		
-		
-
 		vPanel.add(ft);
 
 		ingredientIdBox.addKeyUpHandler(new ingredientId());
 		ingredientNameBox.addKeyUpHandler(new ingredientName());
 		leverandoerBox.addKeyUpHandler(new leverandoer());
-
 	}
 
 	private class ingredientId implements KeyUpHandler{
@@ -128,8 +117,6 @@ public class CreateIngredientView extends Composite{
 				okButtonEnabler();
 			}
 		}
-
-
 	}
 
 	private class ingredientName implements KeyUpHandler{
@@ -145,10 +132,8 @@ public class CreateIngredientView extends Composite{
 				ingredientNameBox.removeStyleName("gwt-TextBox-invalidEntry");
 				ingredientNameCheck = true;
 				okButtonEnabler();
-
 			}
 		}
-
 	}
 
 	private class leverandoer implements KeyUpHandler{
@@ -165,7 +150,6 @@ public class CreateIngredientView extends Composite{
 				okButtonEnabler();
 			}
 		}
-
 	}
 
 	public void okButtonEnabler(){
@@ -175,11 +159,5 @@ public class CreateIngredientView extends Composite{
 		else OkButton.setEnabled(false);
 
 	}
-	public void cancelButtonEnable(){
-		if(ingredientIdCheck && ingredientNameCheck && leverandoerCheck){
-			OkButton.setEnabled(true);
-
-		}
-		else OkButton.setEnabled(true);
-	}
+	
 }

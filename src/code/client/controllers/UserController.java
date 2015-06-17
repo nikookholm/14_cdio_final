@@ -79,14 +79,11 @@ public class UserController {
 			@Override
 			public void onFailure(Throwable caught) {
 				
-				
 			}
 
 			@Override
 			public void onSuccess(Void result) {
 				mc.show(mc.getUserController().listUsers());
-				
-				
 			}
 		});
 	}
