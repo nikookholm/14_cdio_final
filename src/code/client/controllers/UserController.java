@@ -48,7 +48,6 @@ public class UserController {
 			}
 		});
 
-
 		return returnView;
 	}
 

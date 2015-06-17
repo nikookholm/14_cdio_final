@@ -2,18 +2,16 @@ package code.client.views;
 
 import java.util.ArrayList;
 
-import javax.management.relation.RoleNotFoundException;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
@@ -26,7 +24,6 @@ import code.shared.FieldVerifier;
 public class ListUsersView extends Composite{
 
 	MainController mc;
-
 	ArrayList<UserDTO> users;
 
 	VerticalPanel vPanel;
@@ -36,7 +33,7 @@ public class ListUsersView extends Composite{
 	Label cprLabel		= new Label("CPR");
 	Label passwordLabel	= new Label("Password");
 	Label roleLabel		= new Label("Rolle");
-	Label Header		= new Label("Operatører");
+	Label Header		= new Label("Brugere");
 	Label fillerLabel, presentError;
 	FlexTable table;
 	Anchor edit,ok, prevCancel = null;
@@ -44,7 +41,7 @@ public class ListUsersView extends Composite{
 	TextBox nameBox, iniBox, pwBox;
 	ListBox roleBox;
 	CheckBox deactivate;
-
+	Button backButton;
 	
 	boolean nameCheck = false; 
 	boolean iniCheck  = false;
@@ -54,11 +51,12 @@ public class ListUsersView extends Composite{
 		this.users = users;
 		this.mc = mc;
 		vPanel = new VerticalPanel();
-		
+		backButton = new Button("Tilbage");
+		backButton.setEnabled(true);
+
 		presentError = new Label("");
 
 		table = new FlexTable();
-		
 		vPanel.add(Header);
 		Header.setStyleName("caption");
 		vPanel.add(presentError);
@@ -92,20 +90,22 @@ public class ListUsersView extends Composite{
 
 			table.setWidget(i+1, 7, edit = new Anchor("rediger"));
 			edit.addClickHandler(new EditButtonHandler());
-
 		}
 
 		vPanel.add(table);
+		vPanel.add(backButton);
+		vPanel.setCellHorizontalAlignment(backButton, HasHorizontalAlignment.ALIGN_CENTER);
 		initWidget(this.vPanel);
-
+		
+		backButton.addClickHandler(new backClickHandler());
+		
 		nameBox 	= new TextBox();
 		iniBox 		= new TextBox();
 		pwBox 		= new TextBox();
 		roleBox 	= new ListBox();
 		deactivate  = new CheckBox();
-
-
 	}
+	
 	private class EditButtonHandler implements ClickHandler{
 
 		@Override
@@ -119,7 +119,6 @@ public class ListUsersView extends Composite{
 			}
 			//Finds the row the user clicked
 			selectedRow = table.getCellForEvent(event).getRowIndex();
-
 
 			nameBox.setText(table.getText(selectedRow, 1));
 			//nameBox.setWidth("150px");
@@ -147,8 +146,6 @@ public class ListUsersView extends Composite{
 			table.setWidget(selectedRow, 5, roleBox);
 			table.setWidget(selectedRow, 6, deactivate);
 
-
-
 			nameBox.setFocus(true);
 
 			final Anchor edit =  (Anchor) event.getSource();
@@ -163,22 +160,15 @@ public class ListUsersView extends Composite{
 			activityParser = isActive;
 
 			final Anchor ok = new Anchor("ok");
-
 			ok.addClickHandler(new ClickHandler() {
-
-
-
-				
 
 				@Override
 				public void onClick(ClickEvent event) {
 					//gemmer de opdateret værdier
 					UserDTO updatedUser = new UserDTO(id,nameBox.getText(),iniBox.getName(), cpr ,pwBox.getText(), roleBox.getSelectedIndex(), deactivate.getValue());
-						mc.getUserController().updateUser(updatedUser);
-					
+					mc.getUserController().updateUser(updatedUser);
 				}
 			});
-
 
 			Anchor cancel = new Anchor("cancel");
 			prevCancel = cancel;
@@ -200,7 +190,6 @@ public class ListUsersView extends Composite{
 					table.setText(selectedRow, 5, 	role);
 					table.setText(selectedRow, 6, 	isActive);
 					table.setWidget(selectedRow, 7, edit);
-
 
 					table.clearCell(selectedRow, 8);
 
@@ -233,10 +222,7 @@ public class ListUsersView extends Composite{
 	private boolean parseCheckBox(String on){
 		if(on.equalsIgnoreCase("on")) return true;
 		else return false;
-
 	}
-
-	
 
 	private class NameBoxHandler implements KeyUpHandler{
 
@@ -250,10 +236,9 @@ public class ListUsersView extends Composite{
 				nameBox.removeStyleName("gwt-TextBox-invalidEntry");
 				nameCheck = true;
 			}
-
-
 		}
 	}
+	
 	private class IniBoxHandler implements KeyUpHandler{
 
 		@Override
@@ -270,9 +255,12 @@ public class ListUsersView extends Composite{
 		}
 	}
 
-
-
-
-
+	private class backClickHandler implements ClickHandler
+	{
+		@Override
+		public void onClick(ClickEvent event) {
+			mc.show(new MainView(mc));
+		}
+	}
 
 }
