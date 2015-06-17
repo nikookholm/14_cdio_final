@@ -26,7 +26,7 @@ public class ListProductBatchCompView extends Composite {
 	ProductBatchCompController pbCompC;
 	MainController mc;
 	VerticalPanel VPanel;
-	Label 	infoLabel				= new Label("ProduktBatch Komponenter");
+	Label 	infoLabel				= new Label("ProdubBatch Komponenter");
 	Label 	productBatchIdLabel		= new Label("ProduktBatch ID");
 	Label	ingredientBatchIdLabel	= new Label("RåvareBatch ID");
 	Label	taraWeightLabel			= new Label("Tara værdi");

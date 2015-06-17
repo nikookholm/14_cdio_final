@@ -37,7 +37,7 @@ public class CreateIngredientBatchView extends Composite
 	Label ingredientIdLabel	= new Label("Råvare ID");
 	Label maengdeLabel		= new Label("Mængde");
 	Button okButton    		= new Button("OK");
-	Button cancelButton 	= new Button("Fortryd");
+	Button cancelButton 	= new Button("Annullér");
 	
 	boolean rbIdCheck			= false;
 	boolean ingredientIdCheck	= false;
@@ -56,8 +56,6 @@ public class CreateIngredientBatchView extends Composite
 		if(ingrBatchDTO != null)
 		{
 			vPanel.add(new Label("Råvarebatchen med råvare ID'en: "+ ingrBatchDTO.getRbId() + "blev oprettet."));
-		}else{
-			vPanel.add(new Label("Indtast oplysninger"));
 		}
 		
 		table = new Grid(4,2);

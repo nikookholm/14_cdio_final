@@ -31,7 +31,7 @@ public class CreateReceptView extends Composite
 	Label receptNameLabel 	= new Label("Recept navn");
 	Label receptIdLabel  	= new Label("Recept ID");
 	Button okButton    		= new Button("OK");
-	Button cancelButton 	= new Button("Fortryd");
+	Button cancelButton 	= new Button("Annullér");
 	
 //	ReceptController receptC;
 	ReceptDTO receptDTO;
@@ -54,8 +54,6 @@ public class CreateReceptView extends Composite
 		if(receptDTO != null)
 		{
 			vPanel.add(new Label(receptDTO.getReceptName() + " blev oprettet"));
-		}else{
-			vPanel.add(new Label("Indtast oplysninger"));
 		}
 		
 		table = new Grid(3,2);

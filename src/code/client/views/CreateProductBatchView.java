@@ -1,7 +1,6 @@
 package code.client.views;
 
 import code.client.controllers.MainController;
-import code.client.controllers.ProductBatchController;
 import code.database.ProductBatchDTO;
 import code.shared.FieldVerifier;
 
@@ -21,7 +20,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class CreateProductBatchView extends Composite
 {
-	ProductBatchController pbC;
 	ProductBatchDTO pbDTO;
 	MainController mc;
 	
@@ -44,8 +42,8 @@ public class CreateProductBatchView extends Composite
 		vPanel = new VerticalPanel();
 		initWidget(this.vPanel);
 		
-		infoLabel		= new Label("Opret ny produktbatch");
-		pbNoLabel		= new Label("ProductBatch ID"); 
+		infoLabel		= new Label("Opret ny produkt batch");
+		pbNoLabel		= new Label("Product batch ID"); 
 		receptNoLabel	= new Label("Recept ID");
 		okButton		= new Button("OK");
 		cancelButton	= new Button("Annullér");
@@ -57,10 +55,10 @@ public class CreateProductBatchView extends Composite
 		cancelButton.setEnabled(true);
 		
 		if(pbDTO != null){
-			vPanel.add(new Label("Produkt Batchen: " + pbDTO.getPbId() + " blev oprettet"));
+			vPanel.add(new Label("Produkt batchen: " + pbDTO.getPbId() + " blev oprettet"));
 		}
 		this.flex = new FlexTable();
-		flex.setTitle("Lav ny ProduktBatch");
+		flex.setTitle("Lav ny produkt batch");
 		flex.setWidget(0, 0, pbNoLabel);
 		flex.setWidget(0, 1, pbNoBox);
 		flex.setWidget(1, 0, receptNoLabel);
@@ -130,11 +128,9 @@ public class CreateProductBatchView extends Composite
 	{
 	    @Override
 	    public void onClick(ClickEvent event) {
-			
 	    	int statI = 0;
 			String datI = "";			
 			ProductBatchDTO pbDTO = new ProductBatchDTO(Integer.parseInt(pbNoBox.getText()), Integer.parseInt(receptNoBox.getText()), statI, datI);
-			
 			mc.show(mc.getProductBatchController().createProductBatch(pbDTO));
       }
    }
@@ -147,7 +143,4 @@ public class CreateProductBatchView extends Composite
 		}
 	}
 	
-	
-	
 }
-

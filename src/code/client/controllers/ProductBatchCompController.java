@@ -27,7 +27,12 @@ public class ProductBatchCompController
 			@Override
 			public void onSuccess(ArrayList<ProductBatchCompDTO> list)
 			{
-				pbCompDTO = list;
+				if(mc.getUser().getRole() != 4){
+					pbCompDTO = list;
+				}
+				else{
+					mc.getUser().getOprId();
+				}
 			}
 			
 			@Override
