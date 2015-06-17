@@ -44,7 +44,7 @@ public class WeightProcedures {
 	{
 		login();
 		confirmOperator();
-			enterProductNumber();
+		// enterProductNumber();
 		//		updateStatus();
 		//
 		//		for (ReceptCompDTO ingredient : ingredientsLines)
@@ -72,21 +72,22 @@ public class WeightProcedures {
 
 		checkOprNr = ws.rm20(8, message);
 		System.out.println(checkOprNr);
-	 checkOprNr = checkOprNr.substring(checkOprNr.indexOf("\"")+1,checkOprNr.lastIndexOf("\""));
-	System.out.println(checkOprNr);
-		if(checkOprNr.matches("\\D")){
-			oprNr = Integer.parseInt(checkOprNr);
-			
-			opr = dbs.user_table_get(oprNr);
-			System.out.println("Dit oprNr er" + opr.getOprName());
+		checkOprNr = checkOprNr.substring(checkOprNr.indexOf("\"")+1,checkOprNr.lastIndexOf("\""));
+		System.out.println(checkOprNr);
 
-			if(opr==null){
-				login();
-				System.out.println("login er null");
-			}
-			}
+		oprNr = Integer.parseInt(checkOprNr);
+		System.out.println("oprNummer er " + oprNr);
+		opr = dbs.user_table_get(oprNr);
+		// System.out.println("Dit oprNr er" + opr.getOprName());
+
+		if(opr==null){
+			login();
+			System.out.println("login er null");
 		}
-//	}  //62.79.16.17
+		
+	}
+
+	//	}  //62.79.16.17
 	//	}
 	//	}
 
@@ -94,18 +95,18 @@ public class WeightProcedures {
 	{
 		System.out.println("Vi er nu i confirmOperator");
 		String validateOpr;
-		String message = "Er du " + opr.getOprName();
-		String valid = "";
+		String message = opr.getOprName() + "?";
+		String valid = "1";
 
-		validateOpr = ws.rm20(4, message);
-		if(validateOpr != "1"){
-			login();
-		}
-		else if(validateOpr.equals("1")){
-			System.out.println(validateOpr);
-			enterProductNumber();
-		}
-		
+		validateOpr = ws.rm20(8, message);
+		//		if(validateOpr != valid){
+		//			login();
+		//		}
+		//		else if(validateOpr.equals("1")){
+		//			System.out.println(validateOpr);
+	//	enterProductNumber();
+		//		}
+
 
 	}
 
@@ -183,7 +184,7 @@ public class WeightProcedures {
 				enterIngredientBatchNumber();
 			}			
 		}
-//I4 A "3154307"
+		//I4 A "3154307"
 		//		IngredientBatchDTO iBDTO = null;
 		//		ingredientID = iBDTO.getIngredientId();
 		//		iBDTO.setMaengde(savedValue);
