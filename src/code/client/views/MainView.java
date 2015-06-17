@@ -22,22 +22,22 @@ public class MainView extends Composite {
 		
 		Anchor addUser				= new Anchor("Opret bruger");
 		Anchor updateUser			= new Anchor("Se og rediger brugere");
-		Anchor addIngredient		= new Anchor("Opret ny ingrediens");
-		Anchor updateIngredient		= new Anchor("Se og rediger ingredienser");
-		Anchor addProductBatch		= new Anchor("Opret ny produkt batch");
-		Anchor listProductBatch		= new Anchor("Se alle produkt batches");
-		Anchor listProductBatchComp = new Anchor("Se alle produkt batch komponenter");
+		Anchor addIngredient		= new Anchor("Opret ny råvare");
+		Anchor updateIngredient		= new Anchor("Se og rediger råvarer");
+		Anchor addProductBatch		= new Anchor("Opret ny produktbatch");
+		Anchor listProductBatch		= new Anchor("Se alle produktbatches");
+		Anchor listProductBatchComp = new Anchor("Se alle produktbatch komponenter");
 		Anchor addRecept			= new Anchor("Opret recept");
 		Anchor listRecepts			= new Anchor("Se alle recepter");
-		Anchor addIngredientBatch 	= new Anchor("Opret ingredient batch");
-		Anchor listIngredientBatch 	= new Anchor("Se alle ingredients batch");
+		Anchor addIngredientBatch 	= new Anchor("Opret råvarebatch");
+		Anchor listIngredientBatch 	= new Anchor("Se alle råvarebatches");
 		
 		Label userCaption 		  	  = new Label("Brugeradministration");
 		Label ingredientCaption	  	  = new Label("Råvare/ingredienser");
-		Label productBatchCaption	  = new Label("Produkt batches");
-		Label productBatchCompCaption = new Label("Produkt batch komponenter");
+		Label productBatchCaption	  = new Label("Produktbatches");
+		Label productBatchCompCaption = new Label("Produktbatch komponenter");
 		Label receptCaption		  	  = new Label("Recepter");
-		Label ingredientBatchCaption  = new Label("Ingredient batches");
+		Label ingredientBatchCaption  = new Label("Råvarebatches");
 		
 		ClickHandler addUserHandler = new ClickHandler() {
 			@Override
@@ -134,6 +134,7 @@ public class MainView extends Composite {
 			panel.add(addIngredientBatch);
 			listIngredientBatch.addClickHandler(listIngredientBatchHandler);
 			panel.add(listIngredientBatch);
+			panel.add(new HTML("<br />"));
 			
 			panel.add(productBatchCaption);
 			productBatchCaption.setStyleName("caption");
