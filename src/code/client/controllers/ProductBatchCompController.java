@@ -31,17 +31,22 @@ public class ProductBatchCompController
 					pbCompDTO = list;
 				}
 				else{
-					mc.getUser().getOprId();
+					for(ProductBatchCompDTO pbC : list){
+						if(pbC.getOprId() != mc.getUser().getOprId()){
+							list.remove(pbC);
+						}
+					}
 				}
+				mc.show(new ListProductBatchCompView(pbCompDTO, mc));
 			}
 			
 			@Override
 			public void onFailure(Throwable caught)
 			{
 				Window.alert("Kunne ikke hente liste fra server" + caught.getMessage());
+				pbCompDTO = null;
 			}
-			
 		});
-		return new ListProductBatchCompView(pbCompDTO, mc);
+		return null;
 	}
 }

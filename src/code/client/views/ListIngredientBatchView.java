@@ -21,10 +21,10 @@ public class ListIngredientBatchView extends Composite
 {
 	MainController mc;
 	VerticalPanel VPanel;
-	Label ibIdLabel 		= new Label("RåvareBatch ID");
+	Label ibIdLabel 		= new Label("Råvarebatch ID");
 	Label ingredientIdLabel	= new Label("Råvare ID");
-	Label maengdeLabel		= new Label("Mængde");;
-	Label infoLabel			= new Label("RåvareBatch");	
+	Label maengdeLabel		= new Label("Mængde i kg");;
+	Label infoLabel			= new Label("Råvarebatch");	
 	Button backButton;
 
 	FlexTable ft;
@@ -63,11 +63,10 @@ public class ListIngredientBatchView extends Composite
 
 		backButton = new Button("Tilbage");
 		backButton.setEnabled(true);
-		this.subTable = new Grid(1,2);
-		subTable.setWidget(0, 0, backButton);
 
 		VPanel.add(ft);
-		VPanel.add(subTable);
+		VPanel.add(backButton);
+		VPanel.add(child);
 		initWidget(this.VPanel);
 
 		backButton.addClickHandler(new backClickHandler());

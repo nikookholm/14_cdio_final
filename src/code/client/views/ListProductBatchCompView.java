@@ -3,7 +3,6 @@ package code.client.views;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import code.database.*;
 import code.client.controllers.MainController;
 import code.client.controllers.ProductBatchCompController;
@@ -18,6 +17,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -26,15 +26,15 @@ public class ListProductBatchCompView extends Composite {
 	ProductBatchCompController pbCompC;
 	MainController mc;
 	VerticalPanel VPanel;
-	Label 	infoLabel				= new Label("ProdubBatch Komponenter");
-	Label 	productBatchIdLabel		= new Label("ProduktBatch ID");
-	Label	ingredientBatchIdLabel	= new Label("RåvareBatch ID");
-	Label	taraWeightLabel			= new Label("Tara værdi");
-	Label	nettoWeightLabel		= new Label("Netto værdi");
+	Label 	infoLabel				= new Label("Produkbatch komponenter");
+	Label 	productBatchIdLabel		= new Label("Produktbatch ID");
+	Label	ingredientBatchIdLabel	= new Label("Råvarebatch ID");
+	Label	taraWeightLabel			= new Label("Tara i kg");
+	Label	nettoWeightLabel		= new Label("Netto i kg");
 	Label	operatorIdLabel			= new Label("Operatør ID");
 	Button backButton;
 	FlexTable ft;
-	Grid subTable;
+	FlexTable subTable;
 
 	ArrayList<ProductBatchCompDTO> pbCompDTO;
 
@@ -78,11 +78,10 @@ public class ListProductBatchCompView extends Composite {
 		
 		backButton = new Button("Tilbage");
 		backButton.setEnabled(true);
-		this.subTable = new Grid (1,2);
-		subTable.setWidget(0, 0, backButton);
-
+	
 		VPanel.add(ft);
-		VPanel.add(subTable);
+		VPanel.add(backButton);
+		VPanel.setCellHorizontalAlignment(backButton, HasHorizontalAlignment.ALIGN_CENTER);
 		initWidget(this.VPanel);
 		
 		backButton.addClickHandler(new backClickHandler());

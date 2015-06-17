@@ -27,7 +27,6 @@ public class CreateReceptView extends Composite
 	TextBox	receptIdBox		= new TextBox();	
 	Label infoLabel			= new Label("Opret ny recept");
 	Label viewInfo			= new Label("Indtast receptens oplysninger: ");
-	Label presentSuccess	= new Label("Recepten blev oprettet");
 	Label receptNameLabel 	= new Label("Recept navn");
 	Label receptIdLabel  	= new Label("Recept ID");
 	Button okButton    		= new Button("OK");
@@ -68,9 +67,8 @@ public class CreateReceptView extends Composite
 		table.setWidget(1, 0, receptIdLabel);
 		receptIdLabel.setStyleName("input-text");
 		table.setWidget(1, 1, receptIdBox);
-		table.setWidget(2, 1, hPanel = new HorizontalPanel());;
+		table.setWidget(2, 1, hPanel = new HorizontalPanel());
 		
-	;
 		hPanel.add(okButton);
 		hPanel.add(cancelButton);
 		

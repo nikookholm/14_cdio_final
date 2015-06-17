@@ -57,11 +57,10 @@ public class ListReceptsView extends Composite{
 
 		backButton = new Button("Tilbage");
 		backButton.setEnabled(true);
-		this.subTable = new Grid (1,2);
-		subTable.setWidget(0, 0, backButton);
+	
 		
 		VPanel.add(ft);
-		VPanel.add(subTable);
+		VPanel.add(backButton);
 		initWidget(this.VPanel);
 		
 		backButton.addClickHandler(new backClickHandler());
