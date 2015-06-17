@@ -32,11 +32,11 @@ public class ProductBatchCompController
 				}
 				else{
 					for(ProductBatchCompDTO pbC : list){
-						if(pbC.getOprId() != mc.getUser().getOprId()){
+						if(mc.getUser().getOprId() != pbC.getOprId()){
 							list.remove(pbC);
-							pbCompDTO = list;
 						}
 					}
+				pbCompDTO = list;
 				}
 				mc.show(new ListProductBatchCompView(pbCompDTO, mc));
 			}
