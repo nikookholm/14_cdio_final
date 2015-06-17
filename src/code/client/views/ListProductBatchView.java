@@ -3,7 +3,6 @@ package code.client.views;
 import java.util.ArrayList;
 
 import code.client.controllers.MainController;
-import code.client.controllers.ProductBatchController;
 import code.database.ProductBatchDTO;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -19,7 +18,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class ListProductBatchView extends Composite
 {
 	MainController mc;
-	ProductBatchController pbC;
 	ArrayList<ProductBatchDTO> pbLS;
 	
 	VerticalPanel VPanel;
@@ -37,8 +35,8 @@ public class ListProductBatchView extends Composite
 		VPanel = new VerticalPanel();
 		initWidget(this.VPanel);
 		
-		infoLabel 		= new Label("Listevisning over ProduktBatches");
-		pbNoLabel		= new Label("ProductBatch ID"); 
+		infoLabel 		= new Label("Produkt batches");
+		pbNoLabel		= new Label("Product batch ID"); 
 		receptNoLabel	= new Label("Recept ID");
 		statLabel 		= new Label("Status");
 		dateLabel 		= new Label("Dato");
@@ -47,7 +45,7 @@ public class ListProductBatchView extends Composite
 		backButton.setEnabled(true);
 		
 		this.flex = new FlexTable();
-		flex.setTitle("ProductBatchListView");
+		flex.setTitle("Product batch listevisninge");
 		flex.setWidget(0, 0, pbNoLabel);
 		flex.setWidget(0, 1, receptNoLabel);
 		flex.setWidget(0, 2, statLabel);
