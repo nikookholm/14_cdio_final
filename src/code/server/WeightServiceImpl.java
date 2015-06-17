@@ -91,8 +91,10 @@ WeightService {
 		//String request = "RM20 " + type + " \"" + message + "\" \"\" \"\"" + "\r\n";
 		String request = "RM20 8 \""+message+"\" \"\" \"&3\"\r\n";
 		tcp.send(request);
+		
 		String junk = tcp.receive();
 		System.out.println(junk);
+		
 		result = tcp.receive();
 		System.out.println(result);
 		String answer = null;
