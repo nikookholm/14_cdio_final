@@ -16,7 +16,7 @@ public class IngredientBatchController
 	MainController mc;
 	ArrayList<IngredientBatchDTO> ingrBatchDTO;
 	IngredientBatchDTO ibDTO;
-	boolean booln = false;
+	boolean booln = true;
 
 	public IngredientBatchController(MainController mc)
 	{
@@ -36,18 +36,18 @@ public class IngredientBatchController
 					mc.databaseService.ingredientBatch_table_get(checkIbId, new AsyncCallback<IngredientBatchDTO>(){
 						@Override
 						public void onSuccess(IngredientBatchDTO result) {
-							booln = true;
+							booln = false;
 						}
 						@Override
 						public void onFailure(Throwable caught) {
-							booln = false;
+							booln = true;
 						}
 					});
 				}
 
 				@Override
 				public void onFailure(Throwable caught) {
-					booln = false;
+					booln = true;
 				}		
 			});
 
