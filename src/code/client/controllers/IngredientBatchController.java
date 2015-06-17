@@ -16,7 +16,7 @@ public class IngredientBatchController
 	MainController mc;
 	ArrayList<IngredientBatchDTO> ingrBatchDTO;
 	IngredientBatchDTO ibDTO;
-	boolean booln = true;
+	boolean booln = false;
 
 	public IngredientBatchController(MainController mc)
 	{
