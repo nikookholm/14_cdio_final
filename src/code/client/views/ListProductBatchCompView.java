@@ -25,7 +25,7 @@ public class ListProductBatchCompView extends Composite {
 
 	ProductBatchCompController pbCompC;
 	MainController mc;
-	VerticalPanel VPanel;
+	VerticalPanel vPanel;
 	Label 	infoLabel				= new Label("Produkbatch komponenter");
 	Label 	productBatchIdLabel		= new Label("Produktbatch ID");
 	Label	ingredientBatchIdLabel	= new Label("Råvarebatch ID");
@@ -43,29 +43,32 @@ public class ListProductBatchCompView extends Composite {
 		this.mc = mc;
 		this.pbCompDTO = pbCompDTO;
 		
-		VPanel = new VerticalPanel();
-		VPanel.setHeight("100px");
+		vPanel = new VerticalPanel();
+		vPanel.setHeight("100px");
 		
 		ft = new FlexTable();
 		
-		VPanel.add(infoLabel);
+		vPanel.add(infoLabel);
 		infoLabel.setStyleName("caption");
+		
 		ft.setWidget(0, 0, productBatchIdLabel);
-		productBatchIdLabel.setStyleName("input-text");
 		ft.setWidget(0, 1, ingredientBatchIdLabel);
-		ingredientBatchIdLabel.setStyleName("input-text");
 		ft.setWidget(0, 2, taraWeightLabel);
-		taraWeightLabel.setStyleName("input-text");
 		ft.setWidget(0, 3, nettoWeightLabel);
-		nettoWeightLabel.setStyleName("input-text");
 		ft.setWidget(0, 4, operatorIdLabel);
-		operatorIdLabel.setStyleName("input-text");
+	
 		ft.getCellFormatter().setWidth(0, 0, "150px;");
 		ft.getCellFormatter().setWidth(0, 1, "150px;");
 		ft.getCellFormatter().setWidth(0, 2, "150px;");
 		ft.getCellFormatter().setWidth(0, 3, "150px;");
 		ft.getCellFormatter().setWidth(0, 4, "150px;");
 		
+		productBatchIdLabel.setStyleName("input-text");
+		ingredientBatchIdLabel.setStyleName("input-text");
+		taraWeightLabel.setStyleName("input-text");
+		nettoWeightLabel.setStyleName("input-text");
+		operatorIdLabel.setStyleName("input-text");
+	
 		int i = 0;
 		for(ProductBatchCompDTO pbC : pbCompDTO) {
 			i++;
@@ -79,10 +82,10 @@ public class ListProductBatchCompView extends Composite {
 		backButton = new Button("Tilbage");
 		backButton.setEnabled(true);
 	
-		VPanel.add(ft);
-		VPanel.add(backButton);
-		VPanel.setCellHorizontalAlignment(backButton, HasHorizontalAlignment.ALIGN_CENTER);
-		initWidget(this.VPanel);
+		vPanel.add(ft);
+		vPanel.add(backButton);
+		vPanel.setCellHorizontalAlignment(backButton, HasHorizontalAlignment.ALIGN_CENTER);
+		initWidget(this.vPanel);
 		
 		backButton.addClickHandler(new backClickHandler());
 	}

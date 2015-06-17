@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -20,7 +21,7 @@ public class ListReceptsView extends Composite{
 
 	ReceptController receptC;
 	MainController mc;
-	VerticalPanel VPanel;
+	VerticalPanel vPanel;
 	Label infoLabel				= new Label("Recepter");
 	Label receptIdLabel			= new Label("Recept ID");
 	Label receptNameLabel		= new Label("Recept navn");
@@ -35,11 +36,11 @@ public class ListReceptsView extends Composite{
 		this.mc = mc;
 		this.receptDTO = receptDTO;
 		
-		VPanel = new VerticalPanel();
+		vPanel = new VerticalPanel();
 		
 		ft = new FlexTable();
 		
-		VPanel.add(infoLabel);
+		vPanel.add(infoLabel);
 		infoLabel.setStyleName("caption");
 		ft.setWidget(0, 0, receptIdLabel);
 		receptIdLabel.setStyleName("input-text");
@@ -59,9 +60,10 @@ public class ListReceptsView extends Composite{
 		backButton.setEnabled(true);
 	
 		
-		VPanel.add(ft);
-		VPanel.add(backButton);
-		initWidget(this.VPanel);
+		vPanel.add(ft);
+		vPanel.add(backButton);
+		vPanel.setCellHorizontalAlignment(backButton, HasHorizontalAlignment.ALIGN_CENTER);
+		initWidget(this.vPanel);
 		
 		backButton.addClickHandler(new backClickHandler());
 	}

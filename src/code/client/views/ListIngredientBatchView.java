@@ -12,6 +12,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -20,7 +21,7 @@ import com.google.gwt.user.client.ui.Button;
 public class ListIngredientBatchView extends Composite
 {
 	MainController mc;
-	VerticalPanel VPanel;
+	VerticalPanel vPanel;
 	Label ibIdLabel 		= new Label("Råvarebatch ID");
 	Label ingredientIdLabel	= new Label("Råvare ID");
 	Label maengdeLabel		= new Label("Mængde i kg");;
@@ -37,17 +38,18 @@ public class ListIngredientBatchView extends Composite
 		this.mc = mc;
 		this.ingrBatchDTO = ingrBatchDTO;
 		
-		VPanel = new VerticalPanel();
+		vPanel = new VerticalPanel();
 	
 		ft = new FlexTable();
 		
-		VPanel.add(infoLabel);
+		vPanel.add(infoLabel);
 		infoLabel.setStyleName("caption");
+		
 		ft.setWidget(0, 0, ibIdLabel);
-		ibIdLabel.setStyleName("input-text");
 		ft.setWidget(0, 1, ingredientIdLabel);
-		ingredientIdLabel.setStyleName("input-text");
 		ft.setWidget(0, 2, maengdeLabel);
+		ibIdLabel.setStyleName("input-text");
+		ingredientIdLabel.setStyleName("input-text");
 		maengdeLabel.setStyleName("input-text");
 		ft.getCellFormatter().setWidth(0, 0, "150px;");
 		ft.getCellFormatter().setWidth(0, 1, "150px;");
@@ -64,10 +66,10 @@ public class ListIngredientBatchView extends Composite
 		backButton = new Button("Tilbage");
 		backButton.setEnabled(true);
 
-		VPanel.add(ft);
-		VPanel.add(backButton);
-		VPanel.add(child);
-		initWidget(this.VPanel);
+		vPanel.add(ft);
+		vPanel.add(backButton);
+		vPanel.setCellHorizontalAlignment(backButton, HasHorizontalAlignment.ALIGN_CENTER);
+		initWidget(this.vPanel);
 
 		backButton.addClickHandler(new backClickHandler());
 	}
