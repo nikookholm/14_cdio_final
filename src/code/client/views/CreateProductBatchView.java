@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
@@ -27,60 +28,60 @@ public class CreateProductBatchView extends Composite
 	
 	VerticalPanel vPanel;
 	HorizontalPanel hPanel;
-	Grid table, subTable;
-	
-	TextBox pbNoBox		= new TextBox();
-	TextBox receptNoBox	= new TextBox();
-	Label infoLabel		= new Label("Opret ny produktbatch");
-	Label viewInfo		= new Label("Indtast produkbatchens oplysninger: ");
-	Label pbNoLabel		= new Label("ProductBatch ID"); 
-	Label receptNoLabel	= new Label("Recept ID");
-	Button okButton		= new Button("OK");
-	Button cancelButton	= new Button("Fortryd");
+	TextBox pbNoBox, receptNoBox;
+	Label infoLabel, viewInfo, pbNoLabel, receptNoLabel;
+	Button okButton, cancelButton;
 	FlexTable flex;
 	
-	boolean pbNoValidity 		= false;
-	boolean receptNoValidity	= false;
+	boolean pbNoValidity 	 = false;
+	boolean receptNoValidity = false;
 	
 	public CreateProductBatchView(ProductBatchDTO pbDTO, MainController mc)
 	{
 		this.mc = mc;
 		this.pbDTO = pbDTO;
+		
+		hPanel = new HorizontalPanel();
 		vPanel = new VerticalPanel();
+		initWidget(this.vPanel);
+		
+		infoLabel		= new Label("Opret ny produktbatch");
+		viewInfo		= new Label("Indtast produkbatchens oplysninger: ");
+		pbNoLabel		= new Label("ProductBatch ID"); 
+		receptNoLabel	= new Label("Recept ID");
+		okButton		= new Button("OK");
+		cancelButton	= new Button("Annullér");
+		pbNoBox		= new TextBox();
+		receptNoBox	= new TextBox();
 		
 		pbNoBox.setFocus(true);
-		
 		okButton.setEnabled(false);
 		cancelButton.setEnabled(true);
 		
 		if(pbDTO != null){
-			vPanel.add(new Label("ProduktBatchen: " + pbDTO.getPbId() + "blev oprettet"));
-			
-		}else{
-			vPanel.add(new Label("Indtast oplysninger"));
+			vPanel.add(new Label("ProduktBatchen: " + pbDTO.getPbId() + " blev oprettet"));
 		}
-
-		table = new Grid(3, 2);
+		this.flex = new FlexTable();
+		flex.setTitle("Lav ny ProduktBatch");
+		flex.setWidget(0, 0, pbNoLabel);
+		flex.setWidget(0, 1, pbNoBox);
+		flex.setWidget(1, 0, receptNoLabel);
+		flex.setWidget(1, 1, receptNoBox);
+		flex.setWidget(2, 0, hPanel);
+		flex.getFlexCellFormatter().setColSpan(2, 0, 2);
+		flex.getCellFormatter().setAlignment(2, 0, HasHorizontalAlignment.ALIGN_RIGHT, HasVerticalAlignment.ALIGN_MIDDLE);
+		
+		infoLabel.setStyleName("caption");
+		viewInfo.setStyleName("input-text");
+		pbNoLabel.setStyleName("input-text");
+		receptNoLabel.setStyleName("input-text");
+		
+		hPanel.add(cancelButton);
+		hPanel.add(okButton);
 		
 		vPanel.add(infoLabel);
-		infoLabel.setStyleName("caption");
 		vPanel.add(viewInfo);
-		viewInfo.setStyleName("input-text");
-		table.setWidget(0, 0, pbNoLabel);
-		pbNoLabel.setStyleName("input-text");
-		table.setWidget(0, 1, pbNoBox);
-		table.setWidget(1, 0, receptNoLabel);
-		receptNoLabel.setStyleName("input-text");
-		table.setWidget(1, 1, receptNoBox);
-		table.setWidget(2, 1, hPanel = new HorizontalPanel());
-
-		hPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-		hPanel.add(okButton);
-		hPanel.add(cancelButton);
-		
-		vPanel.add(table);
-		vPanel.add(hPanel);
-		initWidget(this.vPanel);
+		vPanel.add(flex);
 		
 		okButton.addClickHandler(new OKClickHandler());
 		cancelButton.addClickHandler(new cancelClickHandler());

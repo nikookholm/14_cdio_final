@@ -26,10 +26,9 @@ public class ProductBatchController
 	public Widget createProductBatch(ProductBatchDTO pbDTO)
 	{
 		this.pbDTO = pbDTO;
-		int recId = pbDTO.getReceptId();
 		
 		if(pbDTO != null){
-			
+			int recId = pbDTO.getReceptId();
 			mc.databaseService.recept_table_get(recId, new AsyncCallback<ReceptDTO>() {
 				@Override
 				public void onFailure(Throwable caught) {
@@ -52,10 +51,8 @@ public class ProductBatchController
 					}
 				});
 			}
-			
 			return new CreateProductBatchView(pbDTO, mc);	
-		}
-		else{
+		}else{
 			return new CreateProductBatchView(null, mc);
 		}
 	}
@@ -92,10 +89,8 @@ public class ProductBatchController
 	}
 	
 	
-	
-	private void printProductBatch()
-	{
-		
-	}
+/**	
+*	private void printProductBatch(){}
+**/
 	
 }

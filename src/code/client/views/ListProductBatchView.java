@@ -5,22 +5,16 @@ import java.util.ArrayList;
 import code.client.controllers.MainController;
 import code.client.controllers.ProductBatchController;
 import code.database.ProductBatchDTO;
-import code.shared.FieldVerifier;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.sun.java.swing.plaf.windows.resources.windows;
 
 public class ListProductBatchView extends Composite
 {
@@ -29,30 +23,45 @@ public class ListProductBatchView extends Composite
 	ArrayList<ProductBatchDTO> pbLS;
 	
 	VerticalPanel VPanel;
-	Button backButton, OKButton;
-	Anchor edit, ok, cancel, prevCancel;
-	Label infoLabel;
-	Label pbNoLabel, receptNoLabel, dateLabel, statLabel;
+	HorizontalPanel hPanel;
+	Button backButton;
+	Label infoLabel, pbNoLabel, receptNoLabel, statLabel, dateLabel;
 	FlexTable flex;
-	Grid subTable;
 	
 	public ListProductBatchView(ArrayList<ProductBatchDTO> pbLS, MainController mc)
 	{
 		this.mc = mc;
 		this.pbLS = pbLS;
+		
+		hPanel = new HorizontalPanel();
 		VPanel = new VerticalPanel();
 		initWidget(this.VPanel);
+		
+		infoLabel 		= new Label("Listevisning over ProduktBatches");
+		pbNoLabel		= new Label("ProductBatch ID"); 
+		receptNoLabel	= new Label("Recept ID");
+		statLabel 		= new Label("Status");
+		dateLabel 		= new Label("Dato");
 		
 		backButton = new Button("Tilbage");
 		backButton.setEnabled(true);
 		
-		infoLabel = new Label("Listevisning over ProduktBatches");
 		this.flex = new FlexTable();
 		flex.setTitle("ProductBatchListView");
-		flex.setText(0, 0, "ProductBatch ID");
-		flex.setText(0, 1, "Recept ID");
-		flex.setText(0, 2, "Status");
-		flex.setText(0, 3, "Dato");
+		flex.setWidget(0, 0, pbNoLabel);
+		flex.setWidget(0, 1, receptNoLabel);
+		flex.setWidget(0, 2, statLabel);
+		flex.setWidget(0, 3, dateLabel);
+		flex.getCellFormatter().setWidth(0, 0, "250px;");
+		flex.getCellFormatter().setWidth(0, 1, "250px;");
+		flex.getCellFormatter().setWidth(0, 2, "250px;");
+		flex.getCellFormatter().setWidth(0, 3, "250px;");
+		
+		infoLabel.setStyleName("caption");
+		pbNoLabel.setStyleName("input-text");
+		receptNoLabel.setStyleName("input-text");
+		statLabel.setStyleName("input-text");
+		dateLabel.setStyleName("input-text");
 		
 		int i = 1;
 		for (ProductBatchDTO pbDTO : pbLS) {
@@ -63,15 +72,13 @@ public class ListProductBatchView extends Composite
 			
 			i++;
 		}
-		this.subTable = new Grid(1, 2);
-		subTable.setWidget(0, 0, backButton);
 		
 		VPanel.add(infoLabel);
 		VPanel.add(flex);
-		VPanel.add(subTable);
-		
+		VPanel.add(backButton);
+		VPanel.setCellHorizontalAlignment(backButton, HasHorizontalAlignment.ALIGN_RIGHT);
+
 		backButton.addClickHandler(new backClickHandler());
-		
 	}
 	
 	private class backClickHandler implements ClickHandler
