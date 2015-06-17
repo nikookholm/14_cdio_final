@@ -2,6 +2,7 @@ package code.client.controllers;
 
 import java.util.ArrayList;
 
+import org.apache.bcel.generic.CPInstruction;
 import org.apache.tools.ant.taskdefs.Sleep;
 
 import code.client.DatabaseService;
@@ -44,7 +45,7 @@ public class WeightProcedures {
 	{
 		login();
 		confirmOperator();
-		// enterProductNumber();
+		enterProductNumber();
 		//		updateStatus();
 		//
 		//		for (ReceptCompDTO ingredient : ingredientsLines)
@@ -71,9 +72,16 @@ public class WeightProcedures {
 		int oprNr;
 
 		checkOprNr = ws.rm20(8, message);
-		System.out.println(checkOprNr);
-		checkOprNr = checkOprNr.substring(checkOprNr.indexOf("\"")+1,checkOprNr.lastIndexOf("\""));
-		System.out.println(checkOprNr);
+
+		//		if(!checkOprNr.startsWith("RM20 A")){
+		//			login();
+		//		}
+		//		else{
+		//			
+		//		}
+		System.out.println("CheckOprNr er : " + checkOprNr);
+
+		System.out.println(checkOprNr + " er checkOprnr i Login()");
 
 		oprNr = Integer.parseInt(checkOprNr);
 		System.out.println("oprNummer er " + oprNr);
@@ -81,13 +89,13 @@ public class WeightProcedures {
 		// System.out.println("Dit oprNr er" + opr.getOprName());
 
 		if(opr==null){
-			login();
+			//	login();
 			System.out.println("login er null");
 		}
-		
+
 	}
 
-	//	}  //62.79.16.17
+	//	} 
 	//	}
 	//	}
 
@@ -99,48 +107,43 @@ public class WeightProcedures {
 		String valid = "1";
 
 		validateOpr = ws.rm20(8, message);
-		//		if(validateOpr != valid){
-		//			login();
-		//		}
-		//		else if(validateOpr.equals("1")){
-		//			System.out.println(validateOpr);
-	//	enterProductNumber();
-		//		}
+		System.out.println(validateOpr.trim());
 
-
+		if(!validateOpr.equals(valid)){
+			login();
+		}
 	}
 
 	private void enterProductNumber() throws WeightException
 	{
 		System.out.println("VI er nu i enterProdukt!");
 		//
-		String message = "indtast produktnummer";
-		String produktNummer;
-		int produktNr;
-		String message1 = "vil du afveje" + receptDTO.getReceptName();
+		
+		int productNo = Integer.parseInt(ws.rm20(8, "ProdBNr.."));
+		//String message1 = "vil du afveje" + receptDTO.getReceptName();
 		String verifyrReceptBalancing;
 		String valid = "1";
-		int receptId;
+	receptDTO = 
 
 
-		produktNummer = ws.rm20(4, message);
-		if(produktNummer.matches("\\D")){
-			produktNr = Integer.parseInt(produktNummer);
+	
 
-			pBDTO = dbs.productBatch_table_get(produktNr);
-			receptId = pBDTO.getReceptId();
-			receptDTO = dbs.recept_table_get(receptId);
-			receptDTO.getReceptName();
-
-			verifyrReceptBalancing = ws.rm20(4, message1);
-			if(verifyrReceptBalancing.equals(valid)){
-				ingredientsLines = dbs.receptComp_table_get(receptId);
-
-				//				asda.startAfvejningsprocedure();
-			}
-		}else{
-			enterProductNumber();
-		}
+//			produktNr = Integer.parseInt(produktNummer);
+//
+//			pBDTO = dbs.productBatch_table_get(produktNr);
+//			receptId = pBDTO.getReceptId();
+//			receptDTO = dbs.recept_table_get(receptId);
+//			receptDTO.getReceptName();
+//
+//			verifyrReceptBalancing = ws.rm20(4, message1);
+//			if(verifyrReceptBalancing.equals(valid)){
+//				ingredientsLines = dbs.receptComp_table_get(receptId);
+//
+//				//				asda.startAfvejningsprocedure();
+//			}
+//		}else{
+//			enterProductNumber();
+//		}
 	}
 
 	private void updateStatus()

@@ -40,8 +40,8 @@ WeightService {
 		try {
 			//fileRead();
 			listenForTarget();
-			
- tcp.disconnect();
+
+			tcp.disconnect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -86,32 +86,30 @@ WeightService {
 	//rm20-kommandoen, der sender en besked til vægten og får en respons tilbage
 	@Override
 	public String rm20(int type, String message) throws WeightException {
-		String result = null;
-		
+		String result = "";
 		//String request = "RM20 " + type + " \"" + message + "\" \"\" \"\"" + "\r\n";
 		String request = "RM20 8 \""+message+"\" \"\" \"&3\"\r\n";
+
 		tcp.send(request);
-		
-		String junk = tcp.receive();
-		System.out.println(junk);
-		
+
 		result = tcp.receive();
-		System.out.println(result);
-		String answer = null;
-		if (result.startsWith("RM20 B"))
-		{
-			while(!(answer= tcp.receive()).startsWith("RM20 A")){
-				answer = tcp.receive();
-			}
-			System.out.println(answer);
-		
-			return answer.substring(6);
+		System.out.println("Før while " + result);
+		while(!result.startsWith("RM20 B")){
+
+			result = tcp.receive();
+
 		}
-		else
+		while (!result.startsWith("RM20 A"))
 		{
-			return result;
+			result = tcp.receive();
+
 		}
+
+		result = result.substring(8,result.length()-1);
+		return result;
 	}
+
+
 
 	//Metoden, der printer til displayet
 	@Override
@@ -157,9 +155,9 @@ WeightService {
 		//					e.printStackTrace();
 		//				}
 		//				
-		tcp = new TCPConnector("169.254.2.2", 8000);
-//		tcp = new TCPConnector("62.79.16.17", 8000);
-//		tcp = new TCPConnector("10.16.97.77", 8000);
+		tcp = new TCPConnector("169.254.2.3", 8000);
+		//		tcp = new TCPConnector("62.79.16.17", 8000);
+		//		tcp = new TCPConnector("10.16.97.77", 8000);
 		if(tcp.connect())
 		{
 			new WeightProcedures(this);
