@@ -61,7 +61,8 @@ public class TestReceptDAO {
 		int highID = recList.get(recList.size()-1).getReceptId();
 		
 		int expected = re.getReceptList().size()+1;
-		re.createRecept(new ReceptDTO(highID+1, "Spock"));
+		String Spock = "Spock";
+		re.createRecept(new ReceptDTO(Spock, highID+1));
 		int actual = re.getReceptList().size();
 		
 		assertEquals(expected, actual);

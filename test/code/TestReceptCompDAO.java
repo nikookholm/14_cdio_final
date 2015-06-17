@@ -13,7 +13,7 @@ import code.database.DALException;
 import code.database.ReceptCompDTO;
 import code.database.ReceptCompImpl;
 
-public class TestReceptKompDAO {
+public class TestReceptCompDAO {
 
 	
 
@@ -29,7 +29,7 @@ public class TestReceptKompDAO {
 	}
 
 	@Test
-	public void testgetReceptKomp() throws DALException{
+	public void testGetReceptComp() throws DALException{
 
 		List<ReceptCompDTO> list = rk.getReceptCompList();
 		int v = rk.getReceptCompList().get(0).getIngredientId();
@@ -44,7 +44,7 @@ public class TestReceptKompDAO {
 	}
 
 	@Test
-	public void testGetReceptKompList() throws DALException{
+	public void testGetReceptCompList() throws DALException{
 		boolean listMoreThanZero = false;
 
 		if(rk.getReceptCompList().size() > 0){
@@ -54,7 +54,7 @@ public class TestReceptKompDAO {
 	}
 
 	@Test
-	public void getReceptKompListWithReceptID() throws DALException{
+	public void getReceptCompListWithReceptID() throws DALException{
 		int receptID = rk.getReceptCompList().get(0).getReceptId();
 		
 		boolean listMoreThanZero = false;
@@ -68,7 +68,7 @@ public class TestReceptKompDAO {
 	
 	
 	@Test
-	public void testUpdateReceptKomp() throws DALException{
+	public void testUpdateReceptComp() throws DALException{
 
 		
 		

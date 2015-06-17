@@ -16,31 +16,44 @@ public class ProductBatchController
 	ProductBatchDTO pbDTO;
 	
 	ArrayList<ProductBatchDTO> pbs;
+	boolean bool = false;
 	
 	public ProductBatchController(MainController mc)
 	{
 		this.mc = mc;
 	}
 	
-	public Widget createProductBatch(final ProductBatchDTO pbDTO)
+	public Widget createProductBatch(ProductBatchDTO pbDTO)
 	{
 		this.pbDTO = pbDTO;
 		
 		if(pbDTO != null){
-			mc.databaseService.productBatch_table_create(pbDTO, new AsyncCallback<Void>() {
-				@Override
-				public void onSuccess(Void result) {
-//					Window.alert("PB oprettet! Værdi: pbID:" + pbDTO.getPbId() + ", recID" + pbDTO.getReceptId() + ", stat:" + pbDTO.getStatus() + ", dato:" + pbDTO.getDateTime() );
-				}
+			int recId = pbDTO.getReceptId();
+			mc.databaseService.recept_table_get(recId, new AsyncCallback<ReceptDTO>() {
 				@Override
 				public void onFailure(Throwable caught) {
-					Window.alert("Server fejl! : " + caught.getMessage());
+					bool = false;
+				}
+				@Override
+				public void onSuccess(ReceptDTO result) {
+					bool = true;
 				}
 			});
+			
+			if(bool == true){
+				mc.databaseService.productBatch_table_create(pbDTO, new AsyncCallback<Void>() {
+					@Override
+					public void onSuccess(Void result) {
+					}
+					@Override
+					public void onFailure(Throwable caught) {
+						Window.alert("Server fejl! : " + caught.getMessage());
+					}
+				});
+			}
 			return new CreateProductBatchView(pbDTO, mc);	
-		}
-		else{
-			return new CreateProductBatchView(pbDTO, mc);
+		}else{
+			return new CreateProductBatchView(null, mc);
 		}
 	}
 	
@@ -76,10 +89,8 @@ public class ProductBatchController
 	}
 	
 	
-	
-	private void printProductBatch()
-	{
-		
-	}
+/**	
+*	private void printProductBatch(){}
+**/
 	
 }

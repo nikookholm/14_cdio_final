@@ -16,7 +16,7 @@ import code.database.IngredientDTO;
 import code.database.IngredientImpl;
 import code.database.*;
 
-public class TestRaavareDAO {
+public class TestIngredientDAO {
 
 	IngredientDAO rd = new IngredientImpl();
 	
@@ -31,16 +31,15 @@ public class TestRaavareDAO {
 	}
 
 	@Test
-	public void testGetRaavare() throws DALException {
+	public void testGetIngredient() throws DALException {
 	
-
 		IngredientDTO testVare = null;
-		List<IngredientDTO> raavareList = rd.getIngredientList();
-		int ID = raavareList.get(0).getIngredientId();
+		List<IngredientDTO> ingredList = rd.getIngredientList();
+		int ID = ingredList.get(0).getIngredientId();
 		testVare = rd.getIngredient(ID);
 
 		IngredientDTO actual = testVare;
-		IngredientDTO expected = raavareList.get(0);
+		IngredientDTO expected = ingredList.get(0);
 
 		boolean elementsAreTheSame = true;
 		
@@ -53,7 +52,7 @@ public class TestRaavareDAO {
 	}
 
 	@Test
-	public void testGetRaavareList() throws DALException{
+	public void testGetIngrdList() throws DALException{
 
 		List<IngredientDTO> list = rd.getIngredientList();
 		
@@ -61,7 +60,8 @@ public class TestRaavareDAO {
 	} 
 	
 	@Test
-	public void TestCreateRaavare() throws DALException{
+	public void TestCreateIngred() throws DALException{
+		
 	
 		List<IngredientDTO> list = rd.getIngredientList();
 		int currentHighestID  = list.get(list.size()-1).getIngredientId();
@@ -77,7 +77,7 @@ public class TestRaavareDAO {
 	}
 	
 	@Test
-	public void testUpdateRaaVare(){
+	public void testUpdateIngred(){
 		IngredientDTO dto = null;
 		String expected = "bullerbassen";
 		try {

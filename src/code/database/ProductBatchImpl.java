@@ -8,9 +8,8 @@ import java.util.Date;
 
 public class ProductBatchImpl implements ProductBatchDAO {
 
-//	SimpleDateFormat dateTime 	= new SimpleDateFormat("yyyy/MM/dd-HH:mm");
-//	datI = dateTime.format(new Date());
-	String datI = "2058-99-87";
+	SimpleDateFormat dateTime = new SimpleDateFormat("yyyy/MM/dd - HH:mm");
+	String datI = dateTime.format(new Date());
 	
 	@Override
 	public ProductBatchDTO getProductBatch(int pbId) throws DALException {
@@ -24,6 +23,8 @@ public class ProductBatchImpl implements ProductBatchDAO {
 	
 	@Override
 	public void createProductBatch(ProductBatchDTO productbatch) throws DALException {
+		
+		
 		Connector.doUpdate(
 				"INSERT INTO productbatch(pb_id, recept_id, status, date) VALUES " +
 				"(" + productbatch.getPbId() + ", '" + productbatch.getReceptId() + "', '" + productbatch.getStatus() + "','" + datI + "')"
