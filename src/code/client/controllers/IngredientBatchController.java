@@ -28,11 +28,16 @@ public class IngredientBatchController
 		this.ibDTO = ingrBatchDTO;
 		if(ingrBatchDTO!= null){
 			int checkIngId 		= ingrBatchDTO.getIngredientId();
-			final int checkIbId	= ingrBatchDTO.getRbId();
+			final int checkIbId		= ingrBatchDTO.getRbId();
 			// opretter dto i database
 			mc.databaseService.ingredientBatch_table_get(checkIngId, new AsyncCallback<IngredientBatchDTO>(){
 				@Override
 				public void onSuccess(IngredientBatchDTO result) {
+					booln = false;
+				}
+
+				@Override
+				public void onFailure(Throwable caught) {
 					mc.databaseService.ingredientBatch_table_get(checkIbId, new AsyncCallback<IngredientBatchDTO>(){
 						@Override
 						public void onSuccess(IngredientBatchDTO result) {
@@ -43,11 +48,6 @@ public class IngredientBatchController
 							booln = true;
 						}
 					});
-				}
-
-				@Override
-				public void onFailure(Throwable caught) {
-					booln = true;
 				}		
 			});
 
