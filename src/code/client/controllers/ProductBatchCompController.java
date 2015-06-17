@@ -34,6 +34,7 @@ public class ProductBatchCompController
 					for(ProductBatchCompDTO pbC : list){
 						if(pbC.getOprId() != mc.getUser().getOprId()){
 							list.remove(pbC);
+							pbCompDTO = list;
 						}
 					}
 				}

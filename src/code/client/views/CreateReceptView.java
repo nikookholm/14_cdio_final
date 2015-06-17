@@ -11,6 +11,7 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -21,7 +22,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class CreateReceptView extends Composite
 {
 	VerticalPanel vPanel;
-	Grid table;
+	FlexTable table;
 	HorizontalPanel hPanel;
 	
 	TextBox receptNameBox	= new TextBox();
@@ -47,28 +48,29 @@ public class CreateReceptView extends Composite
 		vPanel			= new VerticalPanel();
 		
 		receptNameBox.setFocus(true);
-		okButton.setEnabled(false);
 		cancelButton.setEnabled(true);
-		
+		okButton.setEnabled(false);
 		
 		if(receptDTO != null)
 		{
 			vPanel.add(new Label(receptDTO.getReceptName() + " blev oprettet"));
 		}
 		
-		table = new Grid(3,2);
+		table = new FlexTable();
 		
 		vPanel.add(infoLabel);
-		infoLabel.setStyleName("caption");
 		vPanel.add(viewInfo);
+		infoLabel.setStyleName("caption");
 		viewInfo.setStyleName("input-text");
+		
 		table.setWidget(0, 0, receptNameLabel);
-		receptNameLabel.setStyleName("input-text");
 		table.setWidget(0, 1, receptNameBox);
 		table.setWidget(1, 0, receptIdLabel);
-		receptIdLabel.setStyleName("input-text");
 		table.setWidget(1, 1, receptIdBox);
-		table.setWidget(2, 1, hPanel = new HorizontalPanel());
+		receptIdLabel.setStyleName("input-text");
+		receptNameLabel.setStyleName("input-text");
+		table.setWidget(2, 0, hPanel = new HorizontalPanel());
+		//table.getFlexCellFormatter().setColSpan(2, 0, );
 		
 		hPanel.add(okButton);
 		hPanel.add(cancelButton);
@@ -87,7 +89,6 @@ public class CreateReceptView extends Composite
 			public void onClick(ClickEvent event) {
 				ReceptDTO receptDTO = new ReceptDTO(receptNameBox.getText(), Integer.parseInt(receptIdBox.getText()));
 				mc.show(mc.getReceptController().createRecept(receptDTO));
-
 			}
 		});
 	

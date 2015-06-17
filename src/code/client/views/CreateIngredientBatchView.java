@@ -12,6 +12,7 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -26,7 +27,7 @@ public class CreateIngredientBatchView extends Composite
 	MainController mc;
 
 	VerticalPanel vPanel;
-	Grid table;
+	FlexTable table;
 	HorizontalPanel hPanel;
 	
 	TextBox rbIdBox 		= new TextBox();    	//rb_id
@@ -36,7 +37,7 @@ public class CreateIngredientBatchView extends Composite
 	Label viewInfo			= new Label("Indtast råvarebatchens oplysninger: ");
 	Label ibIdLabel 		= new Label("RåvareBatch ID");
 	Label ingredientIdLabel	= new Label("Råvare ID");
-	Label maengdeLabel		= new Label("Mængde");
+	Label maengdeLabel		= new Label("Mængde i kg");
 	Button okButton    		= new Button("OK");
 	Button cancelButton 	= new Button("Annullér");
 	
@@ -59,21 +60,22 @@ public class CreateIngredientBatchView extends Composite
 			vPanel.add(new Label("Råvarebatchen med råvare ID'en: "+ ingrBatchDTO.getRbId() + "blev oprettet."));
 		}
 		
-		table = new Grid(4,2);
+		table = new FlexTable();
 		
 		vPanel.add(infoLabel);
-		infoLabel.setStyleName("caption");
 		vPanel.add(viewInfo);
+		infoLabel.setStyleName("caption");
 		viewInfo.setStyleName("input-text");
+		
 		table.setWidget(0, 0, ibIdLabel);
-		ibIdLabel.setStyleName("input-text");
 		table.setWidget(0, 1, rbIdBox);
 		table.setWidget(1, 0, ingredientIdLabel);
-		ingredientIdLabel.setStyleName("input-text");
 		table.setWidget(1, 1, ingredientIdBox);
 		table.setWidget(2, 0, maengdeLabel);
-		maengdeLabel.setStyleName("input-text");
 		table.setWidget(2, 1, maengdeBox);
+		ibIdLabel.setStyleName("input-text");
+		ingredientIdLabel.setStyleName("input-text");
+		maengdeLabel.setStyleName("input-text");
 		table.setWidget(3, 1, hPanel = new HorizontalPanel());
 		
 		hPanel.add(okButton);
