@@ -197,6 +197,13 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 		} catch (DALException e) {}
 	}
 
+	@Override
+	public void productBatch_table_update(ProductBatchDTO productBatchDTO) {
+		try {
+			productBatch.updateProductBatch(productBatchDTO);
+		} catch (DALException e) {}
+	}
+
 
 
 	
