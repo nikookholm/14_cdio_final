@@ -205,12 +205,10 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public IngredientDTO ingredients_table_get(int ingredientId) {
-		try {
-			return ingredient.getIngredient(ingredientId);
-		} catch (DALException e) {
-			return null;
-		}
+	public IngredientDTO ingredients_table_get(int ingredientId) throws DALException {
+
+		return ingredient.getIngredient(ingredientId);
+
 	}
 
 

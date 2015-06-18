@@ -2,6 +2,7 @@ package code.client;
 
 import java.util.ArrayList;
 
+import code.database.DALException;
 import code.database.IngredientBatchDTO;
 import code.database.IngredientDTO;
 import code.database.ProductBatchCompDTO;
@@ -27,7 +28,7 @@ public interface DatabaseService extends RemoteService {
 	void	 				 ingredients_table_create(IngredientDTO ingredient);
 	void 					 ingredients_table_update(IngredientDTO ingredient);
 	ArrayList<IngredientDTO> ingredients_table_list();
-	IngredientDTO			 ingredients_table_get(int ingredientId);
+	IngredientDTO			 ingredients_table_get(int ingredientId) throws DALException;
 	
 	void 				 	 recept_table_create(ReceptDTO recept);
 	ArrayList<ReceptDTO> 	 recept_table_list();
