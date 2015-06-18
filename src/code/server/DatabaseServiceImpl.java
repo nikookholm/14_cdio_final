@@ -211,7 +211,4 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 
 	}
 
-
-
-	
 }
