@@ -21,6 +21,10 @@ h1 {
 	width: 125px;
 }
 
+input{
+	width: 125px;
+}
+
 
 .sendButton {
   display: block;
