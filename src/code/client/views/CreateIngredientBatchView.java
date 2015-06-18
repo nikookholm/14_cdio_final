@@ -56,7 +56,7 @@ public class CreateIngredientBatchView extends Composite
 		
 		if(ingrBatchDTO != null)
 		{
-			vPanel.add(new Label("Råvarebatchen med råvare ID'en: "+ ingrBatchDTO.getRbId() + " blev oprettet."));
+			vPanel.add(new Label("Råvarebatchen med råvarebatch ID'en: "+ ingrBatchDTO.getRbId() + " blev oprettet."));
 		}
 		
 		table = new FlexTable();

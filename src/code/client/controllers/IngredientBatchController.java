@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import code.client.views.CreateIngredientBatchView;
 import code.client.views.ListIngredientBatchView;
 import code.database.IngredientBatchDTO;
-import code.database.IngredientDTO;
-import code.database.ProductBatchCompDTO;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -17,7 +15,6 @@ public class IngredientBatchController
 	MainController mc;
 	ArrayList<IngredientBatchDTO> ingrBatchDTO;
 	IngredientBatchDTO ibDTO;
-	IngredientDTO iDTO;
 	boolean booln = false;
 	
 
@@ -30,13 +27,12 @@ public class IngredientBatchController
 	public Widget createIngredientBatch(final IngredientBatchDTO ingrBatchDTO) 
 	{
 		this.ibDTO = ingrBatchDTO;
-
+		
 		if(ingrBatchDTO != null){
 			final int checkIngrId	= ingrBatchDTO.getIngredientId();
 			final int checkIbId		= ingrBatchDTO.getRbId();			
 
 			mc.databaseService.ingredientBatch_table_get(checkIngrId, new AsyncCallback<IngredientBatchDTO>(){
-
 				@Override
 				public void onFailure(Throwable caught) {
 					booln = false;
@@ -47,6 +43,10 @@ public class IngredientBatchController
 				public void onSuccess(IngredientBatchDTO result) {
 					if(result.getRbId() != checkIbId){
 					booln = true;
+					}
+					else{
+					Window.alert("Der findes allerede en råvarebatch med det id");
+					booln = false;
 					}
 				}
 			});

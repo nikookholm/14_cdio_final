@@ -50,7 +50,6 @@ public class ProductBatchCompController
 				pbCompDTO = null;
 			}
 		});
-		mc.show(new ListProductBatchCompView(pbCompDTO, mc));
-		return null;
+		return new ListProductBatchCompView(pbCompDTO, mc);
 	}
 }
