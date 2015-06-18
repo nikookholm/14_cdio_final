@@ -34,7 +34,7 @@ public class CreateIngredientBatchView extends Composite
 	TextBox maengdeBox  	= new TextBox();		//maengde
 	Label infoLabel			= new Label("Opret ny råvarebatch");
 	Label viewInfo			= new Label("Indtast råvarebatchens oplysninger: ");
-	Label ibIdLabel 		= new Label("RåvareBatch ID");
+	Label ibIdLabel 		= new Label("Råvarebatch ID");
 	Label ingredientIdLabel	= new Label("Råvare ID");
 	Label maengdeLabel		= new Label("Mængde i kg");
 	Button okButton    		= new Button("OK");

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import code.client.views.CreateIngredientBatchView;
 import code.client.views.ListIngredientBatchView;
 import code.database.IngredientBatchDTO;
+import code.database.IngredientDTO;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -15,8 +16,8 @@ public class IngredientBatchController
 	MainController mc;
 	ArrayList<IngredientBatchDTO> ingrBatchDTO;
 	IngredientBatchDTO ibDTO;
-	boolean booln = false;
-	
+	boolean ingredientboolean		= false;
+	boolean ingredientbatchboolean 	= false;
 
 	public IngredientBatchController(MainController mc)
 	{
@@ -27,32 +28,42 @@ public class IngredientBatchController
 	public Widget createIngredientBatch(final IngredientBatchDTO ingrBatchDTO) 
 	{
 		this.ibDTO = ingrBatchDTO;
-		
+
 		if(ingrBatchDTO != null){
 			final int checkIngrId	= ingrBatchDTO.getIngredientId();
 			final int checkIbId		= ingrBatchDTO.getRbId();			
 
-			mc.databaseService.ingredientBatch_table_get(checkIngrId, new AsyncCallback<IngredientBatchDTO>(){
+			mc.databaseService.ingredients_table_get(checkIngrId, new AsyncCallback<IngredientDTO>(){
 				@Override
 				public void onFailure(Throwable caught) {
-					booln = false;
+					ingredientboolean = false;
 					Window.alert("Der findes ingen ingrediens med det id");
 				}
 
 				@Override
-				public void onSuccess(IngredientBatchDTO result) {
-					if(result.getRbId() != checkIbId){
-					booln = true;
-					}
-					else{
-					Window.alert("Der findes allerede en råvarebatch med det id");
-					booln = false;
-					}
+				public void onSuccess(IngredientDTO result) {
+					ingredientboolean = true;
 				}
 			});
 			
-			//Hvis der ikke er fundet nogen ingredients og batch-id, der findes i databasen oprettes én
-			if(booln == true){
+			mc.databaseService.ingredientBatch_table_get(checkIbId, new AsyncCallback<IngredientBatchDTO>() {
+				@Override
+				public void onFailure(Throwable caught) {
+					ingredientbatchboolean = false;
+					Window.alert("Der findes ingen råvarebatch med det id");
+				}
+
+				@Override
+				public void onSuccess(IngredientBatchDTO element) {
+					if(element.getRbId() == checkIbId){
+					ingredientbatchboolean = true;
+					Window.alert("Der findes en råvarebatch med det id");
+					}
+				}
+			});
+
+			//Hvis der er fundet en ingredient, der findes i databasen, og ikke en råvarebatch oprettes én råvarebatch med det angivne id
+			if(ingredientboolean == true && ingredientbatchboolean != true){
 				mc.databaseService.ingredientBatch_table_create(ingrBatchDTO, new AsyncCallback<Void>() {
 
 					@Override
