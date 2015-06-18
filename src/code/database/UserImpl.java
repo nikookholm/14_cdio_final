@@ -28,7 +28,7 @@ public class UserImpl implements UserDAO
 
 	public void updateUser(UserDTO opr) throws DALException {
 		Connector.doUpdate(
-				"UPDATE user SET opr_name = '" + opr.getOprName() + "', ini =  '" + opr.getIni() 
+				"UPDATE user SET opr_name = '" + opr.getOprName() + "', ini = '" + opr.getIni() 
 					+ "', cpr = '" + opr.getCpr() + "', password = '" + opr.getPassword() + "', role = '" + opr.getRole() 
 					+ "', active = '" + opr.getActive() + "' WHERE opr_id = " + opr.getOprId()
 		);

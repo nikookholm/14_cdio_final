@@ -89,20 +89,19 @@ public class UserController {
 		}
 	}	
 
-	public void updateUser(UserDTO user)
+	public Widget updateUser(UserDTO user)
 	{
 		mc.databaseService.user_table_update(user, new AsyncCallback<Void>() {
 
 			@Override
-			public void onFailure(Throwable caught) {
-
-			}
+			public void onFailure(Throwable caught) { }
 
 			@Override
 			public void onSuccess(Void result) {
 				mc.show(mc.getUserController().listUsers());
 			}
 		});
+		return null;
 	}
 
 	public Widget listUsers()

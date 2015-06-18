@@ -51,7 +51,7 @@ public class ListUsersView extends Composite{
 		nameLabel		= new Label("Navn");
 		iniLabel		= new Label("Initialer");
 		cprLabel		= new Label("CPR");
-		passwordLabel	= new Label("Password");
+		passwordLabel	= new Label("Kodeord");
 		roleLabel		= new Label("Rolle");
 		actLabel		= new Label("Aktiv");
 		
@@ -88,7 +88,7 @@ public class ListUsersView extends Composite{
 			flex.setText(i+1, 5, "" + parseRole(this.users.get(i).getRole()));
 			flex.setText(i+1, 6, "" + this.users.get(i).getActive());
 
-			flex.setWidget(i+1, 7, edit = new Anchor("Redigér"));
+			flex.setWidget(i+1, 7, edit = new Anchor("Redigér"));
 			edit.addClickHandler(new EditButtonHandler());
 		}
 		
@@ -115,7 +115,12 @@ public class ListUsersView extends Composite{
 		public void onClick(ClickEvent event) {
 			
 			String activityParser;
-			if(prevCancel != null) prevCancel.fireEvent(new ClickEvent(){});
+
+			// annulerer forrige event
+			if(prevCancel != null){
+				prevCancel.fireEvent(new ClickEvent(){});
+			}
+			//Finds the row the user clicked
 			final int selectedRow = flex.getCellForEvent(event).getRowIndex();
 
 			nameBox.setText(flex.getText(selectedRow, 1));
@@ -144,7 +149,7 @@ public class ListUsersView extends Composite{
 			final int id = Integer.parseInt(flex.getText(selectedRow, 0));
 			final String name = nameBox.getText();
 			final String ini = iniBox.getText();
-			final String cpr = (flex.getText(selectedRow, 3));
+			final String cpr = flex.getText(selectedRow, 3);
 			final String pw = pwBox.getText();
 			final String role = roleBox.getItemText(roleBox.getTabIndex());
 			final int roleToSave = roleBox.getTabIndex();
@@ -160,9 +165,8 @@ public class ListUsersView extends Composite{
 				}
 			});
 
-			Anchor cancel = new Anchor("Annullér");
+			Anchor cancel = new Anchor("Annullér");
 			prevCancel = cancel;
-
 			cancel.addClickHandler(new ClickHandler() {
 
 				@Override
@@ -217,28 +221,28 @@ public class ListUsersView extends Composite{
 	private class NameBoxHandler implements KeyUpHandler{
 		@Override
 		public void onKeyUp(KeyUpEvent event) {
-			if(!FieldVerifier.isValidName(nameBox.getText())){
-				nameBox.setStyleName("gwt-TextBox-invalidEntry");
-				nameCheck = false;
-			}
-			else{
-				nameBox.removeStyleName("gwt-TextBox-invalidEntry");
+//			if(!FieldVerifier.isValidName(nameBox.getText())){
+//				nameBox.setStyleName("gwt-TextBox-invalidEntry");
+//				nameCheck = false;
+//			}
+//			else{
+//				nameBox.removeStyleName("gwt-TextBox-invalidEntry");
 				nameCheck = true;
-			}
+//			}
 		}
 	}
 	
 	private class IniBoxHandler implements KeyUpHandler{
 		@Override
 		public void onKeyUp(KeyUpEvent event) {
-			if(!FieldVerifier.isInitialsValid(iniBox.getText())){
-				iniBox.setStyleName("gwt-TextBox-invalidEntry");
-				iniCheck = false;
-			}
-			else{
-				iniBox.removeStyleName("gwt-TextBox-invalidEntry");
+//			if(!FieldVerifier.isInitialsValid(iniBox.getText())){
+//				iniBox.setStyleName("gwt-TextBox-invalidEntry");
+//				iniCheck = false;
+//			}
+//			else{
+//				iniBox.removeStyleName("gwt-TextBox-invalidEntry");
 				iniCheck = true;
-			}
+//			}
 		}
 	}
 
