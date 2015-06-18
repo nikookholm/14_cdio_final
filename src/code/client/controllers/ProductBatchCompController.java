@@ -28,18 +28,23 @@ public class ProductBatchCompController
 			@Override
 			public void onSuccess(ArrayList<ProductBatchCompDTO> list)
 			{
-				//hvis brugeren ikke har rollen operator vises en fuldstændig liste
-				if(mc.getUser().getRole() != 4){
-					pbCompDTO = list;
-				}
 				//hvis brugeren har rollen operator, vises kun de produktbatchkomponenter, som tilhører dennes id
-				else{
+				if(mc.getUser().getRole() == 4){
+					ArrayList<ProductBatchCompDTO> toRemove = new ArrayList<ProductBatchCompDTO>();
 					for(ProductBatchCompDTO pbC : list){
-						if(mc.getUser().getOprId() != pbC.getOprId()){
-							list.remove(pbC);
+						if(pbC.getOprId() != mc.getUser().getOprId()){
+							toRemove.add(pbC);
 						}
 					}
-				pbCompDTO = list;
+					for(ProductBatchCompDTO	pbC : toRemove){
+						list.remove(pbC);
+					}
+					pbCompDTO = list;
+				}
+				
+				//hvis brugeren ikke har rollen operator vises en fuldstændig liste
+				else{
+					pbCompDTO = list;
 				}
 			}
 			
