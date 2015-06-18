@@ -116,7 +116,7 @@ public class ListUsersView extends Composite{
 			
 			String activityParser;
 
-			// annulerer forrige event
+			// annullerer forrige event
 			if(prevCancel != null){
 				prevCancel.fireEvent(new ClickEvent(){});
 			}
@@ -196,19 +196,19 @@ public class ListUsersView extends Composite{
 
 	private String parseRole(int roleNo)
 	{
-		if(roleNo == 0) return "Operatør";
-		else if(roleNo == 1) return "Værkfører";
+		if(roleNo == 1) return "Administrator" ;
 		else if(roleNo == 2) return "Farmaceut";
-		else if(roleNo == 3) return "Administrator";
+		else if(roleNo == 3) return "Værkfører";
+		else if(roleNo == 4) return "Operatør";
 		else return null;
 	}
 
 	private int reverseParseRole(String roleName)
 	{
-		if("Operatør".equals(roleName)) return 0;
-		else if("Værkfører".equals(roleName)) return 1;
+		if("Administrator".equals(roleName)) return 1;
 		else if("Farmaceut".equals(roleName)) return 2;
-		else if("Administrator".equals(roleName)) return 3;
+		else if("Værkfører".equals(roleName)) return 3;
+		else if("Operatør".equals(roleName)) return 4;
 		else return -1;
 	}
 
@@ -221,28 +221,28 @@ public class ListUsersView extends Composite{
 	private class NameBoxHandler implements KeyUpHandler{
 		@Override
 		public void onKeyUp(KeyUpEvent event) {
-//			if(!FieldVerifier.isValidName(nameBox.getText())){
-//				nameBox.setStyleName("gwt-TextBox-invalidEntry");
-//				nameCheck = false;
-//			}
-//			else{
-//				nameBox.removeStyleName("gwt-TextBox-invalidEntry");
+			if(!FieldVerifier.isValidName(nameBox.getText())){
+				nameBox.setStyleName("gwt-TextBox-invalidEntry");
+				nameCheck = false;
+			}
+			else{
+				nameBox.removeStyleName("gwt-TextBox-invalidEntry");
 				nameCheck = true;
-//			}
+			}
 		}
 	}
 	
 	private class IniBoxHandler implements KeyUpHandler{
 		@Override
 		public void onKeyUp(KeyUpEvent event) {
-//			if(!FieldVerifier.isInitialsValid(iniBox.getText())){
-//				iniBox.setStyleName("gwt-TextBox-invalidEntry");
-//				iniCheck = false;
-//			}
-//			else{
-//				iniBox.removeStyleName("gwt-TextBox-invalidEntry");
+			if(!FieldVerifier.isInitialsValid(iniBox.getText())){
+				iniBox.setStyleName("gwt-TextBox-invalidEntry");
+				iniCheck = false;
+			}
+			else{
+				iniBox.removeStyleName("gwt-TextBox-invalidEntry");
 				iniCheck = true;
-//			}
+			}
 		}
 	}
 

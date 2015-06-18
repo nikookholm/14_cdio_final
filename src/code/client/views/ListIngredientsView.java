@@ -10,8 +10,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -27,11 +25,13 @@ public class ListIngredientsView extends Composite
 {
 
 	MainController mc;
+	ArrayList<IngredientDTO> ingls;
+
 	VerticalPanel vPanel;
-	Label NameLabel  	 = new Label("Navn");
+	Label nameLabel  	 = new Label("Navn");
 	Label IdLabel 		 = new Label("Id");
-	Label leverandoer	 = new Label("Leverandoør");
-	Label info			 = new Label("Råvare: ");
+	Label leverandoer	 = new Label("Leverandør");
+	Label info			 = new Label("Råvarer");
 	Button back			 = new Button("Tilbage");
 	Anchor edit 		 = new Anchor("Rediger");
 	Anchor cancel		 = new Anchor("Annullér");
@@ -44,76 +44,60 @@ public class ListIngredientsView extends Composite
 	boolean selectedNameCheck        = false;
 	boolean selectedLeverandoerCheck = false;
 
-	FlexTable flexTabel;
+	FlexTable flexTable;
 	Grid subT  = new Grid(1,1);
-	
-	ArrayList<IngredientDTO> ingls;
 
-	public ListIngredientsView(final MainController mc)
+	public ListIngredientsView(ArrayList<IngredientDTO> ingls, final MainController mc)
 	{
 		this.mc = mc;
+		this.ingls = ingls;
 		this.vPanel = new VerticalPanel();
-		initWidget(this.vPanel);
 
 		vPanel.add(info);
 		info.setStyleName("caption");
 
-		flexTabel = new FlexTable();
-
-		flexTabel.setWidget(0, 0, IdLabel);
+		flexTable = new FlexTable();
+		flexTable.setWidget(0, 0, IdLabel);
+		flexTable.setWidget(0, 1, nameLabel);
+		flexTable.setWidget(0, 2, leverandoer);
 		IdLabel.setStyleName("input-text");
-		flexTabel.getCellFormatter().setWidth(0, 0, "250px;");
-
-		flexTabel.setWidget(0, 1, NameLabel);
-		NameLabel.setStyleName("input-text");
-		flexTabel.getCellFormatter().setWidth(0, 1, "250px;");
-
-		flexTabel.setWidget(0, 2, leverandoer);
+		nameLabel.setStyleName("input-text");
 		leverandoer.setStyleName("input-text");
-		flexTabel.getCellFormatter().setWidth(0, 2, "250px;");
+		flexTable.getCellFormatter().setWidth(0, 0, "250px;");
+		flexTable.getCellFormatter().setWidth(0, 1, "250px;");
+		flexTable.getCellFormatter().setWidth(0, 2, "250px;");
 
-		mc.databaseService.ingredients_table_list(new AsyncCallback<ArrayList<IngredientDTO>>() {
+		int i = 0;
+		for(IngredientDTO igr : ingls){
+			i++;
+			flexTable.setText(i+1, 0, "" + igr.getIngredientId());
+			flexTable.setText(i+1, 1, "" + igr.getIngredientName());
+			flexTable.setText(i+1, 2, "" + igr.getLeverandoer());
 
-			@Override
-			public void onSuccess(ArrayList<IngredientDTO> result) {
-				for (int i = 0; i<result.size(); i++) {
+			Anchor newEdit = new Anchor("Rediger");
+			newEdit.addClickHandler(new EditButtonHandler());
+			flexTable.setWidget(i+1, 3, newEdit);
 
-					flexTabel.setText  (i+1, 0, result.get(i).getIngredientId()  + "");
-					flexTabel.setText  (i+1, 1, result.get(i).getIngredientName() + "");
-					flexTabel.setText  (i+1, 2, result.get(i).getLeverandoer()    + "");
+		}				
 
-					Anchor newEdit = new Anchor("Rediger");
-					newEdit.addClickHandler(new EditButtonHandler());
-					flexTabel.setWidget(i+1, 3, newEdit);
+		HorizontalPanel hPanel = new HorizontalPanel();
 
-				}				
-			}
+		hPanel.add(back);
 
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("fejl");
-			}
-		});
-		
+		subT.setWidget(0, 0, back);
+
+		vPanel.add(flexTable);
+		vPanel.add(back);
+		vPanel.setCellHorizontalAlignment(back, HasHorizontalAlignment.ALIGN_CENTER);
+		initWidget(this.vPanel);
+
 		back.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				mc.show(new MainView(mc));
-				
+
 			}
 		});
-		
-		HorizontalPanel hPanel = new HorizontalPanel();
-		
-		hPanel.add(back);
-	
-		subT.setWidget(0, 0, back);
-
-		vPanel.add(flexTabel);
-		vPanel.add(back);
-		vPanel.setCellHorizontalAlignment(back, HasHorizontalAlignment.ALIGN_CENTER);
-		
-
 	}
 
 	private class EditButtonHandler implements ClickHandler{
@@ -123,28 +107,28 @@ public class ListIngredientsView extends Composite
 			if(cancel != null){
 				cancel.fireEvent(new ClickEvent(){});}
 
-			final int selectedRow = flexTabel.getCellForEvent(event).getRowIndex();
-			final Anchor ok =   new Anchor("ok");
+			final int selectedRow = flexTable.getCellForEvent(event).getRowIndex();
+			final Anchor ok =   new Anchor("OK");
 
-			selectedNameBox.setText(flexTabel.getText(selectedRow, 1));
-			selectedLeverandoer.setText(flexTabel.getText(selectedRow, 2));
+			selectedNameBox.setText(flexTable.getText(selectedRow, 1));
+			selectedLeverandoer.setText(flexTable.getText(selectedRow, 2));
 
-			flexTabel.setWidget(selectedRow, 1, selectedNameBox);
-			flexTabel.setWidget(selectedRow, 2, selectedLeverandoer);
-			flexTabel.setWidget(selectedRow, 3, cancel);
-			flexTabel.setWidget(selectedRow, 4, ok);
+			flexTable.setWidget(selectedRow, 1, selectedNameBox);
+			flexTable.setWidget(selectedRow, 2, selectedLeverandoer);
+			flexTable.setWidget(selectedRow, 3, cancel);
+			flexTable.setWidget(selectedRow, 4, ok);
 
 			final selName sN = new selName();
 			selectedNameBox.addKeyUpHandler(sN);
-			
+
 			final selLeverandoer sL = new selLeverandoer();
 			selectedLeverandoer.addKeyUpHandler(sL);
 
 			final String ingName = selectedNameBox.getText();
 			final String leverandoer = selectedLeverandoer.getText();
-			final int ingredientId = Integer.parseInt(flexTabel.getText(selectedRow, 0));
+			final int ingredientId = Integer.parseInt(flexTable.getText(selectedRow, 0));
 
-			Anchor newCancel = new Anchor("cansel");
+			Anchor newCancel = new Anchor("Annullér");
 
 			newCancel = cancel;
 			newCancel.addClickHandler(new ClickHandler() {
@@ -201,7 +185,7 @@ public class ListIngredientsView extends Composite
 					selectedLeverandoer.setStyleName("gwt-TextBox-invalidEntry");
 					selectedLeverandoerCheck = false;
 				}
-			
+
 				else{
 					selectedLeverandoer.removeStyleName("gwt-TextBox-invalidEntry");
 					selectedLeverandoerCheck = true;
@@ -209,7 +193,5 @@ public class ListIngredientsView extends Composite
 			}
 		}
 	}
-
-
 }
 
