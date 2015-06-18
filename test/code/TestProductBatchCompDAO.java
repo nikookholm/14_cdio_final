@@ -31,6 +31,7 @@ public class TestProductBatchCompDAO {
 	@Test
 	public void testGetProductBatchComp() throws DALException {
 		
+		
 		????
 		
 		ProductBatchCompDTO pbcDTO = null;
