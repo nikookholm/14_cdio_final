@@ -31,7 +31,6 @@ public class UserController {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				//Window.alert("FEEEEEEEEEEEEEEJL");
 				mc.show(new LoginView(mc));
 			}
 
@@ -112,10 +111,11 @@ public class UserController {
 			@Override
 			public void onSuccess(ArrayList<UserDTO> result) {
 				sortedUserList(result);
+				mc.show(new ListUsersView(result, mc));
 
 			}
 		});
-		return new ListUsersView(users, mc);
+		return returnView;
 	}
 
 	public Widget deactivateUser()

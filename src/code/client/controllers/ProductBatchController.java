@@ -70,9 +70,10 @@ public class ProductBatchController
 			@Override
 			public void onSuccess(ArrayList<ProductBatchDTO> result) {
 				pbLs = result;
+				mc.show(new ListProductBatchView(pbLs, mc));
 			}
 		});
-		return new ListProductBatchView(pbLs, mc);
+		return returnView;
 	}
 	
 	
