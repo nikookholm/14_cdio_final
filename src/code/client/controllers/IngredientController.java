@@ -14,15 +14,11 @@ import code.database.IngredientDTO;
 
 public class IngredientController {
 	
-
-	MainController mc;
-	ArrayList<IngredientDTO> ingls;
-	
+	private MainController			 mc;
+	private ArrayList<IngredientDTO> ingls;
 	
 	public IngredientController(MainController mc){
 		this.mc = mc;
-		
-		
 	}
 	
 	public Widget createIngredient(IngredientDTO ingDTO) {
@@ -52,8 +48,6 @@ public class IngredientController {
 
 	public Widget  listIngredients(){
 		
-		
-		
 		mc.databaseService.ingredients_table_list(new AsyncCallback<ArrayList<IngredientDTO>>() {
 			
 			@Override
@@ -67,10 +61,7 @@ public class IngredientController {
 			}
 		});
 		
-		
-			return new ListIngredientsView(mc);
-	
-		
+		return new ListIngredientsView(mc);
 	}
 	
 	public Widget updateIngredient(IngredientDTO ingrDto){
@@ -79,7 +70,6 @@ public class IngredientController {
 			
 			@Override
 			public void onSuccess(Void result) {
-				
 				mc.show(mc.getIngredientController().listIngredients());
 			}
 			
@@ -89,34 +79,6 @@ public class IngredientController {
 		});
 		
 		return null;
-		
 	}
-	
-	
-	
-	
-	
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
