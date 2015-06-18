@@ -48,7 +48,8 @@ public class WeightProcedures {
 	public void start() throws WeightException
 	{
 
-//		ingredientsLines = dbs.receptComp_table_get(0);
+
+		ingredientsLines = dbs.receptComp_table_get(0);
 		login();
 		confirmOperator();
 		chooseProduct();
@@ -148,15 +149,20 @@ public class WeightProcedures {
 
 	private void clearAndTara() throws WeightException, InterruptedException
 	{
+		//ws.clearDisplay();
 
-		DecimalFormat df = new DecimalFormat("0.000");
 
 		String validateClearWeight = ws.rm20(8,"Aflast vaegt, tryk 1 /OK");
-		double checkWeight = Double.parseDouble(df.format(ws.getWeight()));
-		if(validateClearWeight.equals("1")&&(checkWeight == 0.000)){
-			ws.printToDisplay("you good");
-		}
+		System.out.println("massen på vægten er " + ws.getWeight());
+		double checkWeight = ws.getWeight();
 		System.out.println(checkWeight);
+		if(validateClearWeight.equals("1")&&(checkWeight == 0.000)){
+			System.out.println("vægten er 0.000");
+		}
+		else{
+			System.out.println(ws.printToDisplay("Afbelast Vaegten!"));
+			
+		}
 		//		String message = "Sæt tarabeholder på vægten og tryk OK";
 		//		String message2 = "Sæt ingrediens på vægten, afvej og tryk OK";
 
@@ -176,24 +182,27 @@ public class WeightProcedures {
 	{
 		double weightValue = 0;
 		int ingredientID;
-		String verifyId;
-		String message1 = "RaaBatchNr -Tryk 1 /OK";
 
-		verifyId = ws.rm20(4, message1);
-		if(verifyId.matches("\\D")){
-			ingredientID = Integer.parseInt(verifyId);
-			iBDTO = dbs.ingredientBatch_table_get(ingredientID);
+
+
+		String verifyId = ws.rm20(8, "Indtast RaaBatchNr /OK");
+		iBDTO = dbs.ingredientBatch_table_get(Integer.parseInt(verifyId));
+		if(iBDTO==null){
+			enterIngredientBatchNumber();
+		}
+		else{
+			//			String ingredientMass = ws.rm20(8, "")
 			iBDTO.setMaengde(weightValue);
 			dbs.ingredientBatch_table_update(iBDTO);
-			if(iBDTO==null){
-				enterIngredientBatchNumber();
-			}			
-		}
-		//I4 A "3154307"
-		//		IngredientBatchDTO iBDTO = null;
-		//		ingredientID = iBDTO.getIngredientId();
-		//		iBDTO.setMaengde(savedValue);
+
+
+		}			
 	}
+	//I4 A "3154307"
+	//		IngredientBatchDTO iBDTO = null;
+	//		ingredientID = iBDTO.getIngredientId();
+	//		iBDTO.setMaengde(savedValue);
+	//}
 	private void ingredientLine(ReceptCompDTO ingredient) throws WeightException, InterruptedException
 	{			
 		receptCompDTO = dbs.receptComp_table_get(0).get(0);

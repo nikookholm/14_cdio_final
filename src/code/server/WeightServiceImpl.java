@@ -73,13 +73,12 @@ WeightService {
 			String temp;
 			tcp.send("S\r\n");
 			temp = tcp.receive();
-
-			temp.replace(',', '.');
-			temp =temp.substring(9,14);
-
+		
+			
+			
 			if ("S".equals(temp.split(" ")[0]))
 			{
-				return Double.parseDouble(temp.split("\\s+")[2]);
+				return Double.parseDouble(temp.substring(9, 14));
 			}
 			else
 			{
@@ -119,7 +118,7 @@ WeightService {
 	//Metoden, der printer til displayet
 	@Override
 	public boolean printToDisplay(String message) throws WeightException {
-		tcp.send("D " + message + "\r\n");
+		tcp.send("D \"" + message + "\"\r\n");
 		return ("D A".equals(tcp.receive())) ? true : false;
 	}
 
