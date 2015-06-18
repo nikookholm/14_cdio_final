@@ -26,7 +26,7 @@ public class CreateProductBatchView extends Composite
 	VerticalPanel vPanel;
 	HorizontalPanel hPanel;
 	TextBox pbNoBox, receptNoBox;
-	Label infoLabel, pbNoLabel, receptNoLabel;
+	Label headLabel, pbNoLabel, receptNoLabel;
 	Button okButton, cancelButton;
 	FlexTable flex;
 	
@@ -42,7 +42,7 @@ public class CreateProductBatchView extends Composite
 		vPanel = new VerticalPanel();
 		initWidget(this.vPanel);
 		
-		infoLabel		= new Label("Opret ny produkt batch");
+		headLabel		= new Label("Opret ny produkt batch");
 		pbNoLabel		= new Label("Product batch ID"); 
 		receptNoLabel	= new Label("Recept ID");
 		okButton		= new Button("OK");
@@ -67,14 +67,14 @@ public class CreateProductBatchView extends Composite
 		flex.getFlexCellFormatter().setColSpan(2, 0, 2);
 		flex.getCellFormatter().setAlignment(2, 0, HasHorizontalAlignment.ALIGN_RIGHT, HasVerticalAlignment.ALIGN_MIDDLE);
 		
-		infoLabel.setStyleName("caption");
+		headLabel.setStyleName("caption");
 		pbNoLabel.setStyleName("input-text");
 		receptNoLabel.setStyleName("input-text");
 		
 		hPanel.add(cancelButton);
 		hPanel.add(okButton);
 		
-		vPanel.add(infoLabel);
+		vPanel.add(headLabel);
 		vPanel.add(flex);
 		
 		okButton.addClickHandler(new OKClickHandler());

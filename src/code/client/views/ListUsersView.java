@@ -27,7 +27,7 @@ public class ListUsersView extends Composite{
 	ArrayList<UserDTO> users;
 
 	VerticalPanel vPanel;
-	Label headerLabel, idLabel, nameLabel, iniLabel, cprLabel, passwordLabel, roleLabel;
+	Label headerLabel, idLabel, nameLabel, iniLabel, cprLabel, passwordLabel, roleLabel, actLabel;
 	FlexTable flex;
 	Anchor edit, ok, prevCancel = null;
 	int selectedRow;
@@ -53,6 +53,7 @@ public class ListUsersView extends Composite{
 		cprLabel		= new Label("CPR");
 		passwordLabel	= new Label("Password");
 		roleLabel		= new Label("Rolle");
+		actLabel		= new Label("Aktiv");
 		
 		flex = new FlexTable();
 		flex.setWidget(0, 0, idLabel);
@@ -61,6 +62,7 @@ public class ListUsersView extends Composite{
 		flex.setWidget(0, 3, cprLabel);
 		flex.setWidget(0, 4, passwordLabel);
 		flex.setWidget(0, 5, roleLabel);
+		flex.setWidget(0, 6, actLabel);
 		headerLabel.setStyleName("caption");
 		idLabel.setStyleName("input-text");
 		nameLabel.setStyleName("input-text");
@@ -68,12 +70,14 @@ public class ListUsersView extends Composite{
 		cprLabel.setStyleName("input-text");
 		passwordLabel.setStyleName("input-text");		
 		roleLabel.setStyleName("input-text");
-		flex.getCellFormatter().setWidth(0, 0, "150px;");
-		flex.getCellFormatter().setWidth(0, 1, "150px;");
-		flex.getCellFormatter().setWidth(0, 2, "150px;");
-		flex.getCellFormatter().setWidth(0, 3, "150px;");
-		flex.getCellFormatter().setWidth(0, 4, "150px;");
-		flex.getCellFormatter().setWidth(0, 5, "150px;");
+		actLabel.setStyleName("input-text");
+		flex.getCellFormatter().setWidth(0, 0, "142px;");
+		flex.getCellFormatter().setWidth(0, 1, "142px;");
+		flex.getCellFormatter().setWidth(0, 2, "142px;");
+		flex.getCellFormatter().setWidth(0, 3, "142px;");
+		flex.getCellFormatter().setWidth(0, 4, "142px;");
+		flex.getCellFormatter().setWidth(0, 5, "142px;");
+		flex.getCellFormatter().setWidth(0, 6, "142px;");
 		
 		for (int i = 0; i < this.users.size(); i++) {
 			flex.setText(i+1, 0,	"" + this.users.get(i).getOprId());

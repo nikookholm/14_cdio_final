@@ -7,7 +7,8 @@ import java.util.ArrayList;
 
 
 
-public class UserImpl implements UserDAO {
+public class UserImpl implements UserDAO 
+{
 	public UserDTO getUser(int oprId) throws DALException {
 		ResultSet rs = Connector.doQuery("SELECT * FROM user WHERE opr_id = " + oprId);
 	    try {
@@ -15,26 +16,25 @@ public class UserImpl implements UserDAO {
 	    	return new UserDTO (rs.getInt("opr_id"), rs.getString("opr_name"), rs.getString("ini"), rs.getString("cpr"), rs.getString("password"), rs.getInt("role"), rs.getBoolean("active"));
 	    }
 	    catch (SQLException e) {throw new DALException(e); }
-		
 	}
 	
 	public void createUser(UserDTO opr) throws DALException {		
 		Connector.doUpdate(
-				"INSERT INTO user(opr_id, opr_name, ini, cpr, password, role, active) VALUES " +
-						"(" + setUserID() + ", '" + opr.getOprName() + "', '" + opr.getIni() + "', '" + 
-						opr.getCpr() + "', '" + opr.getPassword() + "','" + opr.getRole() + "','" + 1 + "')"
+				"INSERT INTO user(opr_id, opr_name, ini, cpr, password, role, active) VALUES " 
+						+ "(" + opr.getOprId() + ", '" + opr.getOprName() + "', '" + opr.getIni() + "', '" 
+						+ opr.getCpr() + "', '" + opr.getPassword() + "','" + opr.getRole() + "','" + 1 + "')"
 		);
 	}
 
-	private Integer setUserID() throws DALException{
-		int newID = getUserList().size()+1;
-		return newID;
-	}
+//	private Integer setUserID() throws DALException{
+//		int newID = getUserList().size()+1;
+//		return newID;
+//	}
 	public void updateUser(UserDTO opr) throws DALException {
 		Connector.doUpdate(
 				"UPDATE user SET  opr_name = '" + opr.getOprName() + "', ini =  '" + opr.getIni() + 
-				"', cpr = '" + opr.getCpr() + "', password = '" + opr.getPassword() + "', role = '" + opr.getRole() + "', active = '" + opr.getActive() + "' WHERE opr_id = " +
-				opr.getOprId()
+				"', cpr = '" + opr.getCpr() + "', password = '" + opr.getPassword() + "', role = '" + opr.getRole() + "', active = '" 
+						+ opr.getActive() + "' WHERE opr_id = " + opr.getOprId()
 		);
 	}
 	

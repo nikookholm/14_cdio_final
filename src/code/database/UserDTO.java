@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 /**
  * User Data Access Objekt
- * 
- * @author mn/tb
- * @version 1.2
  */
 
 public class UserDTO implements Serializable
@@ -42,10 +39,12 @@ public class UserDTO implements Serializable
 		this.active = active;
 	}
 	
-	public UserDTO(String oprName, String ini, String cpr, int role){
+	public UserDTO(int oprId, String oprName, String ini, String cpr, String password, int role){
+		this.oprId = oprId;
 		this.oprName = oprName;
 		this.ini = ini;
 		this.cpr = cpr;
+		this.password = password;
 		this.role = role;
 	}
 
