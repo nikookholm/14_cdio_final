@@ -1,9 +1,12 @@
 package code.client.views;
 
 import code.client.controllers.MainController;
+import code.shared.FieldVerifier;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -25,6 +28,8 @@ public class LoginView extends Composite {
 	Label   oprLabel	  = new Label("Operatør ID:");
 	Label   passwordLabel = new Label("Adgangskode:");
 	
+	boolean IdCheck       = false;
+//	boolean passwordCheck = false;
 	
 	public LoginView(MainController mc)
 	{
@@ -33,8 +38,8 @@ public class LoginView extends Composite {
 		
 		FlexTable table = new FlexTable();
 
-	
-		okBtn.addClickHandler(new obBtnClick());
+		okBtn.setEnabled(false);
+		okBtn.addClickHandler(new okBtnClick());
 		clearBtn.addClickHandler(new clearBtnClick());
 		
 		HorizontalPanel buttonPanel = new HorizontalPanel();
@@ -56,9 +61,12 @@ public class LoginView extends Composite {
 		panel.add(table);
 		initWidget(panel);
 		
+		oprNumber.addKeyUpHandler(new id());
+//		password.addKeyUpHandler(new passWord());
+		
 	}
 	
-	private class obBtnClick implements ClickHandler
+	private class okBtnClick implements ClickHandler
 	{
 
 		@Override
@@ -78,5 +86,32 @@ public class LoginView extends Composite {
 		}
 		
 	}
+	
+	public void oKButEnabler(){
+		
+		if(IdCheck){
+			okBtn.setEnabled(true);
+		}
+		else okBtn.setEnabled(false);
+			
+		
+	}
+	
+	private class id implements KeyUpHandler{
 
+		@Override
+		public void onKeyUp(KeyUpEvent event) {
+			if(!FieldVerifier.ispbNoValid(oprNumber.getText())){
+				oprNumber.setStyleName("gwt-TextBox-invalidEntry");
+				IdCheck = false;
+			}
+			else{
+				oprNumber.removeStyleName("gwt-TextBox-invalidEntry");
+				IdCheck = true;
+				oKButEnabler();
+			}
+		}
+		
+	}
+	
 }

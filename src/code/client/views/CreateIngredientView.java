@@ -145,7 +145,7 @@ public class CreateIngredientView extends Composite{
 				leverandoerCheck = false;
 			}
 			else{
-				leverandoerBox.setStyleName("gwt-TextBox-invalidEnrtry");
+				leverandoerBox.removeStyleName("gwt-TextBox-invalidEntry");
 				leverandoerCheck = true;
 				okButtonEnabler();
 			}
