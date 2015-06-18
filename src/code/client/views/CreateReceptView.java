@@ -1,7 +1,6 @@
 	package code.client.views;
 
 import code.client.controllers.MainController;
-import code.client.controllers.ReceptController;
 import code.database.ReceptDTO;
 import code.shared.FieldVerifier;
 
@@ -12,7 +11,6 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;

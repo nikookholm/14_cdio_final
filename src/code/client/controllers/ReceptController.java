@@ -22,7 +22,7 @@ public class ReceptController {
 	}
 
 	//Widget der laver en recept. Hvis den forsøgte oprettede recept har samme id, som én i systemet, oprettes ikke
-	public Widget createRecept(ReceptDTO receptDTO)
+	public Widget createRecept(final ReceptDTO receptDTO)
 	{	
 		this.rcptDTO = receptDTO;
 

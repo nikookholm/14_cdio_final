@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import code.client.views.CreateIngredientBatchView;
 import code.client.views.ListIngredientBatchView;
 import code.database.IngredientBatchDTO;
+import code.database.IngredientDTO;
+import code.database.ProductBatchCompDTO;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -15,42 +17,38 @@ public class IngredientBatchController
 	MainController mc;
 	ArrayList<IngredientBatchDTO> ingrBatchDTO;
 	IngredientBatchDTO ibDTO;
+	IngredientDTO iDTO;
 	boolean booln = false;
+	
 
 	public IngredientBatchController(MainController mc)
 	{
 		this.mc = mc;
 	}
-	
+
 	//Widget, der ved success opretter en råvarebatch. Ved forkert indtastning returneres intet.
-	public Widget createIngredientBatch(IngredientBatchDTO ingrBatchDTO) 
+	public Widget createIngredientBatch(final IngredientBatchDTO ingrBatchDTO) 
 	{
 		this.ibDTO = ingrBatchDTO;
-		
-		if(ingrBatchDTO!= null){
-			final int checkIngId	= ingrBatchDTO.getIngredientId();
-			final int checkIbId		= ingrBatchDTO.getRbId();
 
-			mc.databaseService.ingredientBatch_table_get(checkIngId, new AsyncCallback<IngredientBatchDTO>(){
-				@Override
-				public void onSuccess(IngredientBatchDTO result) {
-					booln = false;
-				}
+		if(ingrBatchDTO != null){
+			final int checkIngrId	= ingrBatchDTO.getIngredientId();
+			final int checkIbId		= ingrBatchDTO.getRbId();			
 
-				//Metoden skal fejle, da vi ikke ønsker at finde nogle ID
+			mc.databaseService.ingredientBatch_table_get(checkIngrId, new AsyncCallback<IngredientBatchDTO>(){
+
 				@Override
 				public void onFailure(Throwable caught) {
-					mc.databaseService.ingredientBatch_table_get(checkIbId, new AsyncCallback<IngredientBatchDTO>(){
-						@Override
-						public void onSuccess(IngredientBatchDTO result) {
-							booln = false;
-						}
-						@Override
-						public void onFailure(Throwable caught) {
-							booln = true;
-						}
-					});
-				}		
+					booln = false;
+					Window.alert("Der findes ingen ingrediens med det id");
+				}
+
+				@Override
+				public void onSuccess(IngredientBatchDTO result) {
+					if(result.getRbId() != checkIbId){
+					booln = true;
+					}
+				}
 			});
 			
 			//Hvis der ikke er fundet nogen ingredients og batch-id, der findes i databasen oprettes én
@@ -59,17 +57,18 @@ public class IngredientBatchController
 
 					@Override
 					public void onSuccess(Void result) {
-
+						Window.alert("Der blev oprettet en ny råvarebatch");
 					}
 
 					@Override
 					public void onFailure(Throwable caught) {
-
+						Window.alert("Der blev ikke oprettet en ny råvarebatch");
 					}
 				});	
 			}
-			return new CreateIngredientBatchView (ingrBatchDTO, mc);
-		}else{
+			return new CreateIngredientBatchView(ingrBatchDTO, mc);
+		}
+		else{
 			return new CreateIngredientBatchView(null, mc);
 		}
 	}

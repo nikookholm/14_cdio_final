@@ -3,7 +3,6 @@ package code.client.views;
 import code.client.controllers.IngredientBatchController;
 import code.client.controllers.MainController;
 import code.database.IngredientBatchDTO;
-import code.database.ReceptDTO;
 import code.shared.FieldVerifier; 
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -13,7 +12,6 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -58,7 +56,7 @@ public class CreateIngredientBatchView extends Composite
 		
 		if(ingrBatchDTO != null)
 		{
-			vPanel.add(new Label("Råvarebatchen med råvare ID'en: "+ ingrBatchDTO.getRbId() + "blev oprettet."));
+			vPanel.add(new Label("Råvarebatchen med råvare ID'en: "+ ingrBatchDTO.getRbId() + " blev oprettet."));
 		}
 		
 		table = new FlexTable();
