@@ -6,12 +6,14 @@ import code.client.views.CreateUserView;
 import code.client.views.ListUsersView;
 import code.client.views.LoginView;
 import code.client.views.MainView;
+import code.database.ReceptDTO;
 import code.database.UserDTO;
 
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
+import com.sun.java.swing.plaf.windows.resources.windows;
 
 public class UserController {
 
@@ -19,6 +21,7 @@ public class UserController {
 	ArrayList<UserDTO> users;
 	private UserDTO currentUser;
 	private Widget returnView;
+	private boolean bool = false;
 
 	public UserController(MainController mc)
 	{
@@ -39,7 +42,7 @@ public class UserController {
 			public void onSuccess(UserDTO result) {
 
 				parseUserDTO(result);
-				
+
 				if (password.equals(currentUser.getPassword()) ){
 
 					mc.setUser(currentUser);
@@ -54,18 +57,32 @@ public class UserController {
 	public Widget createUser(final UserDTO user)
 	{
 		if(user != null){
-			mc.databaseService.user_table_create(user, new AsyncCallback<Void>() {
 
+			int userId = user.getOprId();
+			mc.databaseService.user_table_get(userId, new AsyncCallback<UserDTO>() {
 				@Override
 				public void onFailure(Throwable caught) {
-
+					bool = false;
 				}
 				@Override
-				public void onSuccess(Void result) {
-
+				public void onSuccess(UserDTO result) {
+					bool = true;
 				}
 			});
-			return new CreateUserView(user, mc)	;
+
+			if(bool == true){
+				mc.databaseService.user_table_create(user, new AsyncCallback<Void>() {
+
+					@Override
+					public void onFailure(Throwable caught) { }
+					@Override
+					public void onSuccess(Void result) { }
+				});
+			}else{
+//				Window.alert("Det ønskede bruger ID eksistere allerede!");
+				return new CreateUserView(user, mc);
+			}
+			return new CreateUserView(user, mc);
 		}
 		else{
 			return new CreateUserView(null, mc);
@@ -78,7 +95,7 @@ public class UserController {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				
+
 			}
 
 			@Override

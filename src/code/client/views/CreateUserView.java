@@ -40,7 +40,7 @@ public class CreateUserView extends Composite {
 	public CreateUserView(final UserDTO user, final MainController mc)
 	{
 		vPanel = new VerticalPanel();
-		hPanel 		= new HorizontalPanel();
+		hPanel = new HorizontalPanel();
 		initWidget(vPanel);
 		
 		headLabel	= new Label("Opret ny bruger");
@@ -58,14 +58,10 @@ public class CreateUserView extends Composite {
 		pswdBox		= new TextBox();
 		roleList 	= new ListBox();
 		
-		if(user != null){
-			vPanel.add(new Label("Brugeren " + user.getOprName() + " er oprettet"));
+		if(user != null) {
+			//Besked om oprettelse eller fejl hér
 		}
 
-		okBtn = new Button("OK");
-		okBtn.setEnabled(false);
-		cancelBtn = new Button("Annullér");
-	
 		flex = new FlexTable();
 		flex.setTitle("Lav ny bruger");
 		flex.setWidget(0, 0, idLabel);
@@ -92,6 +88,10 @@ public class CreateUserView extends Composite {
 		pswdLabel.setStyleName("input-text");
 		roleLabel.setStyleName("input-text");
 
+		okBtn = new Button("OK");
+		okBtn.setEnabled(false);
+		cancelBtn = new Button("Annullér");
+	
 		hPanel.add(okBtn);
 		hPanel.add(cancelBtn);
 		
