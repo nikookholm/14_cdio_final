@@ -30,7 +30,7 @@ public class ListUsersView extends Composite{
 	Label headerLabel, idLabel, nameLabel, iniLabel, cprLabel, passwordLabel, roleLabel, actLabel;
 	FlexTable flex;
 	Anchor edit, ok, prevCancel = null;
-	int selectedRow;
+//	int selectedRow;
 	TextBox nameBox, iniBox, pwBox;
 	ListBox roleBox;
 	CheckBox deactivate;
@@ -80,13 +80,13 @@ public class ListUsersView extends Composite{
 		flex.getCellFormatter().setWidth(0, 6, "142px;");
 		
 		for (int i = 0; i < this.users.size(); i++) {
-			flex.setText(i+1, 0,	"" + this.users.get(i).getOprId());
-			flex.setText(i+1, 1, 	"" + this.users.get(i).getOprName());
-			flex.setText(i+1, 2, 	"" + this.users.get(i).getIni());
-			flex.setText(i+1, 3,  	"" + this.users.get(i).getCpr());
-			flex.setText(i+1, 4, 	"" + this.users.get(i).getPassword());
-			flex.setText(i+1, 5, 	"" + parseRole(this.users.get(i).getRole()));
-			flex.setText(i+1, 6, 	"" + this.users.get(i).getActive());
+			flex.setText(i+1, 0, "" + this.users.get(i).getOprId());
+			flex.setText(i+1, 1, "" + this.users.get(i).getOprName());
+			flex.setText(i+1, 2, "" + this.users.get(i).getIni());
+			flex.setText(i+1, 3, "" + this.users.get(i).getCpr());
+			flex.setText(i+1, 4, "" + this.users.get(i).getPassword());
+			flex.setText(i+1, 5, "" + parseRole(this.users.get(i).getRole()));
+			flex.setText(i+1, 6, "" + this.users.get(i).getActive());
 
 			flex.setWidget(i+1, 7, edit = new Anchor("Redigér"));
 			edit.addClickHandler(new EditButtonHandler());
@@ -115,20 +115,12 @@ public class ListUsersView extends Composite{
 		public void onClick(ClickEvent event) {
 			
 			String activityParser;
-
-			// annulerer forrige event
-			if(prevCancel != null){
-				prevCancel.fireEvent(new ClickEvent(){});
-			}
-			//Finds the row the user clicked
-			selectedRow = flex.getCellForEvent(event).getRowIndex();
+			if(prevCancel != null) prevCancel.fireEvent(new ClickEvent(){});
+			final int selectedRow = flex.getCellForEvent(event).getRowIndex();
 
 			nameBox.setText(flex.getText(selectedRow, 1));
-			//nameBox.setWidth("150px");
 			iniBox.setText(flex.getText(selectedRow, 2));
-			//iniBox.setWidth("40px");
 			pwBox.setText(flex.getText(selectedRow, 4));
-			//pwBox.setWidth("100px");
 
 			roleBox.clear();
 			roleBox.addItem("Operatør");
@@ -139,13 +131,13 @@ public class ListUsersView extends Composite{
 			deactivate.setValue(flex.getText(selectedRow, 6).equals("true"));
 
 			flex.setWidget(selectedRow, 1, nameBox);
-			nameBox.addKeyUpHandler(new NameBoxHandler());
 			flex.setWidget(selectedRow, 2, iniBox);
-			iniBox.addKeyUpHandler(new IniBoxHandler());
 			flex.setWidget(selectedRow, 4, pwBox);
 			flex.setWidget(selectedRow, 5, roleBox);
 			flex.setWidget(selectedRow, 6, deactivate);
-
+			
+			nameBox.addKeyUpHandler(new NameBoxHandler());
+			iniBox.addKeyUpHandler(new IniBoxHandler());
 			nameBox.setFocus(true);
 
 			final Anchor edit =  (Anchor) event.getSource();
@@ -225,28 +217,28 @@ public class ListUsersView extends Composite{
 	private class NameBoxHandler implements KeyUpHandler{
 		@Override
 		public void onKeyUp(KeyUpEvent event) {
-//			if(!FieldVerifier.isValidName(nameBox.getText())){
-//				nameBox.setStyleName("gwt-TextBox-invalidEntry");
-//				nameCheck = false;
-//			}
-//			else{
-//				nameBox.removeStyleName("gwt-TextBox-invalidEntry");
+			if(!FieldVerifier.isValidName(nameBox.getText())){
+				nameBox.setStyleName("gwt-TextBox-invalidEntry");
+				nameCheck = false;
+			}
+			else{
+				nameBox.removeStyleName("gwt-TextBox-invalidEntry");
 				nameCheck = true;
-//			}
+			}
 		}
 	}
 	
 	private class IniBoxHandler implements KeyUpHandler{
 		@Override
 		public void onKeyUp(KeyUpEvent event) {
-//			if(!FieldVerifier.isInitialsValid(iniBox.getText())){
-//				iniBox.setStyleName("gwt-TextBox-invalidEntry");
-//				iniCheck = false;
-//			}
-//			else{
-//				iniBox.removeStyleName("gwt-TextBox-invalidEntry");
+			if(!FieldVerifier.isInitialsValid(iniBox.getText())){
+				iniBox.setStyleName("gwt-TextBox-invalidEntry");
+				iniCheck = false;
+			}
+			else{
+				iniBox.removeStyleName("gwt-TextBox-invalidEntry");
 				iniCheck = true;
-//			}
+			}
 		}
 	}
 

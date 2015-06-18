@@ -26,15 +26,11 @@ public class UserImpl implements UserDAO
 		);
 	}
 
-//	private Integer setUserID() throws DALException{
-//		int newID = getUserList().size()+1;
-//		return newID;
-//	}
 	public void updateUser(UserDTO opr) throws DALException {
 		Connector.doUpdate(
-				"UPDATE user SET  opr_name = '" + opr.getOprName() + "', ini =  '" + opr.getIni() + 
-				"', cpr = '" + opr.getCpr() + "', password = '" + opr.getPassword() + "', role = '" + opr.getRole() + "', active = '" 
-						+ opr.getActive() + "' WHERE opr_id = " + opr.getOprId()
+				"UPDATE user SET opr_name = '" + opr.getOprName() + "', ini =  '" + opr.getIni() 
+					+ "', cpr = '" + opr.getCpr() + "', password = '" + opr.getPassword() + "', role = '" + opr.getRole() 
+					+ "', active = '" + opr.getActive() + "' WHERE opr_id = " + opr.getOprId()
 		);
 	}
 	
