@@ -24,6 +24,7 @@ public interface DatabaseServiceAsync {
 	void ingredients_table_create(IngredientDTO ingredient, AsyncCallback<Void> callback);
 	void ingredients_table_update(IngredientDTO ingredient, AsyncCallback<Void> callback);
 	void ingredients_table_list(AsyncCallback<ArrayList<IngredientDTO>> callback);
+	void ingredients_table_get(int ingredientId, AsyncCallback<IngredientDTO> callback);
 	
 	void recept_table_create(ReceptDTO recept, AsyncCallback<Void> callback);
 	void recept_table_list(AsyncCallback<ArrayList<ReceptDTO>> callback);
