@@ -3,6 +3,7 @@ package code;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -30,22 +31,35 @@ public class TestProductBatchCompDAO {
 	@Test
 	public void testGetProductBatchComp() throws DALException {
 		
-//		ProductBatchCompDAO pbkDAO = null;
+		????
 		
-		List<ProductBatchCompDTO> pbkDTO = dao.getProductBatchCompList();
+		ProductBatchCompDTO pbcDTO = null;
 		
-		int validId = dao.getProductBatchCompList().get(0).getPbId();
+		ArrayList<ProductBatchCompDTO> pbkLDTO = dao.getProductBatchCompList();
 		
-		List<ProductBatchCompDTO> actual = dao.getProductBatchCompList(validId);
+		ProductBatchCompDTO validId = pbkLDTO.get(0);
 		
-		ProductBatchCompDTO expected = pbkDTO.get(0);
+		pbcDTO = dao.getProductBatchComp(validId.getPbId(), validId.getRbId());
+		
+		
+		
+		ProductBatchCompDTO actual = pbcDTO;		
+		ProductBatchCompDTO expected = pbkLDTO.get(0);
+		
+		boolean theSame= true;
+		
+		if(actual.getPbId() != expected.getPbId())
+			theSame = false;
+		if(actual.getRbId() != expected.getRbId())
+			theSame = false;
+		if(actual.getOprId() != expected.getOprId())
+			theSame = false;
+		
+		
 
-		assertEquals(expected, actual);
+		assertTrue(theSame);
 		
-		
-//		boolean sameEelement = true;
-//		
-//		assertTrue(sameEelement);
+
 
 		
 	}

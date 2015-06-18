@@ -37,6 +37,7 @@ public class TestReceptCompDAO {
 		List<ReceptCompDTO> actual = rk.getReceptCompList(v);
 		ReceptCompDTO expected = list.get(0);
 		
+		??????
 		boolean theSameElement = true;
 		assertTrue(theSameElement);
 		
