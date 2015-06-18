@@ -13,11 +13,12 @@ h1 {
 /* dependant style for text boxes */
 .gwt-TextBox-invalidEntry {
 	border-color: red !important;
+	width: 125px;
 }
 
 .gwt-TextBox
 {
-	width: 10px;
+	width: 125px;
 }
 
 
