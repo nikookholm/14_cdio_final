@@ -54,11 +54,12 @@ WeightService {
 		String temp;
 		tcp.send("T\r\n");
 		temp = tcp.receive();
-		System.out.println(temp);
 
-		if ("T".equals(temp.split(" ")[0]))
-		{
-			return Double.parseDouble(temp.split("\\s+")[2]);
+		while(!temp.startsWith("T S")){
+			temp = tcp.receive();
+		}
+		if (temp.substring(9, 14).equals("0.000")){
+			return Double.parseDouble(temp.substring(9, 14));
 		}
 		else
 		{
@@ -73,9 +74,9 @@ WeightService {
 			String temp;
 			tcp.send("S\r\n");
 			temp = tcp.receive();
-		
-			
-			
+
+
+
 			if ("S".equals(temp.split(" ")[0]))
 			{
 				return Double.parseDouble(temp.substring(9, 14));
@@ -118,7 +119,7 @@ WeightService {
 	//Metoden, der printer til displayet
 	@Override
 	public boolean printToDisplay(String message) throws WeightException {
-		tcp.send("D \"" + message + "\"\r\n");
+		tcp.send("D \"" + message + "\r\n");
 		return ("D A".equals(tcp.receive())) ? true : false;
 	}
 
@@ -130,7 +131,7 @@ WeightService {
 		tcp.send(request);
 		result = tcp.receive();
 
-		if(result.equals("DW A"));
+		if(result.equals("DW A"))
 		{
 			getWeight();
 		}

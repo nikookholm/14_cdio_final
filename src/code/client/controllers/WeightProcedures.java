@@ -10,6 +10,7 @@ import com.ibm.icu.text.DecimalFormat;
 
 import code.client.DatabaseService;
 import code.client.WeightService;
+import code.database.DALException;
 import code.database.IngredientBatchDTO;
 import code.database.IngredientDTO;
 import code.database.ProductBatchCompDTO;
@@ -32,11 +33,12 @@ public class WeightProcedures {
 	ProductBatchCompDTO pBCDTO;
 	ArrayList<ReceptCompDTO> ingredientsLines;
 
-	DatabaseService dbs = new DatabaseServiceImpl();
+	DatabaseService dbs;
 	WeightService ws;
 
 
-	public WeightProcedures(WeightServiceImpl weightService){
+	public WeightProcedures(WeightServiceImpl weightService) throws Exception{
+		dbs = new DatabaseServiceImpl();
 		ws = weightService;
 		try {
 			start();
@@ -45,7 +47,7 @@ public class WeightProcedures {
 		}
 	}
 
-	public void start() throws WeightException
+	public void start() throws WeightException, DALException
 	{
 
 
@@ -72,7 +74,7 @@ public class WeightProcedures {
 	}
 
 
-	private void login() throws WeightException
+	private void login() throws WeightException, DALException
 	{
 		String message = "nr.";
 		String checkOprNr;
@@ -114,7 +116,12 @@ public class WeightProcedures {
 		System.out.println(validateOpr.trim());
 
 		if(!validateOpr.equals(valid)){
-			login();
+			try {
+				login();
+			} catch (DALException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -127,13 +134,24 @@ public class WeightProcedures {
 		String verifyrReceptBalancing;
 		String valid = "1";
 
-		pBDTO	  = dbs.productBatch_table_get(productNo);
-		receptDTO = dbs.recept_table_get(pBDTO.getReceptId());
+		try {
+			pBDTO	  = dbs.productBatch_table_get(productNo);
+			receptDTO = dbs.recept_table_get(pBDTO.getReceptId());
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 
 		String validateRecept = ws.rm20(8, receptDTO.getReceptName()+"?");
 
 		if(validateRecept.equals(valid)){
-			ingredientsLines = dbs.receptComp_table_get(receptDTO.getReceptId());
+			try {
+				ingredientsLines = dbs.receptComp_table_get(receptDTO.getReceptId());
+			} catch (DALException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else {
 			chooseProduct();
@@ -144,56 +162,67 @@ public class WeightProcedures {
 	private void updateStatus(int status)
 	{		
 		pBDTO.setStatus(status);
-		dbs.productBatch_table_update(pBDTO);
+		try {
+			dbs.productBatch_table_update(pBDTO);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void clearAndTara() throws WeightException, InterruptedException
 	{
-		//ws.clearDisplay();
 
 
 		String validateClearWeight = ws.rm20(8,"Aflast vaegt, tryk 1 /OK");
 		System.out.println("massen på vægten er " + ws.getWeight());
 		double checkWeight = ws.getWeight();
-		System.out.println(checkWeight);
+	
 		if(validateClearWeight.equals("1")&&(checkWeight == 0.000)){
-			System.out.println("vægten er 0.000");
+			validateClearWeight = null;
+			ws.getTara();
+			String placeContainer =	ws.rm20(8,"S\u00E6t box tryk 1 /Ok");
+			if(placeContainer.equals("1")&&(ws.getWeight() > 0.000)){
+				ws.getTara();
+			}
+			else{
+				clearAndTara();
+			}
 		}
 		else{
-			System.out.println(ws.printToDisplay("Afbelast Vaegten!"));
-			
+			clearAndTara();
 		}
-		//		String message = "Sæt tarabeholder på vægten og tryk OK";
-		//		String message2 = "Sæt ingrediens på vægten, afvej og tryk OK";
 
-
-		//		while(ws.getWeight() > 0){
-		//			ws.rm20(4,"Aflast vægten, tak");
-		//		}
-		//		ws.getTara();
-		//	//	ws.printToDisplay(message);
-		//		ws.getTara();
-		//
-		//	//	ws.rm20(4, message2);
-		//		ws.getWeight();
 	}
 
 	private void enterIngredientBatchNumber() throws WeightException
 	{
 		double weightValue = 0;
-		int ingredientID;
-
-
+		int ingredientID = -1; // sat til minus 1, er initialiseret og sikker
 
 		String verifyId = ws.rm20(8, "Indtast RaaBatchNr /OK");
-		iBDTO = dbs.ingredientBatch_table_get(Integer.parseInt(verifyId));
+		try {
+			iBDTO = dbs.ingredientBatch_table_get(Integer.parseInt(verifyId));
+			
+		} catch (NumberFormatException e) {
+		
+			e.printStackTrace();
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(iBDTO==null){
 			enterIngredientBatchNumber();
 		}
 		else{
 			//			String ingredientMass = ws.rm20(8, "")
 			iBDTO.setMaengde(weightValue);
-			dbs.ingredientBatch_table_update(iBDTO);
+			try {
+				dbs.ingredientBatch_table_update(iBDTO);
+			} catch (DALException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 
 		}			
@@ -205,7 +234,12 @@ public class WeightProcedures {
 	//}
 	private void ingredientLine(ReceptCompDTO ingredient) throws WeightException, InterruptedException
 	{			
-		receptCompDTO = dbs.receptComp_table_get(0).get(0);
+		try {
+			ingredientsLines = dbs.receptComp_table_get(0);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		clearAndTara();
 		enterIngredientBatchNumber();
 	}
