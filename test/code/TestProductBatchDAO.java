@@ -37,25 +37,26 @@ public class TestProductBatchDAO {
 		ProductBatchDTO actual = testBatch;
 		ProductBatchDTO expected = pbList.get(0);
 		
-		boolean theSame = true;
+		boolean theSame = false;
 		
-		if (actual.getPbId() 	!= expected.getPbId()) 	   	theSame = false;
-		if (actual.getReceptId() != expected.getReceptId()) theSame = false;
-		if (actual.getStatus() 	!= expected.getStatus()) 	theSame = false;
+		if (actual.getPbId() 	== expected.getPbId()) 	   	theSame = true;
+		if (actual.getReceptId() == expected.getReceptId()) theSame = true;
+		if (actual.getStatus() 	== expected.getStatus()) 	theSame = true;
 
 		assertTrue(theSame);
-		
 	}
 	
 	@Test
-	public void testGetProductBatchList() throws DALException {
+	public void testGetProductBatchList() throws DALException 
+	{
 		ArrayList<ProductBatchDTO> pbList = pbDao.getProductBatchList();
 
 		assertTrue(pbList.size()>1);
 	}
 	
 	@Test
-	public void testCreateProductBatch() throws DALException {
+	public void testCreateProductBatch() throws DALException 
+	{
 		ArrayList<ProductBatchDTO> pbList = pbDao.getProductBatchList();
 		int currentHighestId  = pbList.get(pbList.size()-1).getPbId();
 		SimpleDateFormat simpleDateTime = new SimpleDateFormat("yyyy/MM/dd-HH:mm");
@@ -70,8 +71,8 @@ public class TestProductBatchDAO {
 	}
 	
 	@Test
-	public void testUpdateProductBatch() {
-		
+	public void testUpdateProductBatch() 
+	{
 		ProductBatchDTO pbList = null;
 		int expected = 1;
 		try {

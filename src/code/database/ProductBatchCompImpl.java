@@ -12,7 +12,7 @@ public class ProductBatchCompImpl implements ProductBatchCompDAO {
 	
 	public ProductBatchCompDTO getProductBatchComp(int pbId, int rbId)	throws DALException {
 		
-		ResultSet rs = Connector.doQuery(("SELECT * FROM productbatchcomponent  WHERE pb_id =" + pbId + "AND rb_id = " +  rbId));
+		ResultSet rs = Connector.doQuery(("SELECT * FROM productbatchcomponent  WHERE pb_id =" + pbId + " AND rb_id = " +  rbId));
 	    try {
 	    	if (!rs.first()) throw new DALException("Operatoeren " + pbId + " findes ikke");
 	    	return new ProductBatchCompDTO (rs.getInt("pb_id"), rs.getInt("rb_id"), rs.getDouble("tara"), rs.getDouble("netto"), rs.getInt("opr_id"));

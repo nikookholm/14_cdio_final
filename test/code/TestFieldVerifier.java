@@ -8,10 +8,9 @@ import code.shared.FieldVerifier;
 
 public class TestFieldVerifier {
 	
-	
-	
 	@Test
-	public void testIsValidName(){
+	public void testIsValidName()
+	{
 		boolean actual = FieldVerifier.isValidName(" ");
 		
 		assertFalse(actual);
@@ -19,8 +18,8 @@ public class TestFieldVerifier {
 	}
 	
 	@Test
-	public void testIsValidNameLength(){
-		
+	public void testIsValidNameLength()
+	{
 		boolean actual = FieldVerifier.isValidName("qwertyuiopasdfghjklzx");
 		
 		assertFalse(actual);
@@ -28,14 +27,12 @@ public class TestFieldVerifier {
 	}
 	
 	@Test
-	public void testIsValidName2Short(){
+	public void testIsValidName2Short()
+	{
 		boolean actual = FieldVerifier.isValidName("x");
 		
 		assertFalse(actual);
 		
 	}
-	
-	
-	
 
 }

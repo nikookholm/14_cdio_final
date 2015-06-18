@@ -22,14 +22,12 @@ public class TestReceptDAO {
 	{
 		try {
 			new Connector();
-		} catch (Exception e) { 
-			System.out.println("Catch");
-		}
+		} catch (Exception e) { }
 	}
 
 	@Test
-	public void testGetRecept() throws DALException{
-
+	public void testGetRecept() throws DALException
+	{
 		ReceptDTO testRec = null;
 		List<ReceptDTO> recList = re.getReceptList();
 		int ID = recList.get(0).getReceptId();
@@ -38,25 +36,25 @@ public class TestReceptDAO {
 		ReceptDTO actual = testRec;
 		ReceptDTO expected = recList.get(0);
 
-		boolean areSame = true;
+		boolean areSame = false;
 
-		if(actual.getReceptId() != expected.getReceptId()) 				areSame = false;
-		if(!actual.getReceptName().equals(expected.getReceptName())) 	areSame = false;
+		if(actual.getReceptId() == expected.getReceptId()) 				areSame = true;
+		if(actual.getReceptName().equals(expected.getReceptName())) 	areSame = true;
 
 		assertTrue(areSame);
 	}
 	
 	@Test
-	public void testGetReceptList() throws DALException{
-		
+	public void testGetReceptList() throws DALException
+	{
 		List<ReceptDTO> recList = re.getReceptList();
-		
+
 		assertTrue(recList.size()>1);
 	}
 
 	@Test
-	public void testCreateRecept() throws DALException{
-		
+	public void testCreateRecept() throws DALException
+	{
 		List<ReceptDTO> recList = re.getReceptList();
 		int highID = recList.get(recList.size()-1).getReceptId();
 		
@@ -69,8 +67,8 @@ public class TestReceptDAO {
 	}
 
 	@Test
-	public void testUpdateRecept()throws DALException{
-		
+	public void testUpdateRecept()throws DALException
+	{
 		ReceptDTO rec = null;
 		String expected = "Kirk";
 		

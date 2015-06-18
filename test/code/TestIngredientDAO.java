@@ -1,9 +1,7 @@
 package code;
 
-
 import static org.junit.Assert.*;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.junit.Before;
@@ -14,7 +12,6 @@ import code.database.DALException;
 import code.database.IngredientDAO;
 import code.database.IngredientDTO;
 import code.database.IngredientImpl;
-import code.database.*;
 
 public class TestIngredientDAO {
 
@@ -25,14 +22,12 @@ public class TestIngredientDAO {
 	{
 		try {
 			new Connector();
-		} catch (Exception e) {
-		
-		}
+		} catch (Exception e) {	}
 	}
 
 	@Test
-	public void testGetIngredient() throws DALException {
-	
+	public void testGetIngredient() throws DALException 
+	{
 		IngredientDTO testVare = null;
 		List<IngredientDTO> ingredList = rd.getIngredientList();
 		int ID = ingredList.get(0).getIngredientId();
@@ -41,28 +36,26 @@ public class TestIngredientDAO {
 		IngredientDTO actual = testVare;
 		IngredientDTO expected = ingredList.get(0);
 
-		boolean elementsAreTheSame = true;
+		boolean elementsAreTheSame = false;
 		
-		if (actual.getIngredientId() 	!= expected.getIngredientId()) 	   		elementsAreTheSame = false;
-		if (!actual.getIngredientName().equals(expected.getIngredientName())) 	elementsAreTheSame = false;
-		if (!actual.getLeverandoer().equals(expected.getLeverandoer())) 		elementsAreTheSame = false;
+		if (actual.getIngredientId() == expected.getIngredientId()) 	   		elementsAreTheSame = true;
+		if (actual.getIngredientName().equals(expected.getIngredientName())) 	elementsAreTheSame = true;
+		if (actual.getLeverandoer().equals(expected.getLeverandoer())) 			elementsAreTheSame = true;
 
 		assertTrue(elementsAreTheSame);
-
 	}
 
 	@Test
-	public void testGetIngrdList() throws DALException{
-
+	public void testGetIngrdList() throws DALException
+	{
 		List<IngredientDTO> list = rd.getIngredientList();
 		
 		assertTrue(list.size()>1);
 	} 
 	
 	@Test
-	public void TestCreateIngred() throws DALException{
-		
-	
+	public void TestCreateIngred() throws DALException
+	{
 		List<IngredientDTO> list = rd.getIngredientList();
 		int currentHighestID  = list.get(list.size()-1).getIngredientId();
 		
@@ -70,14 +63,12 @@ public class TestIngredientDAO {
 		rd.createIngredient(new IngredientDTO(currentHighestID+1, "Banan", "stedet"));
 		int actual =  rd.getIngredientList().size();
 		
-		
-
 		assertEquals(expected, actual);
-
 	}
 	
 	@Test
-	public void testUpdateIngred(){
+	public void testUpdateIngred()
+	{
 		IngredientDTO dto = null;
 		String expected = "bullerbassen";
 		try {
@@ -89,6 +80,5 @@ public class TestIngredientDAO {
 		}
 		String actual = dto.getLeverandoer();
 		assertEquals(expected, actual);
-		
 	}
 }

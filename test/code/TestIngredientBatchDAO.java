@@ -1,12 +1,9 @@
 package code;
 
-
 import static org.junit.Assert.*;
 
-import java.sql.SQLException;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +15,6 @@ import code.database.IngredientBatchImpl;
 
 public class TestIngredientBatchDAO {
 
-	
 	private IngredientBatchDAO dao = new IngredientBatchImpl();
 	
 	@Before
@@ -26,48 +22,29 @@ public class TestIngredientBatchDAO {
 	{
 		try {
 			new Connector();
-		} catch (Exception e) {
-		
-		}
+		} catch (Exception e) {	}
 	}
 	
 	@Test
-	public void testGetIngredientBatch() throws DALException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-	
-		IngredientBatchDAO rbDAO= null;
+	public void testGetIngredientBatchId() throws DALException 
+	{
+		int actual = dao.getIngredientBatchList().get(0).getRbId();
+		int expected = 1;
 		
-		List<IngredientBatchDTO> rbDAOList = dao.getIngredientBatchList();
-		int validId = dao.getIngredientBatchList().get(0).getRbId();
-		
-		IngredientBatchDTO actual = dao.getIngredientBatch(validId);
-		IngredientBatchDTO expected = rbDAOList.get(0);
-		
-		boolean sameElements = true;
-		assertTrue(sameElements);
-
+		assertEquals(expected, actual);
 	}
 	
 	@Test
-	public void testGetIngredientBatchList() throws DALException {
-		
+	public void testGetIngredientBatchList() throws DALException 
+	{
 		List<IngredientBatchDTO> list = dao.getIngredientBatchList();
 		
 		assertTrue(list.size()>1);
-		
 	}
 	
 	@Test
-	public void testGetIngredientBatchListWithraavareId() throws DALException {
-		
-		List<IngredientBatchDTO> list1 = dao.getIngredientBatchList();
-		
-		assertTrue(list1.size()>1);
-		
-	}
-	
-	@Test
-	public void testCreateIngredientBatch() throws DALException {
-		
+	public void testCreateIngredientBatch() throws DALException 
+	{
 		List<IngredientBatchDTO> list = dao.getIngredientBatchList();
 		int currentList = list.get(list.size()-1).getRbId();
 		
@@ -79,8 +56,8 @@ public class TestIngredientBatchDAO {
 	}
 	
 	@Test
-	public void testUpdateIngredientBatch() {
-		
+	public void testUpdateIngredientBatch() 
+	{
 		IngredientBatchDTO expected = null;
 		IngredientBatchDTO actual   = null;
 		try {
@@ -89,11 +66,11 @@ public class TestIngredientBatchDAO {
 		} catch (DALException e) {
 		}
 		
-		boolean alike = true;
+		boolean alike = false;
 		
-		if (actual.getRbId() != expected.getRbId())					alike = false;
-		if (actual.getIngredientId() != expected.getIngredientId()) alike = false;
-		if (actual.getMaengde() != expected.getMaengde())			alike = false;
+		if (actual.getRbId() == expected.getRbId())					alike = true;
+		if (actual.getIngredientId() == expected.getIngredientId()) alike = true;
+		if (actual.getMaengde() == expected.getMaengde())			alike = true;
 		
 		assertTrue(alike);
 	}

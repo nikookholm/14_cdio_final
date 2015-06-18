@@ -1,6 +1,5 @@
 package code;
 
-
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -23,72 +22,49 @@ public class TestProductBatchCompDAO {
 	{
 		try {
 			new Connector();
-		} catch (Exception e) {
-		
-		}
+		} catch (Exception e) { }
 	}
 
 	@Test
-	public void testGetProductBatchComp() throws DALException {
-		
-		
+	public void testGetProductBatchComp() throws DALException 
+	{
 		ProductBatchCompDTO pbcDTO = null;
-		
 		ArrayList<ProductBatchCompDTO> pbkLDTO = dao.getProductBatchCompList();
-		
 		ProductBatchCompDTO validId = pbkLDTO.get(0);
-		
 		pbcDTO = dao.getProductBatchComp(validId.getPbId(), validId.getRbId());
-		
-		
 		
 		ProductBatchCompDTO actual = pbcDTO;		
 		ProductBatchCompDTO expected = pbkLDTO.get(0);
 		
-		boolean theSame= true;
+		boolean theSame = false;
 		
-		if(actual.getPbId() != expected.getPbId())
-			theSame = false;
-		if(actual.getRbId() != expected.getRbId())
-			theSame = false;
-		if(actual.getOprId() != expected.getOprId())
-			theSame = false;
-		
-		
+		if(actual.getPbId() == expected.getPbId()) theSame = true;
+		if(actual.getRbId() == expected.getRbId()) theSame = true;
+		if(actual.getOprId() == expected.getOprId()) theSame = true;
 
 		assertTrue(theSame);
-		
-
-
-		
 	}
 
 
 	@Test
-	public void testGetProductBatchCompListPbId() throws DALException {
-		
-		
+	public void testGetProductBatchCompListPbId() throws DALException 
+	{
 		List<ProductBatchCompDTO> list = dao.getProductBatchCompList(1);
 		
 		assertTrue(list.size()>1);
-		
 	}
-
 	
 	@Test
-	public void testProductBatchCompList() throws DALException {
-
-		
-List<ProductBatchCompDTO> list = dao.getProductBatchCompList();
+	public void testProductBatchCompList() throws DALException 
+	{
+		List<ProductBatchCompDTO> list = dao.getProductBatchCompList();
 		
 		assertTrue(list.size()>1);	
-	
 	}
 	
-	
 	@Test
-	public void testUpdateProductBatchComp() throws DALException {
-		
+	public void testUpdateProductBatchComp() throws DALException 
+	{
 		ProductBatchCompDTO dto = null;
 		double expected = 14.8;
 		try {
