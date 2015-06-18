@@ -55,6 +55,7 @@ WeightService {
 		tcp.send("T\r\n");
 		temp = tcp.receive();
 		System.out.println(temp);
+
 		if ("T".equals(temp.split(" ")[0]))
 		{
 			return Double.parseDouble(temp.split("\\s+")[2]);
@@ -72,6 +73,10 @@ WeightService {
 			String temp;
 			tcp.send("S\r\n");
 			temp = tcp.receive();
+
+			temp.replace(',', '.');
+			temp =temp.substring(9,14);
+
 			if ("S".equals(temp.split(" ")[0]))
 			{
 				return Double.parseDouble(temp.split("\\s+")[2]);
@@ -155,9 +160,9 @@ WeightService {
 		//					e.printStackTrace();
 		//				}
 		//				
-		tcp = new TCPConnector("169.254.2.3", 8000);
+		tcp = new TCPConnector("169.254.2.2", 8000);
 		//		tcp = new TCPConnector("62.79.16.17", 8000);
-		//		tcp = new TCPConnector("10.16.97.77", 8000);
+		//				tcp = new TCPConnector("10.16.97.77", 8000);
 		if(tcp.connect())
 		{
 			new WeightProcedures(this);
