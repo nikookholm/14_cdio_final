@@ -13,8 +13,11 @@ public class InfomationWidget extends Composite {
 		HorizontalPanel panel = new HorizontalPanel();
 		Image 			img;
 		Label 			infoLabel = null;
-		
-		if (info instanceof Throwable)
+		if (info == null)
+		{
+			infoLabel = new Label("");
+		}
+		else if (info instanceof Throwable)
 		{
 			infoLabel = new Label(((Throwable) info).getMessage());
 		}
@@ -22,10 +25,11 @@ public class InfomationWidget extends Composite {
 		{
 			infoLabel = new Label((String)info);
 		}
-		
+
 		panel.add(infoLabel);
 		
-		return panel;
+		//return panel;
+		return new Label("hej hej");
 	}
 	
 }

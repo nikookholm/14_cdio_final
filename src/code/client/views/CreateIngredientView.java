@@ -4,6 +4,7 @@ import code.client.controllers.MainController;
 import code.database.IngredientDTO;
 import code.shared.FieldVerifier;
 
+import com.gargoylesoftware.htmlunit.javascript.host.Window;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
@@ -17,6 +18,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class CreateIngredientView extends Composite{
 
@@ -44,7 +46,7 @@ public class CreateIngredientView extends Composite{
 
 	IngredientDTO createdIng;
 
-	public  CreateIngredientView(final MainController mc, IngredientDTO createdIng){
+	public CreateIngredientView(final MainController mc, Widget infomation){
 
 		this.createdIng = createdIng;
 		this.mc = mc;
@@ -55,9 +57,17 @@ public class CreateIngredientView extends Composite{
 		vPanel.add(createIng);
 		createIng.setStyleName("caption");
 
-		if(createdIng!= null){
-			vPanel.add(new Label(createdIng.getIngredientName() + " blev oprettet"));
+		//if(createdIng!= null){
+		//vPanel.add(new Label(createdIng.getIngredientName() + " blev oprettet"));
+		if (infomation != null)
+		{
+			vPanel.add(infomation);
 		}
+		else
+		{
+			com.google.gwt.user.client.Window.alert("null");
+		}
+		//}
 
 		ft.setWidget(0, 0, ingredientIdLabel);
 		ingredientIdLabel.setStyleName("input-text");
