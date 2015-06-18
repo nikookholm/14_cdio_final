@@ -2,7 +2,7 @@ package code.shared;
 
 
 public class FieldVerifier {
-
+	
 	public static boolean isValidName(String name) {
 		if ((!FieldVerifier.isLettersOnly(name)) && (name == null)) {
 			return false;
@@ -23,6 +23,7 @@ public class FieldVerifier {
 		}
 		return cpr.length() == 10;
 	}
+	
 	// Initialer skal være mellem 2 og 4 karakterer, der er ikke taget nogen hensyn til karakter type
 	public static boolean isInitialsValid(String ini){
 		if((!FieldVerifier.isLettersOnly(ini)) && (ini.equals(null))){
@@ -32,6 +33,16 @@ public class FieldVerifier {
 			return (ini.length() >= 2) && (ini.length() <=4);
 		}
 	}
+	
+	// Kodeordet skal bestå af 5-8 karaktere
+	public static boolean isPswdValid(String pswd)
+	{
+		if(pswd == null) return false;
+		else if(pswd.length()<5) return false;
+		else if(pswd.length()>8) return false;
+		else return true;
+	}
+
 	// leverandørs text af råvare skal være mellem 2-20 karakterer 
 	public static boolean leverandoerValid(String lev){
 		if((!FieldVerifier.isLettersOnly(lev)) && (lev.equals(null))){
