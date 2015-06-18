@@ -60,7 +60,7 @@ public class IngredientBatchImpl implements IngredientBatchDAO {
 			throws DALException {
 		Connector.doUpdate(
 				"UPDATE ingredientbatch SET  rb_id = '" + ingredientBatch.getRbId() + "', ingredient_id =  '" + 
-						ingredientBatch.getIngredientId() +"' " + "WHERE maengde = " + ingredientBatch.getMaengde());
+						ingredientBatch.getIngredientId() +"' " + "WHERE rb_id = " + ingredientBatch.getRbId());
 		
 	}
 

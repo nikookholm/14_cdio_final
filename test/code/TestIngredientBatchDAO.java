@@ -42,7 +42,6 @@ public class TestIngredientBatchDAO {
 		IngredientBatchDTO actual = dao.getIngredientBatch(validId);
 		IngredientBatchDTO expected = rbDAOList.get(0);
 		
-		??????
 		boolean sameElements = true;
 		assertTrue(sameElements);
 
@@ -81,17 +80,22 @@ public class TestIngredientBatchDAO {
 	
 	@Test
 	public void testUpdateIngredientBatch() {
-		IngredientBatchDTO dto = null;
-		int expected = 148;
+		
+		IngredientBatchDTO expected = null;
+		IngredientBatchDTO actual   = null;
 		try {
-			dto = dao.getIngredientBatchList().get(0);
-			dto.setIngredientId(expected);
-			dao.updateIngredientBatch(dto);
+			expected = dao.getIngredientBatchList().get(0);
+			actual = dao.getIngredientBatch(expected.getRbId());
 		} catch (DALException e) {
-			e.printStackTrace();
 		}
-		int actual = dto.getIngredientId();
-		assertEquals(expected, actual);
+		
+		boolean alike = true;
+		
+		if (actual.getRbId() != expected.getRbId())					alike = false;
+		if (actual.getIngredientId() != expected.getIngredientId()) alike = false;
+		if (actual.getMaengde() != expected.getMaengde())			alike = false;
+		
+		assertTrue(alike);
 	}
 
 }

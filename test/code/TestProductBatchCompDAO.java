@@ -32,8 +32,6 @@ public class TestProductBatchCompDAO {
 	public void testGetProductBatchComp() throws DALException {
 		
 		
-		????
-		
 		ProductBatchCompDTO pbcDTO = null;
 		
 		ArrayList<ProductBatchCompDTO> pbkLDTO = dao.getProductBatchCompList();

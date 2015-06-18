@@ -72,7 +72,7 @@ public class ProductBatchCompImpl implements ProductBatchCompDAO {
 			throws DALException {
 		Connector.doUpdate(
 				"UPDATE produktbatchcomponent SET opr_id = '" + productbatchcomponent.getOprId() + "', netto = '" + productbatchcomponent.getNetto() + "', tara = '" + productbatchcomponent.getTara() + "' " + "WHERE rb_id = " + productbatchcomponent.getRbId() +
-				"' " + "WHERE pb_id = " + productbatchcomponent.getPbId()); 
+				"' AND pb_id = " + productbatchcomponent.getPbId()); 
 			
 		
 		
