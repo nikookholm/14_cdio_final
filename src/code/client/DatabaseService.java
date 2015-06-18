@@ -20,31 +20,31 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("database")
 public interface DatabaseService extends RemoteService {
-	void	  				 user_table_create(UserDTO user);
-	ArrayList<UserDTO>		 user_table_list();
-	void 					 user_table_update(UserDTO user);
-	UserDTO					 user_table_get(int id);
+	void	  				 user_table_create(UserDTO user) throws DALException;
+	ArrayList<UserDTO>		 user_table_list() throws DALException;
+	void 					 user_table_update(UserDTO user) throws DALException;
+	UserDTO					 user_table_get(int id) throws DALException;
 	
-	void	 				 ingredients_table_create(IngredientDTO ingredient);
-	void 					 ingredients_table_update(IngredientDTO ingredient);
-	ArrayList<IngredientDTO> ingredients_table_list();
+	void	 				 ingredients_table_create(IngredientDTO ingredient) throws DALException;
+	void 					 ingredients_table_update(IngredientDTO ingredient) throws DALException;
+	ArrayList<IngredientDTO> ingredients_table_list() throws DALException;
 	IngredientDTO			 ingredients_table_get(int ingredientId) throws DALException;
 	
-	void 				 	 recept_table_create(ReceptDTO recept);
-	ArrayList<ReceptDTO> 	 recept_table_list();
-	ReceptDTO				 recept_table_get(int id);
+	void 				 	 recept_table_create(ReceptDTO recept) throws DALException;
+	ArrayList<ReceptDTO> 	 recept_table_list() throws DALException;
+	ReceptDTO				 recept_table_get(int id) throws DALException;
 	
-	void 					   productBatch_table_create(ProductBatchDTO productBatch);
-	ArrayList<ProductBatchDTO> productBatch_table_list();
-	ProductBatchDTO			   productBatch_table_get(int id);
-	void					   productBatch_table_update(ProductBatchDTO productBatchDTO);
+	void 					   productBatch_table_create(ProductBatchDTO productBatch) throws DALException;
+	ArrayList<ProductBatchDTO> productBatch_table_list() throws DALException;
+	ProductBatchDTO			   productBatch_table_get(int id) throws DALException;
+	void					   productBatch_table_update(ProductBatchDTO productBatchDTO) throws DALException;
 	
-	ArrayList<ProductBatchCompDTO> productBatchComp_table_list();
+	ArrayList<ProductBatchCompDTO> productBatchComp_table_list() throws DALException;
 	
-	void ingredientBatch_table_create(IngredientBatchDTO ingredientBatch);
-	ArrayList<IngredientBatchDTO> ingredientBatch_table_list();
-	IngredientBatchDTO			ingredientBatch_table_get(int id);
-	void						ingredientBatch_table_update(IngredientBatchDTO ingredientBatch);
+	void ingredientBatch_table_create(IngredientBatchDTO ingredientBatch) throws DALException;
+	ArrayList<IngredientBatchDTO> ingredientBatch_table_list() throws DALException;
+	IngredientBatchDTO			ingredientBatch_table_get(int id) throws DALException;
+	void						ingredientBatch_table_update(IngredientBatchDTO ingredientBatch) throws DALException;
 	
-	ArrayList<ReceptCompDTO> receptComp_table_get(int id);
+	ArrayList<ReceptCompDTO> receptComp_table_get(int id) throws DALException;
 }
