@@ -6,14 +6,11 @@ import code.client.views.CreateUserView;
 import code.client.views.ListUsersView;
 import code.client.views.LoginView;
 import code.client.views.MainView;
-import code.database.ReceptDTO;
 import code.database.UserDTO;
 
-import com.google.gwt.core.client.Callback;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
-import com.sun.java.swing.plaf.windows.resources.windows;
 
 public class UserController {
 
