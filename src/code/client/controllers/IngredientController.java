@@ -20,6 +20,7 @@ public class IngredientController {
 	private MainController			 mc;
 	private ArrayList<IngredientDTO> ingls;
 	private Widget					 returnInfo = null;
+	private Widget returnView;
 	
 	public IngredientController(MainController mc){
 		this.mc = mc;
@@ -56,6 +57,7 @@ public class IngredientController {
 			@Override
 			public void onSuccess(ArrayList<IngredientDTO> result) {
 				ingls = result;
+				mc.show(new ListIngredientsView(ingls, mc));
 			}
 			
 			@Override
@@ -64,7 +66,7 @@ public class IngredientController {
 			}
 		});
 		
-		return new ListIngredientsView(ingls, mc);
+		return returnView;
 	}
 	
 	public Widget updateIngredient(IngredientDTO ingrDto){
