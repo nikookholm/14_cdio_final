@@ -6,6 +6,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -29,8 +30,9 @@ public class ListUsersView extends Composite{
 	VerticalPanel vPanel;
 	Label headerLabel, idLabel, nameLabel, iniLabel, cprLabel, passwordLabel, roleLabel, actLabel;
 	FlexTable flex;
-	Anchor edit, ok, prevCancel = null;
-//	int selectedRow;
+	Anchor edit, prevCancel;
+	Anchor ok;
+	int selectedRow;
 	TextBox nameBox, iniBox, pwBox;
 	ListBox roleBox;
 	CheckBox deactivate;
@@ -87,9 +89,11 @@ public class ListUsersView extends Composite{
 			flex.setText(i+1, 4, "" + this.users.get(i).getPassword());
 			flex.setText(i+1, 5, "" + parseRole(this.users.get(i).getRole()));
 			flex.setText(i+1, 6, "" + this.users.get(i).getActive());
-
-			flex.setWidget(i+1, 7, edit = new Anchor("Redigér"));
+			
+			Anchor edit = new Anchor("Redigér");
 			edit.addClickHandler(new EditButtonHandler());
+
+			flex.setWidget(i+1, 7, edit );
 		}
 		
 		backButton = new Button("Tilbage");	
@@ -113,14 +117,12 @@ public class ListUsersView extends Composite{
 
 		@Override
 		public void onClick(ClickEvent event) {
-			
-			String activityParser;
 
-			// annullerer forrige event
+			
 			if(prevCancel != null){
 				prevCancel.fireEvent(new ClickEvent(){});
 			}
-			//Finds the row the user clicked
+
 			final int selectedRow = flex.getCellForEvent(event).getRowIndex();
 			final Anchor ok = new Anchor("OK");
 			
@@ -141,6 +143,8 @@ public class ListUsersView extends Composite{
 			flex.setWidget(selectedRow, 4, pwBox);
 			flex.setWidget(selectedRow, 5, roleBox);
 			flex.setWidget(selectedRow, 6, deactivate);
+			flex.setWidget(selectedRow, 8, ok);
+
 
 			final Anchor edit =  (Anchor) event.getSource();
 			final int id = Integer.parseInt(flex.getText(selectedRow, 0));
@@ -149,31 +153,18 @@ public class ListUsersView extends Composite{
 			final String cpr = flex.getText(selectedRow, 3);
 			final String pw = pwBox.getText();
 			final String role = roleBox.getItemText(roleBox.getTabIndex());
-			final int roleToSave = roleBox.getTabIndex();
+
 			final String isActive = "" + parseCheckBox(deactivate.getFormValue());
-			activityParser = isActive;
+
 
 			nameBox.addKeyUpHandler(new NameBoxHandler());
 			iniBox.addKeyUpHandler(new IniBoxHandler());
 			pwBox.addKeyUpHandler(new PasswordBoxHandler());
 			nameBox.setFocus(true);
 			
-			ok.addClickHandler(new ClickHandler() {
-				@Override
-				public void onClick(ClickEvent event) {
-					if(!nameCheck && !iniCheck && !passwordCheck)
-					{
-						nameBox.setText(name);
-						iniBox.setText(ini);
-						pwBox.setText(pw);
-					}
-					else {
-					UserDTO updatedUser = new UserDTO(id, nameBox.getText(), iniBox.getText(), cpr, pwBox.getText(), roleBox.getSelectedIndex(), deactivate.getValue());
-					mc.getUserController().updateUser(updatedUser);
-					}
-				}
-			});
+			
 
+			
 			Anchor cancel = new Anchor("Annullér");
 			prevCancel = cancel;
 			cancel.addClickHandler(new ClickHandler() {
@@ -198,8 +189,39 @@ public class ListUsersView extends Composite{
 					prevCancel = null;
 				}
 			}); 
+			
 			flex.setWidget(selectedRow, 7, cancel);
-			flex.setWidget(selectedRow, 8, ok);
+			
+
+			final NameBoxHandler nbh = new NameBoxHandler();
+			nameBox.addKeyUpHandler(nbh);
+			final IniBoxHandler ibh = new IniBoxHandler();
+			iniBox.addKeyUpHandler(ibh);
+			final PasswordBoxHandler pbh = new PasswordBoxHandler();
+			pwBox.addKeyUpHandler(pbh);
+			
+			ok.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					if(!nameCheck && !iniCheck && !passwordCheck)
+					{
+						nameBox.setText(name);
+						Window.alert("welcom");
+						iniBox.setText(ini);
+						pwBox.setText(pw);
+						nbh.onKeyUp(null);
+						ibh.onKeyUp(null);
+						pbh.onKeyUp(null);
+						
+					}
+					else {
+					UserDTO updatedUser = new UserDTO(id, nameBox.getText(), iniBox.getText(), cpr, pwBox.getText(), roleBox.getSelectedIndex(), deactivate.getValue());
+					mc.getUserController().updateUser(updatedUser);
+					}
+				}
+			});
+			
 		}
 	}
 
