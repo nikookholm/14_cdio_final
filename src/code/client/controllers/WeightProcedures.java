@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.bcel.generic.CPInstruction;
 import org.apache.tools.ant.taskdefs.Sleep;
 
+import com.google.gwt.aria.client.MathRole;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.ibm.icu.text.DecimalFormat;
 
@@ -180,7 +181,7 @@ public class WeightProcedures {
 			else{
 				validateClearWeight = null;
 				ws.getTara();
-				String placeContainer =	ws.rm20(8,"S\u00E6t box tryk 1 /Ok");
+				String placeContainer =	ws.rm20(8,"placer box tryk 1 /Ok");
 				if(!placeContainer.equals("")&&(ws.getWeight() > 0.000)){
 					clearAndTara();
 				}
@@ -202,13 +203,12 @@ public class WeightProcedures {
 		System.out.println("<----------- EnterIngredientBatchNumber-------------->");
 
 		int ingredientID = receptComp.getIngredientId();
-		double roundedTolerance = (Math.floor(receptComp.getNomNetto()*receptComp.getTolerance()*100))/100;
-				double min =  actualMass - roundedTolerance;
-		double max = actualMass + roundedTolerance;
+
 
 
 
 		String verifyId = ws.rm20(8, "Indtast RaaBatchNr /OK");
+
 		try {
 			iDTO = dbs.ingredients_table_get(receptComp.getIngredientId());
 
@@ -216,12 +216,17 @@ public class WeightProcedures {
 
 			if(iBDTO.getIngredientId() ==  receptComp.getIngredientId()){
 				ws.p111(iDTO.getIngredientName() + " " + receptComp.getNomNetto() );
-				actualMass = ws.doSTcommand(min);
+				actualMass = ws.doSTcommand();
+
+				double min =  actualMass - Math.round(((receptComp.getNomNetto()*receptComp.getTolerance()*1000)/1000));
+				double max = actualMass + Math.round(((receptComp.getNomNetto()*receptComp.getTolerance()*1000)/1000));
+
+
 
 
 				while(actualMass < min){
 					ws.p111("Fyld mere i " + iDTO.getIngredientName() + " " + receptComp.getNomNetto() );
-					actualMass = ws.doSTcommand(min);
+					actualMass = ws.doSTcommand();
 					System.out.println(actualMass);
 
 				}
@@ -234,12 +239,12 @@ public class WeightProcedures {
 			}
 
 			iBDTO.setMaengde(iBDTO.getMaengde() - actualMass);
-			pBCDTO = new ProductBatchCompDTO(pBDTO.getPbId(), ingredientID, tara, actualMass, opr.getOprId());
+			pBCDTO = new ProductBatchCompDTO(pBDTO.getPbId(), iBDTO.getRbId() , tara, actualMass, opr.getOprId());
 			try {
-				dbs.ingredientBatch_table_update(iBDTO);
-				dbs.productBatchComp_table_create(pBCDTO);
+					dbs.ingredientBatch_table_update(iBDTO);
+				   dbs.productBatchComp_table_create(pBCDTO);
 			} catch (DALException e) {
-				ws.rm20(8, "Databasefejl kasser /ok");
+				ws.rm20(8, "db-fejl 1 kasser");
 				enterIngredientBatchNumber(receptComp);
 			}
 

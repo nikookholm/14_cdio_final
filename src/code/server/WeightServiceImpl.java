@@ -174,7 +174,7 @@ WeightService {
 
 		//Lytter efter vægt-terminaler på IP'er. Hvis den finder en ip, køres WeightProcedures
 	}
-	public double doSTcommand(double wantedMass){
+	public double doSTcommand(){
 		tcp.send("ST 1\r\n");
 		
 		String result = tcp.receive();
@@ -219,5 +219,7 @@ WeightService {
 		addressArray = lines.toArray(new String[lines.size()]);
 		return addressArray;
 	}
+
+
 
 }
