@@ -58,11 +58,12 @@ WeightService {
 		while(!temp.startsWith("T S")){
 			temp = tcp.receive();
 		}
-		if (temp.substring(9, 14).equals("0.000")){
+		try{
 			return Double.parseDouble(temp.substring(9, 14));
 		}
-		else
+		catch(NumberFormatException e)
 		{
+			System.out.println("Hej Hej");
 			throw new WeightException("Der skete en fejl, da tara prøvede at hentes");
 		}
 	}
@@ -92,7 +93,7 @@ WeightService {
 	@Override
 	public String rm20(int type, String message) throws WeightException {
 		String result = "";
-		//String request = "RM20 " + type + " \"" + message + "\" \"\" \"\"" + "\r\n";
+
 		String request = "RM20 8 \""+message+"\" \"\" \"&3\"\r\n";
 
 		tcp.send(request);
@@ -161,7 +162,7 @@ WeightService {
 		//				}
 		//				
 		tcp = new TCPConnector("169.254.2.2", 8000);
-		//		tcp = new TCPConnector("62.79.16.17", 8000);
+		//				tcp = new TCPConnector("localhost", 4567);
 		//				tcp = new TCPConnector("10.16.97.77", 8000);
 		if(tcp.connect())
 		{
@@ -172,6 +173,31 @@ WeightService {
 
 
 		//Lytter efter vægt-terminaler på IP'er. Hvis den finder en ip, køres WeightProcedures
+	}
+	public double doSTcommand(double wantedMass){
+		tcp.send("ST 1\r\n");
+		String result = tcp.receive();
+		System.out.println(result); // Burde være ST A
+		while(!result.startsWith("S S")){
+			tcp.send("ST 1\r\n");
+			result = tcp.receive();
+			System.out.println(result);
+		}
+		
+		System.out.println(result);
+		return Double.parseDouble(result.substring(9, 14));
+		
+	}
+
+	public String p111(String message){
+
+		tcp.send("P111 \"" + message + "\"\r\n");
+		String result = tcp.receive();
+		while(!result.startsWith("P111")){
+			result = tcp.receive();
+		}
+
+		return tcp.receive();
 	}
 
 	//metoden bruger Apache Commons FileUtils og ArrayUtils og tager input-filen som en lang String
