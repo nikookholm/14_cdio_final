@@ -30,7 +30,8 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void user_table_create(UserDTO user) throws DALException {
-		new UserImpl().createUser(user);		
+		//new UserImpl().createUser(user);
+		this.user.createUser(user);
 	}
 
 	@Override
