@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class CreateUserView extends Composite {
 
@@ -37,7 +38,7 @@ public class CreateUserView extends Composite {
 	boolean cprCheck  = false;
 	boolean pswdCheck = false;
 	
-	public CreateUserView(final UserDTO user, final MainController mc)
+	public CreateUserView(final MainController mc, Widget infomation)
 	{
 		vPanel = new VerticalPanel();
 		hPanel = new HorizontalPanel();
@@ -58,8 +59,9 @@ public class CreateUserView extends Composite {
 		pswdBox		= new TextBox();
 		roleList 	= new ListBox();
 		
-		if(user != null) {
-			//Besked om oprettelse eller fejl hér
+		if (infomation != null)
+		{
+			vPanel.add(infomation);
 		}
 
 		flex = new FlexTable();

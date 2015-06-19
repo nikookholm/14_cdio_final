@@ -2,7 +2,10 @@ package code.client.controllers;
 
 import java.util.ArrayList;
 
+import org.apache.bcel.generic.ReturnInstruction;
+
 import code.client.views.CreateUserView;
+import code.client.views.InfomationWidget;
 import code.client.views.ListUsersView;
 import code.client.views.LoginView;
 import code.client.views.MainView;
@@ -19,6 +22,7 @@ public class UserController {
 	private UserDTO currentUser;
 	private Widget returnView;
 	private boolean bool = false;
+	private Widget returnInfomation;
 
 	public UserController(MainController mc)
 	{
@@ -50,11 +54,11 @@ public class UserController {
 		return returnView;
 	}
 
-	public Widget createUser(final UserDTO user)
+	public Widget createUser(final Object user)
 	{
-		if(user != null){
+		if(user instanceof UserDTO){
 
-			int userId = user.getOprId();
+			int userId = ((UserDTO)user).getOprId();
 			mc.databaseService.user_table_get(userId, new AsyncCallback<UserDTO>() {
 				@Override
 				public void onFailure(Throwable caught) {
@@ -66,23 +70,28 @@ public class UserController {
 				}
 			});
 
-			if(bool == true){
-				mc.databaseService.user_table_create(user, new AsyncCallback<Void>() {
+			if(bool != true){
+				mc.databaseService.user_table_create((UserDTO)user, new AsyncCallback<Void>() {
 
 					@Override
-					public void onFailure(Throwable caught) { }
+					public void onFailure(Throwable caught) {
+						returnInfomation = new InfomationWidget().showInfomation(caught);
+						mc.show(new CreateUserView(mc, returnInfomation));
+					}
+					
 					@Override
-					public void onSuccess(Void result) { }
+					public void onSuccess(Void result) {
+						returnInfomation = new InfomationWidget().showInfomation("Bruger \"" + ((UserDTO)user).getOprName() + "\" oprettet!");
+						mc.show(new CreateUserView(mc, returnInfomation));
+					}
 				});
-			}else{
-//				Window.alert("Det ønskede bruger ID eksistere allerede!");
-				return new CreateUserView(user, mc);
+			
+		
+			
 			}
-			return new CreateUserView(user, mc);
+	
 		}
-		else{
-			return new CreateUserView(null, mc);
-		}
+		return new CreateUserView(mc, null);
 	}	
 
 	public Widget updateUser(UserDTO user)
