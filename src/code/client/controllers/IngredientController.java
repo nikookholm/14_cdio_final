@@ -45,6 +45,7 @@ public class IngredientController {
 
 		}
 		
+		returnInfo = null;
 		return new CreateIngredientView(mc, returnInfo);
 	}
 

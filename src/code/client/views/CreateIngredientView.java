@@ -54,13 +54,13 @@ public class CreateIngredientView extends Composite{
 
 		initWidget(vPanel);
 		
-		vPanel.add(createIng);
-		createIng.setStyleName("caption");
-
 		if (infomation != null)
 		{
 			vPanel.add(infomation);
 		}
+		
+		vPanel.add(createIng);
+		createIng.setStyleName("caption");
 
 		ft.setWidget(0, 0, ingredientIdLabel);
 		ingredientIdLabel.setStyleName("input-text");

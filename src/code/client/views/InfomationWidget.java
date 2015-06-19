@@ -13,7 +13,7 @@ public class InfomationWidget extends Composite {
 		HorizontalPanel panel = new HorizontalPanel();
 		Image 			img;
 		Label 			infoLabel = null;
-		asWidgetOrNull(panel);
+//		asWidgetOrNull(panel);
 		if (info == null)
 		{
 			infoLabel = new Label("");
