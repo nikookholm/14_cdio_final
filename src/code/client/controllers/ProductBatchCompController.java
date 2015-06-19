@@ -9,12 +9,12 @@ import com.google.gwt.user.client.ui.Widget;
 import code.client.views.ListProductBatchCompView;
 import code.database.*;
 
-
 public class ProductBatchCompController 
 {
 	MainController mc;
 	ArrayList<ProductBatchCompDTO> pbCompDTO;
-
+	Widget returnView;
+	
 	public ProductBatchCompController(MainController mc)
 	{
 		this.mc = mc;
@@ -46,6 +46,7 @@ public class ProductBatchCompController
 				else{
 					pbCompDTO = list;
 				}
+				mc.show(new ListProductBatchCompView(pbCompDTO, mc));
 			}
 			
 			@Override
@@ -55,6 +56,6 @@ public class ProductBatchCompController
 				pbCompDTO = null;
 			}
 		});
-		return new ListProductBatchCompView(pbCompDTO, mc);
+		return returnView;
 	}
 }

@@ -16,6 +16,8 @@ public class ReceptController {
 	ArrayList<ReceptDTO> receptDTO;
 	ReceptDTO rcptDTO;
 	boolean booln = false; 
+	Widget returnView;
+	
 	public ReceptController(MainController mc)
 	{
 		this.mc = mc;
@@ -75,6 +77,7 @@ public class ReceptController {
 			@Override
 			public void onSuccess(ArrayList<ReceptDTO> list) {
 				receptDTO = list;
+				mc.show(new ListReceptsView(receptDTO, mc));
 			}
 
 			@Override
@@ -84,6 +87,6 @@ public class ReceptController {
 			}
 		});
 
-		return new ListReceptsView(receptDTO, mc);
+		return returnView;
 	}
 }

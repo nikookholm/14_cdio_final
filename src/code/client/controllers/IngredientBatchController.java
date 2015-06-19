@@ -18,7 +18,8 @@ public class IngredientBatchController
 	IngredientBatchDTO ibDTO;
 	boolean ingredientboolean		= false;
 	boolean ingredientbatchboolean 	= false;
-
+	Widget returnView;
+	
 	public IngredientBatchController(MainController mc)
 	{
 		this.mc = mc;
@@ -90,9 +91,9 @@ public class IngredientBatchController
 		mc.databaseService.ingredientBatch_table_list(new AsyncCallback<ArrayList<IngredientBatchDTO>>(){
 
 			@Override
-			public void onSuccess(ArrayList<IngredientBatchDTO> list)
-			{
+			public void onSuccess(ArrayList<IngredientBatchDTO> list) {
 				ingrBatchDTO = list;
+				mc.show(new ListIngredientBatchView(ingrBatchDTO, mc));
 			}
 
 			@Override
@@ -102,6 +103,6 @@ public class IngredientBatchController
 				Window.alert("Kunne ikke hente liste fra server" + caught.getMessage());
 			}
 		});
-		return new ListIngredientBatchView(ingrBatchDTO, mc);
+		return returnView;
 	}
 }

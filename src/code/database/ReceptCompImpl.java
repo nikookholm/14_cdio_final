@@ -22,7 +22,7 @@ public class ReceptCompImpl implements ReceptCompDAO {
 	public ArrayList<ReceptCompDTO> getReceptCompList(int receptId) throws DALException {
 
 		ArrayList<ReceptCompDTO> list = new ArrayList<ReceptCompDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM receptcomponent");
+		ResultSet rs = Connector.doQuery("SELECT * FROM receptcomponent WHERE recept_Id =" + receptId);
 		try
 		{
 			while (rs.next()) 
