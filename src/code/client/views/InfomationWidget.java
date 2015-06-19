@@ -8,11 +8,12 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class InfomationWidget extends Composite {
 	
-	public static Widget showInfomation(Object info)
+	public Widget showInfomation(Object info)
 	{
 		HorizontalPanel panel = new HorizontalPanel();
 		Image 			img;
 		Label 			infoLabel = null;
+		asWidgetOrNull(panel);
 		if (info == null)
 		{
 			infoLabel = new Label("");
@@ -29,7 +30,7 @@ public class InfomationWidget extends Composite {
 		panel.add(infoLabel);
 		
 		//return panel;
-		return new Label("hej hej");
+		return panel;
 	}
 	
 }

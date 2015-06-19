@@ -3,6 +3,7 @@ package code.client.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Label;
@@ -19,7 +20,6 @@ public class IngredientController {
 	private MainController			 mc;
 	private ArrayList<IngredientDTO> ingls;
 	private Widget					 returnInfo = null;
-	private Widget returnView;
 	
 	public IngredientController(MainController mc){
 		this.mc = mc;
@@ -32,16 +32,19 @@ public class IngredientController {
 			mc.databaseService.ingredients_table_create((IngredientDTO)ingDTO, new AsyncCallback<Void>() {		
 				@Override
 				public void onSuccess(Void result) {
-					returnInfo = InfomationWidget.showInfomation("Bruger \"" + ((IngredientDTO)ingDTO).getIngredientName() + "\" blev oprettet!");						
+					returnInfo = new InfomationWidget().showInfomation("Bruger \"" + ((IngredientDTO)ingDTO).getIngredientName() + "\" blev oprettet!");
+					mc.show(new CreateIngredientView(mc, returnInfo));
 				}
 				
 				@Override
 				public void onFailure(Throwable caught) {
-					returnInfo = InfomationWidget.showInfomation(caught);
+					returnInfo = new InfomationWidget().showInfomation(caught);
+					mc.show(new CreateIngredientView(mc, returnInfo));
 				}
-			});			
+			});		
 
 		}
+		
 		return new CreateIngredientView(mc, returnInfo);
 	}
 
@@ -52,7 +55,6 @@ public class IngredientController {
 			@Override
 			public void onSuccess(ArrayList<IngredientDTO> result) {
 				ingls = result;
-				mc.show(new ListIngredientsView(ingls, mc));
 			}
 			
 			@Override
@@ -61,7 +63,7 @@ public class IngredientController {
 			}
 		});
 		
-		return returnView;
+		return new ListIngredientsView(ingls, mc);
 	}
 	
 	public Widget updateIngredient(IngredientDTO ingrDto){

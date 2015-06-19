@@ -57,17 +57,10 @@ public class CreateIngredientView extends Composite{
 		vPanel.add(createIng);
 		createIng.setStyleName("caption");
 
-		//if(createdIng!= null){
-		//vPanel.add(new Label(createdIng.getIngredientName() + " blev oprettet"));
 		if (infomation != null)
 		{
 			vPanel.add(infomation);
 		}
-		else
-		{
-			com.google.gwt.user.client.Window.alert("null");
-		}
-		//}
 
 		ft.setWidget(0, 0, ingredientIdLabel);
 		ingredientIdLabel.setStyleName("input-text");
