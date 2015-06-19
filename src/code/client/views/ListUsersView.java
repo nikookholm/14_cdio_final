@@ -263,6 +263,7 @@ public class ListUsersView extends Composite{
 		}
 	}
 	
+	
 	private class IniBoxHandler implements KeyUpHandler{
 		@Override
 		public void onKeyUp(KeyUpEvent event) {
