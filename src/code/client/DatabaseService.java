@@ -47,4 +47,5 @@ public interface DatabaseService extends RemoteService {
 	void						ingredientBatch_table_update(IngredientBatchDTO ingredientBatch) throws DALException;
 	
 	ArrayList<ReceptCompDTO> receptComp_table_get(int id) throws DALException;
+	void 						productBatchComp_table_create(ProductBatchCompDTO pBCompDTO) throws DALException;
 }

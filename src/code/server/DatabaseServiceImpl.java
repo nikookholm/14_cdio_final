@@ -14,8 +14,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  */
 @SuppressWarnings("serial")
 public class DatabaseServiceImpl extends RemoteServiceServlet implements
-		DatabaseService {
-	
+DatabaseService {
+
 	private IngredientBatchDAO 	ingredientBatch  = new IngredientBatchImpl();
 	private IngredientDAO	   	ingredient	   	 = new IngredientImpl();
 	private ProductBatchCompDAO productBatchComp = new ProductBatchCompImpl();
@@ -23,15 +23,14 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	private ReceptCompDAO		receptComp		 = new ReceptCompImpl();
 	private ReceptDAO			recept			 = new ReceptImpl();
 	private UserDAO				user			 = new UserImpl();
-	
+
 	public DatabaseServiceImpl() throws Exception {
 		new Connector();
 	}
 
 	@Override
 	public void user_table_create(UserDTO user) throws DALException {
-		//new UserImpl().createUser(user);
-		this.user.createUser(user);
+		new UserImpl().createUser(user);		
 	}
 
 	@Override
@@ -43,7 +42,7 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	public void user_table_update(UserDTO user) throws DALException {
 		this.user.updateUser(user);	
 	}
-	
+
 	@Override
 	public UserDTO user_table_get(int id)  throws DALException {
 		return user.getUser(id);
@@ -133,5 +132,13 @@ public class DatabaseServiceImpl extends RemoteServiceServlet implements
 	public IngredientDTO ingredients_table_get(int ingredientId) throws DALException {
 		return ingredient.getIngredient(ingredientId);
 	}
+
+	@Override
+	public void productBatchComp_table_create(ProductBatchCompDTO pBCompDTO)
+			throws DALException {
+		productBatchComp.createProductBatchComp(pBCompDTO);
+
+	}
+	
 
 }

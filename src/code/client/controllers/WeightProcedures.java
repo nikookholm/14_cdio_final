@@ -39,42 +39,44 @@ public class WeightProcedures {
 	double actualMass;
 
 
-	public WeightProcedures(WeightServiceImpl weightService) throws Exception{
-		dbs = new DatabaseServiceImpl();
-		ws = weightService;
-		try {
+	public WeightProcedures(WeightServiceImpl weightService){ 
+		try{
+			dbs = new DatabaseServiceImpl();
+			ws = weightService;
 			start();
-		} catch (WeightException e) {
-
+		}catch(Exception e){
+			System.out.println("Databasen kunne ikke oprettes");
 		}
 	}
 
-	public void start() throws WeightException, DALException
+	public void start()
 	{
 
+		try{
+			login();
+			confirmOperator();
+			chooseProduct();
+			updateStatus(1);
 
-		login();
-		confirmOperator();
-		chooseProduct();
-		updateStatus(1);
+
+			for (ReceptCompDTO ingredient : ingredientsLines)
+			{
 
 
-		for (ReceptCompDTO ingredient : ingredientsLines)
-		{
-			System.out.println("Jeg er i for-loopet");
-			try {
 				System.out.println(ingredient.getIngredientId() + " er id på ingrediensen");
 				ingredientLine(ingredient);
-			} catch (InterruptedException e) {
 
 			}
+			updateStatus(2);
 
+			// if(slutproduktion==true){
+			// printer sluttidspunktet 
+			//			}
+		}catch(WeightException e){
+
+		}catch(DALException e){
+			ws.p111("db-fejl kontakt administrator");
 		}
-		updateStatus(2);
-
-		// if(slutproduktion==true){
-		// printer sluttidspunktet 
-		//			}
 	}
 
 
@@ -118,82 +120,78 @@ public class WeightProcedures {
 			try {
 				login();
 			} catch (DALException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				ws.p111("db-fejl kontakt administrator");
 			}
 		}
 	}
 
-	private void chooseProduct() throws WeightException
+	private void chooseProduct() 
 	{
 		System.out.println("VI er nu i enterProdukt!");
 
-		int productNo = Integer.parseInt(ws.rm20(8, "ProdBNr.."));
-
+		int productNo;
 		try {
+			productNo = Integer.parseInt(ws.rm20(8, "ProdBNr."));
 			pBDTO	  = dbs.productBatch_table_get(productNo);
 			receptDTO = dbs.recept_table_get(pBDTO.getReceptId());
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			String validateRecept = ws.rm20(8, receptDTO.getReceptName()+"?");
 
-
-		String validateRecept = ws.rm20(8, receptDTO.getReceptName()+"?");
-
-		if(validateRecept.equals("")){
-			try {
+			if(validateRecept.equals("")){
 				ingredientsLines = dbs.receptComp_table_get(receptDTO.getReceptId());
 				System.out.println(ingredientsLines.size() + " listens størrelse");
-			} catch (DALException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			}else {
+				chooseProduct();
 			}
-		}
-		else {
+
+		} catch (NumberFormatException e1) {
+			ws.p111("Der opstod en vægtfejl numberformat");
 			chooseProduct();
+		} catch (WeightException e1) {
+			ws.p111("Der opstod en vægtfejl");
+			chooseProduct();
+		}catch (DALException e) {
+			ws.p111("db-fejl kontakt administrator");
 		}
 
 	}
 
-	private void updateStatus(int status)
+	private void updateStatus(int status)  
 	{		
 		pBDTO.setStatus(status);
 		try {
 			dbs.productBatch_table_update(pBDTO);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ws.p111("db-fejl Kontakt administrator");
 		}
 	}
 
-	private void clearAndTara() throws WeightException, InterruptedException
+	private void clearAndTara()
 	{
 		System.out.println("<---------- kommer ind i tarermetoden ------------>");
 
+		try{
+			String validateClearWeight = ws.rm20(8,"Aflast vaegt, tryk 1 /OK");
+			System.out.println("massen på vægten er " + ws.getWeight());
+			double checkWeight = ws.getWeight();
 
-		String validateClearWeight = ws.rm20(8,"Aflast vaegt, tryk 1 /OK");
-		System.out.println("massen på vægten er " + ws.getWeight());
-		double checkWeight = ws.getWeight();
-
-		if(!validateClearWeight.equals("")&&(!(checkWeight <= 0.000))){
-			clearAndTara();
-		}
-		else{
-			validateClearWeight = null;
-			ws.getTara();
-			String placeContainer =	ws.rm20(8,"S\u00E6t box tryk 1 /Ok");
-			if(!placeContainer.equals("")&&(ws.getWeight() > 0.000)){
+			if(!validateClearWeight.equals("")&&(!(checkWeight <= 0.000))){
 				clearAndTara();
 			}
 			else{
-				tara =	ws.getTara();
-
+				validateClearWeight = null;
+				ws.getTara();
+				String placeContainer =	ws.rm20(8,"S\u00E6t box tryk 1 /Ok");
+				if(!placeContainer.equals("")&&(ws.getWeight() > 0.000)){
+					clearAndTara();
+				}
+				else{
+					tara =	ws.getTara();
+				}
 			}
+		}catch(WeightException e){
+			ws.p111("Der opstod en fejl i vægten");
+			clearAndTara();
 		}
-
-
-
 
 		System.out.println("Afslutter Tarermetoden");
 
@@ -204,9 +202,9 @@ public class WeightProcedures {
 		System.out.println("<----------- EnterIngredientBatchNumber-------------->");
 
 		int ingredientID = receptComp.getIngredientId();
-
-		double min = receptComp.getNomNetto() - (receptComp.getNomNetto()*receptComp.getTolerance());
-		double max = receptComp.getNomNetto() + (receptComp.getNomNetto()*receptComp.getTolerance());
+		double roundedTolerance = (Math.floor(receptComp.getNomNetto()*receptComp.getTolerance()*100))/100;
+				double min =  actualMass - roundedTolerance;
+		double max = actualMass + roundedTolerance;
 
 
 
@@ -231,7 +229,7 @@ public class WeightProcedures {
 				if (actualMass > max) {
 					ws.rm20(8, "Over maks.værdi, kasser /ok");
 					enterIngredientBatchNumber(receptComp);
-					
+
 				}
 			}
 
@@ -239,7 +237,7 @@ public class WeightProcedures {
 			pBCDTO = new ProductBatchCompDTO(pBDTO.getPbId(), ingredientID, tara, actualMass, opr.getOprId());
 			try {
 				dbs.ingredientBatch_table_update(iBDTO);
-				//				dbs.productBatchComp_table_create(pBCDTO);
+				dbs.productBatchComp_table_create(pBCDTO);
 			} catch (DALException e) {
 				ws.rm20(8, "Databasefejl kasser /ok");
 				enterIngredientBatchNumber(receptComp);
@@ -257,7 +255,7 @@ public class WeightProcedures {
 	}
 
 
-	private void ingredientLine(ReceptCompDTO ingredient) throws WeightException, InterruptedException
+	private void ingredientLine(ReceptCompDTO ingredient) throws WeightException
 	{			
 
 		clearAndTara();

@@ -43,6 +43,6 @@ public interface DatabaseServiceAsync {
 	void ingredientBatch_table_update(IngredientBatchDTO ingredientBatch, AsyncCallback<Void> callback);
 	
 	void receptComp_table_get(int id, AsyncCallback<ArrayList<ReceptCompDTO>> callback);
-	
+	void productBatchComp_table_create(ProductBatchCompDTO pBCompDTO, AsyncCallback<Void> callback);
 	
 }
