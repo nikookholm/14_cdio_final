@@ -181,7 +181,7 @@ public class WeightProcedures {
 			validateClearWeight = null;
 			ws.getTara();
 			String placeContainer =	ws.rm20(8,"S\u00E6t box tryk 1 /Ok");
-			if(!placeContainer.equals("1")&&(ws.getWeight() > 0.000)){
+			if(!placeContainer.equals("")&&(ws.getWeight() > 0.000)){
 				clearAndTara();
 			}
 			else{
@@ -201,32 +201,38 @@ public class WeightProcedures {
 	{
 		System.out.println("<----------- EnterIngredientBatchNumber-------------->");
 
-		int ingredientID = -1; // sat til minus 1, er initialiseret og sikker
+		int ingredientID;
+		double tara;
+		double actualMass;
+		double min = receptComp.getNomNetto() - (receptComp.getNomNetto()*receptComp.getTolerance());
+		double max = receptComp.getNomNetto() + (receptComp.getNomNetto()*receptComp.getTolerance());
 
-		System.out.println(receptComp.getIngredientId());
+
+
 		String verifyId = ws.rm20(8, "Indtast RaaBatchNr /OK");
 		try {
+			iDTO = dbs.ingredients_table_get(receptComp.getIngredientId());
+
 			iBDTO = dbs.ingredientBatch_table_get(Integer.parseInt(verifyId));
 
 			if(iBDTO.getIngredientId() ==  receptComp.getIngredientId()){
-				ws.p111("AfVej " + receptComp.getNomNetto() + " " + dbs.ingredients_table_get(receptComp.getIngredientId()));
-				ws.doSTcommand(receptComp.getNomNetto()-(receptComp.getNomNetto()*receptComp.getTolerance()));
-				double mass = 0;
-				boolean notThereYet = true;
-				double min = mass - (receptComp.getNomNetto()*receptComp.getTolerance());
-				double max = mass + (receptComp.getNomNetto()*receptComp.getTolerance());
+				ws.p111(iDTO.getIngredientName() + " " + receptComp.getNomNetto() );
+				actualMass = ws.doSTcommand(min);
+
+
+				while(actualMass < min){
+					ws.p111("Fyld mere i " + iDTO.getIngredientName() + " " + receptComp.getNomNetto() );
+					actualMass = ws.doSTcommand(min);
+					System.out.println(actualMass);
+
+				}
 
 
 
-				//			while(!notThereYet){
-				//				mass = ws.getWeight();
-				//				if(mass >= min&&mass <= max){
-				//					notThereYet = false;
-				//				}
 			}
 
 
-			//	if(confirmMass.equals("1")&&(mass >= min&&mass <= max)){
+
 			//					iBDTO.setMaengde(iBDTO.getMaengde() - mass);
 			//				pBCDTO = new ProductBatchCompDTO(pBDTO.getPbId(), ingredientID, ws.getTara(), mass, opr.getOprId());
 			try {
@@ -236,22 +242,22 @@ public class WeightProcedures {
 				e.printStackTrace();
 			}
 
-	} catch (NumberFormatException e) {
+		} catch (NumberFormatException e) {
 
-		e.printStackTrace();
-	} catch (DALException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+			e.printStackTrace();
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
 	}
 
 
-}
+	private void ingredientLine(ReceptCompDTO ingredient) throws WeightException, InterruptedException
+	{			
 
-
-private void ingredientLine(ReceptCompDTO ingredient) throws WeightException, InterruptedException
-{			
-
-	clearAndTara();
-	enterIngredientBatchNumber(ingredient);
-}
+		clearAndTara();
+		enterIngredientBatchNumber(ingredient);
+	}
 }

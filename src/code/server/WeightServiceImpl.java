@@ -176,6 +176,7 @@ WeightService {
 	}
 	public double doSTcommand(double wantedMass){
 		tcp.send("ST 1\r\n");
+		
 		String result = tcp.receive();
 		System.out.println(result); // Burde være ST A
 		while(!result.startsWith("S S")){
@@ -183,7 +184,8 @@ WeightService {
 			result = tcp.receive();
 			System.out.println(result);
 		}
-		
+		tcp.send("ST 0\r\n");
+		System.out.println(tcp.receive());
 		System.out.println(result);
 		return Double.parseDouble(result.substring(9, 14));
 		
