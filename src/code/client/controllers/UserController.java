@@ -44,15 +44,20 @@ public class UserController {
 
 				parseUserDTO(result);
 
-				if (password.equals(currentUser.getPassword()) ){
+				if ((password.equals(currentUser.getPassword()) && (currentUser != null)) ){
 
 					mc.setUser(currentUser);
 					mc.show(new MainView(mc));
 				}
+				else
+				{
+					returnInfomation = new InfomationWidget().showInfomation("Ugyldig kombination af brugernavn og kode!");
+					mc.show(new LoginView(mc, returnInfomation));
+				}
 			}
 		});
 
-		return returnView;
+		return new LoginView(mc, returnInfomation);
 	}
 
 	public Widget createUser(final Object user)
