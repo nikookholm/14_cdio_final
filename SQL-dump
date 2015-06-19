@@ -40,9 +40,9 @@ CREATE TABLE productbatchcomponent(pb_id INT, rb_id INT, tara REAL, netto REAL, 
 
 
 INSERT INTO user(opr_id, opr_name, ini, cpr, password, role, active) VALUES
-(1, 'Angelo A', 'AA', '0123450123', '1234', 1, true),
-(2, 'Antonella B', 'AB', '0123450123', '1234', 2, true),
-(3, 'Luigi C', 'LC', '0123450123', '1234', 3, true);
+(1, 'Angelo A', 'AA', '0123450123', 'Qwerty', 1, true),
+(2, 'Antonella B', 'AB', '0123450123', 'Qwerty', 2, true),
+(3, 'Luigi C', 'LC', '0123450123', 'Qwerty', 3, true);
 
 INSERT INTO ingredient(ingredient_id, ingredient_name, leverandoer) VALUES
 (1, 'dej', 'Wawelka'),

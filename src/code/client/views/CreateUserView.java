@@ -115,6 +115,7 @@ public class CreateUserView extends Composite {
 			@Override
 			public void onClick(ClickEvent event) {
 				UserDTO newUser = new UserDTO(Integer.parseInt(idBox.getText()), nameBox.getText(), iniBox.getText(), cprBox.getText(), pswdBox.getText(), roleList.getSelectedIndex());
+				newUser.setRole(roleList.getSelectedIndex());
 				mc.show(mc.getUserController().createUser(newUser));
 			}
 		});
