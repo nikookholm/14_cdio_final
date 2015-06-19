@@ -32,7 +32,7 @@ public class MainController {
 		receptController		   = new ReceptController(this);
 		ingredientBatchController  = new IngredientBatchController(this);
 		
-		show(new LoginView(this));
+		show(new LoginView(this, null));
 	}
 	
 	public UserController getUserController()
@@ -77,7 +77,7 @@ public class MainController {
 		}
 		else
 		{
-			RootPanel.get("main").add(new LoginView(this));
+			RootPanel.get("main").add(new LoginView(this, null));
 		}
 	}
 	

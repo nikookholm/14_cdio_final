@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class LoginView extends Composite {
 	
@@ -31,7 +32,7 @@ public class LoginView extends Composite {
 	boolean IdCheck       = false;
 //	boolean passwordCheck = false;
 	
-	public LoginView(MainController mc)
+	public LoginView(MainController mc, Widget infomation)
 	{
 		this.mc = mc;
 		VerticalPanel panel = new VerticalPanel();
@@ -45,6 +46,11 @@ public class LoginView extends Composite {
 		HorizontalPanel buttonPanel = new HorizontalPanel();
 		buttonPanel.add(clearBtn);
 		buttonPanel.add(okBtn);
+		
+		if (infomation != null)
+		{
+			panel.add(infomation);
+		}
 
 		panel.add(loginLabel);
 		loginLabel.setStyleName("caption");

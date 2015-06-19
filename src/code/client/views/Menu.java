@@ -67,7 +67,7 @@ public class Menu extends Composite {
 		@Override
 		public void onClick(ClickEvent event) {
 			mc.setUser(null);
-			mc.show(new LoginView(mc));
+			mc.show(new LoginView(mc, null));
 		}
 		
 	}

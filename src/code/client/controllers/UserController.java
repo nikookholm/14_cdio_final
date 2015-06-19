@@ -35,7 +35,8 @@ public class UserController {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				mc.show(new LoginView(mc));
+				returnInfomation = new InfomationWidget().showInfomation(caught);
+				mc.show(new LoginView(mc, returnInfomation));
 			}
 
 			@Override
