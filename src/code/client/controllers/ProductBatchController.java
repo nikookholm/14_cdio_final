@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import code.client.views.CreateProductBatchView;
+import code.client.views.InfomationWidget;
 import code.client.views.ListProductBatchView;
 import code.database.*;
 
@@ -18,18 +19,20 @@ public class ProductBatchController
 	ArrayList<ProductBatchDTO> pbLs;
 	boolean bool = false;
 	Widget returnView;
+	Widget returnInfo;
 	
 	public ProductBatchController(MainController mc)
 	{
 		this.mc = mc;
 	}
 	
-	public Widget createProductBatch(final ProductBatchDTO pbDTO)
+	public Widget createProductBatch(final Object pbDTO)
 	{
-		this.pbDTO = pbDTO;
+		this.pbDTO = (ProductBatchDTO)pbDTO;
 		
-		if(pbDTO != null){
-			int recId = pbDTO.getReceptId();
+		
+		if(pbDTO instanceof ProductBatchDTO){
+			int recId = ((ProductBatchDTO)pbDTO).getReceptId();
 			mc.databaseService.recept_table_get(recId, new AsyncCallback<ReceptDTO>() {
 				@Override
 				public void onFailure(Throwable caught) {
@@ -42,20 +45,25 @@ public class ProductBatchController
 			});
 			
 			if(bool == true){
-				mc.databaseService.productBatch_table_create(pbDTO, new AsyncCallback<Void>() {
+				mc.databaseService.productBatch_table_create((ProductBatchDTO)pbDTO, new AsyncCallback<Void>() {
 					@Override
 					public void onSuccess(Void result) {
+						returnInfo = new InfomationWidget().showInfomation("Product batch oprettet!");
+						mc.show(new CreateProductBatchView(mc, returnInfo));
 					}
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Server fejl! : " + caught.getMessage());
+						returnInfo = new InfomationWidget().showInfomation(caught);
+						mc.show(new CreateProductBatchView(mc, returnInfo));
 					}
 				});
 			}
-			return new CreateProductBatchView(pbDTO, mc);
-		}else{
-			return new CreateProductBatchView(null, mc);
+
+			
 		}
+		returnInfo = null;
+		return new CreateProductBatchView(mc, returnInfo);
+		
 	}
 	
 	

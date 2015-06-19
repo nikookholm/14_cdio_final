@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class CreateIngredientBatchView extends Composite
 {
@@ -44,7 +45,7 @@ public class CreateIngredientBatchView extends Composite
 	boolean ingredientIdCheck	= false;
 	boolean maengdeCheck		= false;
 	
-	public CreateIngredientBatchView(IngredientBatchDTO ingrBatchDTO, final MainController mc)
+	public CreateIngredientBatchView(final MainController mc, Widget infomation)
 	{
 		this.ingrBatchDTO 	= ingrBatchDTO;
 		this.mc				= mc;
@@ -54,9 +55,9 @@ public class CreateIngredientBatchView extends Composite
 		cancelButton.setEnabled(true);
 		okButton.setEnabled(false);
 		
-		if(ingrBatchDTO != null)
+		if (infomation != null)
 		{
-			vPanel.add(new Label("Råvarebatchen med råvarebatch ID'en: "+ ingrBatchDTO.getRbId() + " blev oprettet."));
+			vPanel.add(infomation);
 		}
 		
 		table = new FlexTable();

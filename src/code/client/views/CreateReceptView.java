@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class CreateReceptView extends Composite
 {
@@ -40,9 +41,9 @@ public class CreateReceptView extends Composite
 	boolean receptNameCheck	= false;
 	boolean receptIdCheck	= false;
 	
-	public CreateReceptView(ReceptDTO receptDTO, final MainController mc)
+	public CreateReceptView(final MainController mc, Widget infomation)
 	{
-		this.receptDTO 	= receptDTO;
+		//this.receptDTO 	= receptDTO;
 		this.mc 		= mc;
 		vPanel			= new VerticalPanel();
 		
@@ -50,9 +51,9 @@ public class CreateReceptView extends Composite
 		cancelButton.setEnabled(true);
 		okButton.setEnabled(false);
 		
-		if(receptDTO != null)
+		if (infomation != null)
 		{
-			vPanel.add(new Label(receptDTO.getReceptName() + " blev oprettet"));
+			vPanel.add(infomation);
 		}
 		
 		table = new FlexTable();

@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Widget;
 
 import code.client.views.CreateReceptView;
+import code.client.views.InfomationWidget;
 import code.client.views.ListReceptsView;
 import code.database.ReceptDTO;
 
@@ -17,6 +18,7 @@ public class ReceptController {
 	ReceptDTO rcptDTO;
 	boolean booln = false; 
 	Widget returnView;
+	Widget returnInfo;
 	
 	public ReceptController(MainController mc)
 	{
@@ -24,13 +26,12 @@ public class ReceptController {
 	}
 
 	//Widget der laver en recept. Hvis den forsøgte oprettede recept har samme id, som én i systemet, oprettes ikke
-	public Widget createRecept(final ReceptDTO receptDTO)
+	public Widget createRecept(final Object receptDTO)
 	{	
-		this.rcptDTO = receptDTO;
 
-		if(receptDTO != null)
+		if(receptDTO instanceof ReceptDTO)
 		{
-			int checkId = receptDTO.getReceptId();
+			int checkId = ((ReceptDTO)receptDTO).getReceptId();
 			mc.databaseService.recept_table_get(checkId, new AsyncCallback<ReceptDTO>(){
 				@Override
 				public void onSuccess(ReceptDTO result)
@@ -41,32 +42,33 @@ public class ReceptController {
 				@Override
 				public void onFailure(Throwable caught)
 				{
-					booln = false;
-					Window.alert("Kunne ikke oprette en recept" +caught.getMessage());
+					returnInfo = new InfomationWidget().showInfomation(caught);
+					mc.show(new CreateReceptView(mc, returnInfo));
 				}
 			});
 
 			if(booln == true){
 
-				mc.databaseService.recept_table_create(receptDTO, new AsyncCallback<Void>(){
+				mc.databaseService.recept_table_create((ReceptDTO)receptDTO, new AsyncCallback<Void>(){
 
 					@Override
 					public void onSuccess(Void result)
 					{
-
+						returnInfo = new InfomationWidget().showInfomation("Recept " + ((ReceptDTO) receptDTO).getReceptName() + " oprettet!");
+						mc.show(new CreateReceptView(mc, returnInfo));
 					}
 
 					@Override
 					public void onFailure(Throwable caught)
 					{
-						Window.alert("Kunne ikke oprette en recept" +caught.getMessage());
+						returnInfo = new InfomationWidget().showInfomation(caught);
+						mc.show(new CreateReceptView(mc, returnInfo));
 					}
 				});
 			}
-			return new CreateReceptView(receptDTO, mc);
-		}else{
-			return new CreateReceptView(null, mc);
 		}
+		returnInfo = null;
+		return new CreateReceptView(mc, returnInfo);
 	}
 	
 	//Widget, der lister recepterne for brugeren

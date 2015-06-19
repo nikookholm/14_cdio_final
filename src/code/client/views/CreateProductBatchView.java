@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class CreateProductBatchView extends Composite
 {
@@ -33,7 +34,7 @@ public class CreateProductBatchView extends Composite
 	boolean pbNoValidity 	 = false;
 	boolean receptNoValidity = false;
 	
-	public CreateProductBatchView(ProductBatchDTO pbDTO, MainController mc)
+	public CreateProductBatchView(MainController mc, Widget infomation)
 	{
 		this.mc = mc;
 		this.pbDTO = pbDTO;
@@ -54,9 +55,11 @@ public class CreateProductBatchView extends Composite
 		okButton.setEnabled(false);
 		cancelButton.setEnabled(true);
 		
-		if(pbDTO != null){
-			vPanel.add(new Label("Produkt batchen: " + pbDTO.getPbId() + " blev oprettet"));
+		if (infomation != null)
+		{
+			vPanel.add(infomation);
 		}
+		
 		this.flex = new FlexTable();
 		flex.setTitle("Lav ny produkt batch");
 		flex.setWidget(0, 0, pbNoLabel);

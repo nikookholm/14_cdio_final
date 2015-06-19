@@ -3,6 +3,7 @@ package code.client.controllers;
 import java.util.ArrayList;
 
 import code.client.views.CreateIngredientBatchView;
+import code.client.views.InfomationWidget;
 import code.client.views.ListIngredientBatchView;
 import code.database.IngredientBatchDTO;
 import code.database.IngredientDTO;
@@ -18,7 +19,8 @@ public class IngredientBatchController
 	IngredientBatchDTO ibDTO;
 	boolean ingredientboolean		= false;
 	boolean ingredientbatchboolean 	= false;
-	Widget returnView;
+	private Widget  returnInfo;
+	private Widget returnView;
 	
 	public IngredientBatchController(MainController mc)
 	{
@@ -30,7 +32,7 @@ public class IngredientBatchController
 	{
 		this.ibDTO = ingrBatchDTO;
 
-		if(ingrBatchDTO != null){
+		if(ingrBatchDTO instanceof IngredientBatchDTO){
 			final int checkIngrId	= ingrBatchDTO.getIngredientId();
 			final int checkIbId		= ingrBatchDTO.getRbId();			
 
@@ -62,6 +64,8 @@ public class IngredientBatchController
 					}
 				}
 			});
+			
+			returnInfo = null;
 
 			//Hvis der er fundet en ingredient, der findes i databasen, og ikke en råvarebatch oprettes én råvarebatch med det angivne id
 			if(ingredientboolean == true && ingredientbatchboolean != true){
@@ -69,20 +73,20 @@ public class IngredientBatchController
 
 					@Override
 					public void onSuccess(Void result) {
-						Window.alert("Der blev oprettet en ny råvarebatch");
+						returnInfo = new InfomationWidget().showInfomation("Der blev oprettet et nyt råvarebatch!");
+						mc.show(new CreateIngredientBatchView(mc, returnInfo));
 					}
 
 					@Override
 					public void onFailure(Throwable caught) {
-						Window.alert("Der blev ikke oprettet en ny råvarebatch");
+						returnInfo = new InfomationWidget().showInfomation(caught);
 					}
 				});	
 			}
-			return new CreateIngredientBatchView(ingrBatchDTO, mc);
 		}
-		else{
-			return new CreateIngredientBatchView(null, mc);
-		}
+		
+			return new CreateIngredientBatchView(mc, null);
+		
 	}
 
 	//Widget, der kalder listen fra databaseService og returner en liste af råvarebatches, hvis success.
