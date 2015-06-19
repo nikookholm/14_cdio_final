@@ -35,6 +35,8 @@ public class WeightProcedures {
 
 	DatabaseService dbs;
 	WeightServiceImpl ws;
+	double tara;
+	double actualMass;
 
 
 	public WeightProcedures(WeightServiceImpl weightService) throws Exception{
@@ -185,7 +187,7 @@ public class WeightProcedures {
 				clearAndTara();
 			}
 			else{
-				ws.getTara();
+				tara =	ws.getTara();
 
 			}
 		}
@@ -201,9 +203,8 @@ public class WeightProcedures {
 	{
 		System.out.println("<----------- EnterIngredientBatchNumber-------------->");
 
-		int ingredientID;
-		double tara;
-		double actualMass;
+		int ingredientID = receptComp.getIngredientId();
+
 		double min = receptComp.getNomNetto() - (receptComp.getNomNetto()*receptComp.getTolerance());
 		double max = receptComp.getNomNetto() + (receptComp.getNomNetto()*receptComp.getTolerance());
 
@@ -227,30 +228,32 @@ public class WeightProcedures {
 
 				}
 
-
-
+				if (actualMass > max) {
+					ws.rm20(8, "Over maks.værdi, kasser /ok");
+					enterIngredientBatchNumber(receptComp);
+					
+				}
 			}
 
-
-
-			//					iBDTO.setMaengde(iBDTO.getMaengde() - mass);
-			//				pBCDTO = new ProductBatchCompDTO(pBDTO.getPbId(), ingredientID, ws.getTara(), mass, opr.getOprId());
+			iBDTO.setMaengde(iBDTO.getMaengde() - actualMass);
+			pBCDTO = new ProductBatchCompDTO(pBDTO.getPbId(), ingredientID, tara, actualMass, opr.getOprId());
 			try {
 				dbs.ingredientBatch_table_update(iBDTO);
+				//				dbs.productBatchComp_table_create(pBCDTO);
 			} catch (DALException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				ws.rm20(8, "Databasefejl kasser /ok");
+				enterIngredientBatchNumber(receptComp);
 			}
 
 		} catch (NumberFormatException e) {
-
-			e.printStackTrace();
+			ws.rm20(8, "Fejl 100 - kasser /ok");
+			enterIngredientBatchNumber(receptComp);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ws.rm20(8, "Ukendt raavare /ok");
+			enterIngredientBatchNumber(receptComp);
 		}
 
-
+		ws.p111(""); // resetter det sekundære display
 	}
 
 

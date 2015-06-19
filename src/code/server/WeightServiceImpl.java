@@ -184,9 +184,11 @@ WeightService {
 			result = tcp.receive();
 			System.out.println(result);
 		}
+		
+		System.out.println(result);
+		
 		tcp.send("ST 0\r\n");
 		System.out.println(tcp.receive());
-		System.out.println(result);
 		return Double.parseDouble(result.substring(9, 14));
 		
 	}
