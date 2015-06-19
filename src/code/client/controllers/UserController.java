@@ -131,14 +131,11 @@ public class UserController {
 			if(result.get(i).getActive()){
 				users.add(result.get(i));
 			}
-
 		}
-
 	}
 
 	private void parseUserDTO(UserDTO result){
 		this.currentUser = result;
-
 	}
 }
 

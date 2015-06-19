@@ -36,9 +36,9 @@ public class ListUsersView extends Composite{
 	CheckBox deactivate;
 	Button backButton;
 	
-	boolean nameCheck = false; 
-	boolean iniCheck  = false;
-	boolean cprCheck  = false;
+	boolean nameCheck 		= false; 
+	boolean iniCheck  		= false;
+	boolean passwordCheck	= false; 
 
 	public ListUsersView(ArrayList<UserDTO> users, MainController mc)
 	{
@@ -122,7 +122,8 @@ public class ListUsersView extends Composite{
 			}
 			//Finds the row the user clicked
 			final int selectedRow = flex.getCellForEvent(event).getRowIndex();
-
+			final Anchor ok = new Anchor("OK");
+			
 			nameBox.setText(flex.getText(selectedRow, 1));
 			iniBox.setText(flex.getText(selectedRow, 2));
 			pwBox.setText(flex.getText(selectedRow, 4));
@@ -140,10 +141,6 @@ public class ListUsersView extends Composite{
 			flex.setWidget(selectedRow, 4, pwBox);
 			flex.setWidget(selectedRow, 5, roleBox);
 			flex.setWidget(selectedRow, 6, deactivate);
-			
-			nameBox.addKeyUpHandler(new NameBoxHandler());
-			iniBox.addKeyUpHandler(new IniBoxHandler());
-			nameBox.setFocus(true);
 
 			final Anchor edit =  (Anchor) event.getSource();
 			final int id = Integer.parseInt(flex.getText(selectedRow, 0));
@@ -156,12 +153,24 @@ public class ListUsersView extends Composite{
 			final String isActive = "" + parseCheckBox(deactivate.getFormValue());
 			activityParser = isActive;
 
-			final Anchor ok = new Anchor("OK");
+			nameBox.addKeyUpHandler(new NameBoxHandler());
+			iniBox.addKeyUpHandler(new IniBoxHandler());
+			pwBox.addKeyUpHandler(new PasswordBoxHandler());
+			nameBox.setFocus(true);
+			
 			ok.addClickHandler(new ClickHandler() {
 				@Override
 				public void onClick(ClickEvent event) {
-					UserDTO updatedUser = new UserDTO(id, nameBox.getText(), iniBox.getName(), cpr, pwBox.getText(), roleBox.getSelectedIndex(), deactivate.getValue());
+					if(!nameCheck && !iniCheck && !passwordCheck)
+					{
+						nameBox.setText(name);
+						iniBox.setText(ini);
+						pwBox.setText(pw);
+					}
+					else {
+					UserDTO updatedUser = new UserDTO(id, nameBox.getText(), iniBox.getText(), cpr, pwBox.getText(), roleBox.getSelectedIndex(), deactivate.getValue());
 					mc.getUserController().updateUser(updatedUser);
+					}
 				}
 			});
 
@@ -171,7 +180,7 @@ public class ListUsersView extends Composite{
 
 				@Override
 				public void onClick(ClickEvent event) {
-
+		
 					nameBox.setText(name);
 					nameBox.fireEvent(new KeyUpEvent() {});
 
@@ -244,6 +253,21 @@ public class ListUsersView extends Composite{
 				iniCheck = true;
 			}
 		}
+	}
+	
+	private class PasswordBoxHandler implements KeyUpHandler{
+		@Override
+		public void onKeyUp(KeyUpEvent event) {
+			if(!FieldVerifier.isPswdValid(pwBox.getText())){
+				pwBox.setStyleName("gwt-TextBox-invalidEntry");
+				passwordCheck = false;
+			}
+			else{
+				pwBox.removeStyleName("gwt-TextBox-invalidEntry");
+				passwordCheck = true;
+			}
+		}
+		
 	}
 
 	private class backClickHandler implements ClickHandler{
