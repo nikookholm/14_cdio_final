@@ -137,10 +137,13 @@ public class ListUsersView extends Composite{
 			pwBox.setText(flex.getText(selectedRow, 4));
 
 			roleBox.clear();
-			roleBox.addItem("Operatør");
-			roleBox.addItem("Værkfører");
-			roleBox.addItem("Farmaceut");
 			roleBox.addItem("Administrator");
+			roleBox.addItem("Farmaceut");
+			roleBox.addItem("Værkfører");
+			roleBox.addItem("Operatør");
+			
+			
+		
 			roleBox.setItemSelected(reverseParseRole(flex.getText(selectedRow, 5)), true);
 			deactivate.setValue(flex.getText(selectedRow, 6).equals("true"));
 
@@ -170,7 +173,7 @@ public class ListUsersView extends Composite{
 					flex.setText(selectedRow, 1, nameBox.getName());
 					flex.setText(selectedRow, 2, iniBox.getText());
 					flex.setText(selectedRow, 4, pwBox.getText());
-					flex.setText(selectedRow, 5, parseRole(roleBox.getTabIndex()));
+					flex.setText(selectedRow, 5, parseRole(roleBox.getSelectedIndex()));
 					flex.setText(selectedRow, 6, "" + deactivate.getValue());
 
 					UserDTO updatedUser = new UserDTO(id, nameBox.getText(), iniBox.getText(), cpr, pwBox.getText(), roleBox.getSelectedIndex(), deactivate.getValue());
@@ -288,19 +291,19 @@ public class ListUsersView extends Composite{
 
 	private String parseRole(int roleNo)
 	{
-		if(roleNo == 1) return "Administrator" ;
-		else if(roleNo == 2) return "Farmaceut";
-		else if(roleNo == 3) return "Værkfører";
-		else if(roleNo == 4) return "Operatør";
+		if(roleNo == 0) return "Administrator" ;
+		else if(roleNo == 1) return "Farmaceut";
+		else if(roleNo == 2) return "Værkfører";
+		else if(roleNo == 3) return "Operatør";
 		else return null;
 	}
 
 	private int reverseParseRole(String roleName)
 	{
-		if("Administrator".equals(roleName)) return 1;
-		else if("Farmaceut".equals(roleName)) return 2;
-		else if("Værkfører".equals(roleName)) return 3;
-		else if("Operatør".equals(roleName)) return 4;
+		if("Administrator".equals(roleName)) return 0;
+		else if("Farmaceut".equals(roleName)) return 1;
+		else if("Værkfører".equals(roleName)) return 2;
+		else if("Operatør".equals(roleName)) return 3;
 		else return -1;
 	}
 
