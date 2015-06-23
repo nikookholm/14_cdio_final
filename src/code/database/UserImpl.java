@@ -30,9 +30,14 @@ public class UserImpl implements UserDAO
 		Connector.doUpdate(
 				"UPDATE user SET opr_name = '" + opr.getOprName() + "', ini = '" + opr.getIni() 
 					+ "', cpr = '" + opr.getCpr() + "', password = '" + opr.getPassword() + "', role = '" + opr.getRole() 
-					+ "', active = '" + opr.getActive() + "' WHERE opr_id = " + opr.getOprId()
+					+ "', active = '" + convertBoolean(opr.getActive()) + "' WHERE opr_id = " + opr.getOprId()
 		);
 	}
+	
+public int convertBoolean(boolean active){
+	if(active) return 1;
+	else return 0;
+}
 	
 	public ArrayList<UserDTO> getUserList() throws DALException {
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();

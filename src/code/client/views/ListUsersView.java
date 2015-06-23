@@ -30,14 +30,16 @@ public class ListUsersView extends Composite{
 	VerticalPanel vPanel;
 	Label headerLabel, idLabel, nameLabel, iniLabel, cprLabel, passwordLabel, roleLabel, actLabel;
 	FlexTable flex;
-	Anchor edit, prevCancel;
-	Anchor ok;
-	int selectedRow;
+	Anchor edit, prevCancel, ok;
+
 	TextBox nameBox, iniBox, pwBox;
 	ListBox roleBox;
 	CheckBox deactivate;
 	Button backButton;
-	
+	int id, selecedRow ;
+	String cpr;
+
+	//bools til at verificere om felterne er udfyldt rigtigt
 	boolean nameCheck 		= false; 
 	boolean iniCheck  		= false;
 	boolean passwordCheck	= false; 
@@ -47,7 +49,8 @@ public class ListUsersView extends Composite{
 		this.users = users;
 		this.mc = mc;
 		vPanel = new VerticalPanel();
-		
+
+
 		headerLabel		= new Label("Brugere");		
 		idLabel			= new Label("ID");
 		nameLabel		= new Label("Navn");
@@ -56,15 +59,9 @@ public class ListUsersView extends Composite{
 		passwordLabel	= new Label("Kodeord");
 		roleLabel		= new Label("Rolle");
 		actLabel		= new Label("Aktiv");
-		
+
 		flex = new FlexTable();
-		flex.setWidget(0, 0, idLabel);
-		flex.setWidget(0, 1, nameLabel);
-		flex.setWidget(0, 2, iniLabel);
-		flex.setWidget(0, 3, cprLabel);
-		flex.setWidget(0, 4, passwordLabel);
-		flex.setWidget(0, 5, roleLabel);
-		flex.setWidget(0, 6, actLabel);
+
 		headerLabel.setStyleName("caption");
 		idLabel.setStyleName("input-text");
 		nameLabel.setStyleName("input-text");
@@ -80,7 +77,16 @@ public class ListUsersView extends Composite{
 		flex.getCellFormatter().setWidth(0, 4, "142px;");
 		flex.getCellFormatter().setWidth(0, 5, "142px;");
 		flex.getCellFormatter().setWidth(0, 6, "142px;");
-		
+
+		flex.setWidget(0, 0, idLabel);
+		flex.setWidget(0, 1, nameLabel);
+		flex.setWidget(0, 2, iniLabel);
+		flex.setWidget(0, 3, cprLabel);
+		flex.setWidget(0, 4, passwordLabel);
+		flex.setWidget(0, 5, roleLabel);
+		flex.setWidget(0, 6, actLabel);
+
+
 		for (int i = 0; i < this.users.size(); i++) {
 			flex.setText(i+1, 0, "" + this.users.get(i).getOprId());
 			flex.setText(i+1, 1, "" + this.users.get(i).getOprName());
@@ -89,43 +95,43 @@ public class ListUsersView extends Composite{
 			flex.setText(i+1, 4, "" + this.users.get(i).getPassword());
 			flex.setText(i+1, 5, "" + parseRole(this.users.get(i).getRole()));
 			flex.setText(i+1, 6, "" + this.users.get(i).getActive());
-			
+
 			Anchor edit = new Anchor("Redigér");
 			edit.addClickHandler(new EditButtonHandler());
 
 			flex.setWidget(i+1, 7, edit );
 		}
-		
+
 		backButton = new Button("Tilbage");	
 		backButton.setEnabled(true);
 		backButton.addClickHandler(new backClickHandler());
-		
+
 		vPanel.add(headerLabel);
 		vPanel.add(flex);
 		vPanel.add(backButton);
 		vPanel.setCellHorizontalAlignment(backButton, HasHorizontalAlignment.ALIGN_CENTER);
 		initWidget(this.vPanel);
-		
+
 		nameBox 	= new TextBox();
 		iniBox 		= new TextBox();
 		pwBox 		= new TextBox();
 		roleBox 	= new ListBox();
 		deactivate  = new CheckBox();
 	}
-	
+
 	private class EditButtonHandler implements ClickHandler{
 
 		@Override
 		public void onClick(ClickEvent event) {
 
-			
+
 			if(prevCancel != null){
 				prevCancel.fireEvent(new ClickEvent(){});
 			}
 
 			final int selectedRow = flex.getCellForEvent(event).getRowIndex();
-			final Anchor ok = new Anchor("OK");
-			
+
+
 			nameBox.setText(flex.getText(selectedRow, 1));
 			iniBox.setText(flex.getText(selectedRow, 2));
 			pwBox.setText(flex.getText(selectedRow, 4));
@@ -143,40 +149,61 @@ public class ListUsersView extends Composite{
 			flex.setWidget(selectedRow, 4, pwBox);
 			flex.setWidget(selectedRow, 5, roleBox);
 			flex.setWidget(selectedRow, 6, deactivate);
-			flex.setWidget(selectedRow, 8, ok);
+
 
 
 			final Anchor edit =  (Anchor) event.getSource();
-			final int id = Integer.parseInt(flex.getText(selectedRow, 0));
+			id = Integer.parseInt(flex.getText(selectedRow, 0));
 			final String name = nameBox.getText();
 			final String ini = iniBox.getText();
-			final String cpr = flex.getText(selectedRow, 3);
+			cpr = flex.getText(selectedRow, 3);
 			final String pw = pwBox.getText();
 			final String role = roleBox.getItemText(roleBox.getTabIndex());
 
-			final String isActive = "" + parseCheckBox(deactivate.getFormValue());
+			final String isActive = "" + deactivate.getValue();
+
+			final Anchor ok = new Anchor("ok");
+			ok.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent event) {
+					flex.setText(selectedRow, 1, nameBox.getName());
+					flex.setText(selectedRow, 2, iniBox.getText());
+					flex.setText(selectedRow, 4, pwBox.getText());
+					flex.setText(selectedRow, 5, parseRole(roleBox.getTabIndex()));
+					flex.setText(selectedRow, 6, "" + deactivate.getValue());
+
+					UserDTO updatedUser = new UserDTO(id, nameBox.getText(), iniBox.getText(), cpr, pwBox.getText(), roleBox.getSelectedIndex(), deactivate.getValue());
+					mc.getUserController().updateUser(updatedUser);
+
+					flex.setWidget(selectedRow, 7, edit);
+					flex.clearCell(selectedRow, 8);
+					
+					prevCancel = null;
+				}
+				
+				
+			});
 
 
-			nameBox.addKeyUpHandler(new NameBoxHandler());
-			iniBox.addKeyUpHandler(new IniBoxHandler());
-			pwBox.addKeyUpHandler(new PasswordBoxHandler());
-			nameBox.setFocus(true);
-			
-			
 
-			
+
 			Anchor cancel = new Anchor("Annullér");
+
 			prevCancel = cancel;
 			cancel.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
-		
+
 					nameBox.setText(name);
 					nameBox.fireEvent(new KeyUpEvent() {});
 
 					iniBox.setText(ini);
 					iniBox.fireEvent(new KeyUpEvent() {});
+
+					pwBox.setText(pw);
+					pwBox.fireEvent(new KeyUpEvent() {});
 
 					flex.setText(selectedRow, 1,	name);
 					flex.setText(selectedRow, 2, 	ini);
@@ -186,42 +213,76 @@ public class ListUsersView extends Composite{
 					flex.setWidget(selectedRow, 7, 	edit);
 
 					flex.clearCell(selectedRow, 8);
+
 					prevCancel = null;
 				}
 			}); 
-			
-			flex.setWidget(selectedRow, 7, cancel);
-			
 
-			final NameBoxHandler nbh = new NameBoxHandler();
-			nameBox.addKeyUpHandler(nbh);
-			final IniBoxHandler ibh = new IniBoxHandler();
-			iniBox.addKeyUpHandler(ibh);
-			final PasswordBoxHandler pbh = new PasswordBoxHandler();
-			pwBox.addKeyUpHandler(pbh);
-			
-			ok.addClickHandler(new ClickHandler() {
-				
+			nameBox.addKeyUpHandler(new KeyUpHandler() {
+
 				@Override
-				public void onClick(ClickEvent event) {
-					if(!nameCheck && !iniCheck && !passwordCheck)
-					{
-						nameBox.setText(name);
-						Window.alert("welcom");
-						iniBox.setText(ini);
-						pwBox.setText(pw);
-						nbh.onKeyUp(null);
-						ibh.onKeyUp(null);
-						pbh.onKeyUp(null);
-						
+				public void onKeyUp(KeyUpEvent event) {
+					if(!FieldVerifier.isValidName(nameBox.getText())){
+						nameBox.setStyleName("gwt-TextBox-invalidEntry");
+						nameCheck = false;
+
 					}
-					else {
-					UserDTO updatedUser = new UserDTO(id, nameBox.getText(), iniBox.getText(), cpr, pwBox.getText(), roleBox.getSelectedIndex(), deactivate.getValue());
-					mc.getUserController().updateUser(updatedUser);
+
+					else{
+						nameBox.removeStyleName("gwt-TextBox-invalidEntry");
+						nameCheck = true;
+
+
 					}
+
 				}
 			});
-			
+
+			iniBox.addKeyUpHandler(new KeyUpHandler() {
+
+				@Override
+				public void onKeyUp(KeyUpEvent event) {
+					if(!FieldVerifier.isInitialsValid(iniBox.getText())){
+						iniBox.setStyleName("gwt-TextBox-invalidEntry");
+						iniCheck = false;
+
+					}
+
+					else{
+						iniBox.removeStyleName("gwt-TextBox-invalidEntry");
+						iniCheck = true;
+
+
+					}
+
+				}
+			});
+			pwBox.addKeyUpHandler(new KeyUpHandler() {
+
+				@Override
+				public void onKeyUp(KeyUpEvent event) {
+					if(!FieldVerifier.isPswdValid(pwBox.getText())){
+						pwBox.setStyleName("gwt-TextBox-invalidEntry");
+						passwordCheck = false;
+
+					}
+
+					else{
+						pwBox.removeStyleName("gwt-TextBox-invalidEntry");
+						passwordCheck = true;
+
+
+					}
+
+				}
+			});
+
+			flex.setWidget(selectedRow, 8, ok);
+			flex.setWidget(selectedRow, 7, cancel);
+
+
+
+
 		}
 	}
 
@@ -249,49 +310,11 @@ public class ListUsersView extends Composite{
 		else return false;
 	}
 
-	private class NameBoxHandler implements KeyUpHandler{
-		@Override
-		public void onKeyUp(KeyUpEvent event) {
-			if(!FieldVerifier.isValidName(nameBox.getText())){
-				nameBox.setStyleName("gwt-TextBox-invalidEntry");
-				nameCheck = false;
-			}
-			else{
-				nameBox.removeStyleName("gwt-TextBox-invalidEntry");
-				nameCheck = true;
-			}
-		}
-	}
-	
-	
-	private class IniBoxHandler implements KeyUpHandler{
-		@Override
-		public void onKeyUp(KeyUpEvent event) {
-			if(!FieldVerifier.isInitialsValid(iniBox.getText())){
-				iniBox.setStyleName("gwt-TextBox-invalidEntry");
-				iniCheck = false;
-			}
-			else{
-				iniBox.removeStyleName("gwt-TextBox-invalidEntry");
-				iniCheck = true;
-			}
-		}
-	}
-	
-	private class PasswordBoxHandler implements KeyUpHandler{
-		@Override
-		public void onKeyUp(KeyUpEvent event) {
-			if(!FieldVerifier.isPswdValid(pwBox.getText())){
-				pwBox.setStyleName("gwt-TextBox-invalidEntry");
-				passwordCheck = false;
-			}
-			else{
-				pwBox.removeStyleName("gwt-TextBox-invalidEntry");
-				passwordCheck = true;
-			}
-		}
-		
-	}
+
+
+
+
+
 
 	private class backClickHandler implements ClickHandler{
 		@Override
