@@ -3,6 +3,9 @@ package code.client.controllers;
 import java.util.ArrayList;
 
 import code.client.views.CreateIngredientBatchView;
+import code.client.views.CreateIngredientView;
+import code.client.views.CreateProductBatchView;
+import code.client.views.CreateReceptView;
 import code.client.views.InfomationWidget;
 import code.client.views.ListIngredientBatchView;
 import code.database.IngredientBatchDTO;
@@ -40,27 +43,31 @@ public class IngredientBatchController
 				@Override
 				public void onFailure(Throwable caught) {
 					ingredientboolean = false;
-					Window.alert("Der findes ingen ingrediens med det id");
+					returnInfo = new InfomationWidget().showInfomation(caught);
+					mc.show(new CreateIngredientBatchView(mc, returnInfo));
 				}
 
 				@Override
 				public void onSuccess(IngredientDTO result) {
-					ingredientboolean = true;
+					if(result.getIngredientId() == checkIngrId){
+						ingredientboolean = true;	
+					}
+					else{ingredientboolean = false;}
 				}
 			});
 			
 			mc.databaseService.ingredientBatch_table_get(checkIbId, new AsyncCallback<IngredientBatchDTO>() {
 				@Override
 				public void onFailure(Throwable caught) {
-					ingredientbatchboolean = false;
-					Window.alert("Der findes ingen råvarebatch med det id");
+					ingredientbatchboolean = false;			
 				}
 
 				@Override
 				public void onSuccess(IngredientBatchDTO element) {
 					if(element.getRbId() == checkIbId){
 					ingredientbatchboolean = true;
-					Window.alert("Der findes en råvarebatch med det id");
+					returnInfo = new InfomationWidget().showInfomation(element);
+					mc.show(new CreateIngredientBatchView(mc, returnInfo));	
 					}
 				}
 			});
@@ -68,24 +75,25 @@ public class IngredientBatchController
 			returnInfo = null;
 
 			//Hvis der er fundet en ingredient, der findes i databasen, og ikke en råvarebatch oprettes én råvarebatch med det angivne id
-			if(ingredientboolean == true && ingredientbatchboolean != true){
+			if((ingredientboolean == true) && (ingredientbatchboolean != true)){
 				mc.databaseService.ingredientBatch_table_create(ingrBatchDTO, new AsyncCallback<Void>() {
 
 					@Override
 					public void onSuccess(Void result) {
-						returnInfo = new InfomationWidget().showInfomation("Der blev oprettet et nyt råvarebatch!");
+						returnInfo = new InfomationWidget().showInfomation("Råvarebatchen med id: \"" + ((IngredientBatchDTO)ingrBatchDTO).getRbId() + "\" blev oprettet");
 						mc.show(new CreateIngredientBatchView(mc, returnInfo));
 					}
 
 					@Override
 					public void onFailure(Throwable caught) {
 						returnInfo = new InfomationWidget().showInfomation(caught);
+						mc.show(new CreateIngredientBatchView(mc, returnInfo));
 					}
 				});	
 			}
 		}
 		
-			return new CreateIngredientBatchView(mc, null);
+			return new CreateIngredientBatchView(mc, returnInfo);
 		
 	}
 

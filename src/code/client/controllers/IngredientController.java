@@ -33,7 +33,7 @@ public class IngredientController {
 			mc.databaseService.ingredients_table_create((IngredientDTO)ingDTO, new AsyncCallback<Void>() {		
 				@Override
 				public void onSuccess(Void result) {
-					returnInfo = new InfomationWidget().showInfomation("Bruger \"" + ((IngredientDTO)ingDTO).getIngredientName() + "\" blev oprettet!");
+					returnInfo = new InfomationWidget().showInfomation("Råvaren \"" + ((IngredientDTO)ingDTO).getIngredientName() + "\" blev oprettet!");
 					mc.show(new CreateIngredientView(mc, returnInfo));
 				}
 				
