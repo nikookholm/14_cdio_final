@@ -161,7 +161,7 @@ public class ListUsersView extends Composite{
 			final String ini = iniBox.getText();
 			cpr = flex.getText(selectedRow, 3);
 			final String pw = pwBox.getText();
-			final String role = roleBox.getItemText(roleBox.getTabIndex());
+			final String role = roleBox.getItemText(roleBox.getSelectedIndex());
 
 			final String isActive = "" + deactivate.getValue();
 
